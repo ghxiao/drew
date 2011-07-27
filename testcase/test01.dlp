@@ -1,0 +1,7 @@
+#namespace("test01","http://www.semanticweb.org/ontologies/Test01.owl#").
+
+p(a).
+s(a).
+s(b).
+q :- DL[test01:C += s;test01:D](a), not DL[test01:C += p;test01:D](b).
+

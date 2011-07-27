@@ -1,0 +1,629 @@
+options
+{
+  JDK_VERSION = "1.5";
+  STATIC = false;
+  JAVA_UNICODE_ESCAPE = true;
+}
+
+PARSER_BEGIN(DLProgramParser)
+package org.semanticweb.drew.dlprogram.parser;
+
+import org.semanticweb.drew.dlprogram.model.*;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.semanticweb.owlapi.model.OWLLogicalEntity;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.IRI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class DLProgramParser
+{
+  final static Logger logger = LoggerFactory.getLogger(DLProgramParser.class);
+  Map < String, String > namespaces = new HashMap < String, String > ();
+
+  public void process() throws ParseException
+  {}
+
+  public void adjustDLInputOperationArity(DLProgram program)
+  {
+    for (DLInputSignature signature : program.getDLInputSignatures())
+    {
+      for (DLInputOperation op : signature.getOperations())
+      {
+        NormalPredicate inputPredicate = op.getInputPredicate();
+        String name = inputPredicate.getName();
+        int arity = CacheManager.getInstance().getArity(name);
+        inputPredicate.setArity(arity);
+      }
+    }
+  }
+}
+
+PARSER_END(DLProgramParser)
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+| < "%" (~[ "\n", "\r" ])*
+    (
+      "\n"
+    | "\r"
+    | "\r\n"
+    ) >
+}
+
+TOKEN :
+{
+  < NAF : "not" >
+| < TRUE : "True" >
+| < NAMESPACE : "#namespace" >
+| < CONJUNCTION : "," >
+| < IMPLY : ":-" >
+| < COLON : ":" >
+| < ENDOFSTATEMENT : "." >
+| < COMPARISON :
+    ">"
+  | ">="
+  | "="
+  | "<="
+  | "<"
+  | "!=" >
+| < DL_ATOM : "DL" >
+| < LEFT_SQUARE_BRACKET : "[" >
+| < RIGHT_SQUARE_BRACKET : "]" >
+| < IDENTIFIER : [ "a"-"z" ] ([ "a"-"z", "A"-"Z", "0"-"9" ])* >
+| < INTEGER :
+    "0"
+  | ([ "+", "-" ])? [ "1"-"9" ] ([ "0"-"9" ])* >
+| < DOUBLE :
+    (
+      [ "1"-"9" ] ([ "0"-"9" ])*
+    | "0"
+    )
+    "." ([ "0"-"9" ])* [ "1"-"9" ] >
+| < STRING :
+    "\""
+    (
+      (~[ "\"", "\\", "\n", "\r" ])
+    | ("\\" [ "n", "t", "b", "r", "f", "\\", "'", "\"" ])
+    )*
+    "\"" >
+| < VARIABLE :
+    "_"
+  | [ "A"-"Z" ] ([ "a"-"z", "A"-"Z", "0"-"9" ])* >
+| < PLUS : "+" >
+| < MINUS : "-" >
+| < TIMES : "*" >
+| < DIVIDE : "/" >
+| < LEFTBRACKET : "(" >
+| < RIGHTBRACKET : ")" >
+| < UPLUS : "+=" >
+| < UMINUS : "-=" >
+| < DLPREDICATE : [ "a"-"z", "A"-"Z" ] ([ "a"-"z", "A"-"Z", "0"-"9" ])* >
+}
+
+String dlPredicate() :
+{
+  String name;
+}
+{
+  (
+    //FIXME: we should use only one token here
+    LOOKAHEAD((< VARIABLE >
+  | < DLPREDICATE >
+  | < IDENTIFIER >) < COLON >)
+    (
+      (
+        < VARIABLE >
+      | < DLPREDICATE >
+      | < IDENTIFIER >
+      )
+      {
+        String key = token.image;
+        String namespace = namespaces.get(key);
+      }
+      < COLON >
+      (
+        < VARIABLE >
+      | < DLPREDICATE >
+      | < IDENTIFIER >
+      )
+      {
+        name = namespace + token.image;
+      }
+    )
+  |
+    (
+      < VARIABLE >
+    | < DLPREDICATE >
+    | < IDENTIFIER >
+    )
+    {
+      name = token.image;
+    }
+  )
+  {
+    return name;
+  }
+}
+
+DLInputOperation dlInputOperation() :
+{
+  DLInputOperation op = new DLInputOperation();
+  String name;
+}
+{
+  (
+    (
+      name = dlPredicate()
+    )
+    {
+      //logger.debug("dlPredicat: " + token.image);
+      //FIXME: role is possible here
+      OWLLogicalEntity dlPredicate = OWLManager.getOWLDataFactory().getOWLClass(IRI.create(name));
+      op.setDLPredicate(dlPredicate);
+    }
+    (
+      < UPLUS >
+      {
+        op.setType(DLInputOperator.U_PLUS);
+      }
+    | < UMINUS >
+      {
+        op.setType(DLInputOperator.U_MINUS);
+      }
+    )
+    {
+      name = dlPredicate();
+      //The arity will be set later
+      int arity = - 1;
+      NormalPredicate predicate = CacheManager.getInstance().getPredicate(name, arity);
+      op.setInputPredicate(predicate);
+    }
+  )
+  {
+    return op;
+  }
+}
+
+DLInputSignature dlInputSignature() :
+{
+  DLInputSignature signature = new DLInputSignature();
+  DLInputOperation op;
+}
+{
+  [
+    op = dlInputOperation()
+    {
+      signature.getOperations().add(op);
+    }
+    (
+      "," op = dlInputOperation()
+      {
+        signature.getOperations().add(op);
+      }
+    )*
+  ]
+  {
+    return signature;
+  }
+}
+
+DLAtomPredicate dlAtomPredicate() :
+{
+  DLAtomPredicate predicate = new DLAtomPredicate();
+  DLInputSignature signature;
+  String name;
+  OWLLogicalEntity query;
+}
+{
+  (
+    < DL_ATOM > < LEFT_SQUARE_BRACKET > signature = dlInputSignature()
+    {
+      predicate.setInputSignature(signature);
+    }
+    ";"
+    (
+      name = dlPredicate()
+    )
+    {
+      query = OWLManager.getOWLDataFactory().getOWLClass(IRI.create(name));
+      predicate.setQuery(query);
+    }
+    < RIGHT_SQUARE_BRACKET >
+  )
+  {
+    return predicate;
+  }
+}
+
+Constant constant() :
+{
+  String name;
+  int type;
+}
+{
+  (
+    < INTEGER >
+    {
+      name = token.image;
+      type = Types.INTEGER;
+      return CacheManager.getInstance().getConstant(name, type);
+    }
+  | < STRING >
+    {
+      name = token.image.substring(1, token.image.length() - 1);
+      type = Types.VARCHAR;
+      return CacheManager.getInstance().getConstant(name, type);
+    }
+  | < IDENTIFIER >
+    {
+      name = token.image;
+      type = Types.VARCHAR;
+      return CacheManager.getInstance().getConstant(name, type);
+    }
+  )
+  {}
+}
+
+Term variable() :
+{}
+{
+  < VARIABLE >
+  {
+    return CacheManager.getInstance().getVariable(token.image);
+  }
+}
+
+Functor functor() :
+{
+  Functor functor = new Functor();
+}
+{
+  < IDENTIFIER >
+  {
+    functor.setName(token.image);
+    return functor;
+  }
+}
+
+Function function() :
+{
+  Function function = new Function();
+  Functor functor;
+  Term term;
+}
+{
+  functor = functor()
+  {
+    function.setFunctor(functor);
+  }
+  < LEFTBRACKET >
+  [
+    term = term()
+    {
+      function.getTerms().add(term);
+    }
+    (
+      "," term = term()
+      {
+        function.getTerms().add(term);
+      }
+    )*
+  ]
+  < RIGHTBRACKET >
+  {
+    return function;
+  }
+}
+
+Term unary() :
+{
+  Term term;
+}
+{
+  (
+    LOOKAHEAD(function())
+    term = function()
+  | term = constant()
+  | term = variable()
+  | < LEFTBRACKET > term = additive() < RIGHTBRACKET >
+  )
+  {
+    return term;
+  }
+}
+
+Term multiplicative() :
+{
+  Term left, right;
+  Token token;
+}
+{
+  left = unary()
+  {}
+  (
+    (
+      token = < TIMES >
+    | token = < DIVIDE >
+    )
+    right = unary()
+    {
+      Function function = new Function();
+      Functor functor = new Functor();
+      functor.setName(token.image);
+      function.setFunctor(functor);
+      function.getTerms().add(left);
+      function.getTerms().add(right);
+      left = function;
+    }
+  )*
+  {
+    return left;
+  }
+}
+
+Term additive() :
+{
+  Term left, right;
+  Token token;
+}
+{
+  left = multiplicative()
+  {}
+  (
+    (
+      token = < PLUS >
+    | token = < MINUS >
+    )
+    right = multiplicative()
+    {
+      Function function = new Function();
+      Functor functor = new Functor();
+      functor.setName(token.image);
+      function.setFunctor(functor);
+      function.getTerms().add(left);
+      function.getTerms().add(right);
+      left = function;
+    }
+  )*
+  {
+    return left;
+  }
+}
+
+Term term() :
+{
+  Term term;
+}
+{
+  term = additive()
+  {
+    return term;
+  }
+}
+
+//Predicate predicate() :
+//{
+//	Predicate predicate = new Predicate();
+//}
+//{
+//	<IDENTIFIER>
+//	{
+//		predicate.setName(token.image);
+//		return predicate;
+//	}
+//}
+Literal literal() :
+{
+  Literal literal = new Literal();
+  Predicate predicate = null;
+  String name = null;
+  Term term;
+  int arity = 0;
+  boolean isDLAtomPredicate = false;
+}
+{
+  LOOKAHEAD(term() < COMPARISON >)
+  term = term()
+  {
+    literal.getTerms().add(term);
+  }
+  < COMPARISON >
+  {
+    predicate = CacheManager.getInstance().getPredicate(token.image, 2);
+    literal.setPredicate(predicate);
+  }
+  term = term()
+  {
+    literal.getTerms().add(term);
+  }
+  {
+    return literal;
+  }
+|
+  (
+    predicate = dlAtomPredicate()
+    {
+      isDLAtomPredicate = true;
+    }
+  | < IDENTIFIER >
+    {
+      name = token.image;
+    }
+  )
+  [
+    "(" term = term()
+    {
+      literal.getTerms().add(term);
+      arity++;
+    }
+    (
+      "," term = term()
+      {
+        literal.getTerms().add(term);
+        arity++;
+      }
+    )*
+    ")"
+  ]
+  {
+    if (!isDLAtomPredicate)
+    {
+      predicate = CacheManager.getInstance().getPredicate(name, arity);
+    }
+    else
+    {
+      predicate.setArity(arity);
+    }
+    literal.setPredicate(predicate);
+    return literal;
+  }
+}
+
+Clause clause() :
+{
+  Clause clause = new Clause();
+  Literal literal;
+  boolean not = false;
+}
+{
+  [
+    literal = literal()
+    {
+      clause.setHead(literal);
+    }
+  ]
+  [
+    < IMPLY >
+    {
+      // initialize the not state
+      not = false;
+    }
+    [
+      < NAF >
+      {
+        not = true;
+      }
+    ]
+    literal = literal()
+    {
+      if (not)
+      {
+        clause.getNegativeBody().add(literal);
+      }
+      else
+      {
+        clause.getPositiveBody().add(literal);
+      }
+    }
+    (
+      < CONJUNCTION >
+      {
+        // initialize the not state
+        not = false;
+      }
+      [
+        < NAF >
+        {
+          not = true;
+        }
+      ]
+      literal = literal()
+      {
+        if (not)
+        {
+          clause.getNegativeBody().add(literal);
+        }
+        else
+        {
+          clause.getPositiveBody().add(literal);
+        }
+      }
+    )*
+  ]
+  < ENDOFSTATEMENT >
+  {
+    if (clause.getBody().size() == 0)
+    {
+      clause.getPositiveBody().add(Literal.TRUE);
+    }
+    return clause;
+  }
+}
+
+void namespace() :
+{
+  String key, value;
+}
+{
+  < NAMESPACE > < LEFTBRACKET > < STRING >
+  {
+    key = token.image.substring(1, token.image.length() - 1);
+  }
+  "," < STRING >
+  {
+    value = token.image.substring(1, token.image.length() - 1);
+  }
+  < RIGHTBRACKET > < ENDOFSTATEMENT >
+  {
+    namespaces.put(key, value);
+  }
+}
+
+DLProgram program() :
+{
+  DLProgram program = new DLProgram();
+  Clause clause;
+}
+{
+  (
+    namespace()
+  )*
+  (
+    clause = clause()
+    {
+      if (clause.getHead().equals(Literal.FALSE) && (clause.getPositiveBody().contains(Literal.TRUE)))
+      { // skip empty clause
+      }
+      else
+      {
+        program.getClauses().add(clause);
+      }
+    }
+  )*
+  < EOF >
+  {
+    adjustDLInputOperationArity(program);
+    return program;
+  }
+}
+
+List < Literal > getModel() :
+{
+  List < Literal > literals = new ArrayList < Literal > ();
+  Literal literal;
+}
+{
+  [ < TRUE > ":" ] "{" literal = literal()
+  {
+    literals.add(literal);
+  }
+  (
+    < CONJUNCTION > literal = literal()
+    {
+      literals.add(literal);
+    }
+  )*
+  "}"
+  {
+    return literals;
+  }
+}

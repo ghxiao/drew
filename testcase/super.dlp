@@ -1,0 +1,6 @@
+#namespace("super","http://www.kr.tuwien.ac.at/staff/xiao/ldl/super.ldl#").
+
+good(X) :- DL[;super:Super](X,Y), not DL[super:PapToRev += paper; super:Over](Y).
+over(X) :- not good(X).
+paper(b,p1).
+paper(b,p2).
