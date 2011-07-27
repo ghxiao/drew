@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -24,21 +25,24 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntityVisitor;
+import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectVisitor;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
 public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWLEntityVisitor {
-
-
 
 	private SymbolEncoder<IRI> iriEncoder;
 
@@ -52,33 +56,36 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 
 	public DLProgram rewrite(OWLOntology ontology) {
 		datalog = new DLProgram();
+
+		ontology = new ELNormalizer().normalize(ontology);
+
 		for (OWLLogicalAxiom ax : ontology.getLogicalAxioms()) {
 			ax.accept(this);
 		}
-		
-		for (OWLNamedIndividual i:ontology.getIndividualsInSignature()){
+
+		for (OWLNamedIndividual i : ontology.getIndividualsInSignature()) {
 			i.accept(this);
 		}
-		
-		for(OWLObjectProperty p : ontology.getObjectPropertiesInSignature()){
+
+		for (OWLObjectProperty p : ontology.getObjectPropertiesInSignature()) {
 			p.accept(this);
 		}
-		
-		for(OWLClass cls:ontology.getClassesInSignature()){
+
+		for (OWLClass cls : ontology.getClassesInSignature()) {
 			cls.accept(this);
 		}
-		
+
 		datalog.getClauses().addAll(PInst.getPInst().getClauses());
-		
-		//iriEncoder.report();
+
+		// iriEncoder.report();
 		return datalog;
 	}
-	
-	public void saveToFile(String datalogFile){
+
+	public void saveToFile(String datalogFile) {
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(datalogFile));
 			writer.write(PInst.getPInst().toString());
-			writer.write(new DLProgramToStringBuilder().toString(datalog));
+			writer.write(new DatalogToStringBuilder().toString(datalog));
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -89,7 +96,7 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 	public void visit(OWLClassAssertionAxiom axiom) {
 		int c = iriEncoder.encode(axiom.getClassExpression().asOWLClass().getIRI());
 		int a = iriEncoder.encode(axiom.getIndividual().asOWLNamedIndividual().getIRI());
-		addFact(RewritingVocabulary.INST, a, c);
+		addFact(RewritingVocabulary.SUB_CLASS, a, c);
 	}
 
 	@Override
@@ -102,6 +109,19 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 	}
 
 	@Override
+	public void visit(OWLSubPropertyChainOfAxiom axiom) {
+		List<OWLObjectPropertyExpression> chain = axiom.getPropertyChain();
+		Iterator<OWLObjectPropertyExpression> iterator = chain.iterator();
+		int r1 = iriEncoder.encode(iterator.next().asOWLObjectProperty().getIRI());
+		int r2 = iriEncoder.encode(iterator.next().asOWLObjectProperty().getIRI());
+		int r = iriEncoder.encode(axiom.getSuperProperty().asOWLObjectProperty().getIRI());
+		
+		addFact(RewritingVocabulary.SUB_R_CHAIN, r1, r2, r);
+		
+		super.visit(axiom);
+	}
+
+	@Override
 	public void visit(OWLSubClassOfAxiom axiom) {
 		OWLClassExpression subClass = axiom.getSubClass();
 		OWLClassExpression superClass = axiom.getSuperClass();
@@ -109,11 +129,14 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 		// simple case: A subclass C
 		if ((subClass.getClassExpressionType() == ClassExpressionType.OWL_CLASS)
 				&& (superClass.getClassExpressionType() == ClassExpressionType.OWL_CLASS)) {
-			if (!subClass.isOWLNothing() && !superClass.isOWLThing()) {
+			int a = iriEncoder.encode(axiom.getSubClass().asOWLClass().getIRI());
+			int c = iriEncoder.encode(axiom.getSuperClass().asOWLClass().getIRI());
 
-				int a = iriEncoder.encode(axiom.getSubClass().asOWLClass().getIRI());
-				int c = iriEncoder.encode(axiom.getSuperClass().asOWLClass().getIRI());
-
+			if (subClass.isOWLThing()) {
+				addFact(RewritingVocabulary.TOP, c);
+			} else if (superClass.isOWLNothing()) {
+				addFact(RewritingVocabulary.BOT, a);
+			} else /* (!subClass.isOWLNothing() && !superClass.isOWLThing()) */{
 				addFact(RewritingVocabulary.SUB_CLASS, a, c);
 			}
 		}
@@ -145,10 +168,20 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 				int b = iriEncoder.encode(superClass.asOWLClass().getIRI());
 
 				addFact(RewritingVocabulary.SUB_EX, r, a, b);
-			}
-
-			else if (subClass.getClassExpressionType() == ClassExpressionType.OBJECT_UNION_OF) {
+			} else if (subClass.getClassExpressionType() == ClassExpressionType.OBJECT_UNION_OF) {
 				throw new IllegalStateException();
+			} else if (subClass.getClassExpressionType() == ClassExpressionType.OBJECT_ONE_OF) {
+				// {c} ⊑ A -> SubClass(c, A)
+				OWLObjectOneOf oneOf = (OWLObjectOneOf) subClass;
+				int c = iriEncoder.encode(oneOf.getIndividuals().iterator().next().asOWLNamedIndividual().getIRI());
+				int a = iriEncoder.encode(superClass.asOWLClass().getIRI());
+				addFact(RewritingVocabulary.SUB_CLASS, c, a);
+			} else if (subClass.getClassExpressionType() == ClassExpressionType.OBJECT_HAS_SELF) {
+				OWLObjectHasSelf self = (OWLObjectHasSelf) subClass;
+				int r = DReWELManager.getInstance().getIriEncoder()
+						.encode(self.getProperty().asOWLObjectProperty().getIRI());
+				int a = DReWELManager.getInstance().getIriEncoder().encode(superClass.asOWLClass().getIRI());
+				addFact(RewritingVocabulary.SUB_SELF, r, a);
 			} else {
 				throw new IllegalStateException();
 			}
@@ -182,17 +215,18 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 						) }, //
 								new Literal[] {}));
 
+			} else if (superClass.getClassExpressionType() == ClassExpressionType.OBJECT_ONE_OF) {
+				// A ⊑ {c} -> SubClass(A, c)
+				OWLObjectOneOf oneOf = (OWLObjectOneOf) superClass;
+				int c = iriEncoder.encode(oneOf.getIndividuals().iterator().next().asOWLNamedIndividual().getIRI());
+				int a = iriEncoder.encode(subClass.asOWLClass().getIRI());
+				addFact(RewritingVocabulary.SUB_CLASS, a, c);
 			}
-
-			// A subclass all(R, C') -> {A subclass all(R, D), D subclass C'}
+			// A subclass all(R, C')
 			else if (superClass.getClassExpressionType() == ClassExpressionType.OBJECT_ALL_VALUES_FROM) {
-
 				throw new IllegalStateException();
-
 			}
-
-			// A subclass max(R, 1, B') -> {A subclass max(R, 1, D), D subclass
-			// B'}
+			// A subclass max(R, 1, B')
 			else if (superClass.getClassExpressionType() == ClassExpressionType.OBJECT_MAX_CARDINALITY) {
 				throw new IllegalStateException();
 			} else if (superClass.getClassExpressionType() == ClassExpressionType.OBJECT_MIN_CARDINALITY) {
@@ -203,6 +237,14 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 			else if (superClass.getClassExpressionType() == ClassExpressionType.OBJECT_COMPLEMENT_OF) {
 				throw new IllegalStateException();
 
+			} else if (superClass.getClassExpressionType() == ClassExpressionType.OBJECT_HAS_SELF) {
+				OWLObjectHasSelf self = (OWLObjectHasSelf) superClass;
+				int r = DReWELManager.getInstance().getIriEncoder()
+						.encode(self.getProperty().asOWLObjectProperty().getIRI());
+				int a = DReWELManager.getInstance().getIriEncoder().encode(subClass.asOWLClass().getIRI());
+				addFact(RewritingVocabulary.SUP_SELF, a, r);
+			} else {
+				throw new IllegalStateException();
 			}
 		}
 

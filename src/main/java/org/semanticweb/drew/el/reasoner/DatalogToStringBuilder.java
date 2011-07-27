@@ -10,11 +10,11 @@ import org.semanticweb.drew.dlprogram.model.NormalPredicate;
 import org.semanticweb.drew.dlprogram.model.Predicate;
 import org.semanticweb.drew.dlprogram.model.Term;
 
-public class DLProgramToStringBuilder {
+public class DatalogToStringBuilder {
 
 	StringBuilder sb;
 
-	public DLProgramToStringBuilder() {
+	public DatalogToStringBuilder() {
 
 	}
 
@@ -39,7 +39,16 @@ public class DLProgramToStringBuilder {
 					sb.append(", ");
 				}
 				firstLiteral = false;
-				sb.append(literal);
+				toString(literal);
+			}
+
+			for (Literal literal : r.getNegativeBody()) {
+				if (!firstLiteral) {
+					sb.append(", ");
+				}
+				firstLiteral = false;
+				sb.append("not ");
+				toString(literal);
 			}
 		}
 
@@ -53,34 +62,39 @@ public class DLProgramToStringBuilder {
 		} else {
 			sb.append(predicate);
 		}
-		sb.append("(");
-		boolean first = true;
-		for (Term t : lit.getTerms()) {
-			if (!first) {
-				sb.append(", ");
-			}
-			first = false;
-			if (t instanceof Constant && ((Constant) t).getType() == Types.INTEGER) {
-				int i = Integer.parseInt(t.getName());
-				switch (DReWELManager.getInstance().getNamingStrategy()) {
-				case IntEncoding:
-					sb.append(i);
-					break;
-				case IRIFragment:
-					sb.append("\"").append(DReWELManager.getInstance().getIriEncoder().decode(i).getFragment()).append("\"");
-					break;
-				case IRIFull:
-					sb.append("\"").append(DReWELManager.getInstance().getIriEncoder().decode(i)).append("\"");
-					break;
-				default:
-					break;
-				}
 
-			} else {
-				sb.append(t);
+		if (lit.getTerms().size() > 0) {
+
+			sb.append("(");
+			boolean first = true;
+			for (Term t : lit.getTerms()) {
+				if (!first) {
+					sb.append(", ");
+				}
+				first = false;
+				if (t instanceof Constant && ((Constant) t).getType() == Types.INTEGER) {
+					int i = Integer.parseInt(t.getName());
+					switch (DReWELManager.getInstance().getNamingStrategy()) {
+					case IntEncoding:
+						sb.append(i);
+						break;
+					case IRIFragment:
+						sb.append("\"").append(DReWELManager.getInstance().getIriEncoder().decode(i).getFragment())
+								.append("\"");
+						break;
+					case IRIFull:
+						sb.append("\"").append(DReWELManager.getInstance().getIriEncoder().decode(i)).append("\"");
+						break;
+					default:
+						break;
+					}
+
+				} else {
+					sb.append(t);
+				}
 			}
+			sb.append(")");
 		}
-		sb.append(")");
 	}
 
 }

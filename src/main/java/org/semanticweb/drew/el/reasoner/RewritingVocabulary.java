@@ -5,8 +5,8 @@ import org.semanticweb.drew.dlprogram.model.NormalPredicate;
 
 public class RewritingVocabulary {
 	public final static NormalPredicate NOM = CacheManager.getInstance().getPredicate("nom", 1);
-	public final static NormalPredicate CLASS = CacheManager.getInstance().getPredicate("class", 1);
-	public final static NormalPredicate ROLE = CacheManager.getInstance().getPredicate("role", 1);
+	public final static NormalPredicate CLASS = CacheManager.getInstance().getPredicate("cls", 1);
+	public final static NormalPredicate ROLE = CacheManager.getInstance().getPredicate("rol", 1);
 	
 	public final static NormalPredicate INST = CacheManager.getInstance().getPredicate("inst", 2);
 

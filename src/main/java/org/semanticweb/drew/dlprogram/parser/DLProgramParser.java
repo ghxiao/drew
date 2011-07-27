@@ -559,7 +559,8 @@ public class DLProgramParser implements DLProgramParserConstants {
     jj_consume_token(ENDOFSTATEMENT);
     if (clause.getBody().size() == 0)
     {
-      clause.getPositiveBody().add(Literal.TRUE);
+      //Why we need this?
+      //clause.getPositiveBody().add(Literal.TRUE);
     }
     {if (true) return clause;}
     throw new Error("Missing return statement in function");

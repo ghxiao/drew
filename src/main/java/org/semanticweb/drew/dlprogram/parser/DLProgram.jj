@@ -553,7 +553,8 @@ Clause clause() :
   {
     if (clause.getBody().size() == 0)
     {
-      clause.getPositiveBody().add(Literal.TRUE);
+      //Why we need this?
+      //clause.getPositiveBody().add(Literal.TRUE);
     }
     return clause;
   }

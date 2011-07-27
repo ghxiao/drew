@@ -4,6 +4,7 @@ import java.nio.channels.IllegalSelectorException;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.coode.owlapi.owlxmlparser.IRIElementHandler;
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
@@ -38,6 +39,7 @@ import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectComplementOf;
+import org.semanticweb.owlapi.model.OWLObjectHasSelf;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
@@ -182,49 +184,19 @@ public class ELNormalizer implements OWLAxiomVisitorEx<Object> {
 					factory.getOWLSubClassOfAxiom(filler, freshClass).accept(this);
 				}
 			}
-			// or(A', B) subclass C
-			// or(B, A') subclass C
-			// else if (subClass .getClassExpressionType() ==
-			// ClassExpressionType. OWLObjectUnionOf) {
 
 			else if (subClass.getClassExpressionType() == ClassExpressionType.OBJECT_UNION_OF) {
-
 				throw new IllegalStateException();
-
-				// OWLObjectUnionOf union = (OWLObjectUnionOf) subClass;
-				// Set<OWLClassExpression> operands = union.getOperands();
-				// Set<OWLClassExpression> newOps = new
-				// HashSet<OWLClassExpression>();
-				// boolean normalized = true;
-				// for (OWLClassExpression op : operands) {
-				// if (!(op.getClassExpressionType() ==
-				// ClassExpressionType.OWL_CLASS)) {
-				// normalized = false;
-				// break;
-				// }
-				// }
-				// if (normalized) {
-				// for (OWLClassExpression op : operands) {
-				// manager.addAxiom(normalizedOnt,
-				// factory.getOWLSubClassOfAxiom(op, superClass));
-				// }
-				// } else {
-				// for (OWLClassExpression op : operands) {
-				// if (!(op.getClassExpressionType() ==
-				// ClassExpressionType.OWL_CLASS)) {
-				// OWLClass freshClass = getFreshClass();
-				// newOps.add(freshClass);
-				// manager.addAxiom(normalizedOnt, factory
-				// .getOWLSubClassOfAxiom(op, freshClass));
-				// } else {
-				// newOps.add(op);
-				// }
-				// }
-				//
-				// factory.getOWLSubClassOfAxiom(
-				// factory.getOWLObjectUnionOf(newOps), superClass)
-				// .accept(this);
-				// }
+			}
+			// {a} subclass C
+			else if (subClass.getClassExpressionType() == ClassExpressionType.OBJECT_ONE_OF) {
+				manager.addAxiom(normalizedOnt, axiom);
+			}
+			// A subclass S Self
+			else if (subClass.getClassExpressionType() == ClassExpressionType.OBJECT_HAS_SELF) {
+				manager.addAxiom(normalizedOnt, axiom);
+			} else {
+				throw new IllegalStateException();
 
 			}
 
@@ -235,37 +207,7 @@ public class ELNormalizer implements OWLAxiomVisitorEx<Object> {
 			if (superClass.getClassExpressionType() == ClassExpressionType.OBJECT_UNION_OF) {
 
 				throw new IllegalSelectorException();
-				// OWLObjectUnionOf union = (OWLObjectUnionOf) superClass;
-				// Set<OWLClassExpression> operands = union.getOperands();
-				// Iterator<OWLClassExpression> iterator = operands.iterator();
-				// OWLClass fresh = getFreshClass();
-				// OWLClassExpression first = iterator.next();
-				//
-				// OWLClassExpression rest;
-				//
-				// if (operands.size() == 2) {
-				// rest = iterator.next();
-				// } else /* operands.size() > 2 */{
-				// HashSet<OWLClassExpression> newOps = new
-				// HashSet<OWLClassExpression>(
-				// operands);
-				// newOps.remove(first);
-				// rest = factory.getOWLObjectUnionOf(newOps);
-				// }
-				//
-				// factory.getOWLSubClassOfAxiom(subClass, fresh).accept(this);
-				// if (first.accept(super0)) {
-				// factory.getOWLSubClassOfAxiom(
-				// factory.getOWLObjectIntersectionOf(fresh,//
-				// factory.getOWLObjectComplementOf(first)
-				// .getNNF()), rest).accept(this);
-				// } else {
-				// factory.getOWLSubClassOfAxiom(
-				// factory.getOWLObjectIntersectionOf(fresh,//
-				// factory.getOWLObjectComplementOf(rest)
-				// .getNNF()), fresh)//
-				// .accept(this);
-				// }
+
 			}
 
 			// A subclass and(B, C)
@@ -295,56 +237,20 @@ public class ELNormalizer implements OWLAxiomVisitorEx<Object> {
 
 				throw new IllegalStateException();
 
-				// OWLObjectAllValuesFrom all = (OWLObjectAllValuesFrom)
-				// superClass;
-				// OWLClassExpression filler = all.getFiller();
-				// if (filler.getClassExpressionType() ==
-				// ClassExpressionType.OWL_CLASS) {
-				// manager.addAxiom(normalizedOnt, axiom);
-				// } else {
-				// OWLClass freshClass = getFreshClass();
-				// factory.getOWLSubClassOfAxiom(subClass,
-				// factory.getOWLObjectAllValuesFrom(all.getProperty(),
-				// freshClass)) //
-				// .accept(this);
-				// factory.getOWLSubClassOfAxiom(freshClass,
-				// filler).accept(this);
-				// }
 			}
 
 			// A subclass max(R, 1, B') -> {A subclass max(R, 1, D), D subclass
 			// B'}
 			else if (superClass.getClassExpressionType() == ClassExpressionType.OBJECT_MAX_CARDINALITY) {
 				throw new IllegalStateException();
-				
-//				OWLObjectMaxCardinality max = (OWLObjectMaxCardinality) superClass;
-//				OWLClassExpression filler = max.getFiller();
-//				if (filler.getClassExpressionType() == ClassExpressionType.OWL_CLASS) {
-//					manager.addAxiom(normalizedOnt, axiom);
-//				} else {
-//					OWLClass freshClass = getFreshClass();
-//					factory.getOWLSubClassOfAxiom(subClass,
-//							factory.getOWLObjectMaxCardinality(max.getCardinality(), max.getProperty(), freshClass)) //
-//							.accept(this);
-//					factory.getOWLSubClassOfAxiom(freshClass, filler).accept(this);
-//				}
+
 			}
 
 			// A subclass min(R, n, B') -> {A subclass min(R, n, D), D subclass
 			// B'}
 			else if (superClass.getClassExpressionType() == ClassExpressionType.OBJECT_MIN_CARDINALITY) {
 				throw new IllegalStateException();
-//				OWLObjectMinCardinality min = (OWLObjectMinCardinality) superClass;
-//				OWLClassExpression filler = min.getFiller();
-//				if (filler.getClassExpressionType() == ClassExpressionType.OWL_CLASS) {
-//					manager.addAxiom(normalizedOnt, axiom);
-//				} else {
-//					OWLClass freshClass = getFreshClass();
-//					factory.getOWLSubClassOfAxiom(subClass,
-//							factory.getOWLObjectMinCardinality(min.getCardinality(), min.getProperty(), freshClass)) //
-//							.accept(this);
-//					factory.getOWLSubClassOfAxiom(freshClass, filler).accept(this);
-//				}
+
 			}
 
 			// A subclass not(B)
@@ -356,6 +262,15 @@ public class ELNormalizer implements OWLAxiomVisitorEx<Object> {
 				factory.getOWLSubClassOfAxiom(factory.getOWLObjectIntersectionOf(freshClass, operand),
 						factory.getOWLNothing()) //
 						.accept(this);
+			} else if (superClass.getClassExpressionType() == ClassExpressionType.OBJECT_ONE_OF) {
+				manager.addAxiom(normalizedOnt, axiom);
+			} // A subclassof R Self
+			else if (superClass.getClassExpressionType() == ClassExpressionType.OBJECT_HAS_SELF) {
+				manager.addAxiom(normalizedOnt, axiom);
+			}
+
+			else {
+				throw new IllegalStateException();
 			}
 		}
 
@@ -407,12 +322,13 @@ public class ELNormalizer implements OWLAxiomVisitorEx<Object> {
 	@Override
 	public Object visit(OWLDataPropertyDomainAxiom axiom) {
 		throw new IllegalStateException();
-		
-//		factory.getOWLSubClassOfAxiom(factory.getOWLDataSomeValuesFrom(axiom.getProperty(), factory.getTopDatatype()),
-//				axiom.getDomain()) //
-//				.accept(this);
 
-//		return null;
+		// factory.getOWLSubClassOfAxiom(factory.getOWLDataSomeValuesFrom(axiom.getProperty(),
+		// factory.getTopDatatype()),
+		// axiom.getDomain()) //
+		// .accept(this);
+
+		// return null;
 	}
 
 	// domain(r) = C ~> some(r, T) subclass C
@@ -600,8 +516,10 @@ public class ELNormalizer implements OWLAxiomVisitorEx<Object> {
 
 	@Override
 	public Object visit(OWLSubPropertyChainOfAxiom axiom) {
-
-		throw new IllegalArgumentException(axiom.toString());
+		//FIXME: size(subroles) > 2
+		manager.addAxiom(normalizedOnt, axiom);
+		return null;
+//		throw new IllegalArgumentException(axiom.toString());
 
 	}
 

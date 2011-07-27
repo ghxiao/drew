@@ -112,13 +112,11 @@ public class ELReasoner extends OWLReasonerBase {
 
 	@Override
 	public Node<OWLClass> getTopClassNode() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Node<OWLClass> getBottomClassNode() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

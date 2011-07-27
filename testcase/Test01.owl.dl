@@ -27,21 +27,21 @@ inst(X, Z2) :- supProd(V, Z1, Z2), self(X, V).
 inst(Y, Z) :- inst(X, Y), nom(Y), inst(X, Z).
 inst(X, Z) :- inst(X, Y), nom(Y), inst(Y, Z).
 triple(Z, U, Y) :- inst(X, Y), nom(Y), triple(Z, U, X).
+triple(X, V, X) :- nom(X), self(X, V).
 subConj("A1", "A2", "A").
-inst("a", "A2").
-subEx("R", "C", "D").
+subClass("a", "A2").
 supEx("A", "R", "B", e0).
+subEx("R", "C", "D").
 subClass("B", "C").
-inst("a", "A1").
+subClass("a", "A1").
 nom("a").
-role("R").
-class("Thing").
-class("A2").
-class("C").
-class("A").
-class("D").
-class("B").
-class("A1").
+rol("R").
+cls("A2").
+cls("A").
+cls("C").
+cls("D").
+cls("A1").
+cls("B").
 inst(X, X) :- nom(X).
 self(X, V) :- nom(X), triple(X, V, X).
 inst(X, Z) :- top(Z), inst(X, Z1).
@@ -71,3 +71,4 @@ inst(X, Z2) :- supProd(V, Z1, Z2), self(X, V).
 inst(Y, Z) :- inst(X, Y), nom(Y), inst(X, Z).
 inst(X, Z) :- inst(X, Y), nom(Y), inst(Y, Z).
 triple(Z, U, Y) :- inst(X, Y), nom(Y), triple(Z, U, X).
+triple(X, V, X) :- nom(X), self(X, V).
