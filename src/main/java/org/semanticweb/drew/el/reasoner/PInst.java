@@ -41,6 +41,8 @@ public class PInst {
 			"inst(X, Z) :-inst(X, Y), nom(Y), inst(Y, Z).\n" + //
 			"triple(Z, U, Y) :- inst(X, Y), nom(Y), triple(Z, U, X).\n" + //
 			"triple(X, V, X) :- nom(X), self(X, V).\n" + //
+			"top(\"Thing\").\n" + //
+			"bot(\"Nothing\").\n"+
 			"";
 
 	static DLProgram pInst;

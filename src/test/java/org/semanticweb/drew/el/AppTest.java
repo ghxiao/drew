@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -199,7 +201,7 @@ public class AppTest
 		System.out.println(strDatalog);
     }
     
-    public void testRoleChain() throws OWLOntologyCreationException, OWLOntologyStorageException, FileNotFoundException
+    public void testRoleChain() throws OWLOntologyCreationException, OWLOntologyStorageException, IOException
     {
 		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
 //		OWLDataFactory factory = man.getOWLDataFactory();
@@ -234,6 +236,10 @@ public class AppTest
 		
 		DatalogToStringBuilder builder = new DatalogToStringBuilder();
 		String strDatalog = builder.toString(datalog);
+		
+		FileWriter writer = new FileWriter(owlFileName+".dl");
+		writer.append(strDatalog);
+		writer.close();
 		
 		System.out.println(strDatalog);
     }
