@@ -89,7 +89,13 @@ public class DatalogToStringBuilder {
 						break;
 					}
 
-				} else {
+				}
+				else if (t instanceof Constant && ((Constant) t).getType() == Types.VARCHAR) {
+					sb.append("\"");
+					sb.append(t);
+					sb.append("\"");
+				}	
+				else {
 					sb.append(t);
 				}
 			}

@@ -44,6 +44,19 @@ public class PInst {
 			"top(\"Thing\").\n" + //
 			"bot(\"Nothing\").\n"+
 			"";
+	
+	static String strXSBHeader = ":- table triple/3.\n" + 
+			":- table inst/2.\n" + 
+			":- table self/2.\n" + 
+			"\n" + 
+			"subConj(X,Y,Z) :- fail.\n" + 
+			"subEx(X,Y,Z) :- fail.\n" + 
+			"subSelf(X, Y) :- fail.\n" + 
+			"supSelf(X, Y) :- fail.\n" + 
+			"self(X, Y) :- fail.\n" + 
+			"supProd(X, Y) :- fail.\n" + 
+			"subClass(X, Y) :- fail.\n" + 
+			"";
 
 	static DLProgram pInst;
 

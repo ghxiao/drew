@@ -220,6 +220,7 @@ public class AppTest
 		
     	DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
 		final String owlFileName = "testcase/testRoleChain.owl";
+		final String prologFileName = "testcase/testRoleChain.pl";
 		File file = new File(owlFileName);
 		OWLOntology ontology = man.loadOntologyFromOntologyDocument(file);
 		
@@ -237,7 +238,8 @@ public class AppTest
 		DatalogToStringBuilder builder = new DatalogToStringBuilder();
 		String strDatalog = builder.toString(datalog);
 		
-		FileWriter writer = new FileWriter(owlFileName+".dl");
+		FileWriter writer = new FileWriter(prologFileName);
+		
 		writer.append(strDatalog);
 		writer.close();
 		
