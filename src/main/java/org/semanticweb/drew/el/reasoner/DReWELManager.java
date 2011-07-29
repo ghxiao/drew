@@ -33,6 +33,8 @@ public class DReWELManager {
 
 	private SymbolEncoder<DLInputSignature> dlInputSignatureEncoder;
 
+	private DatalogFormat datalogFormat;
+
 	public SymbolEncoder<OWLSubClassOfAxiom> getSuperSomeAxiomEncoder() {
 		return superSomeAxiomEncoder;
 	}
@@ -46,24 +48,7 @@ public class DReWELManager {
 		this.superSomeAxiomEncoder = new SymbolEncoder<OWLSubClassOfAxiom>();
 		this.dlInputSignatureEncoder = new SymbolEncoder<DLInputSignature>();
 		this.namingStrategy = NamingStrategy.IntEncoding;
-		// this.owlClassEncoder = new SymbolEncoder<OWLClass>(OWLClass.class);
-		// this.owlObjectPropertyExpressionEncoder = new
-		// SymbolEncoder<OWLObjectPropertyExpression>(
-		// OWLObjectPropertyExpression.class);
-		// this.owlDataPropertyEncoder = new
-		// SymbolEncoder<OWLDataProperty>(OWLDataProperty.class);
-		// this.owlIndividualEncoder = new
-		// SymbolEncoder<OWLIndividual>(OWLIndividual.class);
-		// this.thing =
-		// owlClassEncoder.getValueBySymbol(OWLManager.getOWLDataFactory().getOWLThing());
-		// this.nothing =
-		// owlClassEncoder.getValueBySymbol(OWLManager.getOWLDataFactory().getOWLNothing());
-		// this.topProperty =
-		// owlObjectPropertyExpressionEncoder.getValueBySymbol(OWLManager.getOWLDataFactory()
-		// .getOWLTopObjectProperty());
-		// this.bottomProperty =
-		// owlObjectPropertyExpressionEncoder.getValueBySymbol(OWLManager.getOWLDataFactory()
-		// .getOWLBottomObjectProperty());
+		this.datalogFormat = DatalogFormat.DLV;
 	}
 
 	public static DReWELManager getInstance() {
@@ -116,6 +101,14 @@ public class DReWELManager {
 
 	public void setDlInputSignatureEncoder(SymbolEncoder<DLInputSignature> dlInputSignatureEncoder) {
 		this.dlInputSignatureEncoder = dlInputSignatureEncoder;
+	}
+
+	public DatalogFormat getDatalogFormat() {
+		return datalogFormat;
+	}
+
+	public void setDatalogFormat(DatalogFormat datalogFormat) {
+		this.datalogFormat = datalogFormat;
 	}
 
 }

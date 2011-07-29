@@ -1,9 +1,14 @@
 package org.semanticweb.drew.el.reasoner;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.semanticweb.drew.dlprogram.model.CacheManager;
 import org.semanticweb.drew.dlprogram.model.NormalPredicate;
 
 public class RewritingVocabulary {
+	
 	public final static NormalPredicate NOM = CacheManager.getInstance().getPredicate("nom", 1);
 	public final static NormalPredicate CLASS = CacheManager.getInstance().getPredicate("cls", 1);
 	public final static NormalPredicate ROLE = CacheManager.getInstance().getPredicate("rol", 1);
@@ -25,6 +30,8 @@ public class RewritingVocabulary {
 	public final static NormalPredicate SUB_R_CHAIN = CacheManager.getInstance().getPredicate("subRChain", 3);
 
 	public final static NormalPredicate SUB_R_CONJ = CacheManager.getInstance().getPredicate("subRConj", 3);
+	
+	public final static List<NormalPredicate> elRewritingPredicates = new ArrayList<NormalPredicate>();
 	
 	public final static String DL_ATOM = "dl_ATOM";
 }

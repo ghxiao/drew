@@ -75,8 +75,13 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 			cls.accept(this);
 		}
 
-		datalog.getClauses().addAll(PInst.getPInst().getClauses());
+		datalog.getClauses().addAll(PInst.getPInst());
 
+		if(DReWELManager.getInstance().getDatalogFormat() == DatalogFormat.XSB){
+			datalog.getClauses().addAll(PInst.getXsbDeclaration());
+		}
+		
+		
 		// iriEncoder.report();
 		return datalog;
 	}

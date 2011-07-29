@@ -20,9 +20,12 @@ public class DatalogToStringHelper {
 
 	}
 
-	public void saveAsDatalog(DLProgram program, String file) {
+	public void saveToFile(DLProgram program, String file) {
 		try {
 			FileWriter writer = new FileWriter(file);
+			if(DReWELManager.getInstance().getDatalogFormat()==DatalogFormat.XSB){
+				writer.write(PInst.strXSBHeader);
+			}
 			writer.write(toString(program));
 			writer.close();
 		} catch (IOException e) {
@@ -30,16 +33,6 @@ public class DatalogToStringHelper {
 		}
 	}
 
-	public void saveAsXSB(DLProgram program, String file) {
-		try {
-			FileWriter writer = new FileWriter(file);
-			writer.write(PInst.strXSBHeader);
-			writer.write(toString(program));
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public String toString(DLProgram program) {
 		sb = new StringBuilder();

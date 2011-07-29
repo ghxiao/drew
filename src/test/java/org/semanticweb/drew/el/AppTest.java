@@ -17,6 +17,7 @@ import org.semanticweb.drew.dlprogram.parser.DLProgramParser;
 import org.semanticweb.drew.dlprogram.parser.ParseException;
 import org.semanticweb.drew.el.profile.SROELProfile;
 import org.semanticweb.drew.el.reasoner.DReWELManager;
+import org.semanticweb.drew.el.reasoner.DatalogFormat;
 import org.semanticweb.drew.el.reasoner.DatalogToStringHelper;
 import org.semanticweb.drew.el.reasoner.NamingStrategy;
 import org.semanticweb.drew.el.reasoner.SROEL2DatalogRewriter;
@@ -89,7 +90,7 @@ public class AppTest
     public void testTopBot() throws OWLOntologyCreationException
     {
     	DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
-		final String owlFileName = "testcase/TestTopBot.owl";
+		final String owlFileName = "testcase/testTopBot.owl";
 		
 		File file = new File(owlFileName);
 		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
@@ -115,7 +116,7 @@ public class AppTest
     public void testSubRole() throws OWLOntologyCreationException
     {
     	DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
-		final String owlFileName = "testcase/TestSubRole.owl";
+		final String owlFileName = "testcase/testSubRole.owl";
 		
 		File file = new File(owlFileName);
 		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
@@ -141,7 +142,7 @@ public class AppTest
     public void testNom() throws OWLOntologyCreationException
     {
     	DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
-		final String owlFileName = "testcase/TestNom.owl";
+		final String owlFileName = "testcase/testNom.owl";
 		
 		File file = new File(owlFileName);
 		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
@@ -167,7 +168,7 @@ public class AppTest
     public void testSelf() throws OWLOntologyCreationException
     {
     	DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
-		final String owlFileName = "testcase/TestSelf.owl";
+		final String owlFileName = "testcase/testSelf.owl";
 		
 		File file = new File(owlFileName);
 		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
@@ -224,7 +225,7 @@ public class AppTest
 		DLProgram datalog = rewriter.rewrite(ontology);
 		
 		DatalogToStringHelper builder = new DatalogToStringHelper();
-		builder.saveAsXSB(datalog, prologFileName);
+		builder.saveToFile(datalog, prologFileName);
 //		String strDatalog = builder.toString(datalog);
 //		
 //		FileWriter writer = new FileWriter(prologFileName);
@@ -239,6 +240,7 @@ public class AppTest
     public void testELProgram() throws OWLOntologyCreationException, FileNotFoundException, ParseException
     {
     	DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
+    	DReWELManager.getInstance().setDatalogFormat(DatalogFormat.XSB);
 		final String owlFileName = "testcase/test02.owl";
 		//final String dlpFileName = "testcase/test01.dlp";
 		final String dlpFileName = "testcase/test01.dlp";
@@ -254,6 +256,9 @@ public class AppTest
 		ELProgramKBCompiler compiler = new ELProgramKBCompiler();
 		DLProgram datalog = compiler.compile(kb);
 		//System.out.println(datalog);
-		System.out.println(new DatalogToStringHelper().toString(datalog));
+		DatalogToStringHelper builder = new DatalogToStringHelper();
+		String prologFileName = "testcase/testELProgram.pl";
+		builder.saveToFile(datalog, prologFileName );
+		//System.out.println(new DatalogToStringHelper().toString(datalog));
     }
 }
