@@ -1,5 +1,7 @@
 package org.semanticweb.drew.el.reasoner;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Types;
 
 import org.semanticweb.drew.dlprogram.model.Clause;
@@ -10,12 +12,33 @@ import org.semanticweb.drew.dlprogram.model.NormalPredicate;
 import org.semanticweb.drew.dlprogram.model.Predicate;
 import org.semanticweb.drew.dlprogram.model.Term;
 
-public class DatalogToStringBuilder {
+public class DatalogToStringHelper {
 
 	StringBuilder sb;
 
-	public DatalogToStringBuilder() {
+	public DatalogToStringHelper() {
 
+	}
+
+	public void saveAsDatalog(DLProgram program, String file) {
+		try {
+			FileWriter writer = new FileWriter(file);
+			writer.write(toString(program));
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void saveAsXSB(DLProgram program, String file) {
+		try {
+			FileWriter writer = new FileWriter(file);
+			writer.write(PInst.strXSBHeader);
+			writer.write(toString(program));
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public String toString(DLProgram program) {
@@ -89,13 +112,11 @@ public class DatalogToStringBuilder {
 						break;
 					}
 
-				}
-				else if (t instanceof Constant && ((Constant) t).getType() == Types.VARCHAR) {
+				} else if (t instanceof Constant && ((Constant) t).getType() == Types.VARCHAR) {
 					sb.append("\"");
 					sb.append(t);
 					sb.append("\"");
-				}	
-				else {
+				} else {
 					sb.append(t);
 				}
 			}

@@ -6,37 +6,27 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
 
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+
+import org.junit.Test;
 import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.model.DLProgramKB;
 import org.semanticweb.drew.dlprogram.parser.DLProgramParser;
 import org.semanticweb.drew.dlprogram.parser.ParseException;
 import org.semanticweb.drew.el.profile.SROELProfile;
-import org.semanticweb.drew.el.reasoner.DatalogToStringBuilder;
 import org.semanticweb.drew.el.reasoner.DReWELManager;
+import org.semanticweb.drew.el.reasoner.DatalogToStringHelper;
 import org.semanticweb.drew.el.reasoner.NamingStrategy;
 import org.semanticweb.drew.el.reasoner.SROEL2DatalogRewriter;
 import org.semanticweb.drew.elprogram.ELProgramKBCompiler;
-import org.semanticweb.drew.elprogram.ELProgramReasoner;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLDataFactory;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
-import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
-
-import org.junit.Test;
-
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  * Unit test for simple App.
@@ -88,10 +78,8 @@ public class AppTest
 		rewriter.saveToFile("testcase/test01.owl.dl");
 		
 		
-		DatalogToStringBuilder builder = new DatalogToStringBuilder();
+		DatalogToStringHelper builder = new DatalogToStringHelper();
 		String strDatalog = builder.toString(datalog);
-		
-		
 		
 		System.out.println(strDatalog);
 		System.out.println("---------------------------------------");
@@ -117,7 +105,7 @@ public class AppTest
 		SROEL2DatalogRewriter rewriter = new SROEL2DatalogRewriter();
 		DLProgram datalog = rewriter.rewrite(ontology);
 		
-		DatalogToStringBuilder builder = new DatalogToStringBuilder();
+		DatalogToStringHelper builder = new DatalogToStringHelper();
 		String strDatalog = builder.toString(datalog);
 		
 		System.out.println(strDatalog);
@@ -143,7 +131,7 @@ public class AppTest
 		SROEL2DatalogRewriter rewriter = new SROEL2DatalogRewriter();
 		DLProgram datalog = rewriter.rewrite(ontology);
 		
-		DatalogToStringBuilder builder = new DatalogToStringBuilder();
+		DatalogToStringHelper builder = new DatalogToStringHelper();
 		String strDatalog = builder.toString(datalog);
 		
 		System.out.println(strDatalog);
@@ -169,7 +157,7 @@ public class AppTest
 		SROEL2DatalogRewriter rewriter = new SROEL2DatalogRewriter();
 		DLProgram datalog = rewriter.rewrite(ontology);
 		
-		DatalogToStringBuilder builder = new DatalogToStringBuilder();
+		DatalogToStringHelper builder = new DatalogToStringHelper();
 		String strDatalog = builder.toString(datalog);
 		
 		System.out.println(strDatalog);
@@ -195,7 +183,7 @@ public class AppTest
 		SROEL2DatalogRewriter rewriter = new SROEL2DatalogRewriter();
 		DLProgram datalog = rewriter.rewrite(ontology);
 		
-		DatalogToStringBuilder builder = new DatalogToStringBuilder();
+		DatalogToStringHelper builder = new DatalogToStringHelper();
 		String strDatalog = builder.toString(datalog);
 		
 		System.out.println(strDatalog);
@@ -235,15 +223,16 @@ public class AppTest
 		SROEL2DatalogRewriter rewriter = new SROEL2DatalogRewriter();
 		DLProgram datalog = rewriter.rewrite(ontology);
 		
-		DatalogToStringBuilder builder = new DatalogToStringBuilder();
-		String strDatalog = builder.toString(datalog);
+		DatalogToStringHelper builder = new DatalogToStringHelper();
+		builder.saveAsXSB(datalog, prologFileName);
+//		String strDatalog = builder.toString(datalog);
+//		
+//		FileWriter writer = new FileWriter(prologFileName);
+//		
+//		writer.append(strDatalog);
+//		writer.close();
 		
-		FileWriter writer = new FileWriter(prologFileName);
-		
-		writer.append(strDatalog);
-		writer.close();
-		
-		System.out.println(strDatalog);
+//		System.out.println(strDatalog);
     }
     
     @Test
@@ -265,6 +254,6 @@ public class AppTest
 		ELProgramKBCompiler compiler = new ELProgramKBCompiler();
 		DLProgram datalog = compiler.compile(kb);
 		//System.out.println(datalog);
-		System.out.println(new DatalogToStringBuilder().toString(datalog));
+		System.out.println(new DatalogToStringHelper().toString(datalog));
     }
 }

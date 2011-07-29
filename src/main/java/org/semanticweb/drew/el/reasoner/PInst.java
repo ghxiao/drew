@@ -1,11 +1,8 @@
 package org.semanticweb.drew.el.reasoner;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.StringReader;
 
 import org.semanticweb.drew.dlprogram.model.DLProgram;
-import org.semanticweb.drew.dlprogram.model.DLProgramKBLoader;
 import org.semanticweb.drew.dlprogram.parser.DLProgramParser;
 import org.semanticweb.drew.dlprogram.parser.ParseException;
 
@@ -42,20 +39,28 @@ public class PInst {
 			"triple(Z, U, Y) :- inst(X, Y), nom(Y), triple(Z, U, X).\n" + //
 			"triple(X, V, X) :- nom(X), self(X, V).\n" + //
 			"top(\"Thing\").\n" + //
-			"bot(\"Nothing\").\n"+
-			"";
-	
-	static String strXSBHeader = ":- table triple/3.\n" + 
-			":- table inst/2.\n" + 
-			":- table self/2.\n" + 
-			"\n" + 
-			"subConj(X,Y,Z) :- fail.\n" + 
-			"subEx(X,Y,Z) :- fail.\n" + 
-			"subSelf(X, Y) :- fail.\n" + 
-			"supSelf(X, Y) :- fail.\n" + 
-			"self(X, Y) :- fail.\n" + 
-			"supProd(X, Y) :- fail.\n" + 
-			"subClass(X, Y) :- fail.\n" + 
+			"bot(\"Nothing\").\n" + "";
+
+	static String strXSBHeader = //
+			":- table triple/3.\n" + //
+			":- table inst/2.\n" + //
+			":- table self/2.\n" + //
+			"\n" + //
+			"subConj(_, _, _) :- fail.\n" + //
+			"subEx(_, _, _) :- fail.\n" + //
+			"subSelf(_, _) :- fail.\n" + //
+			"supSelf(_, _) :- fail.\n" + //
+			"self(_, _) :- fail.\n" + //
+			"subProd(_, _, _) :- fail.\n" + //
+			"supProd(_, _, _) :- fail.\n" + //
+			"subRConj(_, _, _) :- fail.\n" + //
+			"subClass(_, _) :- fail.\n" + //
+			"subRole(_, _) :- fail.\n" + //
+			"inst(_, _) :- fail.\n" + //
+			"triple(_, _, _) :- fail.\n" + //
+			"nom(_) :- fail.\n" + //
+			"rol(_) :- fail.\n" + //
+			"cls(_) :- fail.\n" + //
 			"";
 
 	static DLProgram pInst;

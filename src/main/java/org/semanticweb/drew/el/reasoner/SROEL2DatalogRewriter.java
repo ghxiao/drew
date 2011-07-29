@@ -85,7 +85,7 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(datalogFile));
 			writer.write(PInst.getPInst().toString());
-			writer.write(new DatalogToStringBuilder().toString(datalog));
+			writer.write(new DatalogToStringHelper().toString(datalog));
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
