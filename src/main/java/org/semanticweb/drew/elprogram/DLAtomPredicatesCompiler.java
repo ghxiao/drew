@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.lang.model.type.PrimitiveType;
+
 import org.semanticweb.drew.dlprogram.model.CacheManager;
 import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.Constant;
@@ -25,7 +27,7 @@ public class DLAtomPredicatesCompiler {
 
 	public DLAtomPredicatesCompiler() {
 		dlInputSignatureEncoder = DReWELManager.getInstance().getDlInputSignatureEncoder();
-		iriEncoder = DReWELManager.getInstance().getIriEncoder();
+		iriEncoder = DReWELManager.getInstance().getIRIEncoder();
 	}
 
 	public List<Clause> compile(Collection<DLAtomPredicate> dlAtomPredicates) {
@@ -41,7 +43,7 @@ public class DLAtomPredicatesCompiler {
 
 		int input = dlInputSignatureEncoder.encode(inputSignature);
 		int query = iriEncoder.encode(predicate.getQuery().getIRI());
-		Constant q = CacheManager.getInstance().getConstant(query);
+		Constant q = CacheManager.getInstance().getConstant(predicate.getQuery().getIRI());
 		// DL[\lambda; D](X) ~->
 		// D_{\lambda}(X) :- inst_{\lambda}(X, D)
 

@@ -9,6 +9,8 @@ import java.sql.Types;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.semanticweb.owlapi.model.IRI;
+
 public class CacheManager {
 	private static final CacheManager instance = new CacheManager();
 
@@ -20,6 +22,9 @@ public class CacheManager {
 
 	private Map<String, Constant> varchars = new HashMap<String, Constant>();
 
+	private Map<IRI, IRIConstant> iris = new HashMap<IRI, IRIConstant>();
+
+	
 	private CacheManager() {
 		reset();
 	}
@@ -57,6 +62,18 @@ public class CacheManager {
 		}
 	}
 
+	public Constant getConstant(IRI iri){
+		Constant result;
+		result = iris.get(iri);
+		if (result != null) {
+			return (Constant) result;
+		} else {
+			IRIConstant constant = new IRIConstant(iri);
+			iris.put(iri, constant);
+			return constant;
+		}
+	}
+	
 	public Constant getConstant(String name) {
 		return getConstant(name, Types.VARCHAR);
 	}
@@ -122,5 +139,6 @@ public class CacheManager {
 		// clear term map
 		vars.clear();
 	}
+
 
 }

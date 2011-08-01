@@ -54,7 +54,7 @@ public class ELProgramKBCompiler {
 
 	public ELProgramKBCompiler() {
 		dlInputSignatureEncoder = DReWELManager.getInstance().getDlInputSignatureEncoder();
-		iriEncoder = DReWELManager.getInstance().getIriEncoder();
+		iriEncoder = DReWELManager.getInstance().getIRIEncoder();
 	}
 
 	public DLProgram compile(DLProgramKB kb) {
@@ -203,7 +203,8 @@ public class ELProgramKBCompiler {
 			int arity = inputPredicate.getArity();
 			NormalPredicate predicate = CacheManager.getInstance().getPredicate(name, arity);
 
-			Constant cP = CacheManager.getInstance().getConstant(iriEncoder.encode(op.getDLPredicate().getIRI()));
+//			Constant cP = CacheManager.getInstance().getConstant(iriEncoder.encode(op.getDLPredicate().getIRI()));
+			Constant cP = CacheManager.getInstance().getConstant(op.getDLPredicate().getIRI());
 
 			Literal head = null;
 			Literal body = null;

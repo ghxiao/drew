@@ -29,7 +29,9 @@ public class NormalPredicate implements Predicate, Cloneable {
 
 	public static final NormalPredicate FALSE = new NormalPredicate("false", 0, PredicateType.LOGIC);
 
-	static final NormalPredicate[] builtins = { GREATER, GREATEREQUAL, EQUAL, LESSEQUAL, LESS, NOTEQUAL };
+	public static final NormalPredicate FAIL = new NormalPredicate("fail", 0, PredicateType.LOGIC);
+	
+	static final NormalPredicate[] builtins = { GREATER, GREATEREQUAL, EQUAL, LESSEQUAL, LESS, NOTEQUAL, FAIL };
 
 	static final NormalPredicate[] logics = { TRUE, FALSE };
 
@@ -107,13 +109,13 @@ public class NormalPredicate implements Predicate, Cloneable {
 	 */
 	private void update() {
 		// calculate string representation
-		if (type == PredicateType.LOGIC) {
-			string = name;
-		} else {
+//		if (type == PredicateType.LOGIC) {
+//			string = name;
+//		} else {
 			StringBuilder result = new StringBuilder();
 			result.append(name).append("/").append(arity);
 			string = result.toString();
-		}
+		//}
 
 		// calculate the hash code
 		hash = name.hashCode() + arity;

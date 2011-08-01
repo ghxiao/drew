@@ -7,10 +7,12 @@ import java.sql.Types;
 import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.Constant;
 import org.semanticweb.drew.dlprogram.model.DLProgram;
+import org.semanticweb.drew.dlprogram.model.IRIConstant;
 import org.semanticweb.drew.dlprogram.model.Literal;
 import org.semanticweb.drew.dlprogram.model.NormalPredicate;
 import org.semanticweb.drew.dlprogram.model.Predicate;
 import org.semanticweb.drew.dlprogram.model.Term;
+import org.semanticweb.owlapi.model.IRI;
 
 public class DatalogToStringHelper {
 
@@ -88,18 +90,21 @@ public class DatalogToStringHelper {
 					sb.append(", ");
 				}
 				first = false;
-				if (t instanceof Constant && ((Constant) t).getType() == Types.INTEGER) {
-					int i = Integer.parseInt(t.getName());
+				
+				
+				if (t instanceof IRIConstant) {
+					IRIConstant iriConstant = (IRIConstant)t;
+					IRI iri = iriConstant.getIRI();
 					switch (DReWELManager.getInstance().getNamingStrategy()) {
 					case IntEncoding:
-						sb.append(i);
+						sb.append(DReWELManager.getInstance().getIRIEncoder().encode(iri));
 						break;
 					case IRIFragment:
-						sb.append("\"").append(DReWELManager.getInstance().getIriEncoder().decode(i).getFragment())
+						sb.append("\"").append(iri.getFragment())
 								.append("\"");
 						break;
 					case IRIFull:
-						sb.append("\"").append(DReWELManager.getInstance().getIriEncoder().decode(i)).append("\"");
+						sb.append("\"").append(iri.toString()).append("\"");
 						break;
 					default:
 						break;

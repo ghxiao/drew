@@ -105,31 +105,33 @@ public class SROELProfile implements OWLProfile {
 
     public SROELProfile() {
         allowedDatatypes = new HashSet<IRI>();
-//        allowedDatatypes.add(OWLRDFVocabulary.RDF_XML_LITERAL.getIRI());
-//        allowedDatatypes.add(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
-//        allowedDatatypes.add(OWL2Datatype.OWL_RATIONAL.getIRI());
-//        allowedDatatypes.add(OWL2Datatype.OWL_REAL.getIRI());
-//        allowedDatatypes.add(OWL2Datatype.XSD_DECIMAL.getIRI());
-//        allowedDatatypes.add(OWL2Datatype.XSD_DECIMAL.getIRI());
-//        allowedDatatypes.add(OWL2Datatype.XSD_INTEGER.getIRI());
-//        allowedDatatypes.add(OWL2Datatype.XSD_NON_NEGATIVE_INTEGER.getIRI());
-//        allowedDatatypes.add(OWL2Datatype.XSD_STRING.getIRI());
-//        allowedDatatypes.add(OWL2Datatype.XSD_NORMALIZED_STRING.getIRI());
-//        allowedDatatypes.add(OWL2Datatype.XSD_TOKEN.getIRI());
-//        allowedDatatypes.add(OWL2Datatype.XSD_NAME.getIRI());
-//        allowedDatatypes.add(OWL2Datatype.XSD_NCNAME.getIRI());
-//        allowedDatatypes.add(OWL2Datatype.XSD_NMTOKEN.getIRI());
-//        allowedDatatypes.add(OWL2Datatype.XSD_HEX_BINARY.getIRI());
-//        allowedDatatypes.add(OWL2Datatype.XSD_BASE_64_BINARY.getIRI());
-//        allowedDatatypes.add(OWL2Datatype.XSD_ANY_URI.getIRI());
-//        allowedDatatypes.add(OWL2Datatype.XSD_DATE_TIME.getIRI());
-//        allowedDatatypes.add(OWL2Datatype.XSD_DATE_TIME_STAMP.getIRI());
+        allowedDatatypes.add(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
+        
+        allowedDatatypes.add(OWLRDFVocabulary.RDF_XML_LITERAL.getIRI());
+        allowedDatatypes.add(OWLRDFVocabulary.RDFS_LITERAL.getIRI());
+        allowedDatatypes.add(OWL2Datatype.OWL_RATIONAL.getIRI());
+        allowedDatatypes.add(OWL2Datatype.OWL_REAL.getIRI());
+        allowedDatatypes.add(OWL2Datatype.XSD_DECIMAL.getIRI());
+        allowedDatatypes.add(OWL2Datatype.XSD_DECIMAL.getIRI());
+        allowedDatatypes.add(OWL2Datatype.XSD_INTEGER.getIRI());
+        allowedDatatypes.add(OWL2Datatype.XSD_NON_NEGATIVE_INTEGER.getIRI());
+        allowedDatatypes.add(OWL2Datatype.XSD_STRING.getIRI());
+        allowedDatatypes.add(OWL2Datatype.XSD_NORMALIZED_STRING.getIRI());
+        allowedDatatypes.add(OWL2Datatype.XSD_TOKEN.getIRI());
+        allowedDatatypes.add(OWL2Datatype.XSD_NAME.getIRI());
+        allowedDatatypes.add(OWL2Datatype.XSD_NCNAME.getIRI());
+        allowedDatatypes.add(OWL2Datatype.XSD_NMTOKEN.getIRI());
+        allowedDatatypes.add(OWL2Datatype.XSD_HEX_BINARY.getIRI());
+        allowedDatatypes.add(OWL2Datatype.XSD_BASE_64_BINARY.getIRI());
+        allowedDatatypes.add(OWL2Datatype.XSD_ANY_URI.getIRI());
+        allowedDatatypes.add(OWL2Datatype.XSD_DATE_TIME.getIRI());
+        allowedDatatypes.add(OWL2Datatype.XSD_DATE_TIME_STAMP.getIRI());
     }
 
 
     @Override
 	public String getName() {
-        return "SROEL";
+        return "SROEL(D)";
     }
 
 

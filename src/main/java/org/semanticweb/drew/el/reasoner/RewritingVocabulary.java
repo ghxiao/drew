@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.semanticweb.drew.dlprogram.model.CacheManager;
 import org.semanticweb.drew.dlprogram.model.NormalPredicate;
+import org.semanticweb.drew.dlprogram.model.PredicateType;
 
 public class RewritingVocabulary {
 	
@@ -30,6 +31,14 @@ public class RewritingVocabulary {
 	public final static NormalPredicate SUB_R_CHAIN = CacheManager.getInstance().getPredicate("subRChain", 3);
 
 	public final static NormalPredicate SUB_R_CONJ = CacheManager.getInstance().getPredicate("subRConj", 3);
+	
+	public final static NormalPredicate DOMAIN = CacheManager.getInstance().getPredicate("domain", 2);
+	
+	public final static NormalPredicate DOMAIN_D = CacheManager.getInstance().getPredicate("domain_d", 2);
+
+	
+	public final static NormalPredicate RANGE = CacheManager.getInstance().getPredicate("range", 2);
+	
 	
 	public final static List<NormalPredicate> elRewritingPredicates = new ArrayList<NormalPredicate>();
 	

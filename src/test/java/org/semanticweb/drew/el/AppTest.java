@@ -32,217 +32,212 @@ import org.semanticweb.owlapi.profiles.OWLProfileReport;
 /**
  * Unit test for simple App.
  */
-public class AppTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
+public class AppTest extends TestCase {
+	/**
+	 * Create the test case
+	 * 
+	 * @param testName
+	 *            name of the test case
+	 */
+	public AppTest(String testName) {
+		super(testName);
+	}
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static TestSuite suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
+	/**
+	 * @return the suite of tests being tested
+	 */
+	public static TestSuite suite() {
+		return new TestSuite(AppTest.class);
+	}
 
-    /**
-     * Rigourous Test :-)
-     * @throws OWLOntologyCreationException 
-     */
-    public void testApp() throws OWLOntologyCreationException
-    {
-    	DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
+	/**
+	 * Rigourous Test :-)
+	 * 
+	 * @throws OWLOntologyCreationException
+	 */
+	public void testApp() throws OWLOntologyCreationException {
+		DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
 		final String owlFileName = "testcase/Test01.owl";
-		
+
 		File file = new File(owlFileName);
 		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
 		OWLOntology ontology = man.loadOntologyFromOntologyDocument(file);
-		
+
 		SROELProfile sroelProfile = new SROELProfile();
 		OWLProfileReport report = sroelProfile.checkOntology(ontology);
-		
+
 		System.out.println(report);
-    	
+
 		System.out.println("---------------------------------------");
-		
+
 		SROEL2DatalogRewriter rewriter = new SROEL2DatalogRewriter();
 		DLProgram datalog = rewriter.rewrite(ontology);
-		
+
 		rewriter.saveToFile("testcase/test01.owl.dl");
-		
-		
+
 		DatalogToStringHelper builder = new DatalogToStringHelper();
 		String strDatalog = builder.toString(datalog);
-		
+
 		System.out.println(strDatalog);
 		System.out.println("---------------------------------------");
-		
-    }
-    
-    public void testTopBot() throws OWLOntologyCreationException
-    {
-    	DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
+
+	}
+
+	public void testTopBot() throws OWLOntologyCreationException {
+		DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
 		final String owlFileName = "testcase/testTopBot.owl";
-		
+
 		File file = new File(owlFileName);
 		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
 		OWLOntology ontology = man.loadOntologyFromOntologyDocument(file);
-		
+
 		SROELProfile sroelProfile = new SROELProfile();
 		OWLProfileReport report = sroelProfile.checkOntology(ontology);
-		
+
 		System.out.println(report);
-    	
+
 		System.out.println("---------------------------------------");
-		
+
 		SROEL2DatalogRewriter rewriter = new SROEL2DatalogRewriter();
 		DLProgram datalog = rewriter.rewrite(ontology);
-		
+
 		DatalogToStringHelper builder = new DatalogToStringHelper();
 		String strDatalog = builder.toString(datalog);
-		
+
 		System.out.println(strDatalog);
 		System.out.println("---------------------------------------");
-    }
+	}
 
-    public void testSubRole() throws OWLOntologyCreationException
-    {
-    	DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
+	public void testSubRole() throws OWLOntologyCreationException {
+		DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
 		final String owlFileName = "testcase/testSubRole.owl";
-		
+
 		File file = new File(owlFileName);
 		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
 		OWLOntology ontology = man.loadOntologyFromOntologyDocument(file);
-		
+
 		SROELProfile sroelProfile = new SROELProfile();
 		OWLProfileReport report = sroelProfile.checkOntology(ontology);
-		
+
 		System.out.println(report);
-    	
+
 		System.out.println("---------------------------------------");
-		
+
 		SROEL2DatalogRewriter rewriter = new SROEL2DatalogRewriter();
 		DLProgram datalog = rewriter.rewrite(ontology);
-		
+
 		DatalogToStringHelper builder = new DatalogToStringHelper();
 		String strDatalog = builder.toString(datalog);
-		
+
 		System.out.println(strDatalog);
 		System.out.println("---------------------------------------");
-    }
+	}
 
-    public void testNom() throws OWLOntologyCreationException
-    {
-    	DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
+	public void testNom() throws OWLOntologyCreationException {
+		DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
 		final String owlFileName = "testcase/testNom.owl";
-		
-		File file = new File(owlFileName);
-		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-		OWLOntology ontology = man.loadOntologyFromOntologyDocument(file);
-		
-		SROELProfile sroelProfile = new SROELProfile();
-		OWLProfileReport report = sroelProfile.checkOntology(ontology);
-		
-		System.out.println(report);
-    	
-		System.out.println("---------------------------------------");
-		
-		SROEL2DatalogRewriter rewriter = new SROEL2DatalogRewriter();
-		DLProgram datalog = rewriter.rewrite(ontology);
-		
-		DatalogToStringHelper builder = new DatalogToStringHelper();
-		String strDatalog = builder.toString(datalog);
-		
-		System.out.println(strDatalog);
-		System.out.println("---------------------------------------");
-    }
 
-    public void testSelf() throws OWLOntologyCreationException
-    {
-    	DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
-		final String owlFileName = "testcase/testSelf.owl";
-		
 		File file = new File(owlFileName);
 		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
 		OWLOntology ontology = man.loadOntologyFromOntologyDocument(file);
-		
+
 		SROELProfile sroelProfile = new SROELProfile();
 		OWLProfileReport report = sroelProfile.checkOntology(ontology);
-		
+
 		System.out.println(report);
-    	
+
 		System.out.println("---------------------------------------");
-		
+
 		SROEL2DatalogRewriter rewriter = new SROEL2DatalogRewriter();
 		DLProgram datalog = rewriter.rewrite(ontology);
-		
+
 		DatalogToStringHelper builder = new DatalogToStringHelper();
 		String strDatalog = builder.toString(datalog);
-		
+
 		System.out.println(strDatalog);
-    }
-    
-    public void testRoleChain() throws OWLOntologyCreationException, OWLOntologyStorageException, IOException
-    {
+		System.out.println("---------------------------------------");
+	}
+
+	public void testSelf() throws OWLOntologyCreationException {
+		DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
+		final String owlFileName = "testcase/testSelf.owl";
+
+		File file = new File(owlFileName);
 		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-//		OWLDataFactory factory = man.getOWLDataFactory();
-//    	
-//		OWLObjectProperty r1 = factory.getOWLObjectProperty(IRI.create("http://www.semanticweb.org/ontologies/Test01.owl#R1"));
-//		OWLObjectProperty r2 = factory.getOWLObjectProperty(IRI.create("http://www.semanticweb.org/ontologies/Test01.owl#R2"));
-//		OWLObjectProperty r = factory.getOWLObjectProperty(IRI.create("http://www.semanticweb.org/ontologies/Test01.owl#R"));
-//		
-//		List<OWLObjectPropertyExpression> chain = new ArrayList<OWLObjectPropertyExpression>();
-//		chain.add(r1);
-//		chain.add(r2);
-//		OWLSubPropertyChainOfAxiom axiom = factory.getOWLSubPropertyChainOfAxiom(chain , r);
-//		
-//		OWLOntology ontology = man.createOntology();
-//		man.addAxiom(ontology, axiom);
-		
-    	DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
+		OWLOntology ontology = man.loadOntologyFromOntologyDocument(file);
+
+		SROELProfile sroelProfile = new SROELProfile();
+		OWLProfileReport report = sroelProfile.checkOntology(ontology);
+
+		System.out.println(report);
+
+		System.out.println("---------------------------------------");
+
+		SROEL2DatalogRewriter rewriter = new SROEL2DatalogRewriter();
+		DLProgram datalog = rewriter.rewrite(ontology);
+
+		DatalogToStringHelper builder = new DatalogToStringHelper();
+		String strDatalog = builder.toString(datalog);
+
+		System.out.println(strDatalog);
+	}
+
+	public void testRoleChain() throws OWLOntologyCreationException, OWLOntologyStorageException, IOException {
+		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+		// OWLDataFactory factory = man.getOWLDataFactory();
+		//
+		// OWLObjectProperty r1 =
+		// factory.getOWLObjectProperty(IRI.create("http://www.semanticweb.org/ontologies/Test01.owl#R1"));
+		// OWLObjectProperty r2 =
+		// factory.getOWLObjectProperty(IRI.create("http://www.semanticweb.org/ontologies/Test01.owl#R2"));
+		// OWLObjectProperty r =
+		// factory.getOWLObjectProperty(IRI.create("http://www.semanticweb.org/ontologies/Test01.owl#R"));
+		//
+		// List<OWLObjectPropertyExpression> chain = new
+		// ArrayList<OWLObjectPropertyExpression>();
+		// chain.add(r1);
+		// chain.add(r2);
+		// OWLSubPropertyChainOfAxiom axiom =
+		// factory.getOWLSubPropertyChainOfAxiom(chain , r);
+		//
+		// OWLOntology ontology = man.createOntology();
+		// man.addAxiom(ontology, axiom);
+
+		DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
 		final String owlFileName = "testcase/testRoleChain.owl";
 		final String prologFileName = "testcase/testRoleChain.pl";
 		File file = new File(owlFileName);
 		OWLOntology ontology = man.loadOntologyFromOntologyDocument(file);
-		
+
 		man.saveOntology(ontology, new FileOutputStream(owlFileName));
 		SROELProfile sroelProfile = new SROELProfile();
 		OWLProfileReport report = sroelProfile.checkOntology(ontology);
-		
+
 		System.out.println(report);
-    	
+
 		System.out.println("---------------------------------------");
-		
+
 		SROEL2DatalogRewriter rewriter = new SROEL2DatalogRewriter();
 		DLProgram datalog = rewriter.rewrite(ontology);
-		
+
 		DatalogToStringHelper builder = new DatalogToStringHelper();
 		builder.saveToFile(datalog, prologFileName);
-//		String strDatalog = builder.toString(datalog);
-//		
-//		FileWriter writer = new FileWriter(prologFileName);
-//		
-//		writer.append(strDatalog);
-//		writer.close();
-		
-//		System.out.println(strDatalog);
-    }
-    
-    @Test
-    public void testELProgram() throws OWLOntologyCreationException, FileNotFoundException, ParseException
-    {
-    	DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
-    	DReWELManager.getInstance().setDatalogFormat(DatalogFormat.XSB);
+		// String strDatalog = builder.toString(datalog);
+		//
+		// FileWriter writer = new FileWriter(prologFileName);
+		//
+		// writer.append(strDatalog);
+		// writer.close();
+
+		// System.out.println(strDatalog);
+	}
+
+	@Test
+	public void testELProgram() throws OWLOntologyCreationException, FileNotFoundException, ParseException {
+		DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
+		DReWELManager.getInstance().setDatalogFormat(DatalogFormat.XSB);
 		final String owlFileName = "testcase/test02.owl";
-		//final String dlpFileName = "testcase/test01.dlp";
+		// final String dlpFileName = "testcase/test01.dlp";
 		final String dlpFileName = "testcase/test01.dlp";
 		File file = new File(owlFileName);
 		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
@@ -252,13 +247,56 @@ public class AppTest
 		DLProgramKB kb = new DLProgramKB();
 		kb.setOntology(ontology);
 		kb.setProgram(elprogram);
-		
+
 		ELProgramKBCompiler compiler = new ELProgramKBCompiler();
 		DLProgram datalog = compiler.compile(kb);
-		//System.out.println(datalog);
+		// System.out.println(datalog);
 		DatalogToStringHelper builder = new DatalogToStringHelper();
 		String prologFileName = "testcase/testELProgram.pl";
-		builder.saveToFile(datalog, prologFileName );
-		//System.out.println(new DatalogToStringHelper().toString(datalog));
-    }
+		builder.saveToFile(datalog, prologFileName);
+		// System.out.println(new DatalogToStringHelper().toString(datalog));
+	}
+
+	@Test
+	public void testLUBMProfile() throws OWLOntologyCreationException {
+		DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
+		DReWELManager.getInstance().setDatalogFormat(DatalogFormat.XSB);
+		SROELProfile profile = new SROELProfile();
+		final String owlFileName = "testcase/univ-bench.owl";
+		String prologFileName = "testcase/univbench.pl";
+		File file = new File(owlFileName);
+		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+		OWLOntology ontology = man.loadOntologyFromOntologyDocument(file);
+		OWLProfileReport report = profile.checkOntology(ontology);
+		System.out.println(report);
+		
+		SROEL2DatalogRewriter rewriter = new SROEL2DatalogRewriter();
+		DLProgram datalog = rewriter.rewrite(ontology);
+
+		DatalogToStringHelper builder = new DatalogToStringHelper();
+		builder.saveToFile(datalog, prologFileName);
+
+	}
+	
+	@Test
+	public void testU00() throws OWLOntologyCreationException {
+		DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
+		//DReWELManager.getInstance().setDatalogFormat(DatalogFormat.XSB);
+		SROELProfile profile = new SROELProfile();
+		final String owlFileName = "testcase/U0_0.owl";
+		String prologFileName = "testcase/U00.dl";
+		//String prologFileName = "testcase/U00.pl";
+		File file = new File(owlFileName);
+		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+		OWLOntology ontology = man.loadOntologyFromOntologyDocument(file);
+		OWLProfileReport report = profile.checkOntology(ontology);
+		System.out.println(report);
+		
+		SROEL2DatalogRewriter rewriter = new SROEL2DatalogRewriter();
+		DLProgram datalog = rewriter.rewrite(ontology);
+
+		DatalogToStringHelper builder = new DatalogToStringHelper();
+		builder.saveToFile(datalog, prologFileName);
+
+	}
 }

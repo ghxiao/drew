@@ -60,7 +60,7 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-public class ELNormalizer implements OWLAxiomVisitorEx<Object> {
+public class ELNormalization implements OWLAxiomVisitorEx<Object> {
 
 	OWLOntology normalizedOnt;
 
@@ -70,7 +70,7 @@ public class ELNormalizer implements OWLAxiomVisitorEx<Object> {
 
 	private OWLDataFactory factory;
 
-	public ELNormalizer() {
+	public ELNormalization() {
 
 	}
 
@@ -104,13 +104,6 @@ public class ELNormalizer implements OWLAxiomVisitorEx<Object> {
 		throw new IllegalArgumentException(axiom.toString());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.semanticweb.owlapi.model.OWLAxiomVisitorEx#visit(org.semanticweb.
-	 * owlapi.model.OWLSubClassOfAxiom)
-	 */
 	@Override
 	public Object visit(OWLSubClassOfAxiom axiom) {
 
@@ -321,7 +314,10 @@ public class ELNormalizer implements OWLAxiomVisitorEx<Object> {
 
 	@Override
 	public Object visit(OWLDataPropertyDomainAxiom axiom) {
-		throw new IllegalStateException();
+		manager.addAxiom(normalizedOnt, axiom);
+		return null;
+
+		// throw new IllegalStateException();
 
 		// factory.getOWLSubClassOfAxiom(factory.getOWLDataSomeValuesFrom(axiom.getProperty(),
 		// factory.getTopDatatype()),
@@ -334,10 +330,11 @@ public class ELNormalizer implements OWLAxiomVisitorEx<Object> {
 	// domain(r) = C ~> some(r, T) subclass C
 	@Override
 	public Object visit(OWLObjectPropertyDomainAxiom axiom) {
-
-		factory.getOWLSubClassOfAxiom(factory.getOWLObjectSomeValuesFrom(axiom.getProperty(), factory.getOWLThing()),
-				axiom.getDomain()) //
-				.accept(this);
+		manager.addAxiom(normalizedOnt, axiom);
+		// factory.getOWLSubClassOfAxiom(factory.getOWLObjectSomeValuesFrom(axiom.getProperty(),
+		// factory.getOWLThing()),
+		// axiom.getDomain()) //
+		// .accept(this);
 		return null;
 	}
 
@@ -370,10 +367,11 @@ public class ELNormalizer implements OWLAxiomVisitorEx<Object> {
 	// range(r) = C ~> T subclass all(r, C)
 	@Override
 	public Object visit(OWLObjectPropertyRangeAxiom axiom) {
-
-		factory.getOWLSubClassOfAxiom(factory.getOWLThing(),
-				factory.getOWLObjectAllValuesFrom(axiom.getProperty(), axiom.getRange())) //
-				.accept(this);
+		manager.addAxiom(normalizedOnt, axiom);
+		// factory.getOWLSubClassOfAxiom(factory.getOWLThing(),
+		// factory.getOWLObjectAllValuesFrom(axiom.getProperty(),
+		// axiom.getRange())) //
+		// .accept(this);
 		return null;
 	}
 
@@ -473,8 +471,9 @@ public class ELNormalizer implements OWLAxiomVisitorEx<Object> {
 
 	@Override
 	public Object visit(OWLDataPropertyAssertionAxiom axiom) {
-
-		throw new IllegalArgumentException(axiom.toString());
+		manager.addAxiom(normalizedOnt, axiom);
+		return null;
+		//throw new IllegalArgumentException(axiom.toString());
 
 	}
 
@@ -516,10 +515,10 @@ public class ELNormalizer implements OWLAxiomVisitorEx<Object> {
 
 	@Override
 	public Object visit(OWLSubPropertyChainOfAxiom axiom) {
-		//FIXME: size(subroles) > 2
+		// FIXME: size(subroles) > 2
 		manager.addAxiom(normalizedOnt, axiom);
 		return null;
-//		throw new IllegalArgumentException(axiom.toString());
+		// throw new IllegalArgumentException(axiom.toString());
 
 	}
 

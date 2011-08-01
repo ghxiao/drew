@@ -13,11 +13,6 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 public class DReWELManager {
 	static private DReWELManager instance = new DReWELManager();
 
-	// private SymbolEncoder<OWLClass> owlClassEncoder;
-	// private SymbolEncoder<OWLObjectPropertyExpression>
-	// owlObjectPropertyExpressionEncoder;
-	// private SymbolEncoder<OWLDataProperty> owlDataPropertyEncoder;
-	// private SymbolEncoder<OWLIndividual> owlIndividualEncoder;
 	private int thing;
 	private int nothing;
 	private int topProperty;
@@ -87,7 +82,7 @@ public class DReWELManager {
 		this.namingStrategy = namingStrategy;
 	}
 
-	public SymbolEncoder<IRI> getIriEncoder() {
+	public SymbolEncoder<IRI> getIRIEncoder() {
 		return iriEncoder;
 	}
 
