@@ -1,0 +1,7 @@
+PREFIX u: <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#> 
+
+SELECT ?X
+WHERE {
+  ?X a u:Publication. 
+  ?X u:publicationAuthor <http://www.Department0.University0.edu/AssistantProfessor0>.
+}
