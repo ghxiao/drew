@@ -289,6 +289,42 @@ public class AppTest extends TestCase {
 		File file = new File(owlFileName);
 		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
 		OWLOntology ontology = man.loadOntologyFromOntologyDocument(file);
+//		System.out.println("axioms: " + ontology.getAxiomCount());
+//		System.out.println("individuals: "+ontology.getIndividualsInSignature().size());
+//		System.out.println("concepts: "+ontology.getClassesInSignature().size());
+//		System.out.println("object roles: "+ontology.getObjectPropertiesInSignature().size());
+//		System.out.println("data roles: "+ontology.getDataPropertiesInSignature().size());
+//
+
+		OWLProfileReport report = profile.checkOntology(ontology);
+		System.out.println(report);
+		
+		SROEL2DatalogRewriter rewriter = new SROEL2DatalogRewriter();
+		DLProgram datalog = rewriter.rewrite(ontology);
+
+		DatalogToStringHelper builder = new DatalogToStringHelper();
+		builder.saveToFile(datalog, prologFileName);
+
+	}
+	
+	@Test
+	public void testELGalen() throws OWLOntologyCreationException {
+		DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
+		//DReWELManager.getInstance().setDatalogFormat(DatalogFormat.XSB);
+		SROELProfile profile = new SROELProfile();
+		final String owlFileName = "testcase/EL-GALEN.owl";
+		String prologFileName = "testcase/EL-GALEN.dl";
+		//String prologFileName = "testcase/U00.pl";
+		File file = new File(owlFileName);
+		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+		OWLOntology ontology = man.loadOntologyFromOntologyDocument(file);
+//		System.out.println("axioms: " + ontology.getAxiomCount());
+//		System.out.println("individuals: "+ontology.getIndividualsInSignature().size());
+//		System.out.println("concepts: "+ontology.getClassesInSignature().size());
+//		System.out.println("object roles: "+ontology.getObjectPropertiesInSignature().size());
+//		System.out.println("data roles: "+ontology.getDataPropertiesInSignature().size());
+//
+
 		OWLProfileReport report = profile.checkOntology(ontology);
 		System.out.println(report);
 		

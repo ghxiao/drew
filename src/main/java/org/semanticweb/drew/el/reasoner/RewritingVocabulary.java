@@ -16,6 +16,8 @@ public class RewritingVocabulary {
 	
 	public final static NormalPredicate INST = CacheManager.getInstance().getPredicate("inst", 2);
 
+	public final static NormalPredicate TRIPLE = CacheManager.getInstance().getPredicate("triple", 3);
+
 	public final static NormalPredicate SUB_CLASS = CacheManager.getInstance().getPredicate("subClass", 2);
 	public final static NormalPredicate TOP = CacheManager.getInstance().getPredicate("top", 1);
 	public final static NormalPredicate BOT = CacheManager.getInstance().getPredicate("bot", 1);
