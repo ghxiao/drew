@@ -10,11 +10,11 @@ import java.util.Map;
 import org.semanticweb.owlapi.model.OWLLogicalEntity;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 public class DLProgramParser implements DLProgramParserConstants {
-  final static Logger logger = LoggerFactory.getLogger(DLProgramParser.class);
+ // final static Logger logger = LoggerFactory.getLogger(DLProgramParser.class);
   Map < String, String > namespaces = new HashMap < String, String > ();
 
   public void process() throws ParseException

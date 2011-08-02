@@ -1,0 +1,1 @@
+ans(X) :- inst(X, "GraduateStudent"), triple(X, "takesCourse", "GraduateCourse0").

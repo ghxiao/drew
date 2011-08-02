@@ -16,14 +16,14 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 
 public class DLProgramKBLoader {
 
-	final static Logger logger = LoggerFactory
-			.getLogger(DLProgramKBLoader.class);
+//	final static Logger logger = LoggerFactory
+//			.getLogger(DLProgramKBLoader.class);
 
 	/**
 	 * Load a dl-program kb from two files

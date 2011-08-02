@@ -9,8 +9,6 @@ import java.util.Map;
 import org.semanticweb.owlapi.model.OWLLogicalEntity;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /** Token Manager. */
 public class DLProgramParserTokenManager implements DLProgramParserConstants

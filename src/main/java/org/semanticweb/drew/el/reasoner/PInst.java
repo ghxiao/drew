@@ -11,38 +11,42 @@ import org.semanticweb.drew.dlprogram.parser.ParseException;
 public class PInst {
 
 	static String strPInst = "inst(X, X) :- nom(X).\n" + //
-			"self(X, V) :- nom(X), triple(X, V, X).\n" + //
-			"inst(X, Z) :- top(Z), inst(X, Z1).\n" + //
-			"inst(X, Y) :- bot(Z), inst(U, Z), inst(X, Z1), cls(Y).\n" + //
+			"self(X, V) :- nom(X), rol(V), triple(X, V, X).\n" + //
+			// "inst(X, Z) :- top(Z), inst(X, Z1).\n" + //
+			// "inst(X, Y) :- bot(Z), inst(U, Z), inst(X, Z1), cls(Y).\n" + //
 			"inst(X, Z) :- subClass(Y, Z), inst(X, Y).\n" + //
-			"inst(X, Z) :-subConj(Y1, Y2, Z), inst(X, Y1), inst(X, Y2).\n" + //
-			"inst(X, Z) :-subEx(V, Y, Z), triple(X, V, X1), inst(X1, Y).\n" + //
-			"inst(X, Z) :-subEx(V, Y, Z), self(X, V), inst(X, Y).\n" + //
+			"inst(X, Z) :- subConj(Y1, Y2, Z), inst(X, Y1), inst(X, Y2).\n" + //
+			"inst(X, Z) :- rol(Y), rol(V), subEx(V, Y, Z), triple(X, V, X1), inst(X1, Y).\n" + //
+			"inst(X, Z) :- rol(Y), subEx(V, Y, Z), self(X, V), inst(X, Y).\n" + //
+			//"triple(X, V, X1) :-  rol(V), supEx(Y, V, Z, X1), inst(X, Y).\n" + //
 			"triple(X, V, X1) :-  supEx(Y, V, Z, X1), inst(X, Y).\n" + //
-			"inst(X1, Z) :-supEx(Y, V, Z, X1), inst(X, Y).\n" + //
-			"inst(X, Z) :-subSelf(V, Z), self(X, V).\n" + //
-			"self(X, V) :-supSelf(Y, V), inst(X, Y).\n" + //
-			"triple(X, W, X1) :-subRole(V, W), triple(X, V, X1).\n" + //
-			"self(X, W) :- subRole(V, W), self(X, V).\n" + //
-			"triple(X, W, X11) :- subRChain(U, V, W), triple(X, U, X1), triple(X1, V, X11).\n" + //
-			"triple(X, W,X1) :-subRChain(U, V, W), self(X, U), triple(X, V, X1).\n" + //
-			"triple(X, W, X1) :-subRChain(U, V, W), triple(X, U, X1), self(X1, V).\n" + //
-			"triple(X, W, X) :-subRChain(U, V, W), self(X, U), self(X, V).\n" + //
-			"triple(X,W,X1) :-subRConj(V1,V2,W), triple(X,V1,X1), triple(X,V2,X1).\n" + //
-			"self(X, W) :-subRConj(V1, V2, W), self(X, V1), self(X, V2).\n" + //
-			"triple(X, W, X1) :-subProd(Y1, Y2, W), inst(X, Y1), inst(X1, Y2).\n" + //
-			"self(X, W) :-subProd(Y1, Y2, W), inst(X, Y1), inst(X, Y2).\n" + //
-			"inst(X, Z1) :-supProd(V, Z1, Z2), triple(X, V, X1).\n" + //
-			"inst(X, Z1) :-supProd(V, Z1, Z2), self(X, V).\n" + //
-			"inst(X1, Z2) :-supProd(V, Z1, Z2), triple(X, V, X1).\n" + //
-			"inst(X, Z2) :-supProd(V, Z1, Z2), self(X, V).\n" + //
+			"inst(X1, Z) :- rol(V), supEx(Y, V, Z, X1), inst(X, Y).\n" + //
+			"inst(X, Z) :- rol(V), subSelf(V, Z), self(X, V).\n" + //
+			"self(X, V) :- rol(V), supSelf(Y, V), inst(X, Y).\n" + //
+			"triple(X, W, X1) :- rol(V), rol(W), subRole(V, W), triple(X, V, X1).\n" + //
+			"self(X, W) :- rol(V), rol(W), subRole(V, W), self(X, V).\n" + //
+			"triple(X, W, X11) :- rol(U), rol(V), rol(W), subRChain(U, V, W), triple(X, U, X1), triple(X1, V, X11).\n" + //
+			"triple(X, W, X1) :- rol(U), rol(V), rol(W), subRChain(U, V, W), self(X, U), triple(X, V, X1).\n" + //
+			"triple(X, W, X1) :- rol(U), rol(V), rol(W), subRChain(U, V, W), triple(X, U, X1), self(X1, V).\n" + //
+			"triple(X, W, X) :- rol(U), rol(V), rol(W), subRChain(U, V, W), self(X, U), self(X, V).\n" + //
+			"triple(X, W, X1) :- rol(V1), rol(V2), rol(W), subRConj(V1,V2,W), triple(X,V1,X1), triple(X,V2,X1).\n" + //
+			"self(X, W) :- rol(V1), rol(V2), rol(W), subRConj(V1, V2, W), self(X, V1), self(X, V2).\n" + //
+			// "triple(X, W, X1) :- rol(W), subProd(Y1, Y2, W), inst(X, Y1), inst(X1, Y2).\n"
+			// + //
+			// "self(X, W) :- rol(W), subProd(Y1, Y2, W), inst(X, Y1), inst(X, Y2).\n"
+			// + //
+			// "inst(X, Z1) :- rol(V), supProd(V, Z1, Z2), triple(X, V, X1).\n"
+			// + //
+			// "inst(X, Z1) :-supProd(V, Z1, Z2), self(X, V).\n" + //
+			// "inst(X1, Z2) :-supProd(V, Z1, Z2), triple(X, V, X1).\n" + //
+			// "inst(X, Z2) :-supProd(V, Z1, Z2), self(X, V).\n" + //
 			"inst(Y, Z) :-inst(X, Y), nom(Y), inst(X, Z).\n" + //
 			"inst(X, Z) :-inst(X, Y), nom(Y), inst(Y, Z).\n" + //
 			"triple(Z, U, Y) :- inst(X, Y), nom(Y), triple(Z, U, X).\n" + //
-			"triple(X, V, X) :- nom(X), self(X, V).\n" + //
-			"inst(Y, R) :- range(P, R), triple(X, R, Y).\n " + //
-			"inst(X, R) :- domain(P, R), triple(X, R, Y).\n " + //
-			//"inst(X, R) :- transitive(R), triple(X, R, Y).\n " + //
+			"triple(X, V, X) :- nom(X), rol(V), self(X, V).\n" + //
+			"inst(Y, R) :- range(V, R), triple(X, V, Y).\n " + //
+			"inst(X, R) :- domain(V, R), triple(X, V, Y).\n " + //
+			// "inst(X, R) :- transitive(R), triple(X, R, Y).\n " + //
 			"top(\"Thing\").\n" + //
 			"bot(\"Nothing\").\n" + //
 			"";

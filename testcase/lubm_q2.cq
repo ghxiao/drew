@@ -1,0 +1,10 @@
+%(type GraduateStudent ?X)
+%(type University ?Y)
+%(type Department ?Z)
+%(memberOf ?X ?Z)
+%(subOrganizationOf ?Z ?Y)
+%(undergraduateDegreeFrom ?X ?Y)
+%- This query increases in complexity: 3 classes and 3 properties are involved. Additionally, there is a triangular pattern of relationships between the objects involved.
+
+ans(X, Y, Z) :- inst(X, "GraduateStudent"), inst(Y, "University"), inst(Z, "Department"), tripe(X, "memberOf",Z), triple(Z, "subOrganizationOf", Y), 
+triple(X, "undergraduateDegreeFrom",Y).

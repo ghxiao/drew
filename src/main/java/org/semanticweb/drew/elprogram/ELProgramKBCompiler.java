@@ -35,15 +35,15 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLogicalEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 /**
  * KBCompiler: compile the el-program KB to a datalog^n program.
  */
 public class ELProgramKBCompiler {
 
-	final static Logger logger = LoggerFactory.getLogger(ELProgramKBCompiler.class);
+	//final static Logger logger = LoggerFactory.getLogger(ELProgramKBCompiler.class);
 
 	Variable X = CacheManager.getInstance().getVariable("X");
 	Variable Y = CacheManager.getInstance().getVariable("Y");
@@ -130,7 +130,7 @@ public class ELProgramKBCompiler {
 			newClause.getNegativeBody().add(newLit);
 		}
 
-		logger.debug("{}\n   -> \n{}", clause, newClause);
+		//logger.debug("{}\n   -> \n{}", clause, newClause);
 
 		return newClause;
 	}
@@ -222,7 +222,7 @@ public class ELProgramKBCompiler {
 			clause.setHead(head);
 			clause.getPositiveBody().add(body);
 			clauses.add(clause);
-			logger.debug("{} -> {}", signature, clause);
+			//logger.debug("{} -> {}", signature, clause);
 		}
 
 		return clauses;
@@ -248,7 +248,7 @@ public class ELProgramKBCompiler {
 			}
 			newClauses.add(newClause);
 
-			logger.debug("{} / [{}]\n  ->\n{}", new Object[] { clause, signature, newClause });
+//			logger.debug("{} / [{}]\n  ->\n{}", new Object[] { clause, signature, newClause });
 		}
 
 		return newClauses;

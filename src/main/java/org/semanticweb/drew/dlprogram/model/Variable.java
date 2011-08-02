@@ -31,6 +31,7 @@ public class Variable implements Term {
 	 * 
 	 * @return name of the term
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
