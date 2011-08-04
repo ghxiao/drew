@@ -43,7 +43,8 @@ import org.semanticweb.owlapi.model.OWLOntology;
  */
 public class ELProgramKBCompiler {
 
-	//final static Logger logger = LoggerFactory.getLogger(ELProgramKBCompiler.class);
+	// final static Logger logger =
+	// LoggerFactory.getLogger(ELProgramKBCompiler.class);
 
 	Variable X = CacheManager.getInstance().getVariable("X");
 	Variable Y = CacheManager.getInstance().getVariable("Y");
@@ -53,7 +54,8 @@ public class ELProgramKBCompiler {
 	private SymbolEncoder<IRI> iriEncoder;
 
 	public ELProgramKBCompiler() {
-		dlInputSignatureEncoder = DReWELManager.getInstance().getDlInputSignatureEncoder();
+		dlInputSignatureEncoder = DReWELManager.getInstance()
+				.getDlInputSignatureEncoder();
 		iriEncoder = DReWELManager.getInstance().getIRIEncoder();
 	}
 
@@ -62,9 +64,11 @@ public class ELProgramKBCompiler {
 
 		final OWLOntology ontology = kb.getOntology();
 		SROEL2DatalogRewriter ldlpCompiler = new SROEL2DatalogRewriter();
-		final List<Clause> compiledOntology = ldlpCompiler.rewrite(ontology).getClauses();
+		final List<Clause> compiledOntology = ldlpCompiler.rewrite(ontology)
+				.getClauses();
 		final DLProgram program = kb.getProgram();
-		final Set<DLInputSignature> dlInputSignatures = program.getDLInputSignatures();
+		final Set<DLInputSignature> dlInputSignatures = program
+				.getDLInputSignatures();
 		for (DLInputSignature signature : dlInputSignatures) {
 			result.addAll(subscript(compiledOntology, signature));
 		}
@@ -130,7 +134,7 @@ public class ELProgramKBCompiler {
 			newClause.getNegativeBody().add(newLit);
 		}
 
-		//logger.debug("{}\n   -> \n{}", clause, newClause);
+		// logger.debug("{}\n   -> \n{}", clause, newClause);
 
 		return newClause;
 	}
@@ -155,10 +159,13 @@ public class ELProgramKBCompiler {
 		// String sub =
 		// KBCompilerManager.getInstance().getSubscript(inputSigature);
 
-		String sub = String.valueOf(dlInputSignatureEncoder.encode(inputSigature));
+		String sub = String.valueOf(dlInputSignatureEncoder
+				.encode(inputSigature));
 
-		NormalPredicate newPredicate = CacheManager.getInstance().getPredicate(
-				RewritingVocabulary.DL_ATOM + "_" + q + "_" + sub, p.getArity());
+		NormalPredicate newPredicate = CacheManager.getInstance()
+				.getPredicate(
+						RewritingVocabulary.DL_ATOM + "_" + q + "_" + sub,
+						p.getArity());
 		List<Term> terms = lit.getTerms();
 		List<Term> newTerms = compileTerms(terms);
 		Literal newLit = new Literal(newPredicate, newTerms);
@@ -197,14 +204,23 @@ public class ELProgramKBCompiler {
 
 		List<Clause> clauses = new ArrayList<Clause>();
 		for (DLInputOperation op : signature.getOperations()) {
-
-			String name = RewritingVocabulary.INST.getName() + "_" + sub;
 			NormalPredicate inputPredicate = op.getInputPredicate();
 			int arity = inputPredicate.getArity();
-			NormalPredicate predicate = CacheManager.getInstance().getPredicate(name, arity);
 
-//			Constant cP = CacheManager.getInstance().getConstant(iriEncoder.encode(op.getDLPredicate().getIRI()));
-			Constant cP = CacheManager.getInstance().getConstant(op.getDLPredicate().getIRI());
+			String name = null;
+			if (arity == 1) {
+				name = RewritingVocabulary.INST.getName() + "_" + sub;
+			} else if (arity == 2) {
+				name = RewritingVocabulary.TRIPLE.getName() + "_" + sub;
+			}
+
+			NormalPredicate predicate = CacheManager.getInstance()
+					.getPredicate(name, arity);
+
+			// Constant cP =
+			// CacheManager.getInstance().getConstant(iriEncoder.encode(op.getDLPredicate().getIRI()));
+			Constant cP = CacheManager.getInstance().getConstant(
+					op.getDLPredicate().getIRI());
 
 			Literal head = null;
 			Literal body = null;
@@ -212,7 +228,7 @@ public class ELProgramKBCompiler {
 				head = new Literal(predicate, X, cP);
 				body = new Literal(inputPredicate, X);
 			} else if (arity == 2) {
-				head = new Literal(predicate, X, Y, cP);
+				head = new Literal(predicate, X, cP, Y);
 				body = new Literal(inputPredicate, X, Y);
 			} else {
 				throw new IllegalArgumentException();
@@ -222,7 +238,7 @@ public class ELProgramKBCompiler {
 			clause.setHead(head);
 			clause.getPositiveBody().add(body);
 			clauses.add(clause);
-			//logger.debug("{} -> {}", signature, clause);
+			// logger.debug("{} -> {}", signature, clause);
 		}
 
 		return clauses;
@@ -248,7 +264,8 @@ public class ELProgramKBCompiler {
 			}
 			newClauses.add(newClause);
 
-//			logger.debug("{} / [{}]\n  ->\n{}", new Object[] { clause, signature, newClause });
+			// logger.debug("{} / [{}]\n  ->\n{}", new Object[] { clause,
+			// signature, newClause });
 		}
 
 		return newClauses;
@@ -265,7 +282,8 @@ public class ELProgramKBCompiler {
 			int arity = predicate.getArity();
 			String name = predicate.getName();
 			String newName = name + "_" + sub;
-			NormalPredicate newPredicate = CacheManager.getInstance().getPredicate(newName, arity);
+			NormalPredicate newPredicate = CacheManager.getInstance()
+					.getPredicate(newName, arity);
 			Literal newLiteral = new Literal(newPredicate, literal.getTerms());
 
 			return newLiteral;

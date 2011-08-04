@@ -101,7 +101,7 @@ public class DReWELCLI {
 			DLProgram datalog = compiler.compile(kb);
 			DatalogToStringHelper helper = new DatalogToStringHelper();
 			String strDatalog = helper.toString(datalog);
-			System.out.println(strDatalog);
+			//System.out.println(strDatalog);
 			inputProgram.addText(strDatalog);
 		}
 

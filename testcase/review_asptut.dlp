@@ -1,0 +1,44 @@
+%%% Reviewer Selection Example, modified from Eiter, et al., KR2004 %%%
+
+% We have the submissions for a fictitious conference: 
+paper(subm1). 
+author(subm1,"jdbr"). author(subm1,"htom").
+
+paper(subm2). 
+author(subm2,"teit"). author(subm2,"gian"). 
+author(subm2,"rsch"). author(subm2,"apol").
+
+% This is our programme committee:
+pc("vlif").
+pc("mgel").
+pc("dfen").
+pc("fley").
+pc("smil").
+pc("mkif").
+pc("ptra").
+pc("ggot").
+pc("ihor").
+
+% We know that all our PC members are in the "Club100" 
+% with more than 100 papers, a concept which is used in the OWL KB.
+
+% As reviewer candidates, we want to consider  senior 
+% researchers as defined in the OWL KB, additionally ADDING
+% the information about our PC members to the OWL  KB:
+
+cand(X,P) :-  paper(P), DL[club100+=pc;senior](X).
+
+% Guess a reviewer assignment:
+assign(X,P) v -assign(X,P) :- cand(X,P) .
+
+% Check that each paper is assigned to at most one person:
+:- assign(X,P), assign(X1,P), X1 != X.
+
+% A reviewer can't review a paper by him/herself:
+:- assign(A,P), author(P,A).
+
+% For checking whether all papers are correctly assigned, we need projection...
+a(P) :- assign(X,P).
+error(P) :- paper(P), not a(P).
+:- error(P).
+
