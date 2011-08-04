@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+     <!ENTITY owl  "http://www.w3.org/2002/07/owl#" >
+     <!ENTITY xsd  "http://www.w3.org/2001/XMLSchema#" >
+     <!ENTITY foaf  "http://xmlns.com/foaf/0.1/" >
+   ]>
+
+<rdf:RDF 
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" 
+         xmlns:foaf="http://xmlns.com/foaf/0.1/" 
+         xmlns:admin="http://webns.net/mvcb/" 
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:ical="http://www.w3.org/2002/12/cal/ical#"
+         xml:base="http://apolleres.escet.urjc.es/asptut/sandbox/reviewers.rdf"
+         xmlns="http://apolleres.escet.urjc.es/asptut/sandbox/reviewers.rdf#">
+       
+         <owl:Ontology rdf:ID="reviewers"/>
+
+<!-- TBox -->
+
+         <owl:DatatypeProperty rdf:ID="title">
+           <rdfs:domain rdf:resource="#paper"/>    
+           <rdfs:range  rdf:resource="&xsd;string"/>
+         </owl:DatatypeProperty> 
+
+         <owl:DatatypeProperty rdf:ID="publishedIn">
+           <rdfs:domain rdf:resource="#paper"/>    
+           <rdfs:range  rdf:resource="&xsd;string"/>
+         </owl:DatatypeProperty> 
+
+         <owl:DatatypeProperty rdf:ID="year">
+           <rdfs:domain rdf:resource="#paper"/>    
+           <rdfs:range  rdf:resource="&xsd;integer"/>
+         </owl:DatatypeProperty> 
+
+         <owl:DatatypeProperty rdf:ID="firstname">
+           <rdfs:domain rdf:resource="#person" />    
+           <rdfs:range  rdf:resource="&xsd;string"/>
+         </owl:DatatypeProperty> 
+
+         <owl:DatatypeProperty rdf:ID="lastname">
+           <rdfs:domain rdf:resource="#person" />    
+           <rdfs:range  rdf:resource="&xsd;string"/>
+         </owl:DatatypeProperty> 
+
+         <owl:ObjectProperty rdf:ID="keyword">
+           <rdfs:domain rdf:resource="#paper" />    
+           <rdfs:range  rdf:resource="#kw"/>
+         </owl:ObjectProperty> 
+
+         <owl:ObjectProperty rdf:ID="cites">
+           <rdfs:domain rdf:resource="#paper" />    
+           <rdfs:range  rdf:resource="#paper"/>
+         </owl:ObjectProperty>
+
+         <owl:ObjectProperty rdf:ID="hasAuthor">
+           <rdfs:domain rdf:resource="#paper" />    
+           <rdfs:range  rdf:resource="#person"/>
+         </owl:ObjectProperty> 
+
+         <owl:ObjectProperty rdf:ID="overlapsWith">
+           <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+           <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+           <rdfs:domain rdf:resource="#kw" />    
+           <rdfs:range  rdf:resource="#kw"/>
+         </owl:ObjectProperty> 
+
+         <owl:ObjectProperty rdf:ID="isAuthorOf">
+           <owl:inverseOf rdf:resource="#hasAuthor"/>
+         </owl:ObjectProperty>
+ 
+         <owl:Class rdf:ID="paper"/>
+         <owl:Class rdf:ID="kw"/>
+         <owl:Class rdf:ID="person"/>
+
+         <owl:Class rdf:ID="publication">
+           <owl:intersectionOf rdf:parseType="Collection"> 
+             <owl:Class rdf:about="#paper"/>
+             <owl:Restriction>
+               <owl:onProperty rdf:resource="#publishedIn"/>
+               <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+             </owl:Restriction>
+         </owl:intersectionOf>
+         </owl:Class>
+
+         <owl:Class rdf:ID="senior">
+           <owl:intersectionOf rdf:parseType="Collection"> 
+             <owl:Class rdf:about="#person"/>
+              <owl:Restriction>
+               <owl:onProperty rdf:resource="#isAuthorOf"/>
+               <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">3</owl:minCardinality>
+             </owl:Restriction>
+             <owl:Restriction>
+               <owl:onProperty rdf:resource="#isAuthorOf"/>
+               <owl:someValuesFrom rdf:resource="#publication"/> 
+             </owl:Restriction>
+           </owl:intersectionOf>
+         </owl:Class>
+
+         <owl:Class rdf:ID="club100">
+           <owl:intersectionOf rdf:parseType="Collection"> 
+             <owl:Class rdf:about="#person"/>
+             <owl:Restriction>
+               <owl:onProperty rdf:resource="#isAuthorOf"/>
+               <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">100</owl:minCardinality>
+             </owl:Restriction>
+           </owl:intersectionOf>
+         </owl:Class>
+
+
+<!-- ABox  -->
+
+   <!-- A sample set of keywords -->
+
+   <kw rdf:ID="Knowledge_Representation"/>
+   <kw rdf:ID="Answer_Set_Programming">
+     <overlapsWith rdf:resource="#Stable_Model_Semantics"/>
+     <overlapsWith rdf:resource="#Disjunctive_Logic_Programming"/>
+   </kw>
+   <kw rdf:ID="Stable_Model_Semantics"/>
+   <kw rdf:ID="Well_Founded_Semantics"/>
+   <kw rdf:ID="Disjunctive_Logic_Programming"/>
+   <kw rdf:ID="Nonmonotonic_Reasoning"/>
+   <kw rdf:ID="Description_Logics"/>
+   <kw rdf:ID="Frame_Systems"/>
+   <kw rdf:ID="Ontologies">
+     <overlapsWith rdf:resource="#OIL"/>
+     <overlapsWith rdf:resource="#OWL"/>
+     <overlapsWith rdf:resource="#RDFS"/>
+   </kw>
+
+   <kw rdf:ID="Web_Technologies"/>
+   <kw rdf:ID="Web_Engineering"/>
+   <kw rdf:ID="Semantic_Web"/>
+   <kw rdf:ID="XML"/>
+   <kw rdf:ID="OWL"/>
+   <kw rdf:ID="RDF"/>
+   <kw rdf:ID="RIF"/>
+   <kw rdf:ID="RDFS"/>
+   <kw rdf:ID="RuleML"/>
+
+   <kw rdf:ID="Web_Services"/>
+   <kw rdf:ID="WSDL"/>
+   <kw rdf:ID="UDDI"/>
+   <kw rdf:ID="SOAP"/>
+   <kw rdf:ID="Semantic_Web_Services">
+     <overlapsWith rdf:resource="#WSMO"/>
+     <overlapsWith rdf:resource="#WSML"/>
+     <overlapsWith rdf:resource="#OWL-S"/>
+     <overlapsWith rdf:resource="#WSDL-S"/>
+     <overlapsWith rdf:resource="#SWSF"/>
+     <overlapsWith rdf:resource="#SWSL"/>
+   </kw>
+   <kw rdf:ID="Service-Oriented_Computing">
+     <overlapsWith rdf:resource="#Service-Oriented_Architecture"/>
+   </kw>
+   <kw rdf:ID="Service-Oriented_Architecture"/>
+   <kw rdf:ID="Intelligent_Agents"/>
+   <kw rdf:ID="WSMO"/>
+   <kw rdf:ID="SWSF"/>
+   <kw rdf:ID="SWSL"/>
+   <kw rdf:ID="WSML"/>
+   <kw rdf:ID="OWL-S"/>
+   <kw rdf:ID="WSDL-S"/>
+   <kw rdf:ID="SWRL"/>
+   <kw rdf:ID="WRL"/>
+   <kw rdf:ID="OIL"/>
+ 
+   <kw rdf:ID="Knowledge_Management"/>
+   <kw rdf:ID="Enterprise_Application_Integration"/>
+   <kw rdf:ID="Information_Integration"/>
+   <kw rdf:ID="Bioinformatics"/>
+   <kw rdf:ID="eCommerce"/>
+   <kw rdf:ID="eScience"/>
+   <kw rdf:ID="Business_Process_Management"/>
+
+<!-- The following data only serves as an example:
+     The persons, papers, and keywords listed here are incomplete
+     and solely determined by coincidential reasons such as that the
+     author of this file has met some of the mentioned persons or read the cited 
+     articles recently, etc. -->
+
+   <person rdf:ID="vlif">
+     <firstname>Vladimir</firstname>
+     <lastname>Lifschitz</lastname>
+   </person>
+
+   <person rdf:ID="mgel">
+     <firstname>Michael</firstname>
+     <lastname>Gelfond</lastname>
+   </person>
+
+   <person rdf:ID="dfen">
+     <firstname>Dieter</firstname>
+     <lastname>Fensel</lastname>
+   </person>
+
+   <person rdf:ID="fley">
+     <firstname>Frank</firstname>
+     <lastname>Leymann</lastname>
+   </person>
+
+   <person rdf:ID="mkif">
+     <firstname>Michael</firstname>
+     <lastname>Kifer</lastname>
+   </person>
+
+   <person rdf:ID="ptra">
+     <firstname>Paolo</firstname>
+     <lastname>Traverso</lastname>
+   </person>
+
+   <person rdf:ID="teit">
+     <firstname>Thomas</firstname>
+     <lastname>Eiter</lastname>
+   </person>
+
+   <person rdf:ID="ihor">
+     <firstname>Ian</firstname>
+     <lastname>Horrocks</lastname>
+   </person>
+
+   <person rdf:ID="fvha">
+     <firstname>Frank</firstname>
+     <lastname>Van Harmelen</lastname>
+   </person>
+
+   <person rdf:ID="dmgu">
+     <firstname>Deborah</firstname>
+     <lastname>McGuinness</lastname>
+   </person>
+
+   <person rdf:ID="pfps">
+     <firstname>Peter F.</firstname>
+     <lastname>Patel-Schneider</lastname>
+   </person>
+
+   <person rdf:ID="mpap">
+     <firstname>Michael P.</firstname>
+     <lastname>Papazoglou</lastname>
+   </person>
+
+   <person rdf:ID="sdus">
+     <firstname>Schahram</firstname>
+     <lastname>Dustdar</lastname>
+   </person>
+
+   <person rdf:ID="tluk">
+     <firstname>Thomas</firstname>
+     <lastname>Lukasiewicz</lastname>
+   </person>
+
+   <person rdf:ID="rsch">
+     <firstname>Roman</firstname>
+     <lastname>Schindlauer</lastname>
+   </person>
+
+   <person rdf:ID="htom">
+     <firstname>Hans</firstname>
+     <lastname>Tompits</lastname>
+   </person>
+
+   <person rdf:ID="tble">
+     <firstname>Tim</firstname>
+     <lastname>Berners-Lee</lastname>
+   </person>
+
+   <person rdf:ID="jhen">
+     <firstname>James</firstname>
+     <lastname>Hendler</lastname>
+   </person>
+
+   <person rdf:ID="olas">
+     <firstname>Ora</firstname>
+     <lastname>Lassila</lastname>
+   </person>
+
+   <person rdf:ID="smil">
+     <firstname>Sheila A.</firstname> 
+     <lastname>McIlraith</lastname>
+   </person>
+
+   <person rdf:ID="tcso">
+     <firstname>Tran Cao</firstname> 
+     <lastname>Son</lastname>
+   </person>
+
+   <person rdf:ID="hzen">
+     <firstname>Honglei</firstname> 
+     <lastname>Zeng</lastname>
+   </person>    
+
+   <person rdf:ID="drom">
+     <firstname>Dumitru</firstname>
+     <lastname>Roman</lastname>
+   </person>    
+
+   <person rdf:ID="ukel">
+     <firstname>Uwe</firstname>
+     <lastname>Keller</lastname>
+   </person>    
+
+   <person rdf:ID="hlau">
+     <firstname>holger</firstname>
+     <lastname>lausen</lastname>
+   </person>    
+
+   <person rdf:ID="jdbr">
+     <firstname>Jos</firstname>
+     <lastname>De Bruijn</lastname>
+   </person>    
+
+   <person rdf:ID="rlar">
+     <firstname>Rubén</firstname> 
+     <lastname>Lara</lastname> 
+   </person>    
+
+   <person rdf:ID="msto">
+     <firstname>Michael</firstname>
+     <lastname>Stollberg</lastname> 
+   </person>
+
+   <person rdf:ID="apol">
+     <firstname>Axel</firstname>
+     <lastname>Polleres</lastname> 
+   </person>
+
+   <person rdf:ID="cfei">
+     <firstname>Cristina</firstname>
+     <lastname>Feier</lastname> 
+   </person>
+
+   <person rdf:ID="cbus">
+     <firstname>Christoph</firstname>
+     <lastname>Bussler</lastname> 
+   </person>
+
+   <person rdf:ID="dmar">
+     <firstname>David</firstname>
+     <lastname>Martin</lastname> 
+   </person>
+
+   <person rdf:ID="mpao">
+     <firstname>Massimo</firstname>
+     <lastname>Paolucci</lastname> 
+   </person>
+
+   <person rdf:ID="mbur">
+     <firstname>Martin</firstname>
+     <lastname>Burnstein</lastname> 
+   </person>
+
+   <person rdf:ID="dmde">
+     <firstname>Drew</firstname>
+     <lastname>McDermott</lastname> 
+   </person>
+
+   <person rdf:ID="bpar">
+     <firstname>Bijan</firstname>
+     <lastname>Parsia</lastname> 
+   </person>
+
+   <person rdf:ID="tpay">
+     <firstname>Terry</firstname>
+     <lastname>Payne</lastname> 
+   </person>
+
+   <person rdf:ID="msab">
+     <firstname>Marta</firstname>
+     <lastname>Sabou</lastname> 
+   </person>
+
+   <person rdf:ID="msol">
+     <firstname>Monika</firstname>
+     <lastname>Solanki</lastname> 
+   </person>
+
+   <person rdf:ID="nsri">
+     <firstname>Naveen</firstname>
+     <lastname>Srinivasan</lastname> 
+   </person>
+
+   <person rdf:ID="ksyc">
+     <firstname>Katia</firstname>
+     <lastname>Sycara</lastname> 
+   </person>
+
+   <person rdf:ID="gian">
+     <firstname>Giovambattista</firstname>
+     <lastname>Ianni</lastname> 
+   </person>
+
+   <person rdf:ID="nleo">
+     <firstname>Nicola</firstname>
+     <lastname>Leone</lastname> 
+   </person>
+
+   <person rdf:ID="gpfe">
+     <firstname>Gerald</firstname>
+     <lastname>Pfeifer</lastname> 
+   </person>
+
+   <person rdf:ID="wfab">
+     <firstname>Wolfgang</firstname>
+     <lastname>Faber</lastname> 
+   </person>
+
+   <person rdf:ID="ggot">
+     <firstname>Georg</firstname>
+     <lastname>Gottlob</lastname> 
+   </person>
+
+   <person rdf:ID="sper">
+     <firstname>Simona</firstname>
+     <lastname>Perri</lastname> 
+   </person>
+
+   <person rdf:ID="fsca">
+     <firstname>Francesco</firstname>
+     <lastname>Scarcello</lastname> 
+   </person>
+
+   <person rdf:ID="hman">
+     <firstname>Heikki</firstname>
+     <lastname>Mannila</lastname> 
+   </person>
+
+   <person rdf:ID="sbat">
+     <firstname>Steve</firstname>
+     <lastname>Battle</lastname> 
+   </person>
+
+   <person rdf:ID="hbol">
+     <firstname>Harold</firstname>
+     <lastname>Boley</lastname> 
+   </person>
+
+   <person rdf:ID="aber">
+     <firstname>Abraham</firstname>
+     <lastname>Bernstein</lastname> 
+   </person>
+
+   <person rdf:ID="bgro">
+     <firstname>Benjamin</firstname>
+     <lastname>Grosof</lastname> 
+   </person>
+
+   <person rdf:ID="mgru">
+     <firstname>Michael</firstname>
+     <lastname>Gruninger</lastname> 
+   </person>
+
+   <person rdf:ID="rhul">
+     <firstname>Richard</firstname>
+     <lastname>Hull</lastname> 
+   </person>
+
+   <person rdf:ID="jisu">
+     <firstname>Jianwen</firstname>
+     <lastname>Su</lastname> 
+   </person>
+
+   <person rdf:ID="stab">
+     <firstname>Said</firstname>
+     <lastname>Tabet</lastname> 
+   </person>
+
+   <person rdf:ID="jawu">
+     <firstname>James</firstname>
+     <lastname>Wu</lastname> 
+   </person>
+
+   <person rdf:ID="glau">
+     <firstname>Georg</firstname>
+     <lastname>Lausen</lastname> 
+   </person>
+
+
+
+   <paper rdf:ID="pa1">
+     <hasAuthor rdf:resource="#dfen"/>
+     <hasAuthor rdf:resource="#fvha"/>
+     <hasAuthor rdf:resource="#ihor"/>
+     <hasAuthor rdf:resource="#dmgu"/>
+     <hasAuthor rdf:resource="#pfps"/>
+     <title>OIL: An ontology infrastructure for the Semantic Web</title>
+     <year>2001</year>
+     <publishedIn>IEEE Intelligent Systems</publishedIn>
+     <keyword rdf:resource="#Semantic_Web"/>
+     <keyword rdf:resource="#OIL"/>
+   </paper>
+
+   <paper rdf:ID="pa2">
+     <hasAuthor rdf:resource="#vlif"/>
+     <hasAuthor rdf:resource="#mgel"/>
+     <title>The stable model semantics for logic programming</title>
+     <year>1988</year>
+     <publishedIn>Proceedings of the Fifth International Conference on Logic Programming</publishedIn>
+     <keyword rdf:resource="#Stable_Model_Semantics"/> 
+   </paper>
+
+   <paper rdf:ID="pa3">
+     <hasAuthor rdf:resource="#mpap"/>
+     <hasAuthor rdf:resource="#ptra"/>
+     <hasAuthor rdf:resource="#sdus"/>
+     <hasAuthor rdf:resource="#fley"/>
+     <title>Service-Oriented Computing Research Roadmap</title>
+     <keyword rdf:resource="#Service-Oriented_Architecture"/>
+   </paper>
+
+   <paper rdf:ID="pa4">
+     <hasAuthor rdf:resource="#teit"/>
+     <hasAuthor rdf:resource="#tluk"/>
+     <hasAuthor rdf:resource="#rsch"/>
+     <hasAuthor rdf:resource="#htom"/>
+     <title>Combining answer set programming with description logics for the semantic web</title>
+     <publishedIn>Ninth International Conference on the Principles of Knowledge Representation and Reasoning</publishedIn>
+     <year>2004</year>
+     <keyword rdf:resource="#Semantic_Web"/>
+     <keyword rdf:resource="#Answer_Set_Programming"/>
+      <keyword rdf:resource="#Description_Logics"/>
+  </paper>
+
+   <paper rdf:ID="pa5">
+     <hasAuthor rdf:resource="#tble"/>
+     <hasAuthor rdf:resource="#jhen"/>
+     <hasAuthor rdf:resource="#olas"/>
+     <title>The Semantic Web</title>
+     <publishedIn>Scientific American</publishedIn>
+     <year>2001</year>
+     <keyword rdf:resource="#Semantic_Web"/>
+   </paper>
+
+   <paper rdf:ID="pa6">
+     <hasAuthor rdf:resource="#smil"/>
+     <hasAuthor rdf:resource="#tcso"/>
+     <hasAuthor rdf:resource="#hzen"/>
+     <title>Semantic Web Services</title>
+     <year>2001</year>
+     <publishedIn>IEEE Intelligent Systems</publishedIn>
+   </paper>
+
+   <paper rdf:ID="pa7">
+     <hasAuthor rdf:resource="#drom"/>
+     <hasAuthor rdf:resource="#ukel"/>
+     <hasAuthor rdf:resource="#hlau"/>
+     <hasAuthor rdf:resource="#jdbr"/>
+     <hasAuthor rdf:resource="#rlar"/>
+     <hasAuthor rdf:resource="#msto"/>
+     <hasAuthor rdf:resource="#apol"/>
+     <hasAuthor rdf:resource="#cfei"/>
+     <hasAuthor rdf:resource="#cbus"/>
+     <hasAuthor rdf:resource="#dfen"/>
+     <publishedIn>Applied Ontologies</publishedIn>
+     <title>Web Service Modeling Ontology</title>
+     <year>2005</year>
+     <keyword rdf:resource="#WSMO"/>
+   </paper>
+
+   <paper  rdf:ID="pa8">
+     <hasAuthor rdf:resource="#dmar"/>
+     <hasAuthor rdf:resource="#mpao"/>
+     <hasAuthor rdf:resource="#smil"/>
+     <hasAuthor rdf:resource="#mbur"/>
+     <hasAuthor rdf:resource="#dmde"/>
+     <hasAuthor rdf:resource="#dmgu"/>
+     <hasAuthor rdf:resource="#bpar"/>
+     <hasAuthor rdf:resource="#tpay"/>
+     <hasAuthor rdf:resource="#msab"/>
+     <hasAuthor rdf:resource="#msol"/>
+     <hasAuthor rdf:resource="#nsri"/>
+     <hasAuthor rdf:resource="#ksyc"/>
+     <title>Bringing Semantics to Web Services: The OWL-S Approach</title>
+     <year>2004</year>
+     <publishedIn>Semantic Web Services and Web Process Composition: First International Workshop</publishedIn>
+     <keyword rdf:resource="#OWL-S"/>
+   </paper>
+
+   <paper  rdf:ID="pa9">
+     <hasAuthor rdf:resource="#nleo"/>
+     <hasAuthor rdf:resource="#gpfe"/>
+     <hasAuthor rdf:resource="#wfab"/>
+     <hasAuthor rdf:resource="#teit"/>
+     <hasAuthor rdf:resource="#ggot"/>
+     <hasAuthor rdf:resource="#sper"/>
+     <hasAuthor rdf:resource="#fsca"/>
+     <title>The DLV System for Knowledge Representation and Reasoning</title> 
+     <publishedIn>ACM Transactions on Computational Logic</publishedIn> 
+     <year>2005</year>
+     <keyword rdf:resource="#Answer_Set_Programming"/>
+     <keyword rdf:resource="#Knowledge_Representation"/>
+   </paper>
+
+   <paper  rdf:ID="pa10">
+     <hasAuthor rdf:resource="#teit"/>
+     <hasAuthor rdf:resource="#ggot"/>
+     <hasAuthor rdf:resource="#hman"/>
+     <title>Disjunctive Datalog</title> 
+     <publishedIn>ACM Transactions on Database Systems</publishedIn> 
+     <year>1997</year>
+     <keyword rdf:resource="#Disjunctive_Logic_Programming"/>
+   </paper>
+
+   <paper  rdf:ID="pa11">
+     <hasAuthor rdf:resource="#teit"/>
+     <hasAuthor rdf:resource="#gian"/>
+     <hasAuthor rdf:resource="#rsch"/>
+     <hasAuthor rdf:resource="#htom"/>
+     <title>Nonmonotonic Description Logic Programs</title> 
+     <publishedIn>Logic for Programming, Artificial Intelligence, and Reasoning, 11th International Conference</publishedIn> 
+     <year>2004</year>
+     <keyword rdf:resource="#Nonmonotonic_Reasoning"/>
+     <keyword rdf:resource="#Answer_Set_Programming"/>
+     <keyword rdf:resource="#Description_Logics"/>
+   </paper>
+
+   <paper  rdf:ID="pa12">
+     <hasAuthor rdf:resource="#mgel"/>
+     <hasAuthor rdf:resource="#vlif"/>
+     <title>Classical Negation in Logic Programs and Disjunctive Databases</title> 
+     <publishedIn>New Generation Computing</publishedIn> 
+     <year>1991</year>
+     <keyword rdf:resource="#Nonmonotonic_Reasoning"/>
+     <keyword rdf:resource="#Answer_Set_Programming"/>
+     <keyword rdf:resource="#Description_Logics"/>
+   </paper>
+
+   <paper  rdf:ID="pa13">
+     <hasAuthor rdf:resource="#mkif"/>
+     <hasAuthor rdf:resource="#glau"/>
+     <hasAuthor rdf:resource="#jawu"/>
+     <title>Logical Foundations of Object-Oriented and Frame-Based Languages</title>
+     <publishedIn>Journal of the ACM</publishedIn> 
+     <year>1995</year>
+     <keyword rdf:resource="#Knowledge_Representation"/>
+     <keyword rdf:resource="#Frame_Systems"/>
+   </paper>
+
+   <paper  rdf:ID="pa14">
+     <hasAuthor rdf:resource="#sbat"/>
+     <hasAuthor rdf:resource="#aber"/>
+     <hasAuthor rdf:resource="#hbol"/>
+     <hasAuthor rdf:resource="#bgro"/>
+     <hasAuthor rdf:resource="#mgru"/>
+     <hasAuthor rdf:resource="#rhul"/>
+     <hasAuthor rdf:resource="#mkif"/>
+     <hasAuthor rdf:resource="#dmde"/>
+     <hasAuthor rdf:resource="#smil"/>
+     <hasAuthor rdf:resource="#dmgu"/>
+     <hasAuthor rdf:resource="#jisu"/>
+     <hasAuthor rdf:resource="#stab"/>
+     <title>Semantic Web Services Framework (SWSF) Overview</title> 
+     <year>2005</year>
+     <keyword rdf:resource="#SWSF"/>
+   </paper>
+
+</rdf:RDF>
