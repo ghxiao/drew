@@ -1,14 +1,43 @@
 paper(p1).
-kw(p1, Semantic_Web).
+kw(p1, "Semantic_Web").
 paper(p2).
-kw(p2, Bioinformatics).
-kw(p2, Answer_Set_Programming).
+kw(p2, "Bioinformatics").
+kw(p2, "Answer_Set_Programming").
+
+% list of interesting conflicts
+iconflict(p1, "Semantic_Web").
+
+% list of conflicts
 
 kw(P, K2) :- kw(P, K1), DL[hasMember](S, K1), DL[hasMember](S, K2).
 paperArea(P, A) :- DL[keywords += kw; inAear](P, A).
-cand(X, P) :- paperArea(P, A), DL[Referee](X), DL[expert](X, A).
+
+expert(X, A) :- DL[isAuthorOf](X, P1), 
+	DL[isAuthorOf](X, P2), DL[isAuthorOf](X, P3),
+	DL[inArea](P2, A), DL[inArea](P3, A), P1 != P2, P1 != P3, P2 != P3.
+	
+
+% if the reivewer and the author are from the same department, then this is a conflict
+conflict(X, P) :- DL[hasAuthor+=author; hasAuthor](P, Y), 
+DL[hasAffliation+=affliation;hasAffliation](Y, A), DL[hasAffliation+=affliation;hasAffliation](X, A).
+
+% the author can not review the paper by himself 
+conflict(A, P) :- author(P, A).
+
+cand(X, P) :- paperArea(P, A), DL[Referee+=pcMember;Referee](X), expert(X, A),
+ not conflict(X,P), not iconflict(X, P).
+
 assign(X, P) :- cand(X, P), not -assign(X,P).
--assign(Y,P) :- cand(Y, P), not assign(X,P), X!=Y.
-a(P) :- assign(X,P).
+%-assign(Y,P) :- cand(Y, P), not assign(X,P), X!=Y.
+
+% every paper has at least three reviewers:
+a(X) :- assign(X,P1), assign(X, P2), assign(X, P3), P1 != P2, P1 != P3, P2 != P3.
+
+% every paper has at most three reviewers:
+:- assign(X, P1), assign(X, P2), assign(X, P3), assign(X, P4), 
+P1 != P2, P1 != P3, P1 != P4, P2 != P3, P2 != P4, P3 != P4.
+
+% every paper must be assigned
 error(P) :- paper(P), not a(P). 
+
 :- error(P).
