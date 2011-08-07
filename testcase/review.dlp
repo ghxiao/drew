@@ -5,7 +5,7 @@ kw(p2, "Bioinformatics").
 kw(p2, "Answer_Set_Programming").
 
 % list of interesting conflicts
-iconflict(p1, "Semantic_Web").
+iconflict(p1, "Bioinformatics").
 
 % list of conflicts
 
@@ -41,3 +41,4 @@ P1 != P2, P1 != P3, P1 != P4, P2 != P3, P2 != P4, P3 != P4.
 error(P) :- paper(P), not a(P). 
 
 :- error(P).
+
