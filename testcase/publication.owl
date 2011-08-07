@@ -7,7 +7,7 @@
     <!ENTITY xml "http://www.w3.org/XML/1998/namespace" >
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
-    <!ENTITY paper "http://www.semanticweb.org/ontologies/2011/7/paper.owl#" >
+    <!ENTITY paper "http://www.semanticweb.org/ontologies/2011/7/publication.owl#" >
     <!ENTITY publication "http://www.semanticweb.org/ontologies/2011/7/publication.owl#" >
 ]>
 
