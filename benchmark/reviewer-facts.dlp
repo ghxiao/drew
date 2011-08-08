@@ -1,0 +1,69 @@
+paper(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_0>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_0>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_49>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_0>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_44>).
+paper(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_1>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_1>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_42>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_1>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_74>).
+paper(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_2>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_2>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_46>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_2>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_53>).
+paper(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_3>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_3>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_62>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_3>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_26>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_3>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_13>).
+paper(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_4>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_4>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_35>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_4>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_34>).
+paper(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_5>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_5>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_24>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_5>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_60>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_5>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_17>).
+paper(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_6>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_6>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_66>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_6>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_49>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_6>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_26>).
+paper(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_7>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_7>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_7>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_7>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_0>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_7>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_40>).
+paper(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_8>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_8>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_36>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_8>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_29>).
+paper(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_9>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_9>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_76>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_9>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_21>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_9>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_57>).
+paper(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_10>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_10>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_71>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_10>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_11>).
+paper(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_11>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_11>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_48>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_11>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_25>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_11>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_56>).
+paper(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_12>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_12>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_40>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_12>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_37>).
+paper(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_13>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_13>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_17>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_13>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_16>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_13>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_67>).
+paper(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_14>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_14>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_19>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_14>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_21>).
+paper(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_15>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_15>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_72>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_15>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_69>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_15>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_41>).
+paper(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_16>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_16>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_31>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_16>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_74>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_16>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_42>).
+paper(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_17>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_17>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_35>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_17>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_11>).
+paper(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_18>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_18>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_16>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_18>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_10>).
+paper(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_19>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_19>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_64>).
+kw(<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Submission_19>, <http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_52>).

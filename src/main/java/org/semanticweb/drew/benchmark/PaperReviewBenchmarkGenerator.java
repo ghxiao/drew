@@ -1,6 +1,8 @@
 package org.semanticweb.drew.benchmark;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -36,6 +38,8 @@ public class PaperReviewBenchmarkGenerator {
 	private int nKeywords = 80;
 	private int nArticleInProceedings = 200;
 
+	private int nSubmissions = 20;
+
 	private List<OWLIndividual> authors = new ArrayList<OWLIndividual>();
 	private List<OWLIndividual> organizations = new ArrayList<OWLIndividual>();
 
@@ -65,13 +69,13 @@ public class PaperReviewBenchmarkGenerator {
 
 	private List<OWLIndividual> keywords = new ArrayList<OWLIndividual>();
 
-	private OWLObjectPropertyExpression hasMemberProperty;
+	private OWLObjectProperty hasMemberProperty;
 
-	private OWLDataPropertyExpression hasTitleProperty;
+	private OWLObjectProperty hasAuthorProperty;
 
-	private OWLObjectPropertyExpression hasAuthorProperty;
+	private OWLObjectProperty hasKeywordProperty;
 
-	private OWLObjectPropertyExpression hasKeywordProperty;
+	private OWLDataProperty hasTitleProperty;
 
 	private OWLClass refereeClass;
 
@@ -79,7 +83,32 @@ public class PaperReviewBenchmarkGenerator {
 		rand.setSeed(12345678L);
 	}
 
-	public OWLOntology generate() {
+	public void generate() {
+		generateOntology();
+		generateDLProgram();
+	}
+
+	public void generateDLProgram() {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < nSubmissions; i++) {
+			sb.append(String.format("paper(<%s#Submission_%d>).\n", baseIRI, i));
+			int nKeywordsForThis = rand.nextInt(2) + 2;
+			for (int j = 0; j < nKeywordsForThis; j++) {
+				sb.append(String.format("kw(<%s#Submission_%d>, <%s#Keyword_%d>).\n",
+						baseIRI, i, baseIRI, rand.nextInt(nKeywords)));
+			}
+		}
+		try {
+			FileWriter writer = new FileWriter("benchmark/reviewer-facts.dlp");
+			writer.write(sb.toString());
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void generateOntology() {
 
 		try {
 			manager = OWLManager.createOWLOntologyManager();
@@ -123,8 +152,6 @@ public class PaperReviewBenchmarkGenerator {
 		} catch (OWLOntologyStorageException e) {
 			e.printStackTrace();
 		}
-
-		return null;
 
 	}
 
