@@ -4417,6 +4417,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName0_LastName0">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName0</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName0</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_3"/>
@@ -4428,6 +4429,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName10_LastName10">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName10</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName10</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_10"/>
@@ -4439,6 +4441,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName11_LastName11">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName11</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName11</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_0"/>
@@ -4450,6 +4453,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName12_LastName12">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName12</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName12</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_2"/>
@@ -4461,6 +4465,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName13_LastName13">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName13</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName13</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_4"/>
@@ -4472,6 +4477,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName14_LastName14">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName14</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName14</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_17"/>
@@ -4483,6 +4489,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName15_LastName15">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName15</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName15</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_10"/>
@@ -4494,6 +4501,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName16_LastName16">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName16</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName16</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_3"/>
@@ -4505,6 +4513,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName17_LastName17">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName17</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName17</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_13"/>
@@ -4516,6 +4525,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName18_LastName18">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName18</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName18</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_1"/>
@@ -4527,6 +4537,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName19_LastName19">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName19</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName19</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_6"/>
@@ -4538,6 +4549,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName1_LastName1">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName1</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName1</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_2"/>
@@ -4549,6 +4561,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName20_LastName20">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName20</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName20</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_18"/>
@@ -4560,6 +4573,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName21_LastName21">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName21</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName21</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_18"/>
@@ -4571,6 +4585,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName22_LastName22">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName22</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName22</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_8"/>
@@ -4582,6 +4597,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName23_LastName23">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName23</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName23</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_12"/>
@@ -4593,6 +4609,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName24_LastName24">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName24</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName24</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_16"/>
@@ -4604,6 +4621,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName25_LastName25">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName25</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName25</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_10"/>
@@ -4615,6 +4633,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName26_LastName26">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName26</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName26</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_8"/>
@@ -4626,6 +4645,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName27_LastName27">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName27</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName27</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_0"/>
@@ -4637,6 +4657,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName28_LastName28">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName28</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName28</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_5"/>
@@ -4648,6 +4669,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName29_LastName29">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName29</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName29</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_0"/>
@@ -4659,6 +4681,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName2_LastName2">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName2</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName2</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_5"/>
@@ -4670,6 +4693,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName30_LastName30">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName30</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName30</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_0"/>
@@ -4681,6 +4705,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName31_LastName31">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName31</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName31</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_5"/>
@@ -4692,6 +4717,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName32_LastName32">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName32</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName32</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_19"/>
@@ -4703,6 +4729,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName33_LastName33">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName33</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName33</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_16"/>
@@ -4714,6 +4741,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName34_LastName34">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName34</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName34</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_5"/>
@@ -4725,6 +4753,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName35_LastName35">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName35</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName35</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_12"/>
@@ -4736,6 +4765,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName36_LastName36">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName36</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName36</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_19"/>
@@ -4747,6 +4777,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName37_LastName37">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName37</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName37</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_3"/>
@@ -4758,6 +4789,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName38_LastName38">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName38</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName38</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_6"/>
@@ -4769,6 +4801,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName39_LastName39">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName39</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName39</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_0"/>
@@ -4780,6 +4813,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName3_LastName3">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName3</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName3</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_11"/>
@@ -4791,6 +4825,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName40_LastName40">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName40</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName40</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_5"/>
@@ -4802,6 +4837,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName41_LastName41">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName41</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName41</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_7"/>
@@ -4813,6 +4849,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName42_LastName42">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName42</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName42</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_11"/>
@@ -4824,6 +4861,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName43_LastName43">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName43</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName43</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_4"/>
@@ -4835,6 +4873,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName44_LastName44">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName44</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName44</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_19"/>
@@ -4846,6 +4885,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName45_LastName45">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName45</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName45</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_19"/>
@@ -4857,6 +4897,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName46_LastName46">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName46</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName46</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_18"/>
@@ -4868,6 +4909,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName47_LastName47">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName47</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName47</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_18"/>
@@ -4879,6 +4921,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName48_LastName48">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName48</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName48</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_15"/>
@@ -4890,6 +4933,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName49_LastName49">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName49</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName49</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_19"/>
@@ -4901,6 +4945,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName4_LastName4">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName4</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName4</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_5"/>
@@ -4912,6 +4957,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName50_LastName50">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName50</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName50</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_16"/>
@@ -4923,6 +4969,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName51_LastName51">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName51</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName51</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_16"/>
@@ -4934,6 +4981,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName52_LastName52">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName52</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName52</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_6"/>
@@ -4945,6 +4993,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName53_LastName53">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName53</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName53</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_15"/>
@@ -4956,6 +5005,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName54_LastName54">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName54</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName54</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_2"/>
@@ -4967,6 +5017,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName55_LastName55">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName55</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName55</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_12"/>
@@ -4978,6 +5029,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName56_LastName56">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName56</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName56</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_18"/>
@@ -4989,6 +5041,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName57_LastName57">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName57</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName57</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_18"/>
@@ -5000,6 +5053,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName58_LastName58">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName58</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName58</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_9"/>
@@ -5011,6 +5065,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName59_LastName59">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName59</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName59</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_4"/>
@@ -5022,6 +5077,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName5_LastName5">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName5</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName5</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_11"/>
@@ -5033,6 +5089,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName60_LastName60">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName60</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName60</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_9"/>
@@ -5044,6 +5101,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName61_LastName61">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName61</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName61</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_17"/>
@@ -5055,6 +5113,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName62_LastName62">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName62</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName62</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_4"/>
@@ -5066,6 +5125,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName63_LastName63">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName63</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName63</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_12"/>
@@ -5077,6 +5137,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName64_LastName64">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName64</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName64</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_4"/>
@@ -5088,6 +5149,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName65_LastName65">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName65</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName65</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_18"/>
@@ -5099,6 +5161,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName66_LastName66">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName66</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName66</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_17"/>
@@ -5110,6 +5173,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName67_LastName67">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName67</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName67</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_8"/>
@@ -5121,6 +5185,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName68_LastName68">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName68</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName68</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_18"/>
@@ -5132,6 +5197,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName69_LastName69">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName69</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName69</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_5"/>
@@ -5143,6 +5209,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName6_LastName6">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName6</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName6</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_16"/>
@@ -5154,6 +5221,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName70_LastName70">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName70</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName70</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_8"/>
@@ -5165,6 +5233,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName71_LastName71">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName71</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName71</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_2"/>
@@ -5176,6 +5245,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName72_LastName72">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName72</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName72</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_9"/>
@@ -5187,6 +5257,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName73_LastName73">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName73</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName73</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_18"/>
@@ -5198,6 +5269,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName74_LastName74">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName74</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName74</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_15"/>
@@ -5209,6 +5281,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName75_LastName75">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName75</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName75</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_6"/>
@@ -5220,6 +5293,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName76_LastName76">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName76</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName76</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_15"/>
@@ -5231,6 +5305,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName77_LastName77">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName77</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName77</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_5"/>
@@ -5242,6 +5317,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName78_LastName78">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName78</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName78</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_15"/>
@@ -5253,6 +5329,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName79_LastName79">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName79</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName79</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_9"/>
@@ -5264,6 +5341,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName7_LastName7">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName7</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName7</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_5"/>
@@ -5275,6 +5353,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName80_LastName80">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName80</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName80</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_11"/>
@@ -5286,6 +5365,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName81_LastName81">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName81</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName81</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_14"/>
@@ -5297,6 +5377,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName82_LastName82">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName82</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName82</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_4"/>
@@ -5308,6 +5389,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName83_LastName83">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName83</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName83</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_3"/>
@@ -5319,6 +5401,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName84_LastName84">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName84</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName84</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_15"/>
@@ -5330,6 +5413,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName85_LastName85">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName85</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName85</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_4"/>
@@ -5341,6 +5425,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName86_LastName86">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName86</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName86</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_16"/>
@@ -5352,6 +5437,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName87_LastName87">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName87</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName87</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_13"/>
@@ -5363,6 +5449,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName88_LastName88">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName88</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName88</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_9"/>
@@ -5374,6 +5461,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName89_LastName89">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName89</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName89</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_5"/>
@@ -5385,6 +5473,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName8_LastName8">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName8</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName8</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_15"/>
@@ -5396,6 +5485,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName90_LastName90">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName90</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName90</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_2"/>
@@ -5407,6 +5497,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName91_LastName91">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName91</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName91</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_15"/>
@@ -5418,6 +5509,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName92_LastName92">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName92</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName92</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_14"/>
@@ -5429,6 +5521,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName93_LastName93">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName93</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName93</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_8"/>
@@ -5440,6 +5533,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName94_LastName94">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName94</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName94</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_19"/>
@@ -5451,6 +5545,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName95_LastName95">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName95</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName95</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_8"/>
@@ -5462,6 +5557,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName96_LastName96">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName96</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName96</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_19"/>
@@ -5473,6 +5569,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName97_LastName97">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName97</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName97</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_0"/>
@@ -5484,6 +5581,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName98_LastName98">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName98</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName98</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_6"/>
@@ -5495,6 +5593,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName99_LastName99">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName99</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName99</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_16"/>
@@ -5506,6 +5605,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person_FirstName9_LastName9">
         <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+        <rdf:type rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee"/>
         <firstname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">FirstName9</firstname>
         <lastname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">LastName9</lastname>
         <hasAfflication rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization_0"/>

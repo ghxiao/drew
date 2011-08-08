@@ -73,6 +73,8 @@ public class PaperReviewBenchmarkGenerator {
 
 	private OWLObjectPropertyExpression hasKeywordProperty;
 
+	private OWLClass refereeClass;
+
 	public PaperReviewBenchmarkGenerator() {
 		rand.setSeed(12345678L);
 	}
@@ -93,6 +95,7 @@ public class PaperReviewBenchmarkGenerator {
 			factory = manager.getOWLDataFactory();
 
 			personClass = factory.getOWLClass(IRI.create(baseIRI + "#Person"));
+			refereeClass = factory.getOWLClass(IRI.create(baseIRI + "#Referee"));
 			orgnizationClass = factory.getOWLClass(IRI.create(baseIRI + "#Organization"));
 			keywordClass = factory.getOWLClass(IRI.create(baseIRI + "#Keyword"));
 			areaClass = factory.getOWLClass(IRI.create(baseIRI + "#Area"));
@@ -154,6 +157,8 @@ public class PaperReviewBenchmarkGenerator {
 			authors.add(author);
 			manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(author));
 			manager.addAxiom(ontology, factory.getOWLClassAssertionAxiom(personClass, author));
+			manager.addAxiom(ontology, factory.getOWLClassAssertionAxiom(refereeClass, author));
+
 			manager.addAxiom(ontology,
 					factory.getOWLDataPropertyAssertionAxiom(firstnameProperty, author, firstnames.get(i)));
 			manager.addAxiom(ontology,
