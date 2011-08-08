@@ -10,7 +10,7 @@ iconflict(p1, "Bioinformatics").
 % list of conflicts
 
 kw(P, K2) :- kw(P, K1), DL[hasMember](S, K1), DL[hasMember](S, K2).
-paperArea(P, A) :- DL[keywords += kw; inAear](P, A).
+paperArea(P, A) :- DL[hasKeyword += kw; inArea](P, A).
 
 expert(X, A) :- DL[isAuthorOf](X, P1), 
 	DL[isAuthorOf](X, P2), DL[isAuthorOf](X, P3),
@@ -40,5 +40,5 @@ P1 != P2, P1 != P3, P1 != P4, P2 != P3, P2 != P4, P3 != P4.
 % every paper must be assigned
 error(P) :- paper(P), not a(P). 
 
-:- error(P).
+%:- error(P).
 
