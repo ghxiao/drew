@@ -1,0 +1,1 @@
+xsb --quietload --nobanner --noprompt -e '[testRoleChain]. triple(X,R,Y), write_term([X,R,Y], [numbervars(true)]), fail. halt.'

@@ -1,0 +1,526 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY paper "http://www.semanticweb.org/ontologies/2011/7/paper.owl#" >
+    <!ENTITY publication "http://www.semanticweb.org/ontologies/2011/7/publication.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.semanticweb.org/ontologies/2011/7/publication.owl#"
+     xml:base="http://www.semanticweb.org/ontologies/2011/7/publication.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:paper="http://www.semanticweb.org/ontologies/2011/7/paper.owl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:publication="http://www.semanticweb.org/ontologies/2011/7/publication.owl#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/ontologies/2011/7/publication.owl"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <owl:AnnotationProperty rdf:about="&paper;contains"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#cites -->
+
+    <owl:ObjectProperty rdf:about="&publication;cites">
+        <rdfs:range rdf:resource="&publication;Document"/>
+        <rdfs:domain rdf:resource="&publication;Document"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#expertIn -->
+
+    <owl:ObjectProperty rdf:about="&publication;expertIn">
+        <rdfs:range rdf:resource="&publication;Area"/>
+        <rdfs:domain rdf:resource="&publication;Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#hasAffliation -->
+
+    <owl:ObjectProperty rdf:about="&publication;hasAffliation">
+        <rdfs:domain rdf:resource="&publication;Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#hasAuthor -->
+
+    <owl:ObjectProperty rdf:about="&publication;hasAuthor">
+        <rdfs:domain rdf:resource="&publication;Document"/>
+        <rdfs:range rdf:resource="&publication;Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#hasKeyword -->
+
+    <owl:ObjectProperty rdf:about="&publication;hasKeyword">
+        <rdfs:domain rdf:resource="&publication;Document"/>
+        <rdfs:range rdf:resource="&publication;Keyword"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#hasMember -->
+
+    <owl:ObjectProperty rdf:about="&publication;hasMember">
+        <rdfs:domain rdf:resource="&publication;Area"/>
+        <rdfs:range rdf:resource="&publication;Keyword"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#inArea -->
+
+    <owl:ObjectProperty rdf:about="&publication;inArea">
+        <rdfs:range rdf:resource="&publication;Area"/>
+        <rdfs:domain rdf:resource="&publication;Document"/>
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&publication;hasKeyword"/>
+            <rdf:Description rdf:about="&publication;memberOf"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#isAuthorOf -->
+
+    <owl:ObjectProperty rdf:about="&publication;isAuthorOf">
+        <owl:inverseOf rdf:resource="&publication;hasAuthor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#memberOf -->
+
+    <owl:ObjectProperty rdf:about="&publication;memberOf">
+        <owl:inverseOf rdf:resource="&publication;hasMember"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#firstname -->
+
+    <owl:DatatypeProperty rdf:about="&publication;firstname">
+        <rdfs:domain rdf:resource="&publication;Person"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#hasTitle -->
+
+    <owl:DatatypeProperty rdf:about="&publication;hasTitle">
+        <rdfs:range rdf:resource="&xsd;string"/>
+        <rdfs:subPropertyOf rdf:resource="&owl;topDataProperty"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#lastname -->
+
+    <owl:DatatypeProperty rdf:about="&publication;lastname">
+        <rdfs:domain rdf:resource="&publication;Person"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#publishedYear -->
+
+    <owl:DatatypeProperty rdf:about="&publication;publishedYear">
+        <rdfs:domain rdf:resource="&publication;Document"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Area -->
+
+    <owl:Class rdf:about="&publication;Area"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Article -->
+
+    <owl:Class rdf:about="&publication;Article">
+        <rdfs:subClassOf rdf:resource="&publication;Publication"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Article_in_Journal -->
+
+    <owl:Class rdf:about="&publication;Article_in_Journal">
+        <rdfs:subClassOf rdf:resource="&publication;Article"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Article_in_Proceedings -->
+
+    <owl:Class rdf:about="&publication;Article_in_Proceedings">
+        <rdfs:subClassOf rdf:resource="&publication;Article"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Book -->
+
+    <owl:Class rdf:about="&publication;Book">
+        <rdfs:subClassOf rdf:resource="&publication;Publication"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Doctoral_Dissertation -->
+
+    <owl:Class rdf:about="&publication;Doctoral_Dissertation">
+        <rdfs:subClassOf rdf:resource="&publication;Thesis"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Document -->
+
+    <owl:Class rdf:about="&publication;Document">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&publication;hasAuthor"/>
+                <owl:someValuesFrom rdf:resource="&publication;Person"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&publication;hasTitle"/>
+                <owl:someValuesFrom rdf:resource="&xsd;string"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Edited_Book -->
+
+    <owl:Class rdf:about="&publication;Edited_Book">
+        <rdfs:subClassOf rdf:resource="&publication;Book"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Edited_Publication -->
+
+    <owl:Class rdf:about="&publication;Edited_Publication">
+        <rdfs:subClassOf rdf:resource="&publication;Publication"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Journal -->
+
+    <owl:Class rdf:about="&publication;Journal">
+        <rdfs:subClassOf rdf:resource="&publication;Serial_Publication"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword -->
+
+    <owl:Class rdf:about="&publication;Keyword"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Master_Thesis -->
+
+    <owl:Class rdf:about="&publication;Master_Thesis">
+        <rdfs:subClassOf rdf:resource="&publication;Thesis"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Organization -->
+
+    <owl:Class rdf:about="&publication;Organization"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person -->
+
+    <owl:Class rdf:about="&publication;Person"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Procedings -->
+
+    <owl:Class rdf:about="&publication;Procedings">
+        <rdfs:subClassOf rdf:resource="&publication;Publication"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Publication -->
+
+    <owl:Class rdf:about="&publication;Publication">
+        <rdfs:subClassOf rdf:resource="&publication;Document"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Referee -->
+
+    <owl:Class rdf:about="&publication;Referee">
+        <rdfs:subClassOf rdf:resource="&publication;Person"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Serial_Publication -->
+
+    <owl:Class rdf:about="&publication;Serial_Publication">
+        <rdfs:subClassOf rdf:resource="&publication;Publication"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Thesis -->
+
+    <owl:Class rdf:about="&publication;Thesis">
+        <rdfs:subClassOf rdf:resource="&publication;Publication"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#TopicCluster -->
+
+    <owl:Class rdf:about="&publication;TopicCluster"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Webpage -->
+
+    <owl:Class rdf:about="&publication;Webpage">
+        <rdfs:subClassOf rdf:resource="&publication;Document"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Answer_Set_Programming -->
+
+    <owl:NamedIndividual rdf:about="&publication;Answer_Set_Programming">
+        <rdf:type rdf:resource="&publication;Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Area1 -->
+
+    <owl:NamedIndividual rdf:about="&publication;Area1">
+        <rdf:type rdf:resource="&publication;Area"/>
+        <paper:contains rdf:resource="&publication;Beleif_Revision"/>
+        <paper:contains rdf:resource="&publication;Default_Reasoning"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Area2 -->
+
+    <owl:NamedIndividual rdf:about="&publication;Area2">
+        <rdf:type rdf:resource="&publication;Area"/>
+        <paper:contains rdf:resource="&publication;Frame_Systems"/>
+        <paper:contains rdf:resource="&publication;Ontologies"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Area3 -->
+
+    <owl:NamedIndividual rdf:about="&publication;Area3">
+        <rdf:type rdf:resource="&publication;Area"/>
+        <paper:contains rdf:resource="&publication;OWL"/>
+        <paper:contains rdf:resource="&publication;Ontologies"/>
+        <paper:contains rdf:resource="&publication;Semantic_Web"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Area4 -->
+
+    <owl:NamedIndividual rdf:about="&publication;Area4">
+        <rdf:type rdf:resource="&publication;Area"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Beleif_Revision -->
+
+    <owl:NamedIndividual rdf:about="&publication;Beleif_Revision">
+        <rdf:type rdf:resource="&publication;Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Default_Reasoning -->
+
+    <owl:NamedIndividual rdf:about="&publication;Default_Reasoning">
+        <rdf:type rdf:resource="&publication;Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Frame_Systems -->
+
+    <owl:NamedIndividual rdf:about="&publication;Frame_Systems">
+        <rdf:type rdf:resource="&publication;Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Nonmotonic_Reasoning -->
+
+    <owl:NamedIndividual rdf:about="&publication;Nonmotonic_Reasoning">
+        <rdf:type rdf:resource="&publication;Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#OWL -->
+
+    <owl:NamedIndividual rdf:about="&publication;OWL">
+        <rdf:type rdf:resource="&publication;Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Ontologies -->
+
+    <owl:NamedIndividual rdf:about="&publication;Ontologies">
+        <rdf:type rdf:resource="&publication;Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#Semantic_Web -->
+
+    <owl:NamedIndividual rdf:about="&publication;Semantic_Web">
+        <rdf:type rdf:resource="&publication;Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#eiter -->
+
+    <owl:NamedIndividual rdf:about="&publication;eiter">
+        <rdf:type rdf:resource="&publication;Person"/>
+        <lastname rdf:datatype="&xsd;string">Eiter</lastname>
+        <firstname rdf:datatype="&xsd;string">Thomas</firstname>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#paper1 -->
+
+    <owl:NamedIndividual rdf:about="&publication;paper1">
+        <rdf:type rdf:resource="&publication;Article_in_Proceedings"/>
+        <hasTitle rdf:datatype="&xsd;string">Combining answer set programming with description logics for the Semantic Web</hasTitle>
+        <publishedYear>2008</publishedYear>
+        <hasKeyword rdf:resource="&publication;Answer_Set_Programming"/>
+        <hasKeyword rdf:resource="&publication;Nonmotonic_Reasoning"/>
+        <hasKeyword rdf:resource="&publication;Ontologies"/>
+        <hasKeyword rdf:resource="&publication;Semantic_Web"/>
+        <hasAuthor rdf:resource="&publication;eiter"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#paper2 -->
+
+    <owl:NamedIndividual rdf:about="&publication;paper2">
+        <rdf:type rdf:resource="&publication;Article_in_Proceedings"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ontologies/2011/7/publication.owl#paper3 -->
+
+    <owl:NamedIndividual rdf:about="&publication;paper3">
+        <rdf:type rdf:resource="&publication;Article_in_Proceedings"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.2.2.1789) http://owlapi.sourceforge.net -->
+
