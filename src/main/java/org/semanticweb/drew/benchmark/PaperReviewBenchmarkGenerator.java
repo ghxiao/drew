@@ -91,10 +91,10 @@ public class PaperReviewBenchmarkGenerator {
 	public void generateDLProgram() {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < nSubmissions; i++) {
-			sb.append(String.format("paper(<%s#Submission_%d>).\n", baseIRI, i));
+			sb.append(String.format("paper(\"<%s#Submission_%d>\").\n", baseIRI, i));
 			int nKeywordsForThis = rand.nextInt(2) + 2;
 			for (int j = 0; j < nKeywordsForThis; j++) {
-				sb.append(String.format("kw(<%s#Submission_%d>, <%s#Keyword_%d>).\n",
+				sb.append(String.format("kw(\"<%s#Submission_%d>\", \"<%s#Keyword_%d>\").\n",
 						baseIRI, i, baseIRI, rand.nextInt(nKeywords)));
 			}
 		}

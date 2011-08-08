@@ -229,14 +229,14 @@
         <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#hasTitle"/>
-                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#hasAuthor"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#hasAuthor"/>
-                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#Person"/>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/ontologies/2011/7/publication.owl#hasTitle"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
