@@ -34,6 +34,10 @@ public class CacheManager {
 	}
 
 	public int getArity(String predicateName) {
+		if(predicateName.startsWith("-")){
+			predicateName = predicateName.substring(1);
+		}
+		
 		String key;
 		int arity = 1;
 		key = predicateName + "/" + arity;
@@ -45,8 +49,12 @@ public class CacheManager {
 		if (predicates.containsKey(key)) {
 			return arity;
 		}
-		throw new UnsupportedOperationException(
-				"Now we only support arity 1 or 2!");
+
+		System.err.println("unknown predicate! " + predicateName);
+		return -1;
+		
+//		throw new UnsupportedOperationException(
+//				"Now we only support arity 1 or 2!");
 	}
 
 	public NormalPredicate getPredicate(String name, int arity) {

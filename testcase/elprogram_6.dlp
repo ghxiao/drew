@@ -4,9 +4,5 @@ university(b).
 department(c).
 myMemberOf(a,c).
 mySubOrganizationOf(c,b).
-myUndergraduateDegreeFrom(a,b).f(X, Y, Z) :-  DL[ub:GraduateStudent+=graduateStudent;ub:GraduateStudent](X),
- DL[ub:University+=university;ub:University](Y), 
-DL[ub:Department+=department;ub:Department](Z),
- DL[ub:memberOf+=myMemberOf;ub:memberOf](X,Z), 
- DL[ub:subOrganizationOf+=mySubOrganizationOf;ub:subOrganizationOf](Z,Y), 
- DL[ub:undergraduateDegreeFrom+=myUndergraduateDegreeFrom;ub:undergraduateDegreeFrom](X,Y).
+myUndergraduateDegreeFrom(a,b).f(X, Y, Z) :-  DL[ub:GraduateStudent+=graduateStudent;ub:GraduateStudent](X), DL[ub:University+=university;ub:University](Y), 
+DL[ub:Department+=department;ub:Department](Z), DL[ub:memberOf+=myMemberOf;ub:memberOf](X,Z), DL[ub:subOrganizationOf+=mySubOrganizationOf;ub:subOrganizationOf](Z,Y), DL[ub:undergraduateDegreeFrom+=myUndergraduateDegreeFrom;ub:undergraduateDegreeFrom](X,Y).

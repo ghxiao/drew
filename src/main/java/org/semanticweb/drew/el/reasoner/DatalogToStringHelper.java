@@ -104,7 +104,7 @@ public class DatalogToStringHelper {
 								.append("\"");
 						break;
 					case IRIFull:
-						sb.append("\"").append(iri.toString()).append("\"");
+						sb.append("\"<").append(iri.toString()).append(">\"");
 						break;
 					default:
 						break;

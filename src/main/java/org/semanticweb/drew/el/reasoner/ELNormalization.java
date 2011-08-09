@@ -333,7 +333,10 @@ public class ELNormalization implements OWLAxiomVisitorEx<Object> {
 			}
 
 			else {
-				throw new IllegalStateException();
+				
+				System.err.println("ignore " + axiom );
+				return null;
+				//throw new IllegalStateException();
 			}
 		}
 
@@ -568,8 +571,9 @@ public class ELNormalization implements OWLAxiomVisitorEx<Object> {
 
 	@Override
 	public Object visit(OWLSubDataPropertyOfAxiom axiom) {
-
-		throw new IllegalArgumentException(axiom.toString());
+		System.err.println("ignore " + axiom);
+		return null;
+		// throw new IllegalArgumentException(axiom.toString());
 
 	}
 

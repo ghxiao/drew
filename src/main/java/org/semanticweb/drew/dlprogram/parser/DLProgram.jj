@@ -429,6 +429,7 @@ Literal literal() :
   Term term;
   int arity = 0;
   boolean isDLAtomPredicate = false;
+  boolean neg = false; // -perdicate
 }
 {
   LOOKAHEAD(term() < COMPARISON >)
@@ -454,9 +455,16 @@ Literal literal() :
     {
       isDLAtomPredicate = true;
     }
-  | < IDENTIFIER >
+  |
+
+	["-"	{
+	  neg = true;	}
+	]
+  < IDENTIFIER >
     {
-      name = token.image;
+      	if(!neg)      	{      		name = token.image;
+    	}else    	{			name = "-" + token.image;
+    	}
     }
   )
   [

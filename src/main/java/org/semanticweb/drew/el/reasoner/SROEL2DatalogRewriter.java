@@ -403,7 +403,9 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 
 	@Override
 	public void visit(OWLDataPropertyRangeAxiom axiom) {
-		throw new IllegalStateException();
+		System.err.println("warning! ignore axiom " + axiom);
+
+//		throw new IllegalStateException();
 	}
 
 	@Override

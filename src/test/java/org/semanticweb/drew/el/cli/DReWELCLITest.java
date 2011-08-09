@@ -20,4 +20,14 @@ public class DReWELCLITest {
 	public void test2() throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException {
 		DReWELCLI.main("-ontology testcase/U0_0.owl -dlp testcase/elprogram_0.dlp -filter f -dlv /usr/bin/dlv".split("\\s"));
 	}
+	
+	@Test
+	public void testPR() throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException {
+		DReWELCLI.main(
+				"-ontology benchmark/publication.owl -dlp benchmark/reviewers-1.elp -filter a -dlv /usr/bin/dlv".split("\\s"));
+	}
+	
+	public static void main(String[] args) throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException{
+		new DReWELCLITest().testPR();
+	}
 }

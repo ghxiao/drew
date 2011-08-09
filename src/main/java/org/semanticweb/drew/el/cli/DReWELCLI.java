@@ -12,6 +12,7 @@ import it.unical.mat.wrapper.ModelBufferedHandler;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -63,8 +64,7 @@ public class DReWELCLI {
 			System.exit(1);
 		}
 
-		DReWELManager.getInstance().setNamingStrategy(
-				NamingStrategy.IRIFragment);
+		DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFull);
 		// DReWELManager.getInstance().setDatalogFormat(DatalogFormat.XSB);
 		SROELProfile profile = new SROELProfile();
 		File file = new File(ontologyFile);
@@ -101,7 +101,9 @@ public class DReWELCLI {
 			DLProgram datalog = compiler.compile(kb);
 			DatalogToStringHelper helper = new DatalogToStringHelper();
 			String strDatalog = helper.toString(datalog);
-			//System.out.println(strDatalog);
+			FileWriter w = new FileWriter(dlpFile + ".dl");
+			w.write(strDatalog);
+			w.close();
 			inputProgram.addText(strDatalog);
 		}
 
@@ -115,7 +117,10 @@ public class DReWELCLI {
 
 		invocation.setNumberOfModels(1);
 		List<String> filters = new ArrayList<String>();
-		filters.add("ans");
+
+		if (cqFile != null) {
+			filters.add("ans");
+		}
 		if (filter != null) {
 			filters.add(filter);
 		}

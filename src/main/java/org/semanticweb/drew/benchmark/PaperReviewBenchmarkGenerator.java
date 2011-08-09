@@ -82,7 +82,101 @@ public class PaperReviewBenchmarkGenerator {
 	public PaperReviewBenchmarkGenerator() {
 		rand.setSeed(12345678L);
 	}
+	
+	
+	public static String elpRules = 
+			"#namespace(\"pub\",\"http://www.semanticweb.org/ontologies/2011/7/publication.owl#\").\n" +
+			"\n" + //
+			"kw(a,a):-false. \n" + //
+			"affliation(a,a):-false. \n" + //
+			"pcMember(a):-false. \n" + //
+			
+			"inArea(P,A) :- DL[pub:hasKeyword+=kw; hasKeyword](P, K), DL[;hasMember](A, K).\n" +// 
+			"\n" + // 
+			"%haha(S, K1, K2) :- DL[;hasMember](S, K1), DL[;hasMember](S, K2).\n" +// 
+			"\n" + //
+			"%kw(P, K2) :- kw(P, K1), DL[;hasMember](S, K1), DL[;hasMember](S, K2).\n" +// 
+			"\n" + //
+			"paperArea(P, A) :- paper(P), inArea(P, A).\n" +// 
+			"\n" + //
+			"expert(X, A) :- DL[;pub:hasAuthor](P1, X), DL[;pub:hasAuthor](P2, X), DL[;pub:hasAuthor](P3, X),\n" + 
+			"	inArea(P1, A), inArea(P2, A), inArea(P3, A), P1 != P2, P1 != P3, P2 != P3.\n" +// 
+			"	\n" + //
+			"\n" + //
+			"% if the reivewer and the author are from the same department, then this is a conflict\n" + 
+			"conflict(X, P) :- DL[pub:hasAuthor+=author; pub:hasAuthor](P, Y), \n" + 
+			"DL[pub:hasAffliation+=affliation;pub:hasAffliation](Y, A), DL[pub:hasAffliation+=affliation;pub:hasAffliation](X, A).\n" + 
+			"\n" + 
+			"% the author can not review the paper by himself \n" + //
+			"conflict(A, P) :- author(P, A).\n" + //
+			"\n" + //
+			"%cand(Author, Paper)\n" + //
+			"cand(X, P) :- paperArea(P, A), DL[pub:Referee+=pcMember;pub:Referee](X), expert(X, A),\n" + //
+			" not conflict(X,P), not iconflict(X, P).\n" + //
+			"\n" + //
+			"assign(X, P) :- cand(X, P), not -assign(X,P).\n" + //
+			"%-assign(Y,P) :- cand(Y, P), not assign(X,P), X!=Y.\n" + //
+			"\n" + //
+			"% every paper has at least three reviewers:\n" + //
+			"a(P) :- assign(X1, P), assign(X2, P), assign(X3, P), X1 != X2, X1 != X3, X2 != X3.\n" + //
+			"\n" + //
+			"% every paper has at most three reviewers:\n" + //
+			"%:- assign(X, P1), assign(X, P2), assign(X, P3), assign(X, P4), \n" + //
+			"%P1 != P2, P1 != P3, P1 != P4, P2 != P3, P2 != P4, P3 != P4.\n" + //
+			"\n" + //
+			"% every paper must be assigned\n" + //
+			"error(P) :- paper(P), not a(P). \n" + //
+			"\n" + //
+			"%:- error(P).\n" + //
+			"\n" + 
+			"";
 
+	public static String dlpRules = 
+			"% list of interesting conflicts\n" + //
+			"iconflict(p1, \"Bioinformatics\").\n" + // 
+			"\n" +  //
+			"% list of conflicts\n" + // 
+			"\n" + // 
+			"inArea(P,A) :- DL[hasKeyword+=kw; hasKeyword](P, K), DL[hasMember](A, K).\n" + // 
+			"\n" +  //
+			"%haha(S, K1, K2) :- DL[hasMember](S, K1), DL[hasMember](S, K2).\n" + // 
+			"\n" + // 
+			"%kw(P, K2) :- kw(P, K1), DL[hasMember](S, K1), DL[hasMember](S, K2).\n" + // 
+			"\n" +  //
+			"paperArea(P, A) :- paper(P), inArea(P, A).\n" + // 
+			"\n" + // 
+			"expert(X, A) :- DL[hasAuthor](P1, X), DL[hasAuthor](P2, X), DL[hasAuthor](P3, X),\n" + // 
+			"	inArea(P1, A), inArea(P2, A), inArea(P3, A), P1 != P2, P1 != P3, P2 != P3.\n" +  //
+			"	\n" +  //
+			"\n" +  //
+			"% if the reivewer and the author are from the same department, then this is a conflict\n" + // 
+			"conflict(X, P) :- DL[hasAuthor+=author; hasAuthor](P, Y), \n" +  // 
+			"DL[hasAffliation+=affliation;hasAffliation](Y, A), DL[hasAffliation+=affliation;hasAffliation](X, A).\n" + // 
+			"\n" +  //
+			"% the author can not review the paper by himself \n" + // 
+			"conflict(A, P) :- author(P, A).\n" +  //
+			"\n" +  //
+			"%cand(Author, Paper)\n" + // 
+			"cand(X, P) :- paperArea(P, A), DL[Referee+=pcMember;Referee](X), expert(X, A),\n" + // 
+			" not conflict(X,P), not iconflict(X, P).\n" +  //
+			"\n" +  //
+			"assign(X, P) :- cand(X, P), not -assign(X,P).\n" +  //
+			"%-assign(Y,P) :- cand(Y, P), not assign(X,P), X!=Y.\n" +  //
+			"\n" +  //
+			"% every paper has at least three reviewers:\n" +  //
+			"a(P) :- assign(X1, P), assign(X2, P), assign(X3, P), X1 != X2, X1 != X3, X2 != X3.\n" + // 
+			"\n" +  //
+			"% every paper has at most three reviewers:\n" + // 
+			":- assign(X, P1), assign(X, P2), assign(X, P3), assign(X, P4), \n" + // 
+			"P1 != P2, P1 != P3, P1 != P4, P2 != P3, P2 != P4, P3 != P4.\n" +  //
+			"\n" +  //
+			"% every paper must be assigned\n" + // 
+			"error(P) :- paper(P), not a(P). \n" +  //
+			"\n" +  //
+			"%:- error(P).\n" + // 
+			"\n" +  //
+			"";
+	
 	public void generate() {
 		generateOntology();
 		generateDLProgram();
@@ -99,7 +193,13 @@ public class PaperReviewBenchmarkGenerator {
 			}
 		}
 		try {
-			FileWriter writer = new FileWriter("benchmark/reviewer-facts.dlp");
+			FileWriter writer = new FileWriter("benchmark/reviewers-1.dlp");
+			writer.write(dlpRules);
+			writer.write(sb.toString());
+			writer.close();
+			
+			writer = new FileWriter("benchmark/reviewers-1.elp");
+			writer.write(elpRules);
 			writer.write(sb.toString());
 			writer.close();
 		} catch (IOException e) {

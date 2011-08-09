@@ -1,20 +1,24 @@
-paper(p1).
-kw(p1, "Semantic_Web").
-paper(p2).
-kw(p2, "Bioinformatics").
-kw(p2, "Answer_Set_Programming").
+%paper("<http://www.semanticweb.org/ontologies/2011/7/publication.owl#p1>").
+%kw("<http://www.semanticweb.org/ontologies/2011/7/publication.owl#p1>", "<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_1>").
+%paper("<http://www.semanticweb.org/ontologies/2011/7/publication.owl#p2>").
+%kw("<http://www.semanticweb.org/ontologies/2011/7/publication.owl#p2>", "<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_2>").
+%kw("<http://www.semanticweb.org/ontologies/2011/7/publication.owl#p2>", "<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_3>").
 
 % list of interesting conflicts
 iconflict(p1, "Bioinformatics").
 
 % list of conflicts
 
-kw(P, K2) :- kw(P, K1), DL[hasMember](S, K1), DL[hasMember](S, K2).
-paperArea(P, A) :- DL[hasKeyword += kw; inArea](P, A).
+inArea(P,A) :- DL[hasKeyword+=kw; hasKeyword](P, K), DL[hasMember](A, K).
 
-expert(X, A) :- DL[isAuthorOf](X, P1), 
-	DL[isAuthorOf](X, P2), DL[isAuthorOf](X, P3),
-	DL[inArea](P2, A), DL[inArea](P3, A), P1 != P2, P1 != P3, P2 != P3.
+%haha(S, K1, K2) :- DL[hasMember](S, K1), DL[hasMember](S, K2).
+
+%kw(P, K2) :- kw(P, K1), DL[hasMember](S, K1), DL[hasMember](S, K2).
+
+paperArea(P, A) :- paper(P), inArea(P, A).
+
+expert(X, A) :- DL[hasAuthor](P1, X), DL[hasAuthor](P2, X), DL[hasAuthor](P3, X),
+	inArea(P1, A), inArea(P2, A), inArea(P3, A), P1 != P2, P1 != P3, P2 != P3.
 	
 
 % if the reivewer and the author are from the same department, then this is a conflict
@@ -24,6 +28,7 @@ DL[hasAffliation+=affliation;hasAffliation](Y, A), DL[hasAffliation+=affliation;
 % the author can not review the paper by himself 
 conflict(A, P) :- author(P, A).
 
+%cand(Author, Paper)
 cand(X, P) :- paperArea(P, A), DL[Referee+=pcMember;Referee](X), expert(X, A),
  not conflict(X,P), not iconflict(X, P).
 
@@ -31,7 +36,7 @@ assign(X, P) :- cand(X, P), not -assign(X,P).
 %-assign(Y,P) :- cand(Y, P), not assign(X,P), X!=Y.
 
 % every paper has at least three reviewers:
-a(X) :- assign(X,P1), assign(X, P2), assign(X, P3), P1 != P2, P1 != P3, P2 != P3.
+a(P) :- assign(X1, P), assign(X2, P), assign(X3, P), X1 != X2, X1 != X3, X2 != X3.
 
 % every paper has at most three reviewers:
 :- assign(X, P1), assign(X, P2), assign(X, P3), assign(X, P4), 
