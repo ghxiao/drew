@@ -18,7 +18,7 @@ public class DReWELCLITest {
 
 	@Test
 	public void test2() throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException {
-		DReWELCLI.main("-ontology testcase/U0_0.owl -dlp testcase/elprogram_0.dlp -filter f -dlv /usr/bin/dlv".split("\\s"));
+		DReWELCLI.main("-ontology testcase/U0_0.owl -dlp testcase/elprogram_0.dlp -filter f -dlv /Users/xiao/usr/bin/dlv".split("\\s"));
 	}
 	
 	@Test
@@ -28,6 +28,6 @@ public class DReWELCLITest {
 	}
 	
 	public static void main(String[] args) throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException{
-		new DReWELCLITest().testPR();
+		new DReWELCLITest().test2();
 	}
 }
