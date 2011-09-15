@@ -41,8 +41,14 @@ public class RewritingVocabulary {
 	
 	public final static NormalPredicate RANGE = CacheManager.getInstance().getPredicate("range", 2);
 	
+	public final static NormalPredicate SUBSET = CacheManager.getInstance().getPredicate("subset", 2);
 	
-	public final static List<NormalPredicate> elRewritingPredicates = new ArrayList<NormalPredicate>();
+	public final static NormalPredicate INST_P = CacheManager.getInstance().getPredicate("inst_p", 3);
+
+	public final static NormalPredicate TRIPLE_P = CacheManager.getInstance().getPredicate("triple_p", 4);
+
+	
+	//public final static List<NormalPredicate> elRewritingPredicates = new ArrayList<NormalPredicate>();
 	
 	public final static String DL_ATOM = "dl_ATOM";
 }

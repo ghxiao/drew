@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO describe this class please.
+ * [S1 op1 p1, ..., Sn op_n p_n]
  */
 public class DLInputSignature {
 

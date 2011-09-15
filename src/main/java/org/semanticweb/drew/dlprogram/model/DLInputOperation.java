@@ -7,9 +7,45 @@ package org.semanticweb.drew.dlprogram.model;
 import org.semanticweb.owlapi.model.OWLLogicalEntity;
 
 /**
- * TODO describe this class please.
+ * (S += p) or (S -= p)
  */
 public class DLInputOperation {
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((dlPredicate == null) ? 0 : dlPredicate.hashCode());
+		result = prime * result
+				+ ((inputPredicate == null) ? 0 : inputPredicate.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DLInputOperation other = (DLInputOperation) obj;
+		if (dlPredicate == null) {
+			if (other.dlPredicate != null)
+				return false;
+		} else if (!dlPredicate.equals(other.dlPredicate))
+			return false;
+		if (inputPredicate == null) {
+			if (other.inputPredicate != null)
+				return false;
+		} else if (!inputPredicate.equals(other.inputPredicate))
+			return false;
+		if (type != other.type)
+			return false;
+		return true;
+	}
 
 	// only DL concept or role name allowed
 	OWLLogicalEntity dlPredicate;

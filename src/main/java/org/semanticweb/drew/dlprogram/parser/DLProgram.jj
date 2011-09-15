@@ -234,6 +234,7 @@ DLAtomPredicate dlAtomPredicate() :
       name = dlPredicate()
     )
     {
+      //FIXME: can be property
       query = OWLManager.getOWLDataFactory().getOWLClass(IRI.create(name));
       predicate.setQuery(query);
     }

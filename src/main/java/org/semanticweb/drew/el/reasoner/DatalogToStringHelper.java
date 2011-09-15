@@ -3,6 +3,7 @@ package org.semanticweb.drew.el.reasoner;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Types;
+import java.util.List;
 
 import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.Constant;
@@ -25,7 +26,7 @@ public class DatalogToStringHelper {
 	public void saveToFile(DLProgram program, String file) {
 		try {
 			FileWriter writer = new FileWriter(file);
-			if(DReWELManager.getInstance().getDatalogFormat()==DatalogFormat.XSB){
+			if (DReWELManager.getInstance().getDatalogFormat() == DatalogFormat.XSB) {
 				writer.write(PInst.strXSBHeader);
 			}
 			writer.write(toString(program));
@@ -35,14 +36,19 @@ public class DatalogToStringHelper {
 		}
 	}
 
-
 	public String toString(DLProgram program) {
+		// sb = new StringBuilder();
+		List<Clause> clauses = program.getClauses();
+		return toString(clauses);
+	}
+
+	public String toString(List<Clause> clauses) {
 		sb = new StringBuilder();
-		for (Clause r : program.getClauses()) {
+
+		for (Clause r : clauses) {
 			toString(r);
 			sb.append("\n");
 		}
-
 		return sb.toString();
 	}
 
@@ -90,18 +96,21 @@ public class DatalogToStringHelper {
 					sb.append(", ");
 				}
 				first = false;
-				
-				
+
 				if (t instanceof IRIConstant) {
-					IRIConstant iriConstant = (IRIConstant)t;
+					IRIConstant iriConstant = (IRIConstant) t;
 					IRI iri = iriConstant.getIRI();
 					switch (DReWELManager.getInstance().getNamingStrategy()) {
 					case IntEncoding:
-						sb.append(DReWELManager.getInstance().getIRIEncoder().encode(iri));
+						sb.append(DReWELManager.getInstance().getIRIEncoder()
+								.encode(iri));
 						break;
 					case IRIFragment:
-						sb.append("\"").append(iri.getFragment())
-								.append("\"");
+						String fragment = iri.getFragment();
+						if (fragment == null) {
+							fragment = iri.toString();
+						}
+						sb.append("\"").append(fragment).append("\"");
 						break;
 					case IRIFull:
 						sb.append("\"<").append(iri.toString()).append(">\"");
@@ -110,7 +119,8 @@ public class DatalogToStringHelper {
 						break;
 					}
 
-				} else if (t instanceof Constant && ((Constant) t).getType() == Types.VARCHAR) {
+				} else if (t instanceof Constant
+						&& ((Constant) t).getType() == Types.VARCHAR) {
 					sb.append("\"");
 					sb.append(t);
 					sb.append("\"");
