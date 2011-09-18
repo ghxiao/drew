@@ -80,7 +80,7 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 			cls.accept(this);
 		}
 
-		datalog.getClauses().addAll(PInst.getPInst());
+		//datalog.getClauses().addAll(PInst.getPInst());
 
 		if (DReWELManager.getInstance().getDatalogFormat() == DatalogFormat.XSB) {
 			datalog.getClauses().addAll(PInst.getXsbDeclaration());
@@ -110,7 +110,12 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 		// addFact(RewritingVocabulary.SUB_CLASS, a, c);
 		//
 
-		addFact(RewritingVocabulary.SUB_CLASS,//
+		// TODO: CHECK!!
+//		addFact(RewritingVocabulary.SUB_CLASS,//
+//				axiom.getIndividual().asOWLNamedIndividual().getIRI(), //
+//				axiom.getClassExpression().asOWLClass().getIRI());
+		
+		addFact(RewritingVocabulary.ISA,//
 				axiom.getIndividual().asOWLNamedIndividual().getIRI(), //
 				axiom.getClassExpression().asOWLClass().getIRI());
 	}
@@ -125,10 +130,19 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 		// iriEncoder.encode(axiom.getObject().asOWLNamedIndividual().getIRI());
 		//
 		// addFact(RewritingVocabulary.SUP_EX, s, p, o, o);
-		addFact(RewritingVocabulary.SUP_EX, //
+		
+		
+		//TODO: CHECK!!!
+//		addFact(RewritingVocabulary.SUP_EX, //
+//				axiom.getSubject().asOWLNamedIndividual().getIRI(), //
+//				axiom.getProperty().asOWLObjectProperty().getIRI(), //
+//				axiom.getObject().asOWLNamedIndividual().getIRI(), //
+//				axiom.getObject().asOWLNamedIndividual().getIRI() //
+//		);
+		
+		addFact(RewritingVocabulary.TRIPLE, //
 				axiom.getSubject().asOWLNamedIndividual().getIRI(), //
 				axiom.getProperty().asOWLObjectProperty().getIRI(), //
-				axiom.getObject().asOWLNamedIndividual().getIRI(), //
 				axiom.getObject().asOWLNamedIndividual().getIRI() //
 		);
 	}

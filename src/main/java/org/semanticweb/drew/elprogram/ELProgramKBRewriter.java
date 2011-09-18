@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.semanticweb.drew.dlprogram.DLProgramKB2DatalogRewriter;
 import org.semanticweb.drew.dlprogram.model.CacheManager;
 import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.Constant;
@@ -28,6 +29,7 @@ import org.semanticweb.drew.el.reasoner.DReWELManager;
 import org.semanticweb.drew.el.reasoner.PInst;
 import org.semanticweb.drew.el.reasoner.RewritingVocabulary;
 import org.semanticweb.drew.el.reasoner.SROEL2DatalogRewriter;
+import org.semanticweb.drew.elprogram.incremental.PInstStar;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
@@ -41,7 +43,7 @@ import org.semanticweb.owlapi.model.OWLOntology;
 /**
  * KBCompiler: compile the el-program KB to a datalog^n program.
  */
-public class ELProgramKBCompiler {
+public class ELProgramKBRewriter implements DLProgramKB2DatalogRewriter {
 
 	// final static Logger logger =
 	// LoggerFactory.getLogger(ELProgramKBCompiler.class);
@@ -53,38 +55,47 @@ public class ELProgramKBCompiler {
 
 	private SymbolEncoder<IRI> iriEncoder;
 
-	public ELProgramKBCompiler() {
+	public ELProgramKBRewriter() {
 		dlInputSignatureEncoder = DReWELManager.getInstance()
 				.getDlInputSignatureEncoder();
 		iriEncoder = DReWELManager.getInstance().getIRIEncoder();
 	}
 
-	public DLProgram compile(DLProgramKB kb) {
+	public DLProgram rewrite(DLProgramKB kb) {
 		List<Clause> result = new ArrayList<Clause>();
 
 		final OWLOntology ontology = kb.getOntology();
-		SROEL2DatalogRewriter ldlpCompiler = new SROEL2DatalogRewriter();
-		final List<Clause> compiledOntology = ldlpCompiler.rewrite(ontology)
+		SROEL2DatalogRewriter elCompiler = new SROEL2DatalogRewriter();
+		final List<Clause> compiledOntology = elCompiler.rewrite(ontology)
 				.getClauses();
 		final DLProgram program = kb.getProgram();
 		final Set<DLInputSignature> dlInputSignatures = program
 				.getDLInputSignatures();
+		Set<DLAtomPredicate> dlAtomPredicates = program.getDLAtomPredicates();
+
+		DLAtomPredicatesCompiler dlAtomPredicatesCompiler = new DLAtomPredicatesCompiler();
+
+
+		result.addAll(compileProgram(program));
+		result.addAll(dlAtomPredicatesCompiler.compile(dlAtomPredicates));
+		
 		for (DLInputSignature signature : dlInputSignatures) {
 			result.addAll(subscript(compiledOntology, signature));
+		}
+		
+		List<Clause> pInst = PInst.getPInst();
+		
+		for (DLInputSignature signature : dlInputSignatures) {
+			result.addAll(subscript(pInst, signature));
 		}
 
 		for (DLInputSignature signature : dlInputSignatures) {
 			result.addAll(compileSignature(signature));
 		}
+		
 
-		Set<DLAtomPredicate> dlAtomPredicates = program.getDLAtomPredicates();
-
-		DLAtomPredicatesCompiler dlAtomPredicatesCompiler = new DLAtomPredicatesCompiler();
-
-		result.addAll(dlAtomPredicatesCompiler.compile(dlAtomPredicates));
-
-		result.addAll(compileProgram(program));
-
+		//result.addAll(PInstStar.getPInstStar());
+		
 		DLProgram resultProgram = new DLProgram();
 		resultProgram.getClauses().addAll(result);
 
@@ -209,7 +220,7 @@ public class ELProgramKBCompiler {
 
 			String name = null;
 			if (arity == 1) {
-				name = RewritingVocabulary.INST.getName() + "_" + sub;
+				name = RewritingVocabulary.ISA.getName() + "_" + sub;
 			} else if (arity == 2) {
 				name = RewritingVocabulary.TRIPLE.getName() + "_" + sub;
 			}

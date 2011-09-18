@@ -541,31 +541,31 @@ private int jjMoveNfa_0(int startState, int curPos)
             switch(jjstateSet[--i])
             {
                case 32:
-                  if ((0x7fffffe07fffffeL & l) != 0L)
-                  {
-                     if (kind > 30)
-                        kind = 30;
-                     jjCheckNAdd(24);
-                  }
-                  if ((0x7fffffe07fffffeL & l) != 0L)
+                  if ((0x7fffffe87fffffeL & l) != 0L)
                   {
                      if (kind > 17)
                         kind = 17;
                      jjCheckNAdd(11);
                   }
-                  break;
-               case 31:
                   if ((0x7fffffe07fffffeL & l) != 0L)
                   {
                      if (kind > 30)
                         kind = 30;
                      jjCheckNAdd(24);
                   }
-                  if ((0x7fffffe07fffffeL & l) != 0L)
+                  break;
+               case 31:
+                  if ((0x7fffffe87fffffeL & l) != 0L)
                   {
                      if (kind > 21)
                         kind = 21;
                      jjCheckNAdd(22);
+                  }
+                  if ((0x7fffffe07fffffeL & l) != 0L)
+                  {
+                     if (kind > 30)
+                        kind = 30;
+                     jjCheckNAdd(24);
                   }
                   break;
                case 0:
@@ -604,7 +604,7 @@ private int jjMoveNfa_0(int startState, int curPos)
                   jjCheckNAdd(11);
                   break;
                case 11:
-                  if ((0x7fffffe07fffffeL & l) == 0L)
+                  if ((0x7fffffe87fffffeL & l) == 0L)
                      break;
                   if (kind > 17)
                      kind = 17;
@@ -634,7 +634,7 @@ private int jjMoveNfa_0(int startState, int curPos)
                   jjCheckNAdd(22);
                   break;
                case 22:
-                  if ((0x7fffffe07fffffeL & l) == 0L)
+                  if ((0x7fffffe87fffffeL & l) == 0L)
                      break;
                   if (kind > 21)
                      kind = 21;

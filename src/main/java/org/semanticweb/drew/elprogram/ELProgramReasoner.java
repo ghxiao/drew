@@ -10,9 +10,8 @@ public class ELProgramReasoner {
 	private DLProgram rewritedKB;
 
 	public ELProgramReasoner(DLProgramKB kb) {
-		
-		
-		
 		this.kb = kb;
 	}
+	
+	
 }

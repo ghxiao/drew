@@ -21,7 +21,7 @@ import org.semanticweb.drew.el.reasoner.DatalogFormat;
 import org.semanticweb.drew.el.reasoner.DatalogToStringHelper;
 import org.semanticweb.drew.el.reasoner.NamingStrategy;
 import org.semanticweb.drew.el.reasoner.SROEL2DatalogRewriter;
-import org.semanticweb.drew.elprogram.ELProgramKBCompiler;
+import org.semanticweb.drew.elprogram.ELProgramKBRewriter;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -248,8 +248,8 @@ public class AppTest extends TestCase {
 		kb.setOntology(ontology);
 		kb.setProgram(elprogram);
 
-		ELProgramKBCompiler compiler = new ELProgramKBCompiler();
-		DLProgram datalog = compiler.compile(kb);
+		ELProgramKBRewriter compiler = new ELProgramKBRewriter();
+		DLProgram datalog = compiler.rewrite(kb);
 		// System.out.println(datalog);
 		DatalogToStringHelper builder = new DatalogToStringHelper();
 		String prologFileName = "testcase/testELProgram.pl";

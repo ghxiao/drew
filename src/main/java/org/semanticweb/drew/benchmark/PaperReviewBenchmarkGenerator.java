@@ -48,21 +48,15 @@ public class PaperReviewBenchmarkGenerator {
 	private OWLClass personClass;
 	private OWLClass keywordClass;
 
-	private OWLOntology ontology;
-
 	private OWLDataFactory factory;
-
 	private OWLOntologyManager manager;
+	private OWLOntology ontology;
 
 	private OWLDataProperty firstnameProperty;
 	private OWLDataProperty lastnameProperty;
-
 	private OWLObjectProperty hasAffliationProperty;
-
 	private OWLClass orgnizationClass;
-
 	private OWLClass areaClass;
-
 	private OWLClass articleInProceedingsClass;
 
 	private List<OWLIndividual> areas = new ArrayList<OWLIndividual>();

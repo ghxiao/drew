@@ -59,7 +59,7 @@ public class DLAtomPredicatesCompiler {
 			Variable X = CacheManager.getInstance().getVariable("X");
 			Literal head = new Literal(headPredicate, X);
 			clause.setHead(head);
-			String bodyPredicateName = RewritingVocabulary.INST.getName() + "_"
+			String bodyPredicateName = RewritingVocabulary.ISA.getName() + "_"
 					+ input;
 			NormalPredicate bodyPredicate = CacheManager.getInstance()
 					.getPredicate(bodyPredicateName, 2);

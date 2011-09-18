@@ -177,6 +177,7 @@ public class DLProgramParser implements DLProgramParserConstants {
       predicate.setInputSignature(signature);
     jj_consume_token(31);
     name = dlPredicate();
+      //FIXME: can be property
       query = OWLManager.getOWLDataFactory().getOWLClass(IRI.create(name));
       predicate.setQuery(query);
     jj_consume_token(RIGHT_SQUARE_BRACKET);

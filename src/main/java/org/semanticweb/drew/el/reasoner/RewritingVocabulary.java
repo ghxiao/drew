@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.semanticweb.drew.dlprogram.model.CacheManager;
 import org.semanticweb.drew.dlprogram.model.NormalPredicate;
+import org.semanticweb.drew.dlprogram.model.Predicate;
 import org.semanticweb.drew.dlprogram.model.PredicateType;
 
 public class RewritingVocabulary {
@@ -14,7 +15,7 @@ public class RewritingVocabulary {
 	public final static NormalPredicate CLASS = CacheManager.getInstance().getPredicate("cls", 1);
 	public final static NormalPredicate ROLE = CacheManager.getInstance().getPredicate("rol", 1);
 	
-	public final static NormalPredicate INST = CacheManager.getInstance().getPredicate("inst", 2);
+	public final static NormalPredicate ISA = CacheManager.getInstance().getPredicate("isa", 2);
 
 	public final static NormalPredicate TRIPLE = CacheManager.getInstance().getPredicate("triple", 3);
 
@@ -43,12 +44,13 @@ public class RewritingVocabulary {
 	
 	public final static NormalPredicate SUBSET = CacheManager.getInstance().getPredicate("subset", 2);
 	
-	public final static NormalPredicate INST_P = CacheManager.getInstance().getPredicate("inst_p", 3);
+	public final static NormalPredicate ISA_P = CacheManager.getInstance().getPredicate("isa_p", 3);
 
 	public final static NormalPredicate TRIPLE_P = CacheManager.getInstance().getPredicate("triple_p", 4);
 
-	
+	public static final NormalPredicate INPUT = CacheManager.getInstance().getPredicate("input", 1);
 	//public final static List<NormalPredicate> elRewritingPredicates = new ArrayList<NormalPredicate>();
 	
 	public final static String DL_ATOM = "dl_ATOM";
+	
 }

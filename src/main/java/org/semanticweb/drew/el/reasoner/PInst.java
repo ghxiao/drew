@@ -10,19 +10,19 @@ import org.semanticweb.drew.dlprogram.parser.ParseException;
 
 public class PInst {
 
-	static String strPInst = "inst(X, X) :- nom(X).\n" + //
+	static String strPInst = "isa(X, X) :- nom(X).\n" + //
 			"self(X, V) :- nom(X), rol(V), triple(X, V, X).\n" + //
-			// "inst(X, Z) :- top(Z), inst(X, Z1).\n" + //
-			// "inst(X, Y) :- bot(Z), inst(U, Z), inst(X, Z1), cls(Y).\n" + //
-			"inst(X, Z) :- subClass(Y, Z), inst(X, Y).\n" + //
-			"inst(X, Z) :- subConj(Y1, Y2, Z), inst(X, Y1), inst(X, Y2).\n" + //
-			"inst(X, Z) :- rol(Y), rol(V), subEx(V, Y, Z), triple(X, V, X1), inst(X1, Y).\n" + //
-			"inst(X, Z) :- rol(Y), subEx(V, Y, Z), self(X, V), inst(X, Y).\n" + //
-			//"triple(X, V, X1) :-  rol(V), supEx(Y, V, Z, X1), inst(X, Y).\n" + //
-			"triple(X, V, X1) :-  supEx(Y, V, Z, X1), inst(X, Y).\n" + //
-			"inst(X1, Z) :- rol(V), supEx(Y, V, Z, X1), inst(X, Y).\n" + //
-			"inst(X, Z) :- rol(V), subSelf(V, Z), self(X, V).\n" + //
-			"self(X, V) :- rol(V), supSelf(Y, V), inst(X, Y).\n" + //
+			// "isa(X, Z) :- top(Z), isa(X, Z1).\n" + //
+			// "isa(X, Y) :- bot(Z), isa(U, Z), isa(X, Z1), cls(Y).\n" + //
+			"isa(X, Z) :- subClass(Y, Z), isa(X, Y).\n" + //
+			"isa(X, Z) :- subConj(Y1, Y2, Z), isa(X, Y1), isa(X, Y2).\n" + //
+			"isa(X, Z) :- rol(Y), rol(V), subEx(V, Y, Z), triple(X, V, X1), isa(X1, Y).\n" + //
+			"isa(X, Z) :- rol(Y), subEx(V, Y, Z), self(X, V), isa(X, Y).\n" + //
+			//"triple(X, V, X1) :-  rol(V), supEx(Y, V, Z, X1), isa(X, Y).\n" + //
+			"triple(X, V, X1) :-  supEx(Y, V, Z, X1), isa(X, Y).\n" + //
+			"isa(X1, Z) :- rol(V), supEx(Y, V, Z, X1), isa(X, Y).\n" + //
+			"isa(X, Z) :- rol(V), subSelf(V, Z), self(X, V).\n" + //
+			"self(X, V) :- rol(V), supSelf(Y, V), isa(X, Y).\n" + //
 			"triple(X, W, X1) :- rol(V), rol(W), subRole(V, W), triple(X, V, X1).\n" + //
 			"self(X, W) :- rol(V), rol(W), subRole(V, W), self(X, V).\n" + //
 			"triple(X, W, X11) :- rol(U), rol(V), rol(W), subRChain(U, V, W), triple(X, U, X1), triple(X1, V, X11).\n" + //
@@ -31,22 +31,22 @@ public class PInst {
 			"triple(X, W, X) :- rol(U), rol(V), rol(W), subRChain(U, V, W), self(X, U), self(X, V).\n" + //
 			"triple(X, W, X1) :- rol(V1), rol(V2), rol(W), subRConj(V1,V2,W), triple(X,V1,X1), triple(X,V2,X1).\n" + //
 			"self(X, W) :- rol(V1), rol(V2), rol(W), subRConj(V1, V2, W), self(X, V1), self(X, V2).\n" + //
-			// "triple(X, W, X1) :- rol(W), subProd(Y1, Y2, W), inst(X, Y1), inst(X1, Y2).\n"
+			// "triple(X, W, X1) :- rol(W), subProd(Y1, Y2, W), isa(X, Y1), isa(X1, Y2).\n"
 			// + //
-			// "self(X, W) :- rol(W), subProd(Y1, Y2, W), inst(X, Y1), inst(X, Y2).\n"
+			// "self(X, W) :- rol(W), subProd(Y1, Y2, W), isa(X, Y1), isa(X, Y2).\n"
 			// + //
-			// "inst(X, Z1) :- rol(V), supProd(V, Z1, Z2), triple(X, V, X1).\n"
+			// "isa(X, Z1) :- rol(V), supProd(V, Z1, Z2), triple(X, V, X1).\n"
 			// + //
-			// "inst(X, Z1) :-supProd(V, Z1, Z2), self(X, V).\n" + //
-			// "inst(X1, Z2) :-supProd(V, Z1, Z2), triple(X, V, X1).\n" + //
-			// "inst(X, Z2) :-supProd(V, Z1, Z2), self(X, V).\n" + //
-			"inst(Y, Z) :-inst(X, Y), nom(Y), inst(X, Z).\n" + //
-			"inst(X, Z) :-inst(X, Y), nom(Y), inst(Y, Z).\n" + //
-			"triple(Z, U, Y) :- inst(X, Y), nom(Y), triple(Z, U, X).\n" + //
+			// "isa(X, Z1) :-supProd(V, Z1, Z2), self(X, V).\n" + //
+			// "isa(X1, Z2) :-supProd(V, Z1, Z2), triple(X, V, X1).\n" + //
+			// "isa(X, Z2) :-supProd(V, Z1, Z2), self(X, V).\n" + //
+			"isa(Y, Z) :-isa(X, Y), nom(Y), isa(X, Z).\n" + //
+			"isa(X, Z) :-isa(X, Y), nom(Y), isa(Y, Z).\n" + //
+			"triple(Z, U, Y) :- isa(X, Y), nom(Y), triple(Z, U, X).\n" + //
 			"triple(X, V, X) :- nom(X), rol(V), self(X, V).\n" + //
-			"inst(Y, R) :- range(V, R), triple(X, V, Y).\n " + //
-			"inst(X, R) :- domain(V, R), triple(X, V, Y).\n " + //
-			// "inst(X, R) :- transitive(R), triple(X, R, Y).\n " + //
+			"isa(Y, R) :- range(V, R), triple(X, V, Y).\n " + //
+			"isa(X, R) :- domain(V, R), triple(X, V, Y).\n " + //
+			// "isa(X, R) :- transitive(R), triple(X, R, Y).\n " + //
 			"top(\"Thing\").\n" + //
 			"bot(\"Nothing\").\n" + //
 			"";
@@ -54,7 +54,7 @@ public class PInst {
 	static String strXSBHeader = //
 	":- auto_table.\n" + //
 			// ":- table triple/3.\n" + //
-			// ":- table inst/2.\n" + //
+			// ":- table isa/2.\n" + //
 			// ":- table self/2.\n" + //
 			// "\n" + //
 			// "subConj(_, _, _) :- fail.\n" + //
@@ -67,7 +67,7 @@ public class PInst {
 			// "subRConj(_, _, _) :- fail.\n" + //
 			// "subClass(_, _) :- fail.\n" + //
 			// "subRole(_, _) :- fail.\n" + //
-			// "inst(_, _) :- fail.\n" + //
+			// "isa(_, _) :- fail.\n" + //
 			// "triple(_, _, _) :- fail.\n" + //
 			// "nom(_) :- fail.\n" + //
 			// "rol(_) :- fail.\n" + //
@@ -87,7 +87,7 @@ public class PInst {
 			"subRChain(X, Y, Z) :- fail.\n" + //
 			"subClass(X, Y) :- fail.\n" + //
 			"subRole(X, Y) :- fail.\n" + //
-			"inst(X, Y) :- fail.\n" + //
+			"isa(X, Y) :- fail.\n" + //
 			"triple(X, Y, Z) :- fail.\n" + //
 			"nom(X) :- fail.\n" + //
 			"rol(X) :- fail.\n" + //

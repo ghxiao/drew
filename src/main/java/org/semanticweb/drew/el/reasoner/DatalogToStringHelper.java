@@ -3,6 +3,7 @@ package org.semanticweb.drew.el.reasoner;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Types;
+import java.util.Collection;
 import java.util.List;
 
 import org.semanticweb.drew.dlprogram.model.Clause;
@@ -24,6 +25,20 @@ public class DatalogToStringHelper {
 	}
 
 	public void saveToFile(DLProgram program, String file) {
+//		try {
+//			FileWriter writer = new FileWriter(file);
+//			if (DReWELManager.getInstance().getDatalogFormat() == DatalogFormat.XSB) {
+//				writer.write(PInst.strXSBHeader);
+//			}
+//			writer.write(toString(program));
+//			writer.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+		saveToFile(program.getClauses(), file);
+	}
+
+	public void saveToFile(List<Clause> program, String file) {
 		try {
 			FileWriter writer = new FileWriter(file);
 			if (DReWELManager.getInstance().getDatalogFormat() == DatalogFormat.XSB) {
@@ -35,14 +50,14 @@ public class DatalogToStringHelper {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public String toString(DLProgram program) {
 		// sb = new StringBuilder();
 		List<Clause> clauses = program.getClauses();
 		return toString(clauses);
 	}
 
-	public String toString(List<Clause> clauses) {
+	public String toString(Collection<Clause> clauses) {
 		sb = new StringBuilder();
 
 		for (Clause r : clauses) {

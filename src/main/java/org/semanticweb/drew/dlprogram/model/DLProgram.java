@@ -43,11 +43,13 @@ public class DLProgram implements Cloneable {
 	 *            the type of interested clauses
 	 * @return set of clauses of the given type about the predicate
 	 */
-	public List<Clause> getClausesAboutPredicate(NormalPredicate predicate, ClauseType type) {
+	public List<Clause> getClausesAboutPredicate(NormalPredicate predicate,
+			ClauseType type) {
 		List<Clause> result = new ArrayList<Clause>();
 
 		for (Clause clause : clauses) {
-			if (clause.getHead().getPredicate().equals(predicate) && clause.getType() == type) {
+			if (clause.getHead().getPredicate().equals(predicate)
+					&& clause.getType() == type) {
 				result.add(clause);
 			}
 		}
@@ -123,14 +125,28 @@ public class DLProgram implements Cloneable {
 		return result;
 	}
 
-	public Set<DLInputSignature> getDLInputSignatures() {
+	public Set<DLInputSignature> getDLInputSignatures(boolean withEmpty) {
 		Set<DLInputSignature> signatures = new HashSet<DLInputSignature>();
-		// signatures.add(DLInputSignature.EMPTY);
+
+		if (withEmpty) {
+			signatures.add(DLInputSignature.EMPTY);
+		}
 
 		for (Clause clause : this.getClauses()) {
 			signatures.addAll(clause.getDLInputSignatures());
 		}
 		return signatures;
+	}
+
+	public Set<DLInputSignature> getDLInputSignatures() {
+		return getDLInputSignatures(false);
+//		Set<DLInputSignature> signatures = new HashSet<DLInputSignature>();
+//		// signatures.add(DLInputSignature.EMPTY);
+//
+//		for (Clause clause : this.getClauses()) {
+//			signatures.addAll(clause.getDLInputSignatures());
+//		}
+//		return signatures;
 	}
 
 	public Set<DLAtomPredicate> getDLAtomPredicates() {

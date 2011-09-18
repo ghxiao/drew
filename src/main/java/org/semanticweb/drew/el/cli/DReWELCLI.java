@@ -18,6 +18,7 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.semanticweb.drew.dlprogram.DLProgramKB2DatalogRewriter;
 import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.model.DLProgramKB;
@@ -28,7 +29,8 @@ import org.semanticweb.drew.el.reasoner.DReWELManager;
 import org.semanticweb.drew.el.reasoner.DatalogToStringHelper;
 import org.semanticweb.drew.el.reasoner.NamingStrategy;
 import org.semanticweb.drew.el.reasoner.SROEL2DatalogRewriter;
-import org.semanticweb.drew.elprogram.ELProgramKBCompiler;
+import org.semanticweb.drew.elprogram.ELProgramKBRewriter;
+import org.semanticweb.drew.elprogram.incremental.IncrementalELProgramRewriter;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -46,6 +48,8 @@ public class DReWELCLI {
 	private static String cqFile;
 	private static String dlpFile;
 	private static String filter;
+	private static String datalogFile;
+	private static String rewriting = "default";
 
 	/**
 	 * @param args
@@ -74,7 +78,6 @@ public class DReWELCLI {
 		OWLProfileReport report = profile.checkOntology(ontology);
 		System.out.println(report);
 		DLVInputProgram inputProgram = new DLVInputProgramImpl();
-		;
 		if (cqFile != null) {
 			SROEL2DatalogRewriter rewriter = new SROEL2DatalogRewriter();
 			DLProgram datalog = rewriter.rewrite(ontology);
@@ -97,11 +100,22 @@ public class DReWELCLI {
 			DLProgram elprogram = parser.program();
 			kb.setProgram(elprogram);
 
-			ELProgramKBCompiler compiler = new ELProgramKBCompiler();
-			DLProgram datalog = compiler.compile(kb);
+			DLProgram datalog;
+
+			DLProgramKB2DatalogRewriter compiler;
+
+			if (rewriting.equals("inc")) {
+				compiler = new IncrementalELProgramRewriter();
+			} else {
+				compiler = new ELProgramKBRewriter();
+			}
+
+			datalog = compiler.rewrite(kb);
+
 			DatalogToStringHelper helper = new DatalogToStringHelper();
 			String strDatalog = helper.toString(datalog);
-			FileWriter w = new FileWriter(dlpFile + ".dl");
+			datalogFile = ontologyFile + "-" + dlpFile+ "-"  + rewriting + ".dl";
+			FileWriter w = new FileWriter(datalogFile);
 			w.write(strDatalog);
 			w.close();
 			inputProgram.addText(strDatalog);
@@ -183,7 +197,12 @@ public class DReWELCLI {
 				DReWELManager.getInstance().setVerboseLevel(
 						Integer.parseInt(args[i + 1]));
 				i += 2;
-			} else {
+			} else if (args[i].equals("-rewriting")) {
+				rewriting = args[i + 1];
+				i += 2;
+			}
+			else {
+				System.err.println("Unknow option " + args[i]);
 				return false;
 			}
 		}

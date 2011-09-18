@@ -78,7 +78,7 @@ TOKEN :
 | < DL_ATOM : "DL" >
 | < LEFT_SQUARE_BRACKET : "[" >
 | < RIGHT_SQUARE_BRACKET : "]" >
-| < IDENTIFIER : [ "a"-"z" ] ([ "a"-"z", "A"-"Z", "0"-"9" ])* >
+| < IDENTIFIER : [ "a"-"z" ] ([ "a"-"z", "A"-"Z", "0"-"9", "_" ])* >
 | < INTEGER :
     "0"
   | ([ "+", "-" ])? [ "1"-"9" ] ([ "0"-"9" ])* >
@@ -97,7 +97,7 @@ TOKEN :
     "\"" >
 | < VARIABLE :
     "_"
-  | [ "A"-"Z" ] ([ "a"-"z", "A"-"Z", "0"-"9" ])* >
+  | [ "A"-"Z" ] ([ "a"-"z", "A"-"Z", "0"-"9", "_" ])* >
 | < PLUS : "+" >
 | < MINUS : "-" >
 | < TIMES : "*" >
