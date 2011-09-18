@@ -1,0 +1,49 @@
+%paper("<http://www.semanticweb.org/ontologies/2011/7/publication.owl#p1>").
+%kw("<http://www.semanticweb.org/ontologies/2011/7/publication.owl#p1>", "<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_1>").
+%paper("<http://www.semanticweb.org/ontologies/2011/7/publication.owl#p2>").
+%kw("<http://www.semanticweb.org/ontologies/2011/7/publication.owl#p2>", "<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_2>").
+%kw("<http://www.semanticweb.org/ontologies/2011/7/publication.owl#p2>", "<http://www.semanticweb.org/ontologies/2011/7/publication.owl#Keyword_3>").
+
+% list of interesting conflicts
+iconflict(p1, "Bioinformatics").
+
+% list of conflicts
+
+inArea(P,A) :- DL[hasKeyword+=kw; hasKeyword](P, K), DL[hasMember](A, K).
+
+%haha(S, K1, K2) :- DL[hasMember](S, K1), DL[hasMember](S, K2).
+
+%kw(P, K2) :- kw(P, K1), DL[hasMember](S, K1), DL[hasMember](S, K2).
+
+paperArea(P, A) :- paper(P), inArea(P, A).
+
+expert(X, A) :- DL[hasAuthor](P1, X), DL[hasAuthor](P2, X), DL[hasAuthor](P3, X),
+	inArea(P1, A), inArea(P2, A), inArea(P3, A), P1 != P2, P1 != P3, P2 != P3.
+	
+
+% if the reivewer and the author are from the same department, then this is a conflict
+conflict(X, P) :- DL[hasAuthor+=author; hasAuthor](P, Y), 
+DL[hasAffliation+=affliation;hasAffliation](Y, A), DL[hasAffliation+=affliation;hasAffliation](X, A).
+
+% the author can not review the paper by himself 
+conflict(A, P) :- author(P, A).
+
+%cand(Author, Paper)
+cand(X, P) :- paperArea(P, A), DL[Referee+=pcMember;Referee](X), expert(X, A),
+ not conflict(X,P), not iconflict(X, P).
+
+assign(X, P) :- cand(X, P), not -assign(X,P).
+%-assign(Y,P) :- cand(Y, P), not assign(X,P), X!=Y.
+
+% every paper has at least three reviewers:
+a(P) :- assign(X1, P), assign(X2, P), assign(X3, P), X1 != X2, X1 != X3, X2 != X3.
+
+% every paper has at most three reviewers:
+:- assign(X, P1), assign(X, P2), assign(X, P3), assign(X, P4), 
+P1 != P2, P1 != P3, P1 != P4, P2 != P3, P2 != P4, P3 != P4.
+
+% every paper must be assigned
+error(P) :- paper(P), not a(P). 
+
+%:- error(P).
+
