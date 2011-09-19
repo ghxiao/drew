@@ -1,0 +1,3 @@
+publication("a").
+myPublicationAuthor("a", "<http://www.Department0.University0.edu/AssistantProfessor0>").
+f(X, Y) :- DL[Publication+=publication;Publication](X), DL[publicationAuthor+=myPublicationAuthor;publicationAuthor](X, Y), Y = "<http://www.Department0.University0.edu/AssistantProfessor0>".

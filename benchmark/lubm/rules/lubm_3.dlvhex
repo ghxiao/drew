@@ -1,0 +1,1 @@
+f(X, Y) :- DL[Publication](X), DL[publicationAuthor](X, Y), Y = "<http://www.Department0.University0.edu/AssistantProfessor0>".

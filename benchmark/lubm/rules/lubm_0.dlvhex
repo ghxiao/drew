@@ -1,0 +1,1 @@
+f(X, Y) :- DL[Faculty](X), DL[Faculty](Y), D1 = D2, U1 != U2, DL[doctoralDegreeFrom](X, U1), DL[worksFor](X, D1), DL[doctoralDegreeFrom](Y, U2), DL[worksFor](Y, D2).

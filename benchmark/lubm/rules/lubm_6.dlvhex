@@ -1,0 +1,7 @@
+graduateStudent("a").
+university("b").
+department("c").
+myMemberOf("a", "c").
+mySubOrganizationOf("c", "b").
+myUndergraduateDegreeFrom("a", "b").
+f(X, Y, Z) :- DL[GraduateStudent+=graduateStudent;GraduateStudent](X), DL[University+=university;University](Y), DL[Department+=department;Department](Z), DL[memberOf+=myMemberOf;memberOf](X, Z), DL[subOrganizationOf+=mySubOrganizationOf;subOrganizationOf](Z, Y), DL[undergraduateDegreeFrom+=myUndergraduateDegreeFrom;undergraduateDegreeFrom](X, Y).

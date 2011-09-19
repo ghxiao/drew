@@ -1,0 +1,1 @@
+f(X, Y, Z) :- DL[GraduateStudent](X), DL[University](Y), DL[Department](Z), DL[memberOf](X, Z), DL[subOrganizationOf](Z, Y), DL[undergraduateDegreeFrom](X, Y).

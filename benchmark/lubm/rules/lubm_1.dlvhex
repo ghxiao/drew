@@ -1,0 +1,1 @@
+f(X, Y) :- DL[GraduateStudent](X), DL[takesCourse](X, Y), Y = "<http://www.Department0.University0.edu/GraduateCourse0>".
