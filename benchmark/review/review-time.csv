@@ -1,0 +1,10 @@
+ontology,	rule,	dlvhex(s), 	old rewriting(s), 	dlv(s),	clingo, 	rewriting(s),	dlv(s),	clingo(s)
+ontology/publication-1.owl,	rules/reviewers-3.elp,	3.1,	1.5,	16.7,	12.1,	1.1,	15.9,	11.9
+ontology/publication-1.owl,	rules/reviewers-1.elp,	3.1,	1.3,	300.0,	19.7,	1.1,	300.0,	19.5
+ontology/publication-1.owl,	rules/reviewers-2.elp,	3.1,	1.4,	18.6,	12.9,	1.1,	17.9,	12.6
+ontology/publication-3.owl,	rules/reviewers-3.elp,	3.2,	2.3,	92.4,	300.0,	1.7,	89.5,	300.0
+ontology/publication-3.owl,	rules/reviewers-1.elp,	3.1,	2.2,	90.9,	300.0,	1.7,	88.9,	300.0
+ontology/publication-3.owl,	rules/reviewers-2.elp,	3.2,	2.3,	90.8,	300.0,	1.9,	89.4,	300.0
+ontology/publication-2.owl,	rules/reviewers-3.elp,	3.2,	1.8,	92.9,	300.1,	1.5,	92.4,	300.1
+ontology/publication-2.owl,	rules/reviewers-1.elp,	3.1,	1.8,	94.5,	300.1,	1.4,	91.8,	300.1
+ontology/publication-2.owl,	rules/reviewers-2.elp,	3.1,	1.7,	93.3,	300.1,	1.5,	91.8,	300.1
