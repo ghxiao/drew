@@ -1,0 +1,49 @@
+#namespace("pub","http://www.semanticweb.org/ontologies/2011/7/publication.owl#").
+
+% declaration of the predicates
+kw(a,a):-false. 
+affiliation(a,a):-false. 
+pcMember(a):-false. 
+
+inArea(P,A) :- DL[pub:hasKeyword+=kw; pub:hasKeyword](P, K), DL[;pub:hasMember](A, K).
+
+%kw(P, K2) :- kw(P, K1), DL[;pub:hasMember](S, K1), DL[;pub:hasMember](S, K2).
+
+paperArea(P, A) :- paper(P), inArea(P, A).
+
+expert(X, A) :- DL[;pub:hasAuthor](P1, X), DL[;pub:hasAuthor](P2, X), DL[;pub:hasAuthor](P3, X),
+	inArea(P1, A), inArea(P2, A), inArea(P3, A), P1 != P2, P1 != P3, P2 != P3.
+	
+% if the reviewer and the author are from the same department, then this is a conflict
+conflict(X, P) :- DL[pub:hasAuthor+=author; pub:hasAuthor](P, Y), 
+DL[pub:hasAffliation+=affiliation;pub:hasAffliation](Y, A),
+DL[pub:hasAffliation+=affiliation;pub:hasAffliation](X, A).
+
+% the author can not review the paper by himself 
+conflict(A, P) :- author(P, A).
+
+%cand(Author, Paper)
+cand(X, P) :- paperArea(P, A), DL[pub:Referee+=pcMember;pub:Referee](X), expert(X, A),
+ not conflict(X,P).
+
+assign(X, P) :- cand(X, P), not -assign(X,P).
+-assign(X, P) :- cand(X, P), not assign(X,P).
+
+
+%-assign(Y,P) :- cand(Y, P), not assign(X,P), X!=Y.
+
+% every paper has at least three reviewers:
+a(P) :- assign(X1, P), assign(X2, P), assign(X3, P), X1 != X2, X1 != X3, X2 != X3.
+
+% every paper has at most three reviewers:
+error(P) :- assign(X1, P), assign(X2, P), assign(X3, P), assign(X4, P), 
+X1 != X2, X1 != X3, X1 != X4, X2 != X3, X2 != X4, X3 != X4.
+
+% every paper must be assigned
+error(P) :- paper(P), not a(P). 
+
+% weak constraint
+%:~ error(P).
+:- error(P).
+
+
