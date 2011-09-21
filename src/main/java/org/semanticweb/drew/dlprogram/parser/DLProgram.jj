@@ -463,9 +463,11 @@ Literal literal() :
 	]
   < IDENTIFIER >
     {
-      	if(!neg)      	{      		name = token.image;
-    	}else    	{			name = "-" + token.image;
-    	}
+      
+//      	if(!neg)//      	{      		name = token.image;
+//    	}else//    	{//			name = "-" + token.image;//    	}
+		if(neg)		{			literal.setNegative(true);
+		}
     }
   )
   [

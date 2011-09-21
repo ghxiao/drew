@@ -19,6 +19,14 @@ public class DLProgramParserTest {
 //		System.out.println(program);
 	}
 	
+	@Test
+	public void testNeg() throws ParseException{
+		String s = "p(X) :- q(X), not r(X), not -s(Y), -f(X,Y). ";
+		DLProgramParser parser = new DLProgramParser(new StringReader(s));
+		DLProgram program = parser.program();
+		System.out.println(program);;
+	}
+	
 	public static void main(String[] args) throws ParseException{
 		new DLProgramParserTest().test();
 	}

@@ -29,6 +29,8 @@ public class Literal implements Cloneable, Comparable<Literal> {
 
 	private List<Term> terms = new ArrayList<Term>();
 
+	private boolean negative;
+
 	/**
 	 * Default empty constructor.
 	 */
@@ -144,6 +146,9 @@ public class Literal implements Cloneable, Comparable<Literal> {
 			case LOGIC:
 				return normalPredicate.name;
 			case NORMAL:
+				if(negative){
+					result.append("-");
+				}
 				result.append(normalPredicate.name);
 				if (terms.size() > 0) {
 					result.append("(");
@@ -212,5 +217,13 @@ public class Literal implements Cloneable, Comparable<Literal> {
 		result = 31 * result + predicate.hashCode();
 		result = 31 * result + terms.hashCode();
 		return result;
+	}
+
+	public void setNegative(boolean negative) {
+		this.negative = negative;
+	}
+	
+	public boolean getNegative() {
+		return this.negative;
 	}
 }

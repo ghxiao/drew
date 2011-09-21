@@ -437,13 +437,17 @@ public class DLProgramParser implements DLProgramParserConstants {
             ;
           }
           jj_consume_token(IDENTIFIER);
-        if(!neg)
-        {
+//      	if(!neg)
+//      	{
                 name = token.image;
-        }else
-        {
-                        name = "-" + token.image;
-        }
+//    	}else
+//    	{
+//			name = "-" + token.image;
+//    	}
+                if(neg)
+                {
+                        literal.setNegative(true);
+                }
           break;
         default:
           jj_la1[16] = jj_gen;
