@@ -16,9 +16,11 @@ fi
 #pushd "$dir" > /dev/null    # Go there
 #BASEDIR=$PWD             # Record the absolute path
 
-BASEDIR=/Users/xiao/Dropbox/krrepos/xiao/imps/drew-el/trunk/drew-el/dist
+#BASEDIR=/Users/xiao/Dropbox/krrepos/xiao/imps/drew-el/trunk/drew-el/dist
 
-#BASEDIR=/home/xiao/krrepos-xiao/imps/drew-el/trunk/drew-el/dist	
+BASEDIR=/home/xiao/krrepos-xiao/imps/drew-el/trunk/drew-el/dist	
+
+#BASEDIR=${DREWELBASEDIR}
 
 #exec ${java} ${pellet_java_args} -jar lib/pellet-cli.jar "$@"
 exec ${java} -cp ${BASEDIR}/drew.el-0.0.1-SNAPSHOT.jar:${BASEDIR}/junit-4.8.2.jar:${BASEDIR}/owlapi-all-3.2.3.jar:${BASEDIR}/DLVwrapper-4.1.jar \

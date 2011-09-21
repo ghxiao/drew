@@ -27,7 +27,20 @@ public class DReWELCLITest {
 				"-ontology benchmark/publication.owl -dlp benchmark/reviewers-1.elp -filter a -dlv /usr/bin/dlv".split("\\s"));
 	}
 	
+	@Test
+	public void testConstraint() throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException {
+		DReWELCLI.main(
+				"-ontology testcase/ex4.owl -dlp testcase/constraint.dlp -filter a -dlv /usr/bin/dlv".split("\\s"));
+	}
+	
+	@Test
+	public void testLUBM47() throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException {
+		DReWELCLI.main(
+				"-ontology benchmark/lubm/ontology/lubm4.owl -dlp benchmark/lubm/rules/lubm_7.elp -dlv /usr/bin/dlv -rewriting inc".split("\\s"));
+	}
+	
+	
 	public static void main(String[] args) throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException{
-		new DReWELCLITest().test2();
+		new DReWELCLITest().testLUBM47();
 	}
 }

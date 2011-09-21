@@ -23,7 +23,7 @@ for ontology in glob.glob("ontology/*.owl"):
         print dlvhexcmd; 
         os.system(dlvhexcmd)
         f = open('time.out')
-        t = f.read()[:-2]
+        t = f.readlines()[-1][:-2]
         print "dlvhex ", t,"s"
         rf.write(",\t%s"%t)
         rf.flush()
@@ -32,7 +32,7 @@ for ontology in glob.glob("ontology/*.owl"):
         datalog = "%s-%s-default.dl" % (ontology, rule.split('/')[-1])
         os.system(dreweloldcmd)
         f = open('time.out')
-        t = f.read()[:-2]
+        t = f.readlines()[-1][:-2]
         print "old rewriting ", t,"s"
         rf.write(",\t%s"%t)
         rf.flush()
@@ -40,7 +40,7 @@ for ontology in glob.glob("ontology/*.owl"):
         dlvcmd = "/usr/bin/time -o time.out -f \"%%e\" timelimit -t 300 /usr/bin/dlv %s > /dev/null 2>&1" % datalog
         os.system(dlvcmd)
         f = open('time.out')
-        t = f.read()[:-2]
+        t = f.readlines()[-1][:-2]
         print "dlv", t, "s"
         rf.write(",\t%s"%t)
         rf.flush()
@@ -57,7 +57,7 @@ for ontology in glob.glob("ontology/*.owl"):
         datalog = "%s-%s-inc.dl" % (ontology, rule.split('/')[-1])
         os.system(drewelcmd)
         f = open('time.out')
-        t = f.read()[:-2]
+        t = f.readlines()[-1][:-2]
         print "drew-el new incremental rewriting ", t, "s"
         rf.write(",\t%s"%t)
         rf.flush()
@@ -65,7 +65,7 @@ for ontology in glob.glob("ontology/*.owl"):
         dlvcmd = "/usr/bin/time -o time.out -f \"%%e\" timelimit -t 300 /usr/bin/dlv %s > /dev/null 2>&1" % datalog
         os.system(dlvcmd)
         f = open('time.out')
-        t = f.read()[:-2]
+        t = f.readlines()[-1][:-2]
         print "dlv", t, "s"
         rf.write(",\t%s"%t)
         rf.flush()

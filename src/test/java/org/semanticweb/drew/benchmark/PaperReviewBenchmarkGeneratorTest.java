@@ -1,7 +1,5 @@
 package org.semanticweb.drew.benchmark;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 public class PaperReviewBenchmarkGeneratorTest {
@@ -9,7 +7,7 @@ public class PaperReviewBenchmarkGeneratorTest {
 	@Test
 	public void test() {
 		PaperReviewBenchmarkGenerator g = new PaperReviewBenchmarkGenerator();
-		g.generate();
+		g.generate("benchmark/review");
 	}
 
 	public static void main(String[] args){

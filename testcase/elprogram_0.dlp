@@ -1,4 +1,0 @@
-#namespace("ub","http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#").
-f (X, Y) :- DL[;ub:Faculty](X), DL[;ub:Faculty](Y), D1 = D2 , U1 != U2 ,
-DL[;ub:doctoralDegreeFrom](X, U1), DL[;ub:worksFor](X, D1 ),
-DL[;ub:doctoralDegreeFrom](Y, U2), DL[;ub:worksFor](Y, D2 ).

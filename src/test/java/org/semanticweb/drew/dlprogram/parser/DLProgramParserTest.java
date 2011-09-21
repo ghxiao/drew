@@ -14,9 +14,9 @@ public class DLProgramParserTest {
 	public void test() throws ParseException {
 		
 		//System.out.println(PaperReviewBenchmarkGenerator.elpRules);
-		DLProgramParser parser = new DLProgramParser(new StringReader(PaperReviewBenchmarkGenerator.elpRules));
-		DLProgram program = parser.program();
-		System.out.println(program);
+//		DLProgramParser parser = new DLProgramParser(new StringReader(PaperReviewBenchmarkGenerator.elpRules));
+//		DLProgram program = parser.program();
+//		System.out.println(program);
 	}
 	
 	public static void main(String[] args) throws ParseException{

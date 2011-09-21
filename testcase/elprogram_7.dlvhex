@@ -1,5 +1,0 @@
-graduateStudent(a).
-myTakesCourse(a,b).
-f(X, Y) :-  DL[GraduateStudent+=graduateStudent;GraduateStudent](X), 
-DL[takesCourse+=myTakesCourse;takesCourse](X, Y), 
-Y="<http://www.Department0.University0.edu/GraduateCourse0>". 

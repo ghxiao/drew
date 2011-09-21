@@ -1,8 +1,12 @@
 package org.semanticweb.drew.benchmark;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -10,6 +14,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import org.semanticweb.drew.dlprogram.model.DLProgram;
+import org.semanticweb.drew.dlprogram.parser.DLProgramParser;
+import org.semanticweb.drew.dlprogram.parser.ParseException;
+import org.semanticweb.drew.el.reasoner.DatalogToStringHelper;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -73,126 +81,82 @@ public class PaperReviewBenchmarkGenerator {
 
 	private OWLClass refereeClass;
 
+	private String rootPath;
+
 	public PaperReviewBenchmarkGenerator() {
 		rand.setSeed(12345678L);
 	}
-	
-	
-	public static String elpRules = 
-			"#namespace(\"pub\",\"http://www.semanticweb.org/ontologies/2011/7/publication.owl#\").\n" +
-			"\n" + //
-			"kw(a,a):-false. \n" + //
-			"affliation(a,a):-false. \n" + //
-			"pcMember(a):-false. \n" + //
-			
-			"inArea(P,A) :- DL[pub:hasKeyword+=kw; hasKeyword](P, K), DL[;hasMember](A, K).\n" +// 
-			"\n" + // 
-			"%haha(S, K1, K2) :- DL[;hasMember](S, K1), DL[;hasMember](S, K2).\n" +// 
-			"\n" + //
-			"%kw(P, K2) :- kw(P, K1), DL[;hasMember](S, K1), DL[;hasMember](S, K2).\n" +// 
-			"\n" + //
-			"paperArea(P, A) :- paper(P), inArea(P, A).\n" +// 
-			"\n" + //
-			"expert(X, A) :- DL[;pub:hasAuthor](P1, X), DL[;pub:hasAuthor](P2, X), DL[;pub:hasAuthor](P3, X),\n" + 
-			"	inArea(P1, A), inArea(P2, A), inArea(P3, A), P1 != P2, P1 != P3, P2 != P3.\n" +// 
-			"	\n" + //
-			"\n" + //
-			"% if the reivewer and the author are from the same department, then this is a conflict\n" + 
-			"conflict(X, P) :- DL[pub:hasAuthor+=author; pub:hasAuthor](P, Y), \n" + 
-			"DL[pub:hasAffliation+=affliation;pub:hasAffliation](Y, A), DL[pub:hasAffliation+=affliation;pub:hasAffliation](X, A).\n" + 
-			"\n" + 
-			"% the author can not review the paper by himself \n" + //
-			"conflict(A, P) :- author(P, A).\n" + //
-			"\n" + //
-			"%cand(Author, Paper)\n" + //
-			"cand(X, P) :- paperArea(P, A), DL[pub:Referee+=pcMember;pub:Referee](X), expert(X, A),\n" + //
-			" not conflict(X,P), not iconflict(X, P).\n" + //
-			"\n" + //
-			"assign(X, P) :- cand(X, P), not -assign(X,P).\n" + //
-			"%-assign(Y,P) :- cand(Y, P), not assign(X,P), X!=Y.\n" + //
-			"\n" + //
-			"% every paper has at least three reviewers:\n" + //
-			"a(P) :- assign(X1, P), assign(X2, P), assign(X3, P), X1 != X2, X1 != X3, X2 != X3.\n" + //
-			"\n" + //
-			"% every paper has at most three reviewers:\n" + //
-			"%:- assign(X, P1), assign(X, P2), assign(X, P3), assign(X, P4), \n" + //
-			"%P1 != P2, P1 != P3, P1 != P4, P2 != P3, P2 != P4, P3 != P4.\n" + //
-			"\n" + //
-			"% every paper must be assigned\n" + //
-			"error(P) :- paper(P), not a(P). \n" + //
-			"\n" + //
-			"%:- error(P).\n" + //
-			"\n" + 
-			"";
 
-	public static String dlpRules = 
-			"% list of interesting conflicts\n" + //
-			"iconflict(p1, \"Bioinformatics\").\n" + // 
-			"\n" +  //
-			"% list of conflicts\n" + // 
-			"\n" + // 
-			"inArea(P,A) :- DL[hasKeyword+=kw; hasKeyword](P, K), DL[hasMember](A, K).\n" + // 
-			"\n" +  //
-			"%haha(S, K1, K2) :- DL[hasMember](S, K1), DL[hasMember](S, K2).\n" + // 
-			"\n" + // 
-			"%kw(P, K2) :- kw(P, K1), DL[hasMember](S, K1), DL[hasMember](S, K2).\n" + // 
-			"\n" +  //
-			"paperArea(P, A) :- paper(P), inArea(P, A).\n" + // 
-			"\n" + // 
-			"expert(X, A) :- DL[hasAuthor](P1, X), DL[hasAuthor](P2, X), DL[hasAuthor](P3, X),\n" + // 
-			"	inArea(P1, A), inArea(P2, A), inArea(P3, A), P1 != P2, P1 != P3, P2 != P3.\n" +  //
-			"	\n" +  //
-			"\n" +  //
-			"% if the reivewer and the author are from the same department, then this is a conflict\n" + // 
-			"conflict(X, P) :- DL[hasAuthor+=author; hasAuthor](P, Y), \n" +  // 
-			"DL[hasAffliation+=affliation;hasAffliation](Y, A), DL[hasAffliation+=affliation;hasAffliation](X, A).\n" + // 
-			"\n" +  //
-			"% the author can not review the paper by himself \n" + // 
-			"conflict(A, P) :- author(P, A).\n" +  //
-			"\n" +  //
-			"%cand(Author, Paper)\n" + // 
-			"cand(X, P) :- paperArea(P, A), DL[Referee+=pcMember;Referee](X), expert(X, A),\n" + // 
-			" not conflict(X,P), not iconflict(X, P).\n" +  //
-			"\n" +  //
-			"assign(X, P) :- cand(X, P), not -assign(X,P).\n" +  //
-			"%-assign(Y,P) :- cand(Y, P), not assign(X,P), X!=Y.\n" +  //
-			"\n" +  //
-			"% every paper has at least three reviewers:\n" +  //
-			"a(P) :- assign(X1, P), assign(X2, P), assign(X3, P), X1 != X2, X1 != X3, X2 != X3.\n" + // 
-			"\n" +  //
-			"% every paper has at most three reviewers:\n" + // 
-			":- assign(X, P1), assign(X, P2), assign(X, P3), assign(X, P4), \n" + // 
-			"P1 != P2, P1 != P3, P1 != P4, P2 != P3, P2 != P4, P3 != P4.\n" +  //
-			"\n" +  //
-			"% every paper must be assigned\n" + // 
-			"error(P) :- paper(P), not a(P). \n" +  //
-			"\n" +  //
-			"%:- error(P).\n" + // 
-			"\n" +  //
-			"";
-	
-	public void generate() {
-		generateOntology();
-		generateDLProgram();
+	public String elpRules;
+
+	public static String dlpRules;
+
+	public void generate(String rootPath) {
+		generate(rootPath, 1);
 	}
 
-	public void generateDLProgram() {
+	public void generate(String rootPath, int n) {
+
+		this.rootPath = rootPath;
+
+		nAuthors = 100 * n;
+		nOrganizations = 20 * n;
+		nAreas = 20 * n;
+		nKeywords = 80 * n;
+		nArticleInProceedings = 200 * n;
+		nSubmissions = 20 * n;
+		generateOntology(n);
+		try {
+			generateDLProgram(n);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void generateDLProgram(int n) throws IOException {
+		elpRules = "";
+		BufferedReader reader = new BufferedReader(new FileReader(this
+				.getClass().getResource("review.elp").getFile()));
+		String line;
+		while ((line = reader.readLine()) != null) {
+			elpRules += line + "\n";
+		}
+		reader.close();
+
+		StringReader r = new StringReader(elpRules);
+		DLProgramParser parser = new DLProgramParser(r);
+		try {
+			DLProgram program = parser.program();
+			DatalogToStringHelper helper = new DatalogToStringHelper();
+			helper.setUsingDlvhexFormat(true);
+			dlpRules = helper.toString(program);
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+
 		StringBuilder sb = new StringBuilder();
+
 		for (int i = 0; i < nSubmissions; i++) {
-			sb.append(String.format("paper(\"<%s#Submission_%d>\").\n", baseIRI, i));
+			sb.append(String.format("paper(\"<%s#Submission_%d>\").\n",
+					baseIRI, i));
 			int nKeywordsForThis = rand.nextInt(2) + 2;
 			for (int j = 0; j < nKeywordsForThis; j++) {
-				sb.append(String.format("kw(\"<%s#Submission_%d>\", \"<%s#Keyword_%d>\").\n",
+				sb.append(String.format(
+						"kw(\"<%s#Submission_%d>\", \"<%s#Keyword_%d>\").\n",
 						baseIRI, i, baseIRI, rand.nextInt(nKeywords)));
 			}
 		}
+
 		try {
-			FileWriter writer = new FileWriter("benchmark/reviewers-1.dlp");
+			FileWriter writer = new FileWriter(rootPath + "/reviewers-" + n
+					+ ".dlp");
 			writer.write(dlpRules);
 			writer.write(sb.toString());
 			writer.close();
-			
-			writer = new FileWriter("benchmark/reviewers-1.elp");
+
+			writer = new FileWriter(rootPath + "/reviewers-" + n + ".elp");
 			writer.write(elpRules);
 			writer.write(sb.toString());
 			writer.close();
@@ -202,12 +166,13 @@ public class PaperReviewBenchmarkGenerator {
 
 	}
 
-	public void generateOntology() {
+	public void generateOntology(int n) {
 
 		try {
 			manager = OWLManager.createOWLOntologyManager();
 			URL resource = this.getClass().getResource("publication-tbox.owl");
-			final OWLOntology schemaOntology = manager.loadOntology(IRI.create(resource));
+			final OWLOntology schemaOntology = manager.loadOntology(IRI
+					.create(resource));
 			Set<OWLAxiom> tBoxAxioms = schemaOntology.getTBoxAxioms(false);
 			Set<OWLAxiom> rBoxAxioms = schemaOntology.getRBoxAxioms(false);
 
@@ -218,18 +183,29 @@ public class PaperReviewBenchmarkGenerator {
 			factory = manager.getOWLDataFactory();
 
 			personClass = factory.getOWLClass(IRI.create(baseIRI + "#Person"));
-			refereeClass = factory.getOWLClass(IRI.create(baseIRI + "#Referee"));
-			orgnizationClass = factory.getOWLClass(IRI.create(baseIRI + "#Organization"));
-			keywordClass = factory.getOWLClass(IRI.create(baseIRI + "#Keyword"));
+			refereeClass = factory
+					.getOWLClass(IRI.create(baseIRI + "#Referee"));
+			orgnizationClass = factory.getOWLClass(IRI.create(baseIRI
+					+ "#Organization"));
+			keywordClass = factory
+					.getOWLClass(IRI.create(baseIRI + "#Keyword"));
 			areaClass = factory.getOWLClass(IRI.create(baseIRI + "#Area"));
-			firstnameProperty = factory.getOWLDataProperty(IRI.create(baseIRI + "#firstname"));
-			lastnameProperty = factory.getOWLDataProperty(IRI.create(baseIRI + "#lastname"));
-			hasAffliationProperty = factory.getOWLObjectProperty(IRI.create(baseIRI + "#hasAfflication"));
-			hasMemberProperty = factory.getOWLObjectProperty(IRI.create(baseIRI + "#hasMember"));
-			articleInProceedingsClass = factory.getOWLClass(IRI.create(baseIRI + "#Article_in_Proceedings"));
-			hasTitleProperty = factory.getOWLDataProperty(IRI.create(baseIRI + "#hasTitle"));
-			hasAuthorProperty = factory.getOWLObjectProperty(IRI.create(baseIRI + "#hasAuthor"));
-			hasKeywordProperty = factory.getOWLObjectProperty(IRI.create(baseIRI + "#hasKeyword"));
+			firstnameProperty = factory.getOWLDataProperty(IRI.create(baseIRI
+					+ "#firstname"));
+			lastnameProperty = factory.getOWLDataProperty(IRI.create(baseIRI
+					+ "#lastname"));
+			hasAffliationProperty = factory.getOWLObjectProperty(IRI
+					.create(baseIRI + "#hasAfflication"));
+			hasMemberProperty = factory.getOWLObjectProperty(IRI.create(baseIRI
+					+ "#hasMember"));
+			articleInProceedingsClass = factory.getOWLClass(IRI.create(baseIRI
+					+ "#Article_in_Proceedings"));
+			hasTitleProperty = factory.getOWLDataProperty(IRI.create(baseIRI
+					+ "#hasTitle"));
+			hasAuthorProperty = factory.getOWLObjectProperty(IRI.create(baseIRI
+					+ "#hasAuthor"));
+			hasKeywordProperty = factory.getOWLObjectProperty(IRI
+					.create(baseIRI + "#hasKeyword"));
 
 			generateAuthors();
 			generateAffliations();
@@ -238,7 +214,8 @@ public class PaperReviewBenchmarkGenerator {
 			generateKeywords();
 			generateHasMembers();
 			generateArticlesInProcedings();
-			manager.saveOntology(ontology, IRI.create(new File("benchmark/publication.owl")));
+			manager.saveOntology(ontology,
+					IRI.create(new File("benchmark/review/publication-" + n + ".owl")));
 		} catch (OWLOntologyCreationException e) {
 			e.printStackTrace();
 		} catch (URISyntaxException e) {
@@ -251,19 +228,24 @@ public class PaperReviewBenchmarkGenerator {
 
 	private void generateKeywords() {
 		for (int i = 0; i < nKeywords; i++) {
-			final OWLNamedIndividual keyword = factory.getOWLNamedIndividual(IRI.create(baseIRI + "#Keyword_" + i));
+			final OWLNamedIndividual keyword = factory
+					.getOWLNamedIndividual(IRI
+							.create(baseIRI + "#Keyword_" + i));
 			keywords.add(keyword);
 			manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(keyword));
-			manager.addAxiom(ontology, factory.getOWLClassAssertionAxiom(keywordClass, keyword));
+			manager.addAxiom(ontology,
+					factory.getOWLClassAssertionAxiom(keywordClass, keyword));
 		}
 	}
 
 	private void generateAreas() {
 		for (int i = 0; i < nAreas; i++) {
-			final OWLNamedIndividual area = factory.getOWLNamedIndividual(IRI.create(baseIRI + "#Area_" + i));
+			final OWLNamedIndividual area = factory.getOWLNamedIndividual(IRI
+					.create(baseIRI + "#Area_" + i));
 			areas.add(area);
 			manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(area));
-			manager.addAxiom(ontology, factory.getOWLClassAssertionAxiom(areaClass, area));
+			manager.addAxiom(ontology,
+					factory.getOWLClassAssertionAxiom(areaClass, area));
 		}
 
 	}
@@ -273,28 +255,35 @@ public class PaperReviewBenchmarkGenerator {
 			firstnames.add("FirstName" + i);
 			lastnames.add("LastName" + i);
 
-			final OWLNamedIndividual author = factory.getOWLNamedIndividual(IRI.create(baseIRI + "#Person_"
-					+ firstnames.get(i) + "_" + lastnames.get(i)));
+			final OWLNamedIndividual author = factory.getOWLNamedIndividual(IRI
+					.create(baseIRI + "#Person_" + firstnames.get(i) + "_"
+							+ lastnames.get(i)));
 			authors.add(author);
 			manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(author));
-			manager.addAxiom(ontology, factory.getOWLClassAssertionAxiom(personClass, author));
-			manager.addAxiom(ontology, factory.getOWLClassAssertionAxiom(refereeClass, author));
-
 			manager.addAxiom(ontology,
-					factory.getOWLDataPropertyAssertionAxiom(firstnameProperty, author, firstnames.get(i)));
+					factory.getOWLClassAssertionAxiom(personClass, author));
 			manager.addAxiom(ontology,
-					factory.getOWLDataPropertyAssertionAxiom(lastnameProperty, author, lastnames.get(i)));
+					factory.getOWLClassAssertionAxiom(refereeClass, author));
 
+			manager.addAxiom(ontology, factory
+					.getOWLDataPropertyAssertionAxiom(firstnameProperty,
+							author, firstnames.get(i)));
+			manager.addAxiom(ontology, factory
+					.getOWLDataPropertyAssertionAxiom(lastnameProperty, author,
+							lastnames.get(i)));
 		}
 	}
 
 	private void generateAffliations() {
 		for (int i = 0; i < nOrganizations; i++) {
-			final OWLNamedIndividual orgnization = factory.getOWLNamedIndividual(IRI.create(baseIRI + "#Organization_"
-					+ i));
+			final OWLNamedIndividual orgnization = factory
+					.getOWLNamedIndividual(IRI.create(baseIRI
+							+ "#Organization_" + i));
 			organizations.add(orgnization);
-			manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(orgnization));
-			manager.addAxiom(ontology, factory.getOWLClassAssertionAxiom(orgnizationClass, orgnization));
+			manager.addAxiom(ontology,
+					factory.getOWLDeclarationAxiom(orgnization));
+			manager.addAxiom(ontology, factory.getOWLClassAssertionAxiom(
+					orgnizationClass, orgnization));
 		}
 	}
 
@@ -303,7 +292,9 @@ public class PaperReviewBenchmarkGenerator {
 			OWLIndividual author = authors.get(i);
 			int id = rand.nextInt(nOrganizations);
 			OWLIndividual org = organizations.get(id);
-			manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(hasAffliationProperty, author, org));
+			manager.addAxiom(ontology, factory
+					.getOWLObjectPropertyAssertionAxiom(hasAffliationProperty,
+							author, org));
 		}
 	}
 
@@ -318,37 +309,51 @@ public class PaperReviewBenchmarkGenerator {
 
 			for (int j = 0; j < n; j++) {
 				// int id = rand.nextInt(nKeywords);
-				OWLIndividual keyword = keywords.get((currentKeywordId++) % nKeywords);
-				manager.addAxiom(ontology, factory.getOWLObjectPropertyAssertionAxiom(hasMemberProperty, area, keyword));
+				OWLIndividual keyword = keywords.get((currentKeywordId++)
+						% nKeywords);
+				manager.addAxiom(ontology, factory
+						.getOWLObjectPropertyAssertionAxiom(hasMemberProperty,
+								area, keyword));
 			}
 		}
 	}
 
 	private void generateArticlesInProcedings() {
 		for (int i = 0; i < nArticleInProceedings; i++) {
-			final OWLNamedIndividual article = factory.getOWLNamedIndividual(IRI.create(baseIRI
-					+ "#Article_In_Proceedings_" + i));
-			manager.addAxiom(ontology, factory.getOWLClassAssertionAxiom(articleInProceedingsClass, article));
+			final OWLNamedIndividual article = factory
+					.getOWLNamedIndividual(IRI.create(baseIRI
+							+ "#Article_In_Proceedings_" + i));
+			manager.addAxiom(ontology, factory.getOWLClassAssertionAxiom(
+					articleInProceedingsClass, article));
 
-			manager.addAxiom(ontology,
-					factory.getOWLDataPropertyAssertionAxiom(hasTitleProperty, article, "Article_In_Proceedings_" + i));
+			manager.addAxiom(ontology, factory
+					.getOWLDataPropertyAssertionAxiom(hasTitleProperty,
+							article, "Article_In_Proceedings_" + i));
 
 			// every paper has 1~4 authors
 			int nAuthorsForThis = rand.nextInt(4) + 1;
 			for (int j = 0; j < nAuthorsForThis; j++) {
 				OWLIndividual author = authors.get(rand.nextInt(nAuthors));
-				manager.addAxiom(ontology,
-						factory.getOWLObjectPropertyAssertionAxiom(hasAuthorProperty, article, author));
+				manager.addAxiom(ontology, factory
+						.getOWLObjectPropertyAssertionAxiom(hasAuthorProperty,
+								article, author));
 			}
 
 			// every paper has 2~5 keywords
 			int nKeywordsForThis = rand.nextInt(4) + 2;
 			for (int j = 0; j < nKeywordsForThis; j++) {
 				OWLIndividual keyword = keywords.get(rand.nextInt(nKeywords));
-				manager.addAxiom(ontology,
-						factory.getOWLObjectPropertyAssertionAxiom(hasKeywordProperty, article, keyword));
+				manager.addAxiom(ontology, factory
+						.getOWLObjectPropertyAssertionAxiom(hasKeywordProperty,
+								article, keyword));
 			}
 		}
 	}
 
+	public static void main(String[] args) {
+		PaperReviewBenchmarkGenerator g = new PaperReviewBenchmarkGenerator();
+		for (int i = 1; i <= 3; i++) {
+			g.generate("benchmark/review", i);
+		}
+	}
 }

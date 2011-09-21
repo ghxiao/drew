@@ -14,12 +14,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.semanticweb.drew.dlprogram.DLProgramKB2DatalogRewriter;
-import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.model.DLProgramKB;
 import org.semanticweb.drew.dlprogram.parser.DLProgramParser;
@@ -50,6 +48,7 @@ public class DReWELCLI {
 	private static String filter;
 	private static String datalogFile;
 	private static String rewriting = "default";
+	private static boolean rewriting_only = false;
 
 	/**
 	 * @param args
@@ -114,52 +113,64 @@ public class DReWELCLI {
 
 			DatalogToStringHelper helper = new DatalogToStringHelper();
 			String strDatalog = helper.toString(datalog);
-			datalogFile = ontologyFile + "-" + dlpFile+ "-"  + rewriting + ".dl";
-			FileWriter w = new FileWriter(datalogFile);
-			w.write(strDatalog);
-			w.close();
-			inputProgram.addText(strDatalog);
-		}
-
-		DLVInvocation invocation = DLVWrapper.getInstance().createInvocation(
-				dlvPath);
-		/* I can specify a part of DLV program using simple strings */
-
-		// Creates an instance of DLVInvocation
-
-		invocation.setInputProgram(inputProgram);
-
-		invocation.setNumberOfModels(1);
-		List<String> filters = new ArrayList<String>();
-
-		if (cqFile != null) {
-			filters.add("ans");
-		}
-		if (filter != null) {
-			filters.add(filter);
-		}
-		invocation.setFilter(filters, true);
-		ModelBufferedHandler modelBufferedHandler = new ModelBufferedHandler(
-				invocation);
-
-		/* In this moment I can start the DLV execution */
-		FactHandler factHandler = new FactHandler() {
-			@Override
-			public void handleResult(DLVInvocation obsd, FactResult res) {
-				String answerString = res.toString();
-				System.out.println(res);
-				// answers.add(answerString);
+			int j = dlpFile.indexOf('/');
+			String dlpTag = dlpFile;
+			if (j >= 0) {
+				dlpTag = dlpFile.substring(j + 1);
 			}
-		};
 
-		invocation.subscribe(factHandler);
-		invocation.run();
-		if (!modelBufferedHandler.hasMoreModels())
-			System.out.println("No model");
-		invocation.waitUntilExecutionFinishes();
-		List<DLVError> k = invocation.getErrors();
-		if (k.size() > 0)
-			System.out.println(k);
+			datalogFile = ontologyFile + "-" + dlpTag + "-" + rewriting + ".dl";
+			//inputProgram.addFile(datalogFile);
+
+			 FileWriter w = new FileWriter(datalogFile);
+			 w.write(strDatalog);
+			 w.close();
+			 inputProgram.addText(strDatalog);
+		}
+
+		if (rewriting_only) {
+
+		} else {
+			DLVInvocation invocation = DLVWrapper.getInstance()
+					.createInvocation(dlvPath);
+			/* I can specify a part of DLV program using simple strings */
+
+			// Creates an instance of DLVInvocation
+
+			invocation.setInputProgram(inputProgram);
+
+			invocation.setNumberOfModels(1);
+			List<String> filters = new ArrayList<String>();
+
+			if (cqFile != null) {
+				filters.add("ans");
+			}
+			if (filter != null) {
+				filters.add(filter);
+			}
+			invocation.setFilter(filters, true);
+			ModelBufferedHandler modelBufferedHandler = new ModelBufferedHandler(
+					invocation);
+
+			/* In this moment I can start the DLV execution */
+			FactHandler factHandler = new FactHandler() {
+				@Override
+				public void handleResult(DLVInvocation obsd, FactResult res) {
+					String answerString = res.toString();
+					System.out.println(answerString);
+					// answers.add(answerString);
+				}
+			};
+
+			invocation.subscribe(factHandler);
+			invocation.run();
+			if (!modelBufferedHandler.hasMoreModels())
+				System.out.println("No model");
+			invocation.waitUntilExecutionFinishes();
+			List<DLVError> k = invocation.getErrors();
+			if (k.size() > 0)
+				System.out.println(k);
+		}
 		// invocation.s
 	}
 
@@ -200,8 +211,10 @@ public class DReWELCLI {
 			} else if (args[i].equals("-rewriting")) {
 				rewriting = args[i + 1];
 				i += 2;
-			}
-			else {
+			} else if (args[i].equals("--rewriting-only")) {
+				rewriting_only = true;
+				i += 1;
+			} else {
 				System.err.println("Unknow option " + args[i]);
 				return false;
 			}

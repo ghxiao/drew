@@ -1,4 +1,0 @@
-#namespace("ub","http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#").
-publication(a).
-myPublicationAuthor(a,"<http://www.Department0.University0.edu/AssistantProfessor0>").f(X, Y) :-  DL[ub:Publication += publication;ub:Publication](X), DL[ub:publicationAuthor += myPublicationAuthor;ub:publicationAuthor](X,Y), 
-Y="<http://www.Department0.University0.edu/AssistantProfessor0>".

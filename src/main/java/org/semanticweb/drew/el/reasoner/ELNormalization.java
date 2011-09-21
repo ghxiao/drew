@@ -216,6 +216,9 @@ public class ELNormalization implements OWLAxiomVisitorEx<Object> {
 					factory.getOWLSubClassOfAxiom(factory.getOWLObjectIntersectionOf(rest), superClass)//
 							.accept(this);
 				} else {
+					
+					System.err.println(axiom + " is not allowed!");
+					
 					throw new IllegalStateException();
 				}
 			}
