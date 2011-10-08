@@ -9,6 +9,7 @@ import java.util.Map;
 import org.semanticweb.owlapi.model.OWLLogicalEntity;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.drew.default_logic.DefaultRule;
 
 /** Token Manager. */
 public class DLProgramParserTokenManager implements DLProgramParserConstants
@@ -86,6 +87,8 @@ private int jjMoveStringLiteralDfa0_0()
    {
       case 35:
          return jjMoveStringLiteralDfa1_0(0x100L);
+      case 38:
+         return jjStopAtPos(0, 34);
       case 40:
          return jjStopAtPos(0, 26);
       case 41:
@@ -715,14 +718,14 @@ public static final String[] jjstrLiteralImages = {
 "", null, null, null, null, null, "\156\157\164", "\124\162\165\145", 
 "\43\156\141\155\145\163\160\141\143\145", "\54", "\72\55", "\72", "\56", null, "\104\114", "\133", "\135", null, null, 
 null, null, null, "\53", "\55", "\52", "\57", "\50", "\51", "\53\75", "\55\75", null, 
-"\73", "\173", "\175", };
+"\73", "\173", "\175", "\46", };
 
 /** Lexer state names. */
 public static final String[] lexStateNames = {
    "DEFAULT",
 };
 static final long[] jjtoToken = {
-   0x3ffffffc1L, 
+   0x7ffffffc1L, 
 };
 static final long[] jjtoSkip = {
    0x3eL, 

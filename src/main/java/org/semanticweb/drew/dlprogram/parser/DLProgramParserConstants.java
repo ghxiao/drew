@@ -100,6 +100,7 @@ public interface DLProgramParserConstants {
     "\";\"",
     "\"{\"",
     "\"}\"",
+    "\"&\"",
   };
 
 }
