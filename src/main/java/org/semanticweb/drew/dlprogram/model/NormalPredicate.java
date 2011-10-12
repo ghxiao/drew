@@ -3,12 +3,15 @@
  * Copyright (C) 2006-2009 Samuel
  */
 
-
 package org.semanticweb.drew.dlprogram.model;
 
+import org.semanticweb.drew.default_logic.OWLPredicate;
+
 /**
- * Predicate is an implementation of predicates used in logic programs. Predicate is instance atomic. Customer code cannot create
- * Predicate directly. Instead, Predicate instance can be created and managed by {@link CacheManager}.
+ * Predicate is an implementation of predicates used in logic programs.
+ * Predicate is instance atomic. Customer code cannot create Predicate directly.
+ * Instead, Predicate instance can be created and managed by
+ * {@link CacheManager}.
  * 
  * @author Samuel
  */
@@ -30,7 +33,7 @@ public class NormalPredicate implements Predicate, Cloneable {
 	public static final NormalPredicate FALSE = new NormalPredicate("false", 0, PredicateType.LOGIC);
 
 	public static final NormalPredicate FAIL = new NormalPredicate("fail", 0, PredicateType.LOGIC);
-	
+
 	static final NormalPredicate[] builtins = { GREATER, GREATEREQUAL, EQUAL, LESSEQUAL, LESS, NOTEQUAL, FAIL };
 
 	static final NormalPredicate[] logics = { TRUE, FALSE };
@@ -38,7 +41,8 @@ public class NormalPredicate implements Predicate, Cloneable {
 	/**
 	 * Check whether a predicate is a built in one.
 	 * 
-	 * @param predicate the candidate predicate
+	 * @param predicate
+	 *            the candidate predicate
 	 * @return whether a predicate is a built in one
 	 */
 	public static boolean isBuiltIn(NormalPredicate predicate) {
@@ -53,7 +57,8 @@ public class NormalPredicate implements Predicate, Cloneable {
 	/**
 	 * Check whether a predicate is a logic one.
 	 * 
-	 * @param predicate the candidate predicate
+	 * @param predicate
+	 *            the candidate predicate
 	 * @return whether a predicate is a logic one
 	 */
 	public static boolean isLogic(NormalPredicate predicate) {
@@ -76,7 +81,8 @@ public class NormalPredicate implements Predicate, Cloneable {
 	int hash;
 
 	/**
-	 * Constructor for build-in predicate. It is privately used by the global singletons.
+	 * Constructor for build-in predicate. It is privately used by the global
+	 * singletons.
 	 */
 	private NormalPredicate(String name, int arity, PredicateType type) {
 		if (name == null || arity < 0 || type == null) {
@@ -91,10 +97,13 @@ public class NormalPredicate implements Predicate, Cloneable {
 	}
 
 	/**
-	 * Constructor for normal predicate. Customer code should use {@link CacheManager} to create process unique predicates.
+	 * Constructor for normal predicate. Customer code should use
+	 * {@link CacheManager} to create process unique predicates.
 	 * 
-	 * @param name the name of the predicate
-	 * @param arity the arity of the predicate
+	 * @param name
+	 *            the name of the predicate
+	 * @param arity
+	 *            the arity of the predicate
 	 */
 	NormalPredicate(String name, int arity) {
 		this.name = name;
@@ -105,17 +114,18 @@ public class NormalPredicate implements Predicate, Cloneable {
 	}
 
 	/**
-	 * Updates the string presentation and hash code of the predicate in advance.
+	 * Updates the string presentation and hash code of the predicate in
+	 * advance.
 	 */
 	private void update() {
 		// calculate string representation
-//		if (type == PredicateType.LOGIC) {
-//			string = name;
-//		} else {
-			StringBuilder result = new StringBuilder();
-			result.append(name).append("/").append(arity);
-			string = result.toString();
-		//}
+		// if (type == PredicateType.LOGIC) {
+		// string = name;
+		// } else {
+		StringBuilder result = new StringBuilder();
+		result.append(name).append("/").append(arity);
+		string = result.toString();
+		// }
 
 		// calculate the hash code
 		hash = name.hashCode() + arity;
@@ -149,10 +159,12 @@ public class NormalPredicate implements Predicate, Cloneable {
 	}
 
 	/**
-	 * Predicates are compared by alphabetic ordering if they are both strings or comparison operators. If only one predicate is a
-	 * comparison operator, then it stays behind.
+	 * Predicates are compared by alphabetic ordering if they are both strings
+	 * or comparison operators. If only one predicate is a comparison operator,
+	 * then it stays behind.
 	 * 
-	 * @param that another predicate
+	 * @param that
+	 *            another predicate
 	 * @return positive if greater in order
 	 */
 	public int compareTo(NormalPredicate that) {
@@ -190,13 +202,17 @@ public class NormalPredicate implements Predicate, Cloneable {
 
 	@Override
 	public int compareTo(Predicate o) {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void setArity(int arity) {
 		this.arity = arity;
-		
+
+	}
+
+	@Override
+	public OWLPredicate asOWLPredicate() {
+		throw new UnsupportedOperationException();
 	}
 }

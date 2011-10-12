@@ -3,13 +3,14 @@
  * Copyright (C) 2006-2009 Samuel
  */
 
-
 package org.semanticweb.drew.dlprogram.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+
+import org.semanticweb.drew.default_logic.OWLPredicate;
 
 /**
  * A literal has a predicate as well as a list of terms. A literal is called
@@ -19,11 +20,9 @@ import java.util.List;
  * 
  */
 public class Literal implements Cloneable, Comparable<Literal> {
-	public static final Literal TRUE = new Literal(NormalPredicate.TRUE,
-			(List<Term>) null);
+	public static final Literal TRUE = new Literal(NormalPredicate.TRUE, (List<Term>) null);
 
-	public static final Literal FALSE = new Literal(NormalPredicate.FALSE,
-			(List<Term>) null);
+	public static final Literal FALSE = new Literal(NormalPredicate.FALSE, (List<Term>) null);
 
 	private Predicate predicate;
 
@@ -59,8 +58,7 @@ public class Literal implements Cloneable, Comparable<Literal> {
 	}
 
 	public Literal(String predicate, Term... terms) {
-		this.predicate = CacheManager.getInstance().getPredicate(predicate,
-				terms.length);
+		this.predicate = CacheManager.getInstance().getPredicate(predicate, terms.length);
 
 		this.terms = Arrays.asList(terms);
 	}
@@ -146,7 +144,7 @@ public class Literal implements Cloneable, Comparable<Literal> {
 			case LOGIC:
 				return normalPredicate.name;
 			case NORMAL:
-				if(negative){
+				if (negative) {
 					result.append("-");
 				}
 				result.append(normalPredicate.name);
@@ -168,6 +166,20 @@ public class Literal implements Cloneable, Comparable<Literal> {
 
 			DLAtomPredicate dlAtomPredicate = (DLAtomPredicate) predicate;
 			result.append(dlAtomPredicate.toString());
+			if (terms.size() > 0) {
+				result.append("(");
+				for (Iterator<Term> iter = terms.iterator(); iter.hasNext();) {
+					result.append(iter.next());
+					if (iter.hasNext()) {
+						result.append(", ");
+					}
+				}
+				result.append(")");
+			}
+			return result.toString();
+		} else if (predicate instanceof OWLPredicate) {
+			OWLPredicate owlPredicate = (OWLPredicate) predicate;
+			result.append(owlPredicate.toString());
 			if (terms.size() > 0) {
 				result.append("(");
 				for (Iterator<Term> iter = terms.iterator(); iter.hasNext();) {
@@ -222,7 +234,7 @@ public class Literal implements Cloneable, Comparable<Literal> {
 	public void setNegative(boolean negative) {
 		this.negative = negative;
 	}
-	
+
 	public boolean getNegative() {
 		return this.negative;
 	}

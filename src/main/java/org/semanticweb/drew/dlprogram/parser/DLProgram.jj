@@ -14,18 +14,58 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLLogicalEntity;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 
 import org.semanticweb.drew.default_logic.DefaultRule;
+import org.semanticweb.drew.default_logic.OWLPredicate;
+
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 
-public class DLProgramParser
-{
+public class DLProgramParser {
  // final static Logger logger = LoggerFactory.getLogger(DLProgramParser.class);
+
+	// namespace abbreviation to the full name
   Map < String, String > namespaces = new HashMap < String, String > ();
+
+  // fragments to object properties
+  Map < String, OWLObjectProperty > objectProperties = new HashMap <String, OWLObjectProperty> ();
+  
+  // fragments to classes
+  Map < String, OWLClass> classes = new HashMap < String, OWLClass> ();
+  
+  OWLOntology ontology;
+
+  public void setOntology(OWLOntology ontology)
+  {
+        this.ontology = ontology;
+
+        for(OWLObjectProperty op: ontology.getObjectPropertiesInSignature()){
+        	IRI iri = op.getIRI();
+        	objectProperties.put(iri.getFragment(), op);
+        }
+        
+        for(OWLClass cls : ontology.getClassesInSignature()){
+        	IRI iri = cls.getIRI();
+        	classes.put(iri.getFragment(), cls);
+        }
+  }
+
+  private OWLLogicalEntity findLogicalEntity(String fragment) {
+		if (classes.containsKey(fragment)) {
+			return classes.get(fragment);
+		} else if (objectProperties.containsKey(fragment)) {
+			return objectProperties.get(fragment);
+		} else {
+			return null;
+		}
+	}
 
   public void process() throws ParseException
   {}
@@ -141,6 +181,7 @@ String dlPredicate() :
       )
       {
         name = namespace + token.image;
+        
       }
     )
   |
@@ -151,6 +192,9 @@ String dlPredicate() :
     )
     {
       name = token.image;
+      // Match a name from the ontology
+      if (ontology != null)      {
+              }
     }
   )
   {
@@ -458,11 +502,10 @@ Literal literal() :
 	["-"	{
 	  neg = true;	}
 	]
-  < IDENTIFIER >
+	// TODO: ugly code :(
+  (    < IDENTIFIER > | <  VARIABLE >)
     {
-      
-//      	if(!neg)//      	{      		name = token.image;
-//    	}else//    	{//			name = "-" + token.image;//    	}
+   		name = token.image;
 		if(neg)		{			literal.setNegative(true);
 		}
     }
@@ -638,18 +681,59 @@ List < Literal > getModel() :
   
 }
 
+Literal defaultLiteral() :
+{	Literal literal = new Literal();
+	OWLPredicate predicate;
+	String predicateName;
+	Term term;
+	int arity = 0;
+}
+{	predicateName = dlPredicate()	{
+	  	} "(" term = term()
+    {
+      literal.getTerms().add(term);
+      arity++;
+    }
+    (
+      "," term = term()
+      {
+        literal.getTerms().add(term);
+        arity++;
+      }
+    )*
+    ")"	{ OWLLogicalEntity e;
+	  if (ontology != null) {
+			e = findLogicalEntity(predicateName);
+			literal.setPredicate(new OWLPredicate(e));
+		} else {
+			if (ontology != null) {
+				e = findLogicalEntity(predicateName);
+			} else {
+				if (arity == 1) {
+					e = OWLManager.getOWLDataFactory().getOWLClass(IRI.create(predicateName));
+				} else if (arity == 2) {
+					e = OWLManager.getOWLDataFactory().getOWLObjectProperty(IRI.create(predicateName));
+				} else {
+					throw new IllegalStateException();
+				}
+			}
+			literal.setPredicate(new OWLPredicate(e));
+		}
+	  return literal;	}
+}
+
 List< Literal > conjunction() :
 {
 	List< Literal > literals = new ArrayList < Literal > ();
   	Literal literal;
 }
 {
-  	literal = literal()
+  	literal = defaultLiteral()
 	{
 	  literals.add(literal);
 	}
 
-	 ( "&" literal = literal()
+	 ( "&" literal = defaultLiteral()
 	{
   	  literals.add(literal);
 	}
@@ -663,7 +747,6 @@ DefaultRule defaultRule() :
 {
   DefaultRule df = new DefaultRule();
   List< Literal > prerequisite;
-  List< List< Literal > > justifications = new ArrayList< List< Literal > >();
   List< Literal > justification;
   List< Literal > conclusion;
   }
@@ -685,3 +768,12 @@ DefaultRule defaultRule() :
   {	return df;
   }	
 }
+
+List<DefaultRule > defaultRules() :{
+  List<DefaultRule > rules = new ArrayList<DefaultRule >();
+  DefaultRule rule;}
+{
+  (    rule = defaultRule()  {
+    rules.add(rule);  }) *
+  {
+    return rules;  } }

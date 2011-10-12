@@ -44,6 +44,12 @@
 <!-- 			<artifactId>sli4j-slf4j-log4j</artifactId> -->
 <!-- 			<version>2.0</version> -->
 <!-- 		</dependency> -->
+		
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>10.0</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>

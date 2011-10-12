@@ -4,6 +4,7 @@
 
 package org.semanticweb.drew.dlprogram.model;
 
+import org.semanticweb.drew.default_logic.OWLPredicate;
 import org.semanticweb.owlapi.model.OWLLogicalEntity;
 
 /**
@@ -81,6 +82,11 @@ public class DLAtomPredicate implements Predicate {
 
 	public void setInputSignature(DLInputSignature inputSignature) {
 		this.inputSignature = inputSignature;
+	}
+
+	@Override
+	public OWLPredicate asOWLPredicate() {
+		throw new UnsupportedOperationException();
 	}
 
 }

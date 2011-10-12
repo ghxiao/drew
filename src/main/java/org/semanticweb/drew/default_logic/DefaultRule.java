@@ -63,7 +63,7 @@ public class DefaultRule {
 		// sb.append(Joiner.on(" , ").join(justifications)); //
 		sb.append("] / [") //
 				.append(Joiner.on(" & ").join(conclusion)) //
-				.append("]").toString();
+				.append("]");
 		return sb.toString();
 	}
 }
