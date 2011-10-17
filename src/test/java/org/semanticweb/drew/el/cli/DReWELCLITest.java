@@ -39,8 +39,13 @@ public class DReWELCLITest {
 				"-ontology benchmark/lubm/ontology/lubm4.owl -dlp benchmark/lubm/rules/lubm_7.elp -dlv /usr/bin/dlv -rewriting inc".split("\\s"));
 	}
 	
-	
+
+	@Test
+	public void testPolicy() throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException {
+		DReWELCLI.main(
+				"-ontology testcase/policy.owl -dlp testcase/empty.dlp --rewriting-only -dlv /usr/bin/dlv".split("\\s"));
+	}
 	public static void main(String[] args) throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException{
-		new DReWELCLITest().testLUBM47();
+		new DReWELCLITest().testPolicy();
 	}
 }

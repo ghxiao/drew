@@ -202,7 +202,8 @@ public class NormalPredicate implements Predicate, Cloneable {
 
 	@Override
 	public int compareTo(Predicate o) {
-		throw new UnsupportedOperationException();
+		return this.toString().compareTo(o.toString());
+		//throw new UnsupportedOperationException();
 	}
 
 	@Override
