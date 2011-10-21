@@ -130,4 +130,15 @@ public class DefaultRuleTest {
 		System.out.println(Joiner.on("\n").join(result));
 	}
 	
+	@Test
+	public void testDefault004() throws ParseException {
+		String s = "[ bird(X); flier(X) ] / [ flier(X) ]" +
+				"[ p1(X) & p2(X); j11(X) & j12 (X), j21(X), j31(X) & j32(X) & j33(X) ]" +
+				" / [ c1(X) & c2(X) ]" +
+				"< mb(X)>";
+		DLProgramParser parser = new DLProgramParser(new StringReader(s));
+		List<DefaultRule> result = parser.defaultRules();
+		System.out.println(Joiner.on("\n").join(result));
+	}
+	
 }

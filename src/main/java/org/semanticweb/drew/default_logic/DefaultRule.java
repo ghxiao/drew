@@ -13,14 +13,22 @@ public class DefaultRule {
 	private List<List<Literal>> justifications;
 
 	private List<Literal> conclusion;
-	
-	private List<Literal> typeing;
+
+	private List<Literal> typing;
+
+	public List<Literal> getTyping() {
+		return typing;
+	}
+
+	public void setTyping(List<Literal> typing) {
+		this.typing = typing;
+	}
 
 	public DefaultRule() {
 		this.prerequisite = new ArrayList<Literal>();
 		this.justifications = new ArrayList<List<Literal>>();
 		this.conclusion = new ArrayList<Literal>();
-		this.typeing = new ArrayList<Literal>();
+		this.typing = new ArrayList<Literal>();
 	}
 
 	public List<Literal> getPrerequisite() {
@@ -52,7 +60,7 @@ public class DefaultRule {
 		StringBuilder sb = new StringBuilder();
 		sb.append("[") //
 				.append(Joiner.on(" & ").join(prerequisite)) //
-				.append(" ; ");
+				.append("; ");
 
 		boolean first = true;
 		for (List<Literal> justification : justifications) {
@@ -67,10 +75,10 @@ public class DefaultRule {
 		sb.append("] / [") //
 				.append(Joiner.on(" & ").join(conclusion)) //
 				.append("]");
-		
-		sb.append(" <").append(Joiner.on(" & ").join(typeing)).append(">");
-		
-		
+		if (typing.size() > 0) {
+			sb.append(" <").append(Joiner.on(" & ").join(typing)).append(">");
+		}
+
 		return sb.toString();
 	}
 

@@ -44,7 +44,7 @@ public class OWLPredicate implements Predicate {
 
 	@Override
 	public String toString() {
-		return logicalEntity.toString();
+		return logicalEntity.getIRI().toString();
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class DLProgramStorerBase implements DLProgramStorer {
 	}
 
 	@Override
-	public void storeDLProgram(DLProgram program, Appendable target) {
+	public void storeDLProgram(DLProgram program, Appendable target) throws IOException {
 		for(Clause clause : program.getClauses()){
 			beginWritingClause(clause, target);
 			writeClause(clause, target);

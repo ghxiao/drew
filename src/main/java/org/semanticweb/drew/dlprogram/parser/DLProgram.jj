@@ -749,7 +749,8 @@ DefaultRule defaultRule() :
   List< Literal > prerequisite;
   List< Literal > justification;
   List< Literal > conclusion;
-  }
+  List< Literal > typing;
+}
 {  "[" prerequisite = conjunction()
 	{
 	  df.setPrerequisite(prerequisite);	}
@@ -764,7 +765,19 @@ DefaultRule defaultRule() :
 
    ) * "]" "/" "[" conclusion = conjunction()
    {
-     df.setConclusion(conclusion);   }"]"
+     df.setConclusion(conclusion);   }"]" [
+   //"<"
+   < COMPARISON >   {
+     if(!token.image.equals("<"))     {
+       throw new ParseException("\'<\' is expected :" + token.image);     }   }
+   typing = conjunction()   {
+     df.setTyping(typing);   }
+   < COMPARISON >   {
+     if(!token.image.equals(">"))
+     {
+       throw new ParseException("\'>\' is expected :" + token.image);
+     }   }
+    ]
   {	return df;
   }	
 }
