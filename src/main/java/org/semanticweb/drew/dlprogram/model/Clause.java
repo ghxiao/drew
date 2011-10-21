@@ -16,7 +16,7 @@ import java.util.TreeSet;
  * The implementation of clause.
  * 
  */
-public class Clause implements Cloneable, Comparable<Clause> {
+public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 	private static final String IMPLY = ":-";
 
 	private Literal head = Literal.FALSE;

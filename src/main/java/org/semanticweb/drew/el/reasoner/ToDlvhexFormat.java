@@ -3,6 +3,7 @@ package org.semanticweb.drew.el.reasoner;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
+import org.semanticweb.drew.dlprogram.format.DatalogToStringHelper;
 import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.parser.DLProgramParser;
 import org.semanticweb.drew.dlprogram.parser.ParseException;

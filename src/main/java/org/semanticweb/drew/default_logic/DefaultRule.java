@@ -13,11 +13,14 @@ public class DefaultRule {
 	private List<List<Literal>> justifications;
 
 	private List<Literal> conclusion;
+	
+	private List<Literal> typeing;
 
 	public DefaultRule() {
 		this.prerequisite = new ArrayList<Literal>();
 		this.justifications = new ArrayList<List<Literal>>();
 		this.conclusion = new ArrayList<Literal>();
+		this.typeing = new ArrayList<Literal>();
 	}
 
 	public List<Literal> getPrerequisite() {
@@ -64,6 +67,11 @@ public class DefaultRule {
 		sb.append("] / [") //
 				.append(Joiner.on(" & ").join(conclusion)) //
 				.append("]");
+		
+		sb.append(" <").append(Joiner.on(" & ").join(typeing)).append(">");
+		
+		
 		return sb.toString();
 	}
+
 }

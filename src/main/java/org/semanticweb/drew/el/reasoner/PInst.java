@@ -51,7 +51,7 @@ public class PInst {
 			"bot(\"Nothing\").\n" + //
 			"";
 
-	static String strXSBHeader = //
+	public static String strXSBHeader = //
 	":- auto_table.\n" + //
 			// ":- table triple/3.\n" + //
 			// ":- table isa/2.\n" + //
