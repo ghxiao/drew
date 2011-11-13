@@ -1,0 +1,3 @@
+contains_metal(X) :- DL[Protozoa](X), DL[contains](X, Y), DL[metal](Y).
+contains_steroid(X) :- DL[Protozoa](X), DL[contains](X, Z), DL[steroid](Z).
+q(X) :- contains_metal(X), not contains_steroid(X).

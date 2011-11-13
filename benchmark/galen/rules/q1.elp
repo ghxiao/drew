@@ -1,0 +1,6 @@
+#namespace("g","http://www.co-ode.org/ontologies/galen#").
+
+contains_metal(X) :- DL[;g:Protozoa](X), DL[;g:contains](X,Y), DL[;g:metal](Y).
+contains_steroid(X) :- DL[;g:Protozoa](X), DL[;g:contains](X,Z), DL[;g:steroid](Z).
+q(X) :- contains_metal(X), not contains_steroid(X).
+

@@ -1,0 +1,3 @@
+isa1("xiao", "Human").
+
+isa("xiao", X)?
