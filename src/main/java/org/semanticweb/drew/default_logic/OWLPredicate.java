@@ -28,7 +28,7 @@ public class OWLPredicate implements Predicate {
 
 	@Override
 	public void setArity(int arity) {
-
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

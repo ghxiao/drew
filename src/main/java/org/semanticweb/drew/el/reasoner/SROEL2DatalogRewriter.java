@@ -298,7 +298,16 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 						CacheManager.getInstance().getConstant(subClass.asOWLClass().getIRI()),//
 						CacheManager.getInstance().getConstant(some.getProperty().asOWLObjectProperty().getIRI()),//
 						CacheManager.getInstance().getConstant(some.getFiller().asOWLClass().getIRI()),//
-						CacheManager.getInstance().getConstant("e" + superSomeAxiomEncoder.encode(axiom))//
+						//CacheManager.getInstance().getConstant("e" + superSomeAxiomEncoder.encode(axiom))//
+						CacheManager.getInstance().getConstant("e^{" 
+						+ subClass.asOWLClass().getIRI().getFragment()
+						+ "->" //
+						+ some.getProperty().asOWLObjectProperty().getIRI().getFragment()  
+						+ "_SOME_"  //
+						+ some.getFiller().asOWLClass().getIRI().getFragment()
+						+ "}"
+						//superSomeAxiomEncoder.encode(axiom)
+						)//
 				) }, //
 						new Literal[] {}));
 

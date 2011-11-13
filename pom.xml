@@ -53,11 +53,18 @@
 	</dependencies>
 
 	<repositories>
+	<!-- 
+		<repository>
+			<id>my</id>
+			<name>Local repository in project tree</name>
+			<url>file:${basedir}/m2</url>
+		</repository>
+	 -->	
 		<repository>
 			<!-- <id>local</id> -->
 			<id>my</id>
 			<name>Local repository in project tree</name>
-			<url>file:${basedir}/m2</url>
+			<url>http://www.kr.tuwien.ac.at/staff/xiao/maven</url>
 		</repository>
 	</repositories>
 
