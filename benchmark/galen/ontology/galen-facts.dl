@@ -1,3 +1,15 @@
 isa1("xiao", "Human").
+triple1("xiao", "hasAge", "age26").
+isa1("age26", "Age").
+triple1("age26", "hasAbsoluteState", "age26State").
+isa1("age26State", "AgeState").
+triple1("age26State", "occursDuring", "adulthood").
+isa1("adulthood", "PeriodDuringAdulthood").
 
-isa("xiao", X)?
+triple1("xiao", "hasPhenotypicalSex", "psm").
+isa1("psm", "PhenotypicalSex").
+triple1("psm", "hasAbsoluteState", "mSex").
+isa1("mSex", "maleSex").
+
+isa("xiao", "MaleAdult")?
+%isa("xiao", "Adult")?
