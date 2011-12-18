@@ -16,6 +16,8 @@ import org.semanticweb.drew.dlprogram.model.IRIConstant;
 import org.semanticweb.drew.dlprogram.model.Literal;
 import org.semanticweb.drew.dlprogram.model.NormalPredicate;
 import org.semanticweb.drew.dlprogram.model.Predicate;
+import org.semanticweb.drew.dlprogram.model.ProgramComment;
+import org.semanticweb.drew.dlprogram.model.ProgramStatement;
 import org.semanticweb.drew.dlprogram.model.Term;
 import org.semanticweb.owlapi.model.IRI;
 
@@ -52,10 +54,10 @@ public class DatalogToStringHelper {
 		// } catch (IOException e) {
 		// e.printStackTrace();
 		// }
-		saveToFile(program.getClauses(), file);
+		saveToFile(program.getStatements(), file);
 	}
 
-	public void saveToFile(List<Clause> program, String file) {
+	public void saveToFile(List<ProgramStatement> program, String file) {
 		try {
 			FileWriter writer = new FileWriter(file);
 			if (DReWELManager.getInstance().getDatalogFormat() == DatalogFormat.XSB) {
@@ -70,18 +72,26 @@ public class DatalogToStringHelper {
 
 	public String toString(DLProgram program) {
 		// sb = new StringBuilder();
-		List<Clause> clauses = program.getClauses();
-		return toString(clauses);
+		return toString(program.getStatements());
 	}
 
-	public String toString(Collection<Clause> clauses) {
+	public String toString(Collection<ProgramStatement> statements) {
 		sb = new StringBuilder();
 
-		for (Clause r : clauses) {
+		for (ProgramStatement r : statements) {
 			toString(r);
-			sb.append("\n");
+			
 		}
 		return sb.toString();
+	}
+
+	private void toString(ProgramStatement r) {
+		if (r instanceof ProgramComment) {
+			sb.append(r);
+		} else if (r instanceof Clause) {
+			toString(((Clause) r));
+			sb.append("\n");
+		}
 	}
 
 	private void toString(Clause r) {

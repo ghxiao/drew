@@ -22,6 +22,8 @@ public class DLProgram implements Cloneable {
 
 	}
 
+	private List<ProgramStatement> statements = new ArrayList<ProgramStatement>();
+
 	private List<Clause> clauses = new ArrayList<Clause>();
 
 	/**
@@ -29,9 +31,9 @@ public class DLProgram implements Cloneable {
 	 * 
 	 * @return
 	 */
-	public List<Clause> getClauses() {
-		return clauses;
-	}
+	// public List<Clause> getClauses() {
+	// return clauses;
+	// }
 
 	/**
 	 * Get all the clauses with the given head predicate name and given clause
@@ -131,31 +133,56 @@ public class DLProgram implements Cloneable {
 		if (withEmpty) {
 			signatures.add(DLInputSignature.EMPTY);
 		}
-
-		for (Clause clause : this.getClauses()) {
-			signatures.addAll(clause.getDLInputSignatures());
+		for (ProgramStatement s : this.getStatements()) {
+			if (s instanceof Clause) {
+				Clause clause = (Clause)s;
+				signatures.addAll(clause.getDLInputSignatures());
+			}
 		}
+//		for (Clause clause : this.getClauses()) {
+//			signatures.addAll(clause.getDLInputSignatures());
+//		}
 		return signatures;
 	}
 
 	public Set<DLInputSignature> getDLInputSignatures() {
 		return getDLInputSignatures(false);
-//		Set<DLInputSignature> signatures = new HashSet<DLInputSignature>();
-//		// signatures.add(DLInputSignature.EMPTY);
-//
-//		for (Clause clause : this.getClauses()) {
-//			signatures.addAll(clause.getDLInputSignatures());
-//		}
-//		return signatures;
+		// Set<DLInputSignature> signatures = new HashSet<DLInputSignature>();
+		// // signatures.add(DLInputSignature.EMPTY);
+		//
+		// for (Clause clause : this.getClauses()) {
+		// signatures.addAll(clause.getDLInputSignatures());
+		// }
+		// return signatures;
 	}
 
 	public Set<DLAtomPredicate> getDLAtomPredicates() {
 		Set<DLAtomPredicate> dlAtoms = new HashSet<DLAtomPredicate>();
-		for (Clause clause : this.getClauses()) {
-			dlAtoms.addAll(clause.getDLAtomPredicates());
+
+		for (ProgramStatement s : this.getStatements()) {
+			if (s instanceof Clause) {
+				Clause clause = (Clause)s;
+				dlAtoms.addAll(clause.getDLAtomPredicates());
+			}
 		}
 
+		// for (Clause clause : this.getClauses()) {
+		// dlAtoms.addAll(clause.getDLAtomPredicates());
+		// }
+
 		return dlAtoms;
+	}
+
+	public void addAll(List<ProgramStatement> statements) {
+		this.statements.addAll(statements);
+	}
+
+	public void add(ProgramStatement s) {
+		this.statements.add(s);
+	}
+
+	public List<ProgramStatement> getStatements() {
+		return statements;
 	}
 
 }

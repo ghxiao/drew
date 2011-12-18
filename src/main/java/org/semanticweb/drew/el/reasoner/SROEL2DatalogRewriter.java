@@ -47,7 +47,8 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 
-public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWLEntityVisitor {
+public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements
+		OWLEntityVisitor {
 
 	private SymbolEncoder<IRI> iriEncoder;
 
@@ -56,7 +57,8 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 
 	public SROEL2DatalogRewriter() {
 		this.iriEncoder = DReWELManager.getInstance().getIRIEncoder();
-		this.superSomeAxiomEncoder = DReWELManager.getInstance().getSuperSomeAxiomEncoder();
+		this.superSomeAxiomEncoder = DReWELManager.getInstance()
+				.getSuperSomeAxiomEncoder();
 	}
 
 	public DLProgram rewrite(OWLOntology ontology) {
@@ -80,10 +82,10 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 			cls.accept(this);
 		}
 
-		//datalog.getClauses().addAll(PInst.getPInst());
+		// datalog.getClauses().addAll(PInst.getPInst());
 
 		if (DReWELManager.getInstance().getDatalogFormat() == DatalogFormat.XSB) {
-			datalog.getClauses().addAll(PInst.getXsbDeclaration());
+			datalog.addAll(PInst.getXsbDeclaration());
 		}
 
 		// iriEncoder.report();
@@ -92,7 +94,8 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 
 	public void saveToFile(String datalogFile) {
 		try {
-			BufferedWriter writer = new BufferedWriter(new FileWriter(datalogFile));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(
+					datalogFile));
 			writer.write(PInst.getPInst().toString());
 			writer.write(new DatalogToStringHelper().toString(datalog));
 			writer.close();
@@ -111,10 +114,10 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 		//
 
 		// TODO: CHECK!!
-//		addFact(RewritingVocabulary.SUB_CLASS,//
-//				axiom.getIndividual().asOWLNamedIndividual().getIRI(), //
-//				axiom.getClassExpression().asOWLClass().getIRI());
-		
+		// addFact(RewritingVocabulary.SUB_CLASS,//
+		// axiom.getIndividual().asOWLNamedIndividual().getIRI(), //
+		// axiom.getClassExpression().asOWLClass().getIRI());
+
 		addFact(RewritingVocabulary.ISA,//
 				axiom.getIndividual().asOWLNamedIndividual().getIRI(), //
 				axiom.getClassExpression().asOWLClass().getIRI());
@@ -130,16 +133,15 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 		// iriEncoder.encode(axiom.getObject().asOWLNamedIndividual().getIRI());
 		//
 		// addFact(RewritingVocabulary.SUP_EX, s, p, o, o);
-		
-		
-		//TODO: CHECK!!!
-//		addFact(RewritingVocabulary.SUP_EX, //
-//				axiom.getSubject().asOWLNamedIndividual().getIRI(), //
-//				axiom.getProperty().asOWLObjectProperty().getIRI(), //
-//				axiom.getObject().asOWLNamedIndividual().getIRI(), //
-//				axiom.getObject().asOWLNamedIndividual().getIRI() //
-//		);
-		
+
+		// TODO: CHECK!!!
+		// addFact(RewritingVocabulary.SUP_EX, //
+		// axiom.getSubject().asOWLNamedIndividual().getIRI(), //
+		// axiom.getProperty().asOWLObjectProperty().getIRI(), //
+		// axiom.getObject().asOWLNamedIndividual().getIRI(), //
+		// axiom.getObject().asOWLNamedIndividual().getIRI() //
+		// );
+
 		addFact(RewritingVocabulary.TRIPLE, //
 				axiom.getSubject().asOWLNamedIndividual().getIRI(), //
 				axiom.getProperty().asOWLObjectProperty().getIRI(), //
@@ -174,19 +176,24 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 		// simple case: A subclass C
 		if ((subClass.getClassExpressionType() == ClassExpressionType.OWL_CLASS)
 				&& (superClass.getClassExpressionType() == ClassExpressionType.OWL_CLASS)) {
-//			int a = iriEncoder.encode(axiom.getSubClass().asOWLClass().getIRI());
-//			int c = iriEncoder.encode(axiom.getSuperClass().asOWLClass().getIRI());
+			// int a =
+			// iriEncoder.encode(axiom.getSubClass().asOWLClass().getIRI());
+			// int c =
+			// iriEncoder.encode(axiom.getSuperClass().asOWLClass().getIRI());
 
 			if (subClass.isOWLThing()) {
 				// addFact(RewritingVocabulary.TOP, c);
-				addFact(RewritingVocabulary.TOP, axiom.getSuperClass().asOWLClass().getIRI());
+				addFact(RewritingVocabulary.TOP, axiom.getSuperClass()
+						.asOWLClass().getIRI());
 			} else if (superClass.isOWLNothing()) {
 				// addFact(RewritingVocabulary.BOT, a);
-				addFact(RewritingVocabulary.BOT, axiom.getSubClass().asOWLClass().getIRI());
+				addFact(RewritingVocabulary.BOT, axiom.getSubClass()
+						.asOWLClass().getIRI());
 			} else /* (!subClass.isOWLNothing() && !superClass.isOWLThing()) */{
 				// addFact(RewritingVocabulary.SUB_CLASS, a, c);
 				addFact(RewritingVocabulary.SUB_CLASS, //
-						subClass.asOWLClass().getIRI(), superClass.asOWLClass().getIRI());
+						subClass.asOWLClass().getIRI(), superClass.asOWLClass()
+								.getIRI());
 			}
 		}
 
@@ -246,7 +253,8 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 				// addFact(RewritingVocabulary.SUB_CLASS, c, a);
 				OWLObjectOneOf oneOf = (OWLObjectOneOf) subClass;
 				addFact(RewritingVocabulary.SUB_CLASS, //
-						oneOf.getIndividuals().iterator().next().asOWLNamedIndividual().getIRI(),//
+						oneOf.getIndividuals().iterator().next()
+								.asOWLNamedIndividual().getIRI(),//
 						superClass.asOWLClass().getIRI());
 
 			} else if (subClass.getClassExpressionType() == ClassExpressionType.OBJECT_HAS_SELF) {
@@ -293,21 +301,30 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 				// superSomeAxiomEncoder.encode(axiom))//
 				// ) }, //
 				// new Literal[] {}));
-				datalog.getClauses().add(new Clause(new Literal[] { new Literal( //
+				datalog.add(new Clause(new Literal[] { new Literal( //
 						RewritingVocabulary.SUP_EX, //
-						CacheManager.getInstance().getConstant(subClass.asOWLClass().getIRI()),//
-						CacheManager.getInstance().getConstant(some.getProperty().asOWLObjectProperty().getIRI()),//
-						CacheManager.getInstance().getConstant(some.getFiller().asOWLClass().getIRI()),//
-						//CacheManager.getInstance().getConstant("e" + superSomeAxiomEncoder.encode(axiom))//
-						CacheManager.getInstance().getConstant("e^{" 
-						+ subClass.asOWLClass().getIRI().getFragment()
-						+ "->" //
-						+ some.getProperty().asOWLObjectProperty().getIRI().getFragment()  
-						+ "_SOME_"  //
-						+ some.getFiller().asOWLClass().getIRI().getFragment()
-						+ "}"
-						//superSomeAxiomEncoder.encode(axiom)
-						)//
+						CacheManager.getInstance().getConstant(
+								subClass.asOWLClass().getIRI()),//
+						CacheManager.getInstance().getConstant(
+								some.getProperty().asOWLObjectProperty()
+										.getIRI()),//
+						CacheManager.getInstance().getConstant(
+								some.getFiller().asOWLClass().getIRI()),//
+						// CacheManager.getInstance().getConstant("e" +
+						// superSomeAxiomEncoder.encode(axiom))//
+						CacheManager.getInstance().getConstant(
+								"e^{"
+										+ subClass.asOWLClass().getIRI()
+												.getFragment()
+										+ "->" //
+										+ some.getProperty()
+												.asOWLObjectProperty().getIRI()
+												.getFragment()
+										+ "_SOME_" //
+										+ some.getFiller().asOWLClass()
+												.getIRI().getFragment() + "}"
+						// superSomeAxiomEncoder.encode(axiom)
+								)//
 				) }, //
 						new Literal[] {}));
 
@@ -321,7 +338,8 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 				OWLObjectOneOf oneOf = (OWLObjectOneOf) superClass;
 				addFact(RewritingVocabulary.SUB_CLASS, //
 						subClass.asOWLClass().getIRI(),//
-						oneOf.getIndividuals().iterator().next().asOWLNamedIndividual().getIRI());
+						oneOf.getIndividuals().iterator().next()
+								.asOWLNamedIndividual().getIRI());
 
 			}
 			// A subclass all(R, C')
@@ -370,15 +388,15 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 				axiom.getSuperProperty().asOWLObjectProperty().getIRI());
 	}
 
-	protected boolean addFact(NormalPredicate predicate, int... params) {
+	protected void addFact(NormalPredicate predicate, int... params) {
 		List<Term> terms = new ArrayList<Term>();
 
 		for (int param : params) {
 			terms.add(CacheManager.getInstance().getConstant(param));
 		}
 
-		return datalog.getClauses().add(
-				new Clause(new Literal[] { new Literal(predicate, terms.toArray(new Term[0])) }, new Literal[] {}));
+		datalog.add(new Clause(new Literal[] { new Literal(predicate, terms
+				.toArray(new Term[0])) }, new Literal[] {}));
 	}
 
 	@Override
@@ -428,7 +446,7 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 	public void visit(OWLDataPropertyRangeAxiom axiom) {
 		System.err.println("warning! ignore axiom " + axiom);
 
-//		throw new IllegalStateException();
+		// throw new IllegalStateException();
 	}
 
 	@Override
@@ -477,14 +495,21 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 
 		// System.err.println("warning: ignore axiom " + axiom);
 
-		datalog.getClauses().add(new Clause(new Literal[] { new Literal( //
-				RewritingVocabulary.SUP_EX, //
-				CacheManager.getInstance().getConstant(axiom.getSubject().asOWLNamedIndividual().getIRI()),//
-				CacheManager.getInstance().getConstant(axiom.getProperty().asOWLDataProperty().getIRI()),//
-				CacheManager.getInstance().getConstant(axiom.getObject().getLiteral()),//
-				CacheManager.getInstance().getConstant(axiom.getObject().getLiteral())//
-		) }, //
-				new Literal[] {}));
+		datalog.add(
+				new Clause(new Literal[] { new Literal( //
+						RewritingVocabulary.SUP_EX, //
+						CacheManager.getInstance().getConstant(
+								axiom.getSubject().asOWLNamedIndividual()
+										.getIRI()),//
+						CacheManager.getInstance().getConstant(
+								axiom.getProperty().asOWLDataProperty()
+										.getIRI()),//
+						CacheManager.getInstance().getConstant(
+								axiom.getObject().getLiteral()),//
+						CacheManager.getInstance().getConstant(
+								axiom.getObject().getLiteral())//
+				) }, //
+						new Literal[] {}));
 
 	}
 
@@ -496,8 +521,9 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements OWL
 			terms.add(CacheManager.getInstance().getConstant(param));
 		}
 
-		datalog.getClauses().add(
-				new Clause(new Literal[] { new Literal(predicate, terms.toArray(new Term[0])) }, new Literal[] {}));
+		datalog.add(
+				new Clause(new Literal[] { new Literal(predicate, terms
+						.toArray(new Term[0])) }, new Literal[] {}));
 	}
 
 	@Override

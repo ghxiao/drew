@@ -235,7 +235,7 @@ public class AppTest extends TestCase {
 	@Test
 	public void testELProgram() throws OWLOntologyCreationException, FileNotFoundException, ParseException {
 		DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
-		DReWELManager.getInstance().setDatalogFormat(DatalogFormat.XSB);
+		//DReWELManager.getInstance().setDatalogFormat(DatalogFormat.XSB);
 		final String owlFileName = "testcase/test02.owl";
 		// final String dlpFileName = "testcase/test01.dlp";
 		final String dlpFileName = "testcase/test01.dlp";

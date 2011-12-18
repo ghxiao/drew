@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.DLProgram;
+import org.semanticweb.drew.dlprogram.model.ProgramStatement;
 import org.semanticweb.drew.dlprogram.parser.DLProgramParser;
 import org.semanticweb.drew.dlprogram.parser.ParseException;
 
@@ -96,9 +97,9 @@ public class PInst {
 			"domain(X, Y) :- fail.\n" + //
 			"domainD(X, Y) :- fail.\n" + //
 			"";
-	static List<Clause> pInst;
+	static List<ProgramStatement> pInst;
 
-	private static List<Clause> xsbDeclaration;
+	private static List<ProgramStatement> xsbDeclaration;
 
 	static {
 
@@ -106,7 +107,7 @@ public class PInst {
 
 		DLProgramParser dlProgramParser = new DLProgramParser(reader);
 		try {
-			pInst = dlProgramParser.program().getClauses();
+			pInst = dlProgramParser.program().getStatements();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -114,21 +115,21 @@ public class PInst {
 		reader = new StringReader(strXSBDeclaration);
 		dlProgramParser = new DLProgramParser(reader);
 		try {
-			xsbDeclaration = dlProgramParser.program().getClauses();
+			xsbDeclaration = dlProgramParser.program().getStatements();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static List<Clause> getPInst() {
+	public static List<ProgramStatement> getPInst() {
 		return pInst;
 	}
 
-	public static List<Clause> getXsbDeclaration() {
+	public static List<ProgramStatement> getXsbDeclaration() {
 		return xsbDeclaration;
 	}
 
-	public static void setXsbDeclaration(List<Clause> xsbDeclaration) {
+	public static void setXsbDeclaration(List<ProgramStatement> xsbDeclaration) {
 		PInst.xsbDeclaration = xsbDeclaration;
 	}
 

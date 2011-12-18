@@ -22,6 +22,8 @@ import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.model.DLProgramKB;
 import org.semanticweb.drew.dlprogram.model.Literal;
 import org.semanticweb.drew.dlprogram.model.NormalPredicate;
+import org.semanticweb.drew.dlprogram.model.ProgramComment;
+import org.semanticweb.drew.dlprogram.model.ProgramStatement;
 import org.semanticweb.drew.dlprogram.model.Term;
 import org.semanticweb.drew.dlprogram.model.Variable;
 import org.semanticweb.drew.el.SymbolEncoder;
@@ -62,12 +64,12 @@ public class ELProgramKBRewriter implements DLProgramKB2DatalogRewriter {
 	}
 
 	public DLProgram rewrite(DLProgramKB kb) {
-		List<Clause> result = new ArrayList<Clause>();
+		List<ProgramStatement> result = new ArrayList<ProgramStatement>();
 
 		final OWLOntology ontology = kb.getOntology();
 		SROEL2DatalogRewriter elCompiler = new SROEL2DatalogRewriter();
-		final List<Clause> compiledOntology = elCompiler.rewrite(ontology)
-				.getClauses();
+		final List<ProgramStatement> compiledOntology = elCompiler.rewrite(
+				ontology).getStatements();
 		final DLProgram program = kb.getProgram();
 		final Set<DLInputSignature> dlInputSignatures = program
 				.getDLInputSignatures();
@@ -75,29 +77,41 @@ public class ELProgramKBRewriter implements DLProgramKB2DatalogRewriter {
 
 		DLAtomPredicatesCompiler dlAtomPredicatesCompiler = new DLAtomPredicatesCompiler();
 
-
+		result.add(new ProgramComment("---P^{ord}--start--- "));
+		
 		result.addAll(compileProgram(program));
+		result.add(new ProgramComment("---P^{ord}--end--- "));
+		result.add(new ProgramComment(""));
+		
+		
 		result.addAll(dlAtomPredicatesCompiler.compile(dlAtomPredicates));
-		
-		for (DLInputSignature signature : dlInputSignatures) {
-			result.addAll(subscript(compiledOntology, signature));
-		}
-		
-		List<Clause> pInst = PInst.getPInst();
-		
-		for (DLInputSignature signature : dlInputSignatures) {
-			result.addAll(subscript(pInst, signature));
-		}
+		List<ProgramStatement> pInst = PInst.getPInst();
 
 		for (DLInputSignature signature : dlInputSignatures) {
+			result.add(new ProgramComment("-- Phi(L) with input signature [" + signature.toString() + "] --start -- "));
+			
+			result.addAll(subscript(pInst, signature));
+			result.addAll(subscript(compiledOntology, signature));
+			result.add(new ProgramComment("-- Phi(L) with input signature [" + signature.toString() + "] --end-- "));
+			result.add(new ProgramComment(""));
+		}
+
+
+//		for (DLInputSignature signature : dlInputSignatures) {
+//			result.add(new ProgramComment(signature.toString()));
+//		}
+
+		
+		result.add(new ProgramComment("--rho(Lambda)--start"));
+		for (DLInputSignature signature : dlInputSignatures) {
+			result.add(new ProgramComment(signature.toString()));
 			result.addAll(compileSignature(signature));
 		}
-		
+		result.add(new ProgramComment("--rho(Lambda)--end"));
+		// result.addAll(PInstStar.getPInstStar());
 
-		//result.addAll(PInstStar.getPInstStar());
-		
 		DLProgram resultProgram = new DLProgram();
-		resultProgram.getClauses().addAll(result);
+		resultProgram.addAll(result);
 
 		return resultProgram;
 	}
@@ -106,14 +120,19 @@ public class ELProgramKBRewriter implements DLProgramKB2DatalogRewriter {
 	 * P -> P^{o} replace all the DLAtom with a ordinary atom
 	 * 
 	 */
-	public List<Clause> compileProgram(DLProgram program) {
+	public List<ProgramStatement> compileProgram(DLProgram program) {
 
-		List<Clause> result = new ArrayList<Clause>();
+		List<ProgramStatement> result = new ArrayList<ProgramStatement>();
 
-		for (Clause clause : program.getClauses()) {
-			Clause newClause = compileClause(clause);
+		for (ProgramStatement ps : program.getStatements()) {
+			if (ps instanceof Clause) {
+				Clause clause = (Clause)ps;
+				Clause newClause = compileClause(clause);
 
-			result.add(newClause);
+				result.add(newClause);
+			}else{
+				result.add(ps);
+			}
 		}
 
 		return result;
@@ -255,31 +274,37 @@ public class ELProgramKBRewriter implements DLProgramKB2DatalogRewriter {
 		return clauses;
 	}
 
-	List<Clause> subscript(List<Clause> clauses, DLInputSignature signature) {
+	List<ProgramStatement> subscript(List<ProgramStatement> pInst,
+			DLInputSignature signature) {
 
-		List<Clause> newClauses = new ArrayList<Clause>();
+		List<ProgramStatement> newStatements = new ArrayList<ProgramStatement>();
 
 		String sub = String.valueOf(dlInputSignatureEncoder.encode(signature));
 		// getSubscript(signature);
 
-		for (Clause clause : clauses) {
-			Literal head = clause.getHead();
-			List<Literal> body = clause.getPositiveBody();
-			// Note: In LDLp, we only have positive body
-			Literal newHead = subscript(head, sub);
-			Clause newClause = new Clause();
-			newClause.setHead(newHead);
-			for (Literal lit : body) {
-				Literal newLit = subscript(lit, sub);
-				newClause.getPositiveBody().add(newLit);
-			}
-			newClauses.add(newClause);
+		for (ProgramStatement st : pInst) {
 
+			if (st instanceof Clause) {
+				Clause clause = (Clause) st;
+				Literal head = clause.getHead();
+				List<Literal> body = clause.getPositiveBody();
+				// Note: In LDLp, we only have positive body
+				Literal newHead = subscript(head, sub);
+				Clause newClause = new Clause();
+				newClause.setHead(newHead);
+				for (Literal lit : body) {
+					Literal newLit = subscript(lit, sub);
+					newClause.getPositiveBody().add(newLit);
+				}
+				newStatements.add(newClause);
+			} else if (st instanceof ProgramComment) {
+				newStatements.add(st);
+			}
 			// logger.debug("{} / [{}]\n  ->\n{}", new Object[] { clause,
 			// signature, newClause });
 		}
 
-		return newClauses;
+		return newStatements;
 	}
 
 	private Literal subscript(Literal literal, String sub) {

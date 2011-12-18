@@ -647,7 +647,8 @@ DLProgram program() :
       }
       else
       {
-        program.getClauses().add(clause);
+        program.add(clause);
+        //program.getClauses().add(clause);
       }
     }
   )*

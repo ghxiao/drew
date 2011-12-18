@@ -687,7 +687,8 @@ public class DLProgramParser implements DLProgramParserConstants {
       }
       else
       {
-        program.getClauses().add(clause);
+        program.add(clause);
+        //program.getClauses().add(clause);
       }
     }
     jj_consume_token(0);
