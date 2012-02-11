@@ -130,24 +130,24 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 
 		for (Literal literal : positives) {
 			if (literal.getPredicate() instanceof NormalPredicate
-//					&& ((NormalPredicate) literal.getPredicate()).type
-//							.equals(PredicateType.NORMAL)
-					) {
+			// && ((NormalPredicate) literal.getPredicate()).type
+			// .equals(PredicateType.NORMAL)
+			) {
 				result.add(literal);
 			}
 		}
 
 		return result;
 	}
-	
+
 	public List<Literal> getNormalNegativeBody() {
 		List<Literal> result = new ArrayList<Literal>();
 
 		for (Literal literal : negatives) {
 			if (literal.getPredicate() instanceof NormalPredicate
-//					&& ((NormalPredicate) literal.getPredicate()).type
-//							.equals(PredicateType.NORMAL)
-							) {
+			// && ((NormalPredicate) literal.getPredicate()).type
+			// .equals(PredicateType.NORMAL)
+			) {
 				result.add(literal);
 			}
 		}
@@ -252,14 +252,14 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 			return result;
 		}
 
-		result = this.getPositiveBody().toString().compareTo(
-				that.getPositiveBody().toString());
+		result = this.getPositiveBody().toString()
+				.compareTo(that.getPositiveBody().toString());
 		if (result != 0) {
 			return result;
 		}
 
-		result = this.getNegativeBody().toString().compareTo(
-				that.getNegativeBody().toString());
+		result = this.getNegativeBody().toString()
+				.compareTo(that.getNegativeBody().toString());
 		if (result != 0) {
 			return result;
 		}
@@ -304,8 +304,8 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 			result.append(IMPLY).append(" ").append(bodyToString()).append(".");
 			break;
 		case RULE:
-			result.append(head).append(" ").append(IMPLY).append(" ").append(
-					bodyToString()).append(".");
+			result.append(head).append(" ").append(IMPLY).append(" ")
+					.append(bodyToString()).append(".");
 			break;
 		default:
 			throw new IllegalStateException();
@@ -380,8 +380,8 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 		}
 		return result;
 	}
-	
-	public Set<DLAtomPredicate> getDLAtomPredicates(){
+
+	public Set<DLAtomPredicate> getDLAtomPredicates() {
 		Set<DLAtomPredicate> result = new HashSet<DLAtomPredicate>();
 
 		for (Literal literal : positives) {
@@ -401,23 +401,21 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 				result.add((DLAtomPredicate) literal.getPredicate());
 			}
 		}
-		return result;		
+		return result;
 	}
-	
+
 	public List<Literal> getPositiveDLAtoms() {
 		List<Literal> result = new ArrayList<Literal>();
 
 		for (Literal literal : positives) {
-			if (!(literal.getPredicate() instanceof NormalPredicate))
-			{
+			if (!(literal.getPredicate() instanceof NormalPredicate)) {
 				result.add(literal);
 			}
 		}
 
-		
 		return result;
 	}
-	
+
 	public List<Literal> getNegativeDLAtoms() {
 		List<Literal> result = new ArrayList<Literal>();
 
@@ -430,7 +428,30 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 			}
 		}
 
-		
 		return result;
+	}
+
+	@Override
+	public boolean isComment() {
+		return false;
+	}
+
+	@Override
+	public boolean isClause() {
+		return false;
+	}
+
+	@Override
+	public ProgramComment asComment() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Clause asClause() {
+		return null;
+	}
+
+	public boolean isFact() {
+		return positives.size() == 0 && negatives.size() == 0;
 	}
 }

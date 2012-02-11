@@ -10,6 +10,8 @@ public interface DLProgramStorer {
 	 * store the dl-program to the target
 	 * @param program
 	 * @param target
+	 * 		The store target which implements {@link java.lang.Appendable}, e.g.,
+	 * 	 	 {@link java.lang.StringBuilder}, or {@link java.io.FileWriter}
 	 * @throws IOException 
 	 */
 	public void storeDLProgram(DLProgram program, Appendable target) throws IOException;

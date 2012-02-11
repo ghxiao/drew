@@ -28,6 +28,9 @@ public class Literal implements Cloneable, Comparable<Literal> {
 
 	private List<Term> terms = new ArrayList<Term>();
 
+	/*
+	 * classical negation / "true" negation
+	 */
 	private boolean negative;
 
 	/**

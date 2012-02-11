@@ -20,11 +20,19 @@ public class DefaultRuleRewriter {
 	NormalPredicate in = CacheManager.getInstance().getPredicate("in", 2); 
 	NormalPredicate out = CacheManager.getInstance().getPredicate("out", 2); 
 	NormalPredicate im = CacheManager.getInstance().getPredicate("im", 2);
+	NormalPredicate dl = CacheManager.getInstance().getPredicate("dl", 2);
 	
 	
-	// FIXME: in general, for a default ([pre : just1, ..., justm] / [concl] ),
+	// FIXME: in general, for a default ([a : b_1, ..., b_m] / [c] ),
 	// every pre/just_i, concl can be a conjunction of literals. For simplicity,
 	// we only consider the case that each conjunction only has one literal
+	
+	// im(X, c) :- dl(X, a, in), not dl_neg(X, b_1, in), ..., not dl_neg(X, b_m, in).
+	
+	
+	
+	
+	
 	List<Clause> rewrite(DefaultRule df) {
 		List<Clause> result = new ArrayList<Clause>();
 		Literal pre = df.getPrerequisite().get(0);

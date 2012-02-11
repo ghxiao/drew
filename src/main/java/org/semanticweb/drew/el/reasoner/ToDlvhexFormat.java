@@ -3,7 +3,7 @@ package org.semanticweb.drew.el.reasoner;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import org.semanticweb.drew.dlprogram.format.DatalogToStringHelper;
+import org.semanticweb.drew.dlprogram.format.DLProgramStorerImpl;
 import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.parser.DLProgramParser;
 import org.semanticweb.drew.dlprogram.parser.ParseException;
@@ -25,7 +25,7 @@ public class ToDlvhexFormat {
 	
 	public void toDlvhex(String dlpFile){
 		String dlvhex = dlpFile.replaceAll("elp", "dlvhex");
-		DatalogToStringHelper helper = new DatalogToStringHelper();
+		DLProgramStorerImpl helper = new DLProgramStorerImpl();
 		try {
 			FileReader reader = new FileReader(dlpFile);
 			DLProgramParser parser =new DLProgramParser(reader);
