@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import org.semanticweb.drew.dlprogram.format.DLProgramStorerImpl;
 import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.parser.DLProgramParser;
 import org.semanticweb.drew.dlprogram.parser.ParseException;
@@ -129,7 +130,8 @@ public class PaperReviewBenchmarkGenerator {
 		DLProgramParser parser = new DLProgramParser(r);
 		try {
 			DLProgram program = parser.program();
-			DatalogToStringHelper helper = new DatalogToStringHelper();
+			//DatalogToStringHelper helper = new DatalogToStringHelper();
+			DLProgramStorerImpl helper = new DLProgramStorerImpl();
 			helper.setUsingDlvhexFormat(true);
 			dlpRules = helper.toString(program);
 		} catch (ParseException e1) {

@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.semanticweb.drew.dlprogram.format.DLProgramStorerImpl;
 import org.semanticweb.drew.dlprogram.model.CacheManager;
 import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.DLProgram;
@@ -97,7 +98,10 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements
 			BufferedWriter writer = new BufferedWriter(new FileWriter(
 					datalogFile));
 			writer.write(PInst.getPInst().toString());
-			writer.write(new DatalogToStringHelper().toString(datalog));
+			
+			new DLProgramStorerImpl().storeDLProgram(datalog, writer);
+			
+			//writer.write(new DatalogToStringHelper().toString(datalog));
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();

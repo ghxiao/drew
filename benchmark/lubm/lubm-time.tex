@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{pgfplotstable}
+ \usepackage{booktabs}
+\begin{document}
+\pgfplotstableset{ %
+  % columns={instance, Var, Clauses, MCSes, MinMod4, MinModQ, VarMCSes,
+  %   T}, %
+  columns/ontology/.style={ %
+    string type,
+  }, %
+  columns/rule/.style={ %
+    string type,
+  }, %
+  every head row/.style={ %
+    before row=\toprule, %
+    after row=\midrule}, %
+  every last row/.style={ %
+    after row=\bottomrule} %
+}
+\begin{table}[ht]
+  \centering
+%\setlength{\tabcolsep}{2.5pt}
+ \begin{small}
+    \pgfplotstabletypeset[col sep=comma]{lubm-time.csv}
+  \end{small}
+  \caption{Evaluation of camus\_idmus on DC Benchmark}
+  \label{tab:idmus-eval}
+\end{table}
+
+\end{document}

@@ -6,6 +6,8 @@ import java.io.File;
 import java.util.List;
 
 import org.junit.Test;
+import org.semanticweb.drew.dlprogram.format.DLProgramStorer;
+import org.semanticweb.drew.dlprogram.format.DLProgramStorerImpl;
 import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.ProgramStatement;
 import org.semanticweb.drew.el.profile.SROELProfile;
@@ -30,7 +32,12 @@ public class SROEL2DatalogRewriterTest {
 				.getStatements();
 		DReWELManager.getInstance().setDatalogFormat(DatalogFormat.DLV);
 		DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
-		DatalogToStringHelper f = new DatalogToStringHelper(); 
+		
+		//DatalogToStringHelper f = new DatalogToStringHelper(); 
+		DLProgramStorer storer =new DLProgramStorerImpl();
+		
+		//storer.storeDLProgram(program, target)
+		
 		f.saveToFile(compiledOntology, "benchmark/galen/ontology/el-galen.dl");
 	
 	}

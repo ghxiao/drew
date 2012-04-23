@@ -438,7 +438,7 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 
 	@Override
 	public boolean isClause() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -448,7 +448,7 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 
 	@Override
 	public Clause asClause() {
-		return null;
+		return this;
 	}
 
 	public boolean isFact() {

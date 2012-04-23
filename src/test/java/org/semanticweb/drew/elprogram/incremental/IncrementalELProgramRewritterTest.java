@@ -49,7 +49,7 @@ public class IncrementalELProgramRewritterTest {
 
 		DatalogToStringHelper datalogToStringHelper = new DatalogToStringHelper();
 
-		System.out.println(datalogToStringHelper.toString(rules));
+		System.out.println(datalogToStringHelper.writeDLProgram(rules));
 		// assertEquals("DL[S1 += p1,S1 -= p1;Q](X)", result.toString());
 
 	}
@@ -70,7 +70,7 @@ public class IncrementalELProgramRewritterTest {
 
 		DatalogToStringHelper datalogToStringHelper = new DatalogToStringHelper();
 
-		System.out.println(datalogToStringHelper.toString(rules));
+		System.out.println(datalogToStringHelper.writeDLProgram(rules));
 	}
 
 	@Test
@@ -89,7 +89,7 @@ public class IncrementalELProgramRewritterTest {
 
 		DatalogToStringHelper datalogToStringHelper = new DatalogToStringHelper();
 
-		System.out.println(datalogToStringHelper.toString(rules));
+		System.out.println(datalogToStringHelper.writeDLProgram(rules));
 	}
 
 	@Test
@@ -108,7 +108,7 @@ public class IncrementalELProgramRewritterTest {
 
 		DatalogToStringHelper datalogToStringHelper = new DatalogToStringHelper();
 
-		System.out.println(datalogToStringHelper.toString(rules));
+		System.out.println(datalogToStringHelper.writeDLProgram(rules));
 	}
 
 	@Test
@@ -141,7 +141,7 @@ public class IncrementalELProgramRewritterTest {
 
 		datalogToStringHelper.saveToFile(rules, "testcase/ex4.dl");
 		
-		System.out.println(datalogToStringHelper.toString(rules));
+		System.out.println(datalogToStringHelper.writeDLProgram(rules));
 	}
 
 	public static void main(String[] args) throws FileNotFoundException,

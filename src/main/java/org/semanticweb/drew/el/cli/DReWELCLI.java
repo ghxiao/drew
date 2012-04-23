@@ -18,13 +18,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.semanticweb.drew.dlprogram.DLProgramKB2DatalogRewriter;
+import org.semanticweb.drew.dlprogram.format.DLProgramStorer;
+import org.semanticweb.drew.dlprogram.format.DLProgramStorerImpl;
 import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.model.DLProgramKB;
 import org.semanticweb.drew.dlprogram.parser.DLProgramParser;
 import org.semanticweb.drew.dlprogram.parser.ParseException;
 import org.semanticweb.drew.el.profile.SROELProfile;
 import org.semanticweb.drew.el.reasoner.DReWELManager;
-import org.semanticweb.drew.el.reasoner.DatalogToStringHelper;
+
 import org.semanticweb.drew.el.reasoner.NamingStrategy;
 import org.semanticweb.drew.el.reasoner.SROEL2DatalogRewriter;
 import org.semanticweb.drew.elprogram.ELProgramKBRewriter;
@@ -80,9 +82,11 @@ public class DReWELCLI {
 		if (cqFile != null) {
 			SROEL2DatalogRewriter rewriter = new SROEL2DatalogRewriter();
 			DLProgram datalog = rewriter.rewrite(ontology);
-
-			DatalogToStringHelper helper = new DatalogToStringHelper();
-			String strDatalog = helper.toString(datalog);
+			DLProgramStorer storer = new DLProgramStorerImpl();
+			// DatalogToStringHelper helper = new DatalogToStringHelper();
+			StringBuilder target = new StringBuilder();
+			storer.storeDLProgram(datalog, target);
+			String strDatalog = target.toString();
 
 			String cq = parseCQ();
 
@@ -111,8 +115,13 @@ public class DReWELCLI {
 
 			datalog = compiler.rewrite(kb);
 
-			DatalogToStringHelper helper = new DatalogToStringHelper();
-			String strDatalog = helper.toString(datalog);
+			// DatalogToStringHelper helper = new DatalogToStringHelper();
+
+			DLProgramStorer storer = new DLProgramStorerImpl();
+			StringBuilder target = new StringBuilder();
+			storer.storeDLProgram(datalog, target);
+
+			String strDatalog = target.toString();
 			int j = dlpFile.indexOf('/');
 			String dlpTag = dlpFile;
 			if (j >= 0) {
@@ -120,12 +129,12 @@ public class DReWELCLI {
 			}
 
 			datalogFile = ontologyFile + "-" + dlpTag + "-" + rewriting + ".dl";
-			//inputProgram.addFile(datalogFile);
+			// inputProgram.addFile(datalogFile);
 
-			 FileWriter w = new FileWriter(datalogFile);
-			 w.write(strDatalog);
-			 w.close();
-			 inputProgram.addText(strDatalog);
+			FileWriter w = new FileWriter(datalogFile);
+			w.write(strDatalog);
+			w.close();
+			inputProgram.addText(strDatalog);
 		}
 
 		if (rewriting_only) {
@@ -178,7 +187,11 @@ public class DReWELCLI {
 		FileReader reader = new FileReader(cqFile);
 		DLProgramParser dlProgramParser = new DLProgramParser(reader);
 		DLProgram cqProgram = dlProgramParser.program();
-		String cq = new DatalogToStringHelper().toString(cqProgram);
+		DLProgramStorer storer = new DLProgramStorerImpl();
+		StringBuilder target = new StringBuilder();
+		storer.storeDLProgram(cqProgram, target);
+		
+		String cq = target.toString();
 
 		return cq;
 	}

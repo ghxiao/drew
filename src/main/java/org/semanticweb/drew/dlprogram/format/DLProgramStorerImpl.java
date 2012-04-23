@@ -62,13 +62,13 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 		}
 	}
 
-	public String writeDLProgram(DLProgram program) {
+	String writeDLProgram(DLProgram program) {
 		// sb = new StringBuilder();
 		List<ProgramStatement> stmts = program.getStatements();
 		return writeStatements(stmts);
 	}
 
-	public String writeStatements(Collection<ProgramStatement> statements) {
+	String writeStatements(Collection<ProgramStatement> statements) {
 		// target = new StringBuilder();
 
 		for (ProgramStatement r : statements) {
@@ -136,6 +136,10 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 				// return normalPredicate.name;
 				break;
 			case NORMAL:
+				if (lit.isNegative()) {
+					write("-");
+				}
+
 				write(normalPredicate.getName());
 				if (terms.size() > 0) {
 					write("(");
@@ -297,27 +301,25 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 		return result.toString();
 	}
 
-	private Appendable write(String string) {
+	void write(String string) {
 		try {
 			target.append(string);
-			return target;
 		} catch (IOException e) {
 			throw new DLProgramStoreException(e);
 		}
 	}
 
-	private Appendable write(int string) {
+	void write(int number) {
 		try {
-			target.append(String.valueOf(string));
-			return target;
+			target.append(String.valueOf(number));
 		} catch (IOException e) {
 			throw new DLProgramStoreException(e);
 		}
 	}
 
 	@Override
-	public void storeDLProgram(DLProgram program, Appendable target)
-		throws IOException {
+	public void storeDLProgram(DLProgram program, Appendable target) {
 		this.target = target;
+		writeDLProgram(program);
 	}
 }

@@ -147,7 +147,7 @@ public class Literal implements Cloneable, Comparable<Literal> {
 			case LOGIC:
 				return normalPredicate.name;
 			case NORMAL:
-				if (negative) {
+				if (isNegative()) {
 					result.append("-");
 				}
 				result.append(normalPredicate.name);
@@ -234,11 +234,12 @@ public class Literal implements Cloneable, Comparable<Literal> {
 		return result;
 	}
 
+	public boolean isNegative() {
+		return negative;
+	}
+
 	public void setNegative(boolean negative) {
 		this.negative = negative;
 	}
 
-	public boolean getNegative() {
-		return this.negative;
-	}
 }
