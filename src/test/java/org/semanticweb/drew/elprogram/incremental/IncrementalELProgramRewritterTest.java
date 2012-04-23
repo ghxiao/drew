@@ -6,12 +6,15 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.junit.Test;
+import org.semanticweb.drew.dlprogram.format.DLProgramStorer;
+import org.semanticweb.drew.dlprogram.format.DLProgramStorerImpl;
 import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.DLAtomPredicate;
 import org.semanticweb.drew.dlprogram.model.DLProgram;
@@ -137,11 +140,16 @@ public class IncrementalELProgramRewritterTest {
 		
 		List<Clause> rules = rewriter.rewriteELProgramKB(kb);
 
-		DatalogToStringHelper datalogToStringHelper = new DatalogToStringHelper();
-
-		datalogToStringHelper.saveToFile(rules, "testcase/ex4.dl");
+		DLProgramStorer storer =new DLProgramStorerImpl();
 		
-		System.out.println(datalogToStringHelper.writeDLProgram(rules));
+		//storer.storeProgramStatements(rules, new FileWriter("testcase/ex4.dl"));
+		
+		
+//		DatalogToStringHelper datalogToStringHelper = new DatalogToStringHelper();
+//
+//		datalogToStringHelper.saveToFile(rules, "testcase/ex4.dl");
+		
+		//System.out.println(datalogToStringHelper.writeDLProgram(rules));
 	}
 
 	public static void main(String[] args) throws FileNotFoundException,

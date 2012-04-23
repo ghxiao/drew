@@ -3,6 +3,8 @@ package org.semanticweb.drew.el.reasoner;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 import org.junit.Test;
@@ -19,7 +21,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 public class SROEL2DatalogRewriterTest {
 
 	@Test
-	public void test() throws OWLOntologyCreationException {
+	public void test() throws OWLOntologyCreationException, IOException {
 		SROELProfile profile = new SROELProfile();
 		//String ontologyFile= "testcase/policy.owl";
 		String ontologyFile= "benchmark/galen/ontology/EL-GALEN.owl";
@@ -36,10 +38,13 @@ public class SROEL2DatalogRewriterTest {
 		//DatalogToStringHelper f = new DatalogToStringHelper(); 
 		DLProgramStorer storer =new DLProgramStorerImpl();
 		
-		//storer.storeDLProgram(program, target)
 		
-		f.saveToFile(compiledOntology, "benchmark/galen/ontology/el-galen.dl");
+		//f.saveToFile(compiledOntology, "benchmark/galen/ontology/el-galen.dl");
 	
+		Appendable target = new FileWriter("benchmark/galen/ontology/el-galen.dl");
+		storer.storeProgramStatements(compiledOntology, target );
+		
+		
 	}
 
 }

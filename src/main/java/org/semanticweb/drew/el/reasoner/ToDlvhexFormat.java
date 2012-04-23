@@ -2,12 +2,15 @@ package org.semanticweb.drew.el.reasoner;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import org.semanticweb.drew.dlprogram.format.DLProgramStorerImpl;
 import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.parser.DLProgramParser;
 import org.semanticweb.drew.dlprogram.parser.ParseException;
 
+@Deprecated
 public class ToDlvhexFormat {
 
 	public static void main(String[] args) {
@@ -31,11 +34,14 @@ public class ToDlvhexFormat {
 			DLProgramParser parser =new DLProgramParser(reader);
 			DLProgram program = parser.program();
 			helper.setUsingDlvhexFormat(true);
-			helper.saveToFile(program, dlvhex);
+			helper.storeDLProgram(program, new FileWriter(dlvhex));
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

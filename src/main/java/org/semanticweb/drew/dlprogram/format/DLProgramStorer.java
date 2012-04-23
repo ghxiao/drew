@@ -1,8 +1,10 @@
 package org.semanticweb.drew.dlprogram.format;
 
 import java.io.IOException;
+import java.util.Collection;
 
 import org.semanticweb.drew.dlprogram.model.DLProgram;
+import org.semanticweb.drew.dlprogram.model.ProgramStatement;
 
 public interface DLProgramStorer {
 
@@ -18,6 +20,8 @@ public interface DLProgramStorer {
 	 * @throws IOException
 	 */
 	public void storeDLProgram(DLProgram program, Appendable target);
+	
+	public void storeProgramStatements(Collection<ProgramStatement> program, Appendable target);
 	
 	
 }

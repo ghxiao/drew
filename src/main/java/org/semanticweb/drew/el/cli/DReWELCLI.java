@@ -138,7 +138,7 @@ public class DReWELCLI {
 		}
 
 		if (rewriting_only) {
-
+			// do nothing
 		} else {
 			DLVInvocation invocation = DLVWrapper.getInstance()
 					.createInvocation(dlvPath);

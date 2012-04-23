@@ -25,7 +25,7 @@ import org.semanticweb.owlapi.model.IRI;
 
 public class DLProgramStorerImpl implements DLProgramStorer {
 
-	Appendable target;
+	//Appendable target;
 
 	/*
 	 * In dlvhex format, prefix is not allowed
@@ -44,76 +44,76 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 
 	}
 
-	public void saveToFile(DLProgram program, String file) {
-		saveToFile(program.getStatements(), file);
-	}
+//	public void saveToFile(DLProgram program, String file) {
+//		saveToFile(program.getStatements(), file);
+//	}
 
-	public void saveToFile(List<ProgramStatement> program, String file) {
-		try {
-			FileWriter writer = new FileWriter(file);
-			// if (DReWELManager.getInstance().getDatalogFormat() ==
-			// DatalogFormat.XSB) {
-			// writer.write(PInst.strXSBHeader);
-			// }
-			writer.write(writeStatements(program));
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+//	public void saveToFile(List<ProgramStatement> program, String file) {
+//		try {
+//			FileWriter writer = new FileWriter(file);
+//			// if (DReWELManager.getInstance().getDatalogFormat() ==
+//			// DatalogFormat.XSB) {
+//			// writer.write(PInst.strXSBHeader);
+//			// }
+//			writer.write(writeStatements(program));
+//			writer.close();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
-	String writeDLProgram(DLProgram program) {
+	void writeDLProgram(DLProgram program, Appendable target) {
 		// sb = new StringBuilder();
 		List<ProgramStatement> stmts = program.getStatements();
-		return writeStatements(stmts);
+		writeStatements(stmts, target);
 	}
 
-	String writeStatements(Collection<ProgramStatement> statements) {
+	public void writeStatements(Collection<ProgramStatement> statements, Appendable target) {
 		// target = new StringBuilder();
 
 		for (ProgramStatement r : statements) {
 			if (r.isClause()) {
-				writeCluase(r.asClause());
-				write("\n");
+				writeCluase(r.asClause(), target);
+				write("\n", target);
 			} else if (r.isComment()) {
-				write(r.asComment().toString());
+				write(r.asComment().toString(), target);
 			} else {
 				throw new IllegalStateException();
 			}
 		}
-		return target.toString();
+		//return target.toString();
 	}
 
-	void writeCluase(Clause r) {
+	void writeCluase(Clause r, Appendable target) {
 		if (!(r.getHead().equals(Literal.FALSE))) {
-			writeLiteral(r.getHead());
+			writeLiteral(r.getHead(), target);
 		}
 
 		if (r.getBody().size() > 0) {
-			write(" :- ");
+			write(" :- ", target);
 			boolean firstLiteral = true;
 			for (Literal literal : r.getPositiveBody()) {
 				if (!firstLiteral) {
-					write(", ");
+					write(", ", target);
 				}
 				firstLiteral = false;
-				writeLiteral(literal);
+				writeLiteral(literal, target);
 			}
 
 			for (Literal literal : r.getNegativeBody()) {
 				if (!firstLiteral) {
-					write(", ");
+					write(", ", target);
 				}
 				firstLiteral = false;
-				write("not ");
-				writeLiteral(literal);
+				write("not ", target);
+				writeLiteral(literal, target);
 			}
 		}
 
-		write(".");
+		write(".", target);
 	}
 
-	void writeLiteral(Literal lit) {
+	void writeLiteral(Literal lit, Appendable target) {
 		final Predicate predicate = lit.getPredicate();
 		List<Term> terms = lit.getTerms();
 		if (predicate instanceof NormalPredicate) {
@@ -123,34 +123,34 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 			switch (normalPredicate.getType()) {
 			case BUILTIN:
 				// sb.append(terms.get(0));
-				writeTerm(terms.get(0));
-				write(" ");
-				write(normalPredicate.getName());
-				write(" ");
+				writeTerm(terms.get(0), target);
+				write(" ", target);
+				write(normalPredicate.getName(), target);
+				write(" ", target);
 				// sb.append(terms.get(1));
-				writeTerm(terms.get(1));
+				writeTerm(terms.get(1), target);
 				// return result.toString();
 				break;
 			case LOGIC:
-				write(normalPredicate.getName());
+				write(normalPredicate.getName(), target);
 				// return normalPredicate.name;
 				break;
 			case NORMAL:
 				if (lit.isNegative()) {
-					write("-");
+					write("-", target);
 				}
 
-				write(normalPredicate.getName());
+				write(normalPredicate.getName(), target);
 				if (terms.size() > 0) {
-					write("(");
+					write("(", target);
 					for (Iterator<Term> iter = terms.iterator(); iter.hasNext();) {
 						// sb.append(iter.next());
-						writeTerm(iter.next());
+						writeTerm(iter.next(), target);
 						if (iter.hasNext()) {
-							write(", ");
+							write(", ", target);
 						}
 					}
-					write(")");
+					write(")", target);
 				}
 				// return result.toString();
 				break;
@@ -159,17 +159,17 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 			}
 		} else if (predicate instanceof DLAtomPredicate) {
 
-			write(toString((DLAtomPredicate) predicate));
+			write(((DLAtomPredicate) predicate).toString(), target);
 			if (terms.size() > 0) {
-				write("(");
+				write("(", target);
 				for (Iterator<Term> iter = terms.iterator(); iter.hasNext();) {
 					// sb.append(iter.next());
-					writeTerm(iter.next());
+					writeTerm(iter.next(), target);
 					if (iter.hasNext()) {
-						write(", ");
+						write(", ", target);
 					}
 				}
-				write(")");
+				write(")", target);
 			}
 		}
 
@@ -239,27 +239,27 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 		// }
 	}
 
-	void writeTerm(Term t) {
+	void writeTerm(Term t, Appendable target) {
 		if (t instanceof IRIConstant) {
 			IRIConstant iriConstant = (IRIConstant) t;
 			IRI iri = iriConstant.getIRI();
 			switch (DReWELManager.getInstance().getNamingStrategy()) {
 			case IntEncoding:
-				write(DReWELManager.getInstance().getIRIEncoder().encode(iri));
+				write(DReWELManager.getInstance().getIRIEncoder().encode(iri), target);
 				break;
 			case IRIFragment:
 				String fragment = iri.getFragment();
 				if (fragment == null) {
 					fragment = iri.toString();
 				}
-				write("\"");
-				write(fragment);
-				write("\"");
+				write("\"", target);
+				write(fragment, target);
+				write("\"", target);
 				break;
 			case IRIFull:
-				write("\"<");
-				write(iri.toString());
-				write(">\"");
+				write("\"<", target);
+				write(iri.toString(), target);
+				write(">\"", target);
 				break;
 			default:
 				break;
@@ -267,15 +267,15 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 
 		} else if (t instanceof Constant
 				&& ((Constant) t).getType() == Types.VARCHAR) {
-			write("\"");
-			write(t.toString());
-			write("\"");
+			write("\"", target);
+			write(t.toString(), target);
+			write("\"", target);
 		} else {
-			write(t.toString());
+			write(t.toString(), target);
 		}
 	}
 
-	private String toString(DLAtomPredicate predicate) {
+	private String toString(DLAtomPredicate predicate, Appendable target) {
 		StringBuilder result = new StringBuilder();
 		result.append("DL[");
 		boolean first = true;
@@ -301,7 +301,7 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 		return result.toString();
 	}
 
-	void write(String string) {
+	void write(String string, Appendable target) {
 		try {
 			target.append(string);
 		} catch (IOException e) {
@@ -309,7 +309,7 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 		}
 	}
 
-	void write(int number) {
+	void write(int number, Appendable target) {
 		try {
 			target.append(String.valueOf(number));
 		} catch (IOException e) {
@@ -319,7 +319,15 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 
 	@Override
 	public void storeDLProgram(DLProgram program, Appendable target) {
-		this.target = target;
-		writeDLProgram(program);
+		//this.target = target;
+		writeDLProgram(program, target);
 	}
+
+	@Override
+	public void storeProgramStatements(Collection<ProgramStatement> statements,
+			Appendable target) {
+		writeStatements(statements, target);
+	}
+	
+	
 }
