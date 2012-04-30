@@ -18,7 +18,6 @@ import org.semanticweb.drew.dlprogram.format.DLProgramStorerImpl;
 import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.parser.DLProgramParser;
 import org.semanticweb.drew.dlprogram.parser.ParseException;
-import org.semanticweb.drew.el.reasoner.DatalogToStringHelper;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -130,7 +129,7 @@ public class PaperReviewBenchmarkGenerator {
 		DLProgramParser parser = new DLProgramParser(r);
 		try {
 			DLProgram program = parser.program();
-			//DatalogToStringHelper helper = new DatalogToStringHelper();
+			// DatalogToStringHelper helper = new DatalogToStringHelper();
 			DLProgramStorerImpl helper = new DLProgramStorerImpl();
 			helper.setUsingDlvhexFormat(true);
 			dlpRules = helper.toString(program);
@@ -216,8 +215,10 @@ public class PaperReviewBenchmarkGenerator {
 			generateKeywords();
 			generateHasMembers();
 			generateArticlesInProcedings();
-			manager.saveOntology(ontology,
-					IRI.create(new File("benchmark/review/publication-" + n + ".owl")));
+			manager.saveOntology(
+					ontology,
+					IRI.create(new File("benchmark/review/publication-" + n
+							+ ".owl")));
 		} catch (OWLOntologyCreationException e) {
 			e.printStackTrace();
 		} catch (URISyntaxException e) {

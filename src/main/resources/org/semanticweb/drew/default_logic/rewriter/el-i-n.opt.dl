@@ -1,0 +1,55 @@
+% isa_p_n(X, Z, I, C, J) :- top(Z), isa_p_n(X, Z1, I, C, J).
+% isa_p_n(X, Y, I, C, J) :- bot(Z), isa_p_n(U, Z, I, C, J), isa_p_n(X, Z1, C, I, J), cls(Y).
+isa_p_n(X, Z, I, C, J) :- subClass(Y, Z), isa_p_n(X, Y, I, C, J).
+isa_p_n(X, Z, I, C, J) :- subConj(Y1, Y2, Z), isa_p(X, Y1, I), isa_p_n(X, Y2, I, C, J).
+isa_p_n(X, Z, I, C, J) :- subConj(Y1, Y2, Z), isa_p_n(X, Y1, I, C, J), isa_p(X, Y2, I).
+isa_p_n(X, Z, I, C, J) :- subConj(Y1, Y2, Z), isa_p_n(X, Y1, I, C, J), isa_p_n(X, Y2, I, C, J).
+
+isa_p_n(X, Z, I, C, J) :- subEx(V, Y, Z), triple_p(X, V, X1, I), isa_p_n(X1, Y, I, C, J).
+isa_p_n(X, Z, I, C, J) :- subEx(V, Y, Z), triple_p_n(X, V, X1, I, C, J), isa_p(X1, Y, I).
+isa_p_n(X, Z, I, C, J) :- subEx(V, Y, Z), triple_p_n(X, V, X1, I, C, J), isa_p_n(X1, Y, I, C, J).
+
+isa_p_n(X, Z, I, C, J) :- subEx(V, Y, Z),self_p_n(X, V, I, C, J), isa_p(X, Y, I).
+isa_p_n(X, Z, I, C, J) :- subEx(V, Y, Z),self_p(X, V, I), isa_p_n(X, Y, I, C, J).
+isa_p_n(X, Z, I, C, J) :- subEx(V, Y, Z),self_p_n(X, V, I, C, J), isa_p_n(X, Y, I, C, J).
+
+triple_p_n(X, V, X1, I, C, J) :-supEx(Y, V, Z, X1), isa_p_n(X, Y, I, C, J).
+
+isa_p_n(X1, Z, I, C, J) :- supEx(Y, V, Z, X1),isa_p_n(X, Y, I, C, J).
+
+isa_p_n(X, Z, I, C, J) :- subSelf(V, Z),self_p_n(X, V, I, C, J).
+
+self_p_n(X, V, I, C, J) :- supSelf(Y, V),isa_p_n(X, Y, I, C, J).
+
+triple_p_n(X, W, X1, I, C, J) :- subRole(V, W),triple_p_n(X, V, X1, I, C, J). 
+
+self_p_n(X, W, I, C, J) :- subRole(V, W),self_p_n(X, V, I, C, J).
+
+triple_p_n(X, W, X2, I, C, J) :- subRChain(U, V, W), triple_p_n(X, U, X1, I, C, J), triple_p(X1, V, X2, I).
+triple_p_n(X, W, X2, I, C, J) :- subRChain(U, V, W), triple_p(X, U, X1, I), triple_p_n(X1, V, X2, I, C, J).
+triple_p_n(X, W, X2, I, C, J) :- subRChain(U, V, W), triple_p_n(X, U, X1, I, C, J), triple_p_n(X1, V, X2, I, C, J).
+
+triple_p_n(X, W, X1, I, C, J) :- subRChain(U, V, W), self_p_n(X, U, I, C, J), triple_p(X, V, X1, I). 
+triple_p_n(X, W, X1, I, C, J) :- subRChain(U, V, W), self_p(X, U, I), triple_p_n(X, V, X1, I, C, J).
+triple_p_n(X, W, X1, I, C, J) :- subRChain(U, V, W), self_p_n(X, U, I, C, J), triple_p_n(X, V, X1, I, C, J). 
+
+triple_p_n(X, W, X1, I, C, J) :- subRChain(U, V, W), triple_p_n(X, U, X1, I, C, J),self_p(X1, V, I). 
+triple_p_n(X, W, X1, I, C, J) :- subRChain(U, V, W), triple_p(X, U, X1, I),self_p_n(X1, V, I, C, J). 
+triple_p_n(X, W, X1, I, C, J) :- subRChain(U, V, W), triple_p_n(X, U, X1, I, C, J),self_p_n(X1, V, I, C, J). 
+
+triple_p_n(X, W, X, I, C, J) :- subRChain(U, V, W),self_p_n(X, U, I, C, J),self_p(X, V, I).
+triple_p_n(X, W, X, I, C, J) :- subRChain(U, V, W),self_p(X, U, I),self_p_n(X, V, I, C, J).
+triple_p_n(X, W, X, I, C, J) :- subRChain(U, V, W),self_p_n(X, U, I, C, J),self_p_n(X, V, I, C, J).
+
+isa_p_n(Y, Z, I, C, J) :- isa_p_n(X, Y, I, C, J),nom(Y),isa_p(X, Z, I). 
+isa_p_n(Y, Z, I, C, J) :- isa_p(X, Y, I),nom(Y),isa_p_n(X, Z, I, C, J). 
+isa_p_n(Y, Z, I, C, J) :- isa_p_n(X, Y, I, C, J),nom(Y),isa_p_n(X, Z, I, C, J). 
+
+triple_p_n(Z, U, Y, I, C, J) :- isa_p_n(X, Y, I, C, J), nom(Y), triple_p(Z, U, X, I). 
+triple_p_n(Z, U, Y, I, C, J) :- isa_p(X, Y, I), nom(Y), triple_p_n(Z, U, X, I, C, J). 
+triple_p_n(Z, U, Y, I, C, J) :- isa_p_n(X, Y, I, C, J), nom(Y), triple_p_n(Z, U, X, I, C, J). 
+
+
+
+%incons(I, C, J) :- isa_p_n(X, Y, I, C, J), bot(Y).
+

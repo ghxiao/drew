@@ -1,0 +1,189 @@
+package org.semanticweb.drew.default_logic.rewriter;
+
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.semanticweb.drew.default_logic.DefaultRule;
+import org.semanticweb.drew.default_logic.OWLPredicate;
+import org.semanticweb.drew.dlprogram.model.CacheManager;
+import org.semanticweb.drew.dlprogram.model.Clause;
+import org.semanticweb.drew.dlprogram.model.Constant;
+import org.semanticweb.drew.dlprogram.model.DLProgram;
+import org.semanticweb.drew.dlprogram.model.Literal;
+import org.semanticweb.drew.dlprogram.model.NormalPredicate;
+import org.semanticweb.drew.dlprogram.model.ProgramStatement;
+import org.semanticweb.drew.dlprogram.model.Variable;
+import org.semanticweb.drew.dlprogram.parser.DLProgramParser;
+import org.semanticweb.drew.dlprogram.parser.ParseException;
+import org.semanticweb.drew.el.reasoner.SROEL2DatalogRewriter;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLLogicalEntity;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.util.ShortFormProvider;
+import org.semanticweb.owlapi.util.SimpleShortFormProvider;
+
+public class DefaultRuleRewriter {
+	static final String POSTFIX_IN = "_in";
+	static final String POSTFIX_OUT = "_out";
+
+	List<ProgramStatement> commonRules;
+
+	NormalPredicate in = CacheManager.getInstance().getPredicate("in", 2);
+	NormalPredicate out = CacheManager.getInstance().getPredicate("out", 2);
+	NormalPredicate im = CacheManager.getInstance().getPredicate("im", 2);
+	NormalPredicate dl = CacheManager.getInstance().getPredicate("dl", 3);
+	NormalPredicate dl_neg = CacheManager.getInstance().getPredicate("dl_neg",
+			3);
+
+	Variable X = CacheManager.getInstance().getVariable("X");
+	Variable Y = CacheManager.getInstance().getVariable("Y");
+
+	Constant c_in = CacheManager.getInstance().getConstant("in");
+	Constant c_im = CacheManager.getInstance().getConstant("im");
+
+	ShortFormProvider sfp;
+
+	// FIXME: in general, for a default ([a : b_1, ..., b_m] / [c] ),
+	// every pre/just_i, concl can be a conjunction of literals. For simplicity,
+	// we only consider the case that each conjunction only has one literal
+
+	// im(X, c) :- dl(X, a, in), not dl_neg(X, b_1, in), ..., not dl_neg(X, b_m,
+	// in).
+
+	public DefaultRuleRewriter() {
+		sfp = new SimpleShortFormProvider();
+	}
+
+	public Constant toConstant(OWLPredicate p) {
+		return CacheManager.getInstance().getConstant(
+				sfp.getShortForm(p.getLogicalEntity()));
+
+	}
+
+	/**
+	 * rewrite a terminological default logic KB=<L,D> into a datalog
+	 * 
+	 * @param ontology
+	 *            the ontology L
+	 * @param dfs
+	 *            the default rules D
+	 * @return rewritten result in datalog rules
+	 */
+	public List<ProgramStatement> rewriteDefaultLogicKB(OWLOntology ontology,
+			List<DefaultRule> dfs) {
+		List<ProgramStatement> result = new ArrayList<ProgramStatement>();
+
+		SROEL2DatalogRewriter elRewriter = new SROEL2DatalogRewriter();
+
+		DLProgram datalog_el = elRewriter.rewrite(ontology);
+		List<Clause> datalog_dfs = rewrite(dfs);
+
+		result.addAll(datalog_el.getStatements());
+		result.addAll(datalog_dfs);
+		result.addAll(rulesFromFile("default.dl"));
+		result.addAll(rulesFromFile("el.dl"));
+		result.addAll(rulesFromFile("el-i.dl"));
+		result.addAll(rulesFromFile("el-i-n.dl"));
+		return result;
+
+	}
+
+	public List<Clause> rewrite(List<DefaultRule> dfs) {
+		List<Clause> result = new ArrayList<Clause>();
+		for (DefaultRule df : dfs) {
+			result.addAll(rewrite(df));
+		}
+		return result;
+	}
+
+	public List<Clause> rewrite(DefaultRule df) {
+		List<Clause> result = new ArrayList<Clause>();
+		// Literal pre = df.getPrerequisite().get(0);
+		Literal conc = df.getConclusion().get(0);
+
+		final OWLPredicate concPredicate = conc.getPredicate().asOWLPredicate();
+
+		// in(X, Y) :- not out(X, Y), nom(X), concl(Y), q(X)
+
+		//
+		// im(X, "Deny") :- dl(X, "UserRequest", im), not dl_neg(X, "Deny", in),
+		// q(X).
+
+		Literal head = new Literal(im, X, toConstant(df.getConclusion().get(0)
+				.getPredicate().asOWLPredicate()));
+
+		List<Literal> positiveBody = new ArrayList<Literal>();
+
+		for (Literal pre : df.getPrerequisite()) {
+			positiveBody.add(new Literal(dl, X, //
+					toConstant(pre.getPredicate().asOWLPredicate()), c_im));
+		}
+
+		List<Literal> negativeBody = new ArrayList<Literal>();
+
+		for (List<Literal> justs : df.getJustifications()) {
+			// FIXME
+			negativeBody.add(new Literal(
+					dl_neg, //
+					X, //
+					toConstant(justs.get(0).getPredicate().asOWLPredicate()),
+					c_in));
+		}
+
+		Clause clause = new Clause(head, positiveBody, negativeBody);
+
+		result.add(clause);
+		return result;
+	}
+
+	protected OWLPredicate addPostfix(OWLPredicate p, String postfix) {
+		IRI iri = p.getLogicalEntity().getIRI();
+		IRI new_iri = IRI.create(iri.toString() + postfix);
+		OWLLogicalEntity e = null;
+		if (p.getArity() == 1) {
+			e = OWLManager.getOWLDataFactory().getOWLClass(new_iri);
+		} else if (p.getArity() == 2) {
+			e = OWLManager.getOWLDataFactory().getOWLObjectProperty(new_iri);
+		} else {
+			throw new IllegalStateException();
+		}
+		return new OWLPredicate(e);
+
+	}
+
+	List<ProgramStatement> rulesFromFile(String fileName) {
+		InputStream stream = DefaultRuleRewriterTest.class
+				.getResourceAsStream(fileName);
+		DLProgramParser parser = new DLProgramParser(stream);
+		DLProgram program = null;
+		try {
+			program = parser.program();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return program.getStatements();
+
+	}
+
+	List<ProgramStatement> commonRules() {
+		if (commonRules == null) {
+
+			InputStream stream = DefaultRuleRewriterTest.class
+					.getResourceAsStream("default.dl");
+			DLProgramParser parser = new DLProgramParser(stream);
+			DLProgram program = null;
+			try {
+				program = parser.program();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			commonRules = program.getStatements();
+		}
+		return commonRules;
+	}
+
+}

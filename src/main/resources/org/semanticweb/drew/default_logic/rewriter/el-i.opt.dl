@@ -1,0 +1,71 @@
+bot("Nothing").
+
+isa_p(X, X, I) :- nom(X), input(I).
+self_p(X, V, I) :- nom(X), triple_p(X, V, X, I).
+
+% isa_p(X, Z, I) :- top(Z), isa_p(X, Z1, I).
+% isa_p(X, Z, I) :- top(Z), isa_p(X, Z1, I), subset(I1,I).
+% isa_p(X, Z, I) :- top(Z), isa_p(X, Z1, I1), subset(I1,I).
+
+% isa_p(X, Y, I) :- bot(Z), isa_p(U, Z, I), isa_p(X, Z1, I), cls(Y). 
+% isa_p(X, Y, I) :- bot(Z), isa_p(U, Z, I), isa_p(X, Z1, I), cls(Y), subclass(I1, I). 
+% isa_p(X, Y, I) :- bot(Z), isa_p(U, Z, I1), isa_p(X, Z1, I), cls(Y) , subclass(I1, I).
+% isa_p(X, Y, I) :- bot(Z), isa_p(U, Z, I), isa_p(X, Z1, I1), cls(Y) , subset(I1, I).
+isa_p(X, Z, I) :- subClass(Y, Z),isa_p(X, Y, I).
+isa_p(X, Z, I) :- subConj(Y1, Y2, Z), isa_p(X, Y1, I), isa_p(X, Y2, I).
+isa_p(X, Z, I) :- subConj(Y1, Y2, Z), isa_p(X, Y1, I1), isa_p(X, Y2, I), subset(I1, I).
+isa_p(X, Z, I) :- subConj(Y1, Y2, Z), isa_p(X, Y1, I), isa_p(X, Y2, I1), subset(I1, I).
+
+% isa_p(X, Z, I) :- subEx(V, Y, Z),triple_p(X, V, X1, I),isa_p(X1, Y, I).
+% isa_p(X, Z, I) :- subEx(V, Y, Z),triple_p(X, V, X1, I1),isa_p(X1, Y, I),subset(I1, I).
+% isa_p(X, Z, I) :- subEx(V, Y, Z),triple_p(X, V, X1, I),isa_p(X1, Y, I1), subset(I1, I).
+
+% isa_p(X, Z, I) :- subEx(V, Y, Z),self_p(X, V, I),isa_p(X, Y, I).
+% isa_p(X, Z, I) :- subEx(V, Y, Z),self_p(X, V, I1),isa_p(X, Y, I), subset(I1, I).
+% isa_p(X, Z, I) :- subEx(V, Y, Z),self_p(X, V, I),isa_p(X, Y, I1), subset(I1, I).
+
+% triple_p(X, V, X1, I) :-supEx(Y, V, Z, X1),isa_p(X, Y, I).
+
+% isa_p(X1, Z, I) :- supEx(Y, V, Z, X1),isa_p(X, Y, I).
+
+% isa_p(X, Z, I) :- subSelf(V, Z),self_p(X, V, I).
+
+% self_p(X, V, I) :- supSelf(Y, V),isa_p(X, Y, I).
+
+% triple_p(X, W, X1, I) :- subRole(V, W),triple_p(X, V, X1, I). 
+
+% self_p(X, W, I) :- subRole(V, W),self_p(X, V, I).
+
+% triple_p(X, W, X2, I) :- subRChain(U, V, W), triple_p(X, U, X1, I), triple_p(X1, V, X2, I).
+% triple_p(X, W, X2, I) :- subRChain(U, V, W), triple_p(X, U, X1, I1), triple_p(X1, V, X2, I), subset(I1,I).
+% triple_p(X, W, X2, I) :- subRChain(U, V, W), triple_p(X, U, X1, I), triple_p(X1, V, X2, I1), subset(I1,I).
+
+% triple_p(X, W, X1, I) :- subRChain(U, V, W), self_p(X, U, I), triple_p(X, V, X1, I). 
+% triple_p(X, W, X1, I) :- subRChain(U, V, W), self_p(X, U, I1), triple_p(X, V, X1, I), subset(I1, I). 
+% triple_p(X, W, X1, I) :- subRChain(U, V, W), self_p(X, U, I), triple_p(X, V, X1, I1), subset(I1, I).
+
+% triple_p(X, W, X1, I) :- subRChain(U, V, W), triple_p(X, U, X1, I),self_p(X1, V, I). 
+% triple_p(X, W, X1, I) :- subRChain(U, V, W), triple_p(X, U, X1, I1),self_p(X1, V, I), subset(I1,
+% I). 
+% triple_p(X, W, X1, I) :- subRChain(U, V, W), triple_p(X, U, X1, I),self_p(X1, V, I1), subset(I1, I). 
+
+% triple_p(X, W, X, I) :- subRChain(U, V, W),self_p(X, U, I),self_p(X, V, I).
+% triple_p(X, W, X, I) :- subRChain(U, V, W),self_p(X, U, I1),self_p(X, V, I), subset(I1,I).
+% triple_p(X, W, X, I) :- subRChain(U, V, W),self_p(X, U, I),self_p(X, V, I1), subset(I1,I).
+
+% % not so import now
+% %triple_p(X,W,X1) :- subRConj(V_1,V_2,W), triple_p(X,V_1,X1), triple_p(X,V_2,X1)
+% %self_p(X, W) :- subRConj(V_1, V_2, W),self_p(X, V_1),self_p(X, V_2) 
+
+% isa_p(Y, Z, I) :- isa_p(X, Y, I),nom(Y),isa_p(X, Z, I). 
+% isa_p(Y, Z, I) :- isa_p(X, Y, I1),nom(Y),isa_p(X, Z, I), subset(I1,I).
+
+% %isa_p(X, Z) :- isa_p(X, Y),nom(Y),isa_p(Y, Z)
+% triple_p(Z, U, Y, I) :- isa_p(X, Y, I), nom(Y), triple_p(Z, U, X, I). 
+% triple_p(Z, U, Y, I) :- isa_p(X, Y, I), nom(Y), triple_p(Z, U, X, I1), subset(I1, I). 
+% triple_p(Z, U, Y, I) :- isa_p(X, Y, I1), nom(Y), triple_p(Z, U, X, I), subset(I1, I).
+
+isa_p(X, Y, 0) :- isa(X, Y).
+triple_p(X, Y, Z, 0) :- triple(X, Y, Z).
+
+

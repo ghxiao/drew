@@ -44,7 +44,8 @@ public class DReWELManager {
 		this.iriEncoder = new SymbolEncoder<IRI>();
 		this.superSomeAxiomEncoder = new SymbolEncoder<OWLSubClassOfAxiom>();
 		this.dlInputSignatureEncoder = new SymbolEncoder<DLInputSignature>();
-		this.namingStrategy = NamingStrategy.IntEncoding;
+		//this.namingStrategy = NamingStrategy.IntEncoding;
+		this.namingStrategy = NamingStrategy.IRIFragment;
 		this.datalogFormat = DatalogFormat.DLV;
 		dlInputSignatureEncoder.encode(DLInputSignature.EMPTY); // make sure the encoding of the empty inputs is zero
 	}

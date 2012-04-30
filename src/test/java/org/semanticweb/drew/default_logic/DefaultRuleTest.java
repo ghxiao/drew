@@ -47,7 +47,6 @@ public class DefaultRuleTest {
 		rule.setJustifications(justs);
 		rule.setConclusion(conc);
 		System.out.println(rule);
-
 	}
 
 	@Test
@@ -110,7 +109,7 @@ public class DefaultRuleTest {
 		String s = "[ bird(X); flier(X) ] / [ flier(X) ]";
 		DLProgramParser parser = new DLProgramParser(new StringReader(s));
 		DefaultRule result = parser.defaultRule();
-		System.out.println(result);;
+		System.out.println(result);
 	}
 	
 	@Test
