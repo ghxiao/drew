@@ -70,10 +70,18 @@
     
 
 
+    <!-- Fred -->
+
+    <owl:NamedIndividual rdf:about="http://www.kr.tuwien.ac.at/staff/roman/tweety_bird#Fred">
+        <rdf:type rdf:resource="http://www.kr.tuwien.ac.at/staff/roman/tweety_bird#Bird"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.kr.tuwien.ac.at/staff/roman/tweety_bird#Tweety -->
 
     <owl:NamedIndividual rdf:about="http://www.kr.tuwien.ac.at/staff/roman/tweety_bird#Tweety">
-        <rdf:type rdf:resource="http://www.kr.tuwien.ac.at/staff/roman/tweety_bird#Bird"/>
+        <rdf:type rdf:resource="http://www.kr.tuwien.ac.at/staff/roman/tweety_bird#Penguin"/>
     </owl:NamedIndividual>
 </rdf:RDF>
 

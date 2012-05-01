@@ -26,11 +26,16 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 	List<Literal> negatives = new ArrayList<Literal>();
 
 	public Clause(Literal[] head, Literal[] body) {
-		this.head = head[0];
+		this(head[0], body);
+	}
+
+	public Clause(Literal head, Literal[] body) {
+		this.head = head;
 		this.positives = Arrays.asList(body);
 	}
-	
-	public Clause(Literal head, List<Literal> positiveBody, List<Literal> negativeBody) {
+
+	public Clause(Literal head, List<Literal> positiveBody,
+			List<Literal> negativeBody) {
 		this.head = head;
 		this.positives = positiveBody;
 		this.negatives = negativeBody;
@@ -38,6 +43,13 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 
 	public Clause() {
 
+	}
+
+	/**
+	 * constructor for facts
+	 */
+	public Clause(Literal fact) {
+		this(fact, new Literal[] {});
 	}
 
 	/**

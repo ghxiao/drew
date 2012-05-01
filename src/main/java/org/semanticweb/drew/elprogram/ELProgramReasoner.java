@@ -1,4 +1,4 @@
-package org.semanticweb.drew.elprogram;
+	package org.semanticweb.drew.elprogram;
 
 import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.model.DLProgramKB;

@@ -1,14 +1,15 @@
-in(X, Y) :- not out(X, Y), nom(X), concl(Y), q(X).
-out(X, Y) :- not in(X, Y), nom(X), concl(Y), q(X).
+in(X, Y) :- not out(X, Y), nom(X), concl(Y), typing(X).
+out(X, Y) :- not in(X, Y), nom(X), concl(Y), typing(X).
 
 % input: \lambda, using in -> 2
 % input: \lambda', using im (p in the paper) -> 1
 
-:- dl(X, Y, in), out(X, Y), nom(X), concl(Y), q(X).
+%
+:- dl(X, Y, in), out(X, Y), nom(X), concl(Y), typing(X).
 
-:- not dl(X, Y, im), in(X, Y), nom(X), concl(Y), q(X).
+:- not dl(X, Y, im), in(X, Y), nom(X), concl(Y), typing(X).
 
-:- dl(X, Y, im), out(X, Y), nom(X), concl(Y), q(X).
+:- dl(X, Y, im), out(X, Y), nom(X), concl(Y), typing(X).
 
 input(0).
 input(in).
@@ -22,12 +23,12 @@ input(im).
 subset(0, in).
 subset(0, im).
 
-dl(X, Y, I) :- isa_p(X, Y, I), q(X).
-dl(X, Y, I) :- isa_p(X, Y, J), subset(J, I), q(X).
+dl(X, Y, I) :- isa_p(X, Y, I), typing(X).
+dl(X, Y, I) :- isa_p(X, Y, J), subset(J, I), typing(X).
 
-isa_p(X, Y, in) :- in(X, Y), q(X).
-isa_p(X, Y, im) :- im(X, Y), q(X).
+isa_p(X, Y, in) :- in(X, Y), typing(X).
+isa_p(X, Y, im) :- im(X, Y), typing(X).
 
-dl_neg(X, Y, I) :- isa_p_n(N, Z, I, Y, X), bot(Z), nom(N), input(I), nom(X), q(X).
-isa_p_n(X, Y, in, Y1, X1) :- isa_p(X, Y, in), cls(Y1), nom(X1), just(Y1), q(X), q(X1).
-isa_p_n(X, Y, in, Y, X) :- nom(X), cls(Y), just(Y), q(X).
+dl_neg(X, Y, I) :- isa_p_n(N, Z, I, Y, X), bot(Z), nom(N), input(I), nom(X), typing(X).
+isa_p_n(X, Y, in, Y1, X1) :- isa_p(X, Y, in), cls(Y1), nom(X1), just(Y1), typing(X), typing(X1).
+isa_p_n(X, Y, in, Y, X) :- nom(X), cls(Y), just(Y), typing(X).

@@ -2,6 +2,7 @@ package org.semanticweb.drew.default_logic.rewriter;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.semanticweb.drew.default_logic.DefaultRule;
@@ -34,8 +35,13 @@ public class DefaultRuleRewriter {
 	NormalPredicate out = CacheManager.getInstance().getPredicate("out", 2);
 	NormalPredicate im = CacheManager.getInstance().getPredicate("im", 2);
 	NormalPredicate dl = CacheManager.getInstance().getPredicate("dl", 3);
+	NormalPredicate isa = CacheManager.getInstance().getPredicate("isa", 2);
 	NormalPredicate dl_neg = CacheManager.getInstance().getPredicate("dl_neg",
 			3);
+	NormalPredicate concl = CacheManager.getInstance().getPredicate("concl", 1);
+	NormalPredicate just = CacheManager.getInstance().getPredicate("just", 1);
+	NormalPredicate typing = CacheManager.getInstance().getPredicate("typing",
+			1);
 
 	Variable X = CacheManager.getInstance().getVariable("X");
 	Variable Y = CacheManager.getInstance().getVariable("Y");
@@ -51,6 +57,7 @@ public class DefaultRuleRewriter {
 
 	// im(X, c) :- dl(X, a, in), not dl_neg(X, b_1, in), ..., not dl_neg(X, b_m,
 	// in).
+	boolean hasTyping = false;
 
 	public DefaultRuleRewriter() {
 		sfp = new SimpleShortFormProvider();
@@ -82,7 +89,11 @@ public class DefaultRuleRewriter {
 
 		result.addAll(datalog_el.getStatements());
 		result.addAll(datalog_dfs);
-		result.addAll(rulesFromFile("default.dl"));
+		if (hasTyping) {
+			result.addAll(rulesFromFile("default.dl"));
+		} else {
+			result.addAll(rulesFromFile("default-no-typing.dl"));
+		}
 		result.addAll(rulesFromFile("el.dl"));
 		result.addAll(rulesFromFile("el-i.dl"));
 		result.addAll(rulesFromFile("el-i-n.dl"));
@@ -104,6 +115,30 @@ public class DefaultRuleRewriter {
 		Literal conc = df.getConclusion().get(0);
 
 		final OWLPredicate concPredicate = conc.getPredicate().asOWLPredicate();
+
+		// result.add(new Clause(
+		// new Literal(concl, X), //
+		// new Literal[] { new Literal(isa, X, toConstant(concPredicate)) }));
+
+		result.add(new Clause(new Literal(concl, toConstant(concPredicate))));
+
+		for (List<Literal> j : df.getJustifications()) {
+			result.add(new Clause(//
+					new Literal(just, toConstant(j.get(0).getPredicate()
+							.asOWLPredicate()))));
+
+		}
+
+		if (df.getTyping().size() > 0) {
+			hasTyping = true;
+			result.add(new Clause(new Literal(typing, X), //
+					new Literal[] { new Literal(isa, X,
+							toConstant(df.getTyping().get(0).getPredicate()
+									.asOWLPredicate())) }));
+		}
+
+		// "concl(X) :- isa(X, "conc")"
+		// Literal h =
 
 		// in(X, Y) :- not out(X, Y), nom(X), concl(Y), q(X)
 

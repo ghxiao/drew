@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.util.List;
@@ -31,7 +33,7 @@ public class DefaultRuleRewriterTest {
 
 	@Test
 	public void testRewriteRule() throws ParseException,
-			OWLOntologyCreationException {
+			OWLOntologyCreationException, IOException {
 		InputStream owlStream = DefaultRuleTest.class
 				.getResourceAsStream("res/bird.owl");
 		OWLOntology ontology = OWLManager.createOWLOntologyManager()
@@ -52,7 +54,15 @@ public class DefaultRuleRewriterTest {
 
 		DLProgramStorer storer = new DLProgramStorerImpl();
 		storer.storeProgramStatements(result, System.out);
+		FileWriter writer = null;
+		try {
+			writer = new FileWriter("tmp.dlv");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
+		storer.storeProgramStatements(result, writer);
+		writer.close();
 		//System.out.println(result);
 
 		//System.out.println(rewriter.commonRules);
@@ -72,7 +82,7 @@ public class DefaultRuleRewriterTest {
 		System.out.println(program);
 	}
 
-	public static void main(String[] args) throws OWLOntologyCreationException, ParseException {
+	public static void main(String[] args) throws OWLOntologyCreationException, ParseException, IOException {
 		new DefaultRuleRewriterTest().testRewriteRule();
 	}
 

@@ -55,6 +55,11 @@ public class Literal implements Cloneable, Comparable<Literal> {
 	}
 
 	public Literal(Predicate predicate, Term... terms) {
+		
+		if(predicate.getArity() != terms.length){
+			throw new IllegalArgumentException(String.format("predicate.arity != term.size"));
+		}
+		
 		this.predicate = predicate;
 
 		this.terms = Arrays.asList(terms);
