@@ -186,6 +186,9 @@ public class Literal implements Cloneable, Comparable<Literal> {
 			}
 			return result.toString();
 		} else if (predicate instanceof OWLPredicate) {
+			if (isNegative()) {
+				result.append("-");
+			}
 			OWLPredicate owlPredicate = (OWLPredicate) predicate;
 			result.append(owlPredicate.toString());
 			if (terms.size() > 0) {

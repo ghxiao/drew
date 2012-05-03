@@ -32,7 +32,7 @@ public class DefaultRuleRewriterTest {
 	}
 
 	@Test
-	public void testRewriteRule() throws ParseException,
+	public void testBirdRewriteRule() throws ParseException,
 			OWLOntologyCreationException, IOException {
 		InputStream owlStream = DefaultRuleTest.class
 				.getResourceAsStream("res/bird.owl");
@@ -41,6 +41,42 @@ public class DefaultRuleRewriterTest {
 
 		InputStream stream = DefaultRuleTest.class
 				.getResourceAsStream("res/bird.df");
+		DLProgramParser dfParser = new DLProgramParser(stream);
+		dfParser.setOntology(ontology);
+
+		List<DefaultRule> defaultRules = dfParser.defaultRules();
+		System.out.println(defaultRules);
+
+		DefaultRuleRewriter rewriter = new DefaultRuleRewriter();
+		// List<Clause> result = rewriter.rewrite(defaultRule);
+		List<ProgramStatement> result = rewriter.rewriteDefaultLogicKB(
+				ontology, defaultRules);
+
+		DLProgramStorer storer = new DLProgramStorerImpl();
+		storer.storeProgramStatements(result, System.out);
+		FileWriter writer = null;
+		try {
+			writer = new FileWriter("tmp.dlv");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		storer.storeProgramStatements(result, writer);
+		writer.close();
+		//System.out.println(result);
+
+		//System.out.println(rewriter.commonRules);
+	}
+	@Test
+	public void testPolicyRewriteRule() throws ParseException,
+			OWLOntologyCreationException, IOException {
+		InputStream owlStream = DefaultRuleTest.class
+				.getResourceAsStream("res/policy.df.owl");
+		OWLOntology ontology = OWLManager.createOWLOntologyManager()
+				.loadOntologyFromOntologyDocument(owlStream);
+
+		InputStream stream = DefaultRuleTest.class
+				.getResourceAsStream("res/policy.df");
 		DLProgramParser dfParser = new DLProgramParser(stream);
 		dfParser.setOntology(ontology);
 
@@ -83,7 +119,7 @@ public class DefaultRuleRewriterTest {
 	}
 
 	public static void main(String[] args) throws OWLOntologyCreationException, ParseException, IOException {
-		new DefaultRuleRewriterTest().testRewriteRule();
+		new DefaultRuleRewriterTest().testPolicyRewriteRule();
 	}
 
 }

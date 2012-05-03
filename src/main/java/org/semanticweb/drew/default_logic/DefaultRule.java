@@ -58,19 +58,20 @@ public class DefaultRule {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("[") //
-				.append(Joiner.on(" & ").join(prerequisite)) //
-				.append("; ");
+		sb.append("[");
+		sb.append(Joiner.on(" & ").join(prerequisite)); //
+		if (justifications.size() > 0) {
+			sb.append("; ");
 
-		boolean first = true;
-		for (List<Literal> justification : justifications) {
-			if (!first) {
-				sb.append(", ");
+			boolean first = true;
+			for (List<Literal> justification : justifications) {
+				if (!first) {
+					sb.append(", ");
+				}
+				first = false;
+				Joiner.on(" & ").appendTo(sb, justification);
 			}
-			first = false;
-			Joiner.on(" & ").appendTo(sb, justification);
 		}
-
 		// sb.append(Joiner.on(" , ").join(justifications)); //
 		sb.append("] / [") //
 				.append(Joiner.on(" & ").join(conclusion)) //
@@ -81,5 +82,4 @@ public class DefaultRule {
 
 		return sb.toString();
 	}
-
 }

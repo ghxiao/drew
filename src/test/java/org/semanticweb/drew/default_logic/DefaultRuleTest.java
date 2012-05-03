@@ -140,4 +140,15 @@ public class DefaultRuleTest {
 		System.out.println(Joiner.on("\n").join(result));
 	}
 	
+	@Test
+	public void testDefault005() throws ParseException {
+		String s = "[UserRequest(X) ; Deny(X)]/[Deny(X)]\n" + 
+				"			[StaffRequest(X) ; -BlacklistedStaffRequest(X)]/[Grant(X)]\n" + 
+				"			[BlacklistedStaffRequest(X)]/[Deny(X)]";
+		DLProgramParser parser = new DLProgramParser(new StringReader(s));
+		List<DefaultRule> result = parser.defaultRules();
+		System.out.println(Joiner.on("\n").join(result));
+	}
+	
+	
 }

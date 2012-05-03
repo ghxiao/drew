@@ -737,6 +737,16 @@ public class DLProgramParser implements DLProgramParserConstants {
         String predicateName;
         Term term;
         int arity = 0;
+        boolean neg = false;
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case MINUS:
+      jj_consume_token(MINUS);
+          neg = true;
+      break;
+    default:
+      jj_la1[30] = jj_gen;
+      ;
+    }
     predicateName = dlPredicate();
 
     jj_consume_token(LEFTBRACKET);
@@ -750,7 +760,7 @@ public class DLProgramParser implements DLProgramParserConstants {
         ;
         break;
       default:
-        jj_la1[30] = jj_gen;
+        jj_la1[31] = jj_gen;
         break label_10;
       }
       jj_consume_token(CONJUNCTION);
@@ -777,6 +787,7 @@ public class DLProgramParser implements DLProgramParserConstants {
                         }
                         literal.setPredicate(new OWLPredicate(e));
                 }
+                literal.setNegative(neg);
           {if (true) return literal;}
     throw new Error("Missing return statement in function");
   }
@@ -793,7 +804,7 @@ public class DLProgramParser implements DLProgramParserConstants {
         ;
         break;
       default:
-        jj_la1[31] = jj_gen;
+        jj_la1[32] = jj_gen;
         break label_11;
       }
       jj_consume_token(34);
@@ -813,22 +824,29 @@ public class DLProgramParser implements DLProgramParserConstants {
     jj_consume_token(LEFT_SQUARE_BRACKET);
     prerequisite = conjunction();
           df.setPrerequisite(prerequisite);
-    jj_consume_token(31);
-    justification = conjunction();
-          df.getJustifications().add(justification);
-    label_12:
-    while (true) {
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case CONJUNCTION:
-        ;
-        break;
-      default:
-        jj_la1[32] = jj_gen;
-        break label_12;
-      }
-      jj_consume_token(CONJUNCTION);
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case 31:
+      jj_consume_token(31);
       justification = conjunction();
           df.getJustifications().add(justification);
+      label_12:
+      while (true) {
+        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case CONJUNCTION:
+          ;
+          break;
+        default:
+          jj_la1[33] = jj_gen;
+          break label_12;
+        }
+        jj_consume_token(CONJUNCTION);
+        justification = conjunction();
+          df.getJustifications().add(justification);
+      }
+      break;
+    default:
+      jj_la1[34] = jj_gen;
+      ;
     }
     jj_consume_token(RIGHT_SQUARE_BRACKET);
     jj_consume_token(DIVIDE);
@@ -852,7 +870,7 @@ public class DLProgramParser implements DLProgramParserConstants {
      }
       break;
     default:
-      jj_la1[33] = jj_gen;
+      jj_la1[35] = jj_gen;
       ;
     }
         {if (true) return df;}
@@ -869,7 +887,7 @@ public class DLProgramParser implements DLProgramParserConstants {
         ;
         break;
       default:
-        jj_la1[34] = jj_gen;
+        jj_la1[36] = jj_gen;
         break label_13;
       }
       rule = defaultRule();
@@ -1085,7 +1103,7 @@ public class DLProgramParser implements DLProgramParserConstants {
   private Token jj_scanpos, jj_lastpos;
   private int jj_la;
   private int jj_gen;
-  final private int[] jj_la1 = new int[35];
+  final private int[] jj_la1 = new int[37];
   static private int[] jj_la1_0;
   static private int[] jj_la1_1;
   static {
@@ -1093,10 +1111,10 @@ public class DLProgramParser implements DLProgramParserConstants {
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x40220000,0x40220000,0x40220000,0x40220000,0x30000000,0x200,0x40220000,0x160000,0x200,0x4360000,0x4360000,0x3000000,0x3000000,0xc00000,0xc00000,0x800000,0x220000,0xa24000,0x200,0x4000000,0xa24000,0x4b64000,0x40,0x200,0x40,0x400,0x100,0x4b65400,0x80,0x200,0x200,0x0,0x200,0x2000,0x8000,};
+      jj_la1_0 = new int[] {0x40220000,0x40220000,0x40220000,0x40220000,0x30000000,0x200,0x40220000,0x160000,0x200,0x4360000,0x4360000,0x3000000,0x3000000,0xc00000,0xc00000,0x800000,0x220000,0xa24000,0x200,0x4000000,0xa24000,0x4b64000,0x40,0x200,0x40,0x400,0x100,0x4b65400,0x80,0x200,0x800000,0x200,0x0,0x200,0x80000000,0x2000,0x8000,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x4,0x0,0x0,0x0,};
+      jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x4,0x0,0x0,0x0,0x0,};
    }
   final private JJCalls[] jj_2_rtns = new JJCalls[3];
   private boolean jj_rescan = false;
@@ -1113,7 +1131,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 35; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 37; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -1128,7 +1146,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 35; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 37; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -1139,7 +1157,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 35; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 37; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -1150,7 +1168,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 35; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 37; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -1160,7 +1178,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 35; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 37; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -1170,7 +1188,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 35; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 37; i++) jj_la1[i] = -1;
     for (int i = 0; i < jj_2_rtns.length; i++) jj_2_rtns[i] = new JJCalls();
   }
 
@@ -1287,7 +1305,7 @@ public class DLProgramParser implements DLProgramParserConstants {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 35; i++) {
+    for (int i = 0; i < 37; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {

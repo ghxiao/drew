@@ -688,8 +688,15 @@ Literal defaultLiteral() :
 	String predicateName;
 	Term term;
 	int arity = 0;
+	boolean neg = false;
 }
-{	predicateName = dlPredicate()	{
+{
+	["-"
+	{
+	  neg = true;
+	}
+	]
+	predicateName = dlPredicate()	{
 	  	} "(" term = term()
     {
       literal.getTerms().add(term);
@@ -720,6 +727,7 @@ Literal defaultLiteral() :
 			}
 			literal.setPredicate(new OWLPredicate(e));
 		}
+		literal.setNegative(neg);
 	  return literal;	}
 }
 
@@ -755,7 +763,7 @@ DefaultRule defaultRule() :
 {  "[" prerequisite = conjunction()
 	{
 	  df.setPrerequisite(prerequisite);	}
-   ";" justification = conjunction()
+   [";" justification = conjunction()
 	{
 	  df.getJustifications().add(justification);
 	}  
@@ -764,7 +772,7 @@ DefaultRule defaultRule() :
 	  df.getJustifications().add(justification);
 	}
 
-   ) * "]" "/" "[" conclusion = conjunction()
+   ) *] "]" "/" "[" conclusion = conjunction()
    {
      df.setConclusion(conclusion);   }"]" [
    //"<"

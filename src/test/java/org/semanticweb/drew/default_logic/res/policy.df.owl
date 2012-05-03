@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY policy "http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#"
+     xml:base="http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:policy="http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#">
+    <owl:Ontology rdf:about="http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#hasAction -->
+
+    <owl:ObjectProperty rdf:about="&policy;hasAction"/>
+    
+
+
+    <!-- http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#hasSubject -->
+
+    <owl:ObjectProperty rdf:about="&policy;hasSubject"/>
+    
+
+
+    <!-- http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#hasTarget -->
+
+    <owl:ObjectProperty rdf:about="&policy;hasTarget"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#Action -->
+
+    <owl:Class rdf:about="&policy;Action"/>
+    
+
+
+    <!-- http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#Blacklisted -->
+
+    <owl:Class rdf:about="&policy;Blacklisted">
+        <rdfs:subClassOf rdf:resource="&policy;Staff"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#BlacklistedStaffRequest -->
+
+    <owl:Class rdf:about="&policy;BlacklistedStaffRequest">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="&policy;StaffRequest"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&policy;hasSubject"/>
+                        <owl:someValuesFrom rdf:resource="&policy;Blacklisted"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#Deny -->
+
+    <owl:Class rdf:about="&policy;Deny">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+        <owl:disjointWith rdf:resource="&policy;Grant"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#Grant -->
+
+    <owl:Class rdf:about="&policy;Grant">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#Project -->
+
+    <owl:Class rdf:about="&policy;Project"/>
+    
+
+
+    <!-- http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#Staff -->
+
+    <owl:Class rdf:about="&policy;Staff">
+        <rdfs:subClassOf rdf:resource="&policy;User"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#StaffRequest -->
+
+    <owl:Class rdf:about="&policy;StaffRequest">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&policy;hasAction"/>
+                        <owl:someValuesFrom rdf:resource="&policy;Action"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&policy;hasSubject"/>
+                        <owl:someValuesFrom rdf:resource="&policy;Staff"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&policy;hasTarget"/>
+                        <owl:someValuesFrom rdf:resource="&policy;Project"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#User -->
+
+    <owl:Class rdf:about="&policy;User">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#UserRequest -->
+
+    <owl:Class rdf:about="&policy;UserRequest">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&policy;hasAction"/>
+                        <owl:someValuesFrom rdf:resource="&policy;Action"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&policy;hasSubject"/>
+                        <owl:someValuesFrom rdf:resource="&policy;User"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&policy;hasTarget"/>
+                        <owl:someValuesFrom rdf:resource="&policy;Project"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.2.3.1824) http://owlapi.sourceforge.net -->
+
