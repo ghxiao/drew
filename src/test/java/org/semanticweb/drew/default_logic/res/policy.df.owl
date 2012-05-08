@@ -182,6 +182,90 @@
         </owl:equivalentClass>
         <rdfs:subClassOf rdf:resource="&owl;Thing"/>
     </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#project -->
+
+    <owl:NamedIndividual rdf:about="&policy;project">
+        <rdf:type rdf:resource="&policy;Project"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#r1 -->
+
+    <owl:NamedIndividual rdf:about="&policy;r1">
+        <rdf:type rdf:resource="&policy;UserRequest"/>
+        <hasTarget rdf:resource="&policy;project"/>
+        <hasAction rdf:resource="&policy;read"/>
+        <hasSubject rdf:resource="&policy;u1"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#r2 -->
+
+    <owl:NamedIndividual rdf:about="&policy;r2">
+        <rdf:type rdf:resource="&policy;UserRequest"/>
+        <hasTarget rdf:resource="&policy;project"/>
+        <hasAction rdf:resource="&policy;read"/>
+        <hasSubject rdf:resource="&policy;u2"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#r3 -->
+
+    <owl:NamedIndividual rdf:about="&policy;r3">
+        <rdf:type rdf:resource="&policy;UserRequest"/>
+        <hasTarget rdf:resource="&policy;project"/>
+        <hasAction rdf:resource="&policy;read"/>
+        <hasSubject rdf:resource="&policy;u3"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#read -->
+
+    <owl:NamedIndividual rdf:about="&policy;read">
+        <rdf:type rdf:resource="&policy;Action"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#u1 -->
+
+    <owl:NamedIndividual rdf:about="&policy;u1">
+        <rdf:type rdf:resource="&policy;User"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#u2 -->
+
+    <owl:NamedIndividual rdf:about="&policy;u2">
+        <rdf:type rdf:resource="&policy;Staff"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#u3 -->
+
+    <owl:NamedIndividual rdf:about="&policy;u3">
+        <rdf:type rdf:resource="&policy;Blacklisted"/>
+    </owl:NamedIndividual>
 </rdf:RDF>
 
 

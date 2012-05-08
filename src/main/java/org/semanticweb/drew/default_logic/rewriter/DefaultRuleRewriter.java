@@ -14,6 +14,7 @@ import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.model.Literal;
 import org.semanticweb.drew.dlprogram.model.NormalPredicate;
 import org.semanticweb.drew.dlprogram.model.ProgramStatement;
+import org.semanticweb.drew.dlprogram.model.Term;
 import org.semanticweb.drew.dlprogram.model.Variable;
 import org.semanticweb.drew.dlprogram.parser.DLProgramParser;
 import org.semanticweb.drew.dlprogram.parser.ParseException;
@@ -114,6 +115,8 @@ public class DefaultRuleRewriter {
 		// Literal pre = df.getPrerequisite().get(0);
 		Literal conc = df.getConclusion().get(0);
 
+		NormalPredicate p;
+
 		final OWLPredicate concPredicate = conc.getPredicate().asOWLPredicate();
 
 		// result.add(new Clause(
@@ -152,19 +155,19 @@ public class DefaultRuleRewriter {
 		List<Literal> positiveBody = new ArrayList<Literal>();
 
 		for (Literal pre : df.getPrerequisite()) {
-			positiveBody.add(new Literal(dl, X, //
+			p = pre.isNegative() ? dl_neg : dl;
+			positiveBody.add(new Literal(p, X, //
 					toConstant(pre.getPredicate().asOWLPredicate()), c_im));
 		}
 
 		List<Literal> negativeBody = new ArrayList<Literal>();
 
 		for (List<Literal> justs : df.getJustifications()) {
-			// FIXME
-			negativeBody.add(new Literal(
-					dl_neg, //
+			Literal just0 = justs.get(0);
+			p = just0.isNegative() ? dl : dl_neg;
+			negativeBody.add(new Literal(p, //
 					X, //
-					toConstant(justs.get(0).getPredicate().asOWLPredicate()),
-					c_in));
+					toConstant(just0.getPredicate().asOWLPredicate()), c_in));
 		}
 
 		Clause clause = new Clause(head, positiveBody, negativeBody);
@@ -219,6 +222,20 @@ public class DefaultRuleRewriter {
 			commonRules = program.getStatements();
 		}
 		return commonRules;
+	}
+
+	String behalfPredicateName(List<Term> terms) {
+		StringBuilder result = new StringBuilder();
+		boolean first = true;
+		for (Term t : terms) {
+			if (!first)
+				result.append("_");
+			result.append(t.getName());
+			first = false;
+		}
+
+		return result.toString();
+
 	}
 
 }
