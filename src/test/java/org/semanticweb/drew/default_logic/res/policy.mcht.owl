@@ -1,0 +1,162 @@
+Prefix: policy: <http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#>
+Prefix: xsd: <http://www.w3.org/2001/XMLSchema#>
+Prefix: owl: <http://www.w3.org/2002/07/owl#>
+Prefix: : <http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl#>
+Prefix: xml: <http://www.w3.org/XML/1998/namespace>
+Prefix: rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+Prefix: rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+
+
+Ontology: <http://www.kr.tuwien.ac.at/staff/xiao/ontology/policy.owl>
+
+
+ObjectProperty: policy:hasAction
+
+    
+ObjectProperty: policy:hasTarget
+
+    
+ObjectProperty: policy:hasSubject
+
+    
+Class: policy:User
+
+    SubClassOf: 
+        owl:Thing
+    
+    
+Class: owl:Thing
+
+    
+Class: policy:Action
+
+    
+Class: policy:BlacklistedStaffRequest
+
+    EquivalentTo: 
+        policy:StaffRequest
+         and (policy:hasSubject some policy:Blacklisted)
+    
+    SubClassOf: 
+        owl:Thing
+    
+    
+Class: policy:Staff
+
+    SubClassOf: 
+        policy:User
+    
+    
+Class: policy:Blacklisted
+
+    SubClassOf: 
+        policy:Staff
+    
+    
+Class: policy:Project
+
+    
+Class: policy:Grant
+
+    SubClassOf: 
+        owl:Thing
+    
+    DisjointWith: 
+        policy:Deny
+    
+    
+Class: policy:StaffRequest
+
+    EquivalentTo: 
+        (policy:hasAction some policy:Action)
+         and (policy:hasSubject some policy:Staff)
+         and (policy:hasTarget some policy:Project)
+    
+    SubClassOf: 
+        owl:Thing
+    
+    
+Class: policy:Deny
+
+    SubClassOf: 
+        owl:Thing
+    
+    DisjointWith: 
+        policy:Grant
+    
+    
+Class: policy:UserRequest
+
+    EquivalentTo: 
+        (policy:hasAction some policy:Action)
+         and (policy:hasSubject some policy:User)
+         and (policy:hasTarget some policy:Project)
+    
+    SubClassOf: 
+        owl:Thing
+    
+    
+Individual: policy:r2
+
+    Types: 
+        policy:UserRequest
+    
+    Facts:  
+     policy:hasAction  policy:read,
+     policy:hasTarget  policy:project,
+     policy:hasSubject  policy:u2
+    
+    
+Individual: policy:r1
+
+    Types: 
+        policy:UserRequest
+    
+    Facts:  
+     policy:hasTarget  policy:project,
+     policy:hasSubject  policy:u1,
+     policy:hasAction  policy:read
+    
+    
+Individual: policy:u1
+
+    Types: 
+        policy:User
+    
+    
+Individual: policy:read
+
+    Types: 
+        policy:Action
+    
+    
+Individual: policy:r3
+
+    Types: 
+        policy:UserRequest
+    
+    Facts:  
+     policy:hasSubject  policy:u3,
+     policy:hasTarget  policy:project,
+     policy:hasAction  policy:read
+    
+    
+Individual: policy:project
+
+    Types: 
+        policy:Project
+    
+    
+Individual: policy:u2
+
+    Types: 
+        policy:Staff
+    
+    
+Individual: policy:u3
+
+    Types: 
+        policy:Blacklisted
+    
+    
