@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.semanticweb.drew.default_logic.DefaultLogicKB;
 import org.semanticweb.drew.default_logic.DefaultRule;
 import org.semanticweb.drew.default_logic.OWLPredicate;
 import org.semanticweb.drew.dlprogram.model.CacheManager;
@@ -67,11 +68,10 @@ public class DefaultRuleRewriter {
 	public Constant toConstant(OWLPredicate p) {
 		return CacheManager.getInstance().getConstant(
 				sfp.getShortForm(p.getLogicalEntity()));
-
 	}
 
 	/**
-	 * rewrite a terminological default logic KB=<L,D> into a datalog
+	 * rewrite a terminological default logic KB=<L,D> into a list of datalog rules
 	 * 
 	 * @param ontology
 	 *            the ontology L
@@ -99,9 +99,12 @@ public class DefaultRuleRewriter {
 		result.addAll(rulesFromFile("el-i.dl"));
 		result.addAll(rulesFromFile("el-i-n.dl"));
 		return result;
-
 	}
 
+	public List<ProgramStatement> rewriteDefaultLogicKB(DefaultLogicKB kb){
+		return rewriteDefaultLogicKB(kb.getOntology(), kb.getDfRules());
+	}
+	
 	public List<Clause> rewrite(List<DefaultRule> dfs) {
 		List<Clause> result = new ArrayList<Clause>();
 		for (DefaultRule df : dfs) {
@@ -159,6 +162,12 @@ public class DefaultRuleRewriter {
 			positiveBody.add(new Literal(p, X, //
 					toConstant(pre.getPredicate().asOWLPredicate()), c_im));
 		}
+		
+		for (Literal type : df.getTyping()){
+			positiveBody.add(new Literal(isa, X, //
+					toConstant(type.getPredicate().asOWLPredicate())));
+		}
+		
 
 		List<Literal> negativeBody = new ArrayList<Literal>();
 

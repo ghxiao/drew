@@ -60,8 +60,8 @@ public class DReWELCLI {
 	 * @throws ParseException
 	 * @throws DLVInvocationException
 	 */
-	public static void main(String[] args) throws OWLOntologyCreationException,
-			IOException, ParseException, DLVInvocationException {
+	public static void main(String[] args) throws OWLOntologyCreationException, IOException, ParseException,
+			DLVInvocationException {
 		System.setProperty("entityExpansionLimit", "512000");
 
 		if (!parseArgs(args)) {
@@ -98,8 +98,7 @@ public class DReWELCLI {
 			DLProgramKB kb = new DLProgramKB();
 			kb.setOntology(ontology);
 
-			DLProgramParser parser = new DLProgramParser(
-					new FileReader(dlpFile));
+			DLProgramParser parser = new DLProgramParser(new FileReader(dlpFile));
 			DLProgram elprogram = parser.program();
 			kb.setProgram(elprogram);
 
@@ -140,8 +139,7 @@ public class DReWELCLI {
 		if (rewriting_only) {
 			// do nothing
 		} else {
-			DLVInvocation invocation = DLVWrapper.getInstance()
-					.createInvocation(dlvPath);
+			DLVInvocation invocation = DLVWrapper.getInstance().createInvocation(dlvPath);
 			/* I can specify a part of DLV program using simple strings */
 
 			// Creates an instance of DLVInvocation
@@ -158,8 +156,7 @@ public class DReWELCLI {
 				filters.add(filter);
 			}
 			invocation.setFilter(filters, true);
-			ModelBufferedHandler modelBufferedHandler = new ModelBufferedHandler(
-					invocation);
+			ModelBufferedHandler modelBufferedHandler = new ModelBufferedHandler(invocation);
 
 			/* In this moment I can start the DLV execution */
 			FactHandler factHandler = new FactHandler() {
@@ -190,7 +187,7 @@ public class DReWELCLI {
 		DLProgramStorer storer = new DLProgramStorerImpl();
 		StringBuilder target = new StringBuilder();
 		storer.storeDLProgram(cqProgram, target);
-		
+
 		String cq = target.toString();
 
 		return cq;
@@ -218,8 +215,7 @@ public class DReWELCLI {
 				dlvPath = args[i + 1];
 				i += 2;
 			} else if (args[i].equals("-verbose")) {
-				DReWELManager.getInstance().setVerboseLevel(
-						Integer.parseInt(args[i + 1]));
+				DReWELManager.getInstance().setVerboseLevel(Integer.parseInt(args[i + 1]));
 				i += 2;
 			} else if (args[i].equals("-rewriting")) {
 				rewriting = args[i + 1];
@@ -257,36 +253,21 @@ public class DReWELCLI {
 	private static void printUsage() {
 
 		String usage = //
-		"Usage: drew.el.sh -ontology <ontology_file> {-sparql <sparql_file> | -cq <cq_file> | -dlp <dlp_file>} "
-				+ "[-filter <filter>]"
-				+ "-dlv <dlv_path> [-verbose <verbose_level>]\n"
-				+ //
-				"  <ontology_file>\n"
-				+ //
-				"    the ontology file to be read, which has to be in Horn-SHIQ fragment \n"
-				+ //
-				"  <sparql_file>\n"
-				+ //
-				"    the sparql file to be query, which has to be a Conjunctive Query. \n"
-				+ //
-				"  <cq_file>\n"
-				+ //
-				"    the cq file to be query, which has to be a Conjunctive Query. \n"
-				+ //
-				"  <dlp_file>\n"
-				+ //
-				"    the dl-program file. \n"
-				+ //
-				"  <dlv_path>\n"
-				+ //
-				"    the path of dlv \n"
-				+ //
-				"  <verbose_level>\n"
-				+ //
-				"    Specify verbose category (default: 0)\n"
-				+ "\n"
-				+ //
-				"Example: java -jar kaos.jar -ontology university.owl -sparql q1.sparql -dlv /usr/bin/dlv " //
+		"Usage: jar -jar drew-el.jar -ontology <ontology_file> {-sparql <sparql_file> | -cq <cq_file> | -dlp <dlp_file>} "
+				+ "[-filter <filter>]" + "-dlv <dlv_path> [-verbose <verbose_level>]\n" + //
+				"  <ontology_file>\n" + //
+				"    the ontology file to be read, which has to be in Horn-SHIQ fragment \n" + //
+				"  <sparql_file>\n" + //
+				"    the sparql file to be query, which has to be a Conjunctive Query. \n" + //
+				"  <cq_file>\n" + //
+				"    the cq file to be query, which has to be a Conjunctive Query. \n" + //
+				"  <dlp_file>\n" + //
+				"    the dl-program file. \n" + //
+				"  <dlv_path>\n" + //
+				"    the path of dlv \n" + //
+				"  <verbose_level>\n" + //
+				"    Specify verbose category (default: 0)\n" + "\n" + //
+				"Example: java -jar drew.el.jar -ontology university.owl -sparql q1.sparql -dlv /usr/bin/dlv " //
 		;
 
 		System.out.println(usage);

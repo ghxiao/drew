@@ -1,3 +1,3 @@
-[UserRequest(X) ; Deny(X)]/[Deny(X)]
-[StaffRequest(X) ; -BlacklistedStaffRequest(X)]/[Grant(X)]
-[BlacklistedStaffRequest(X)]/[Deny(X)]
+[UserRequest(X) ; Deny(X)]/[Deny(X)] <UserRequest(X)>
+[StaffRequest(X) ; -BlacklistedStaffRequest(X)]/[Grant(X)] <UserRequest(X)>
+[BlacklistedStaffRequest(X)]/[Deny(X)] <UserRequest(X)>

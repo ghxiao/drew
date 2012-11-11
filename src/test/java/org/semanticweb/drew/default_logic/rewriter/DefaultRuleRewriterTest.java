@@ -11,6 +11,7 @@ import java.io.StringReader;
 import java.util.List;
 
 import org.junit.Test;
+import org.semanticweb.drew.default_logic.DefaultLogicKB;
 import org.semanticweb.drew.default_logic.DefaultRule;
 import org.semanticweb.drew.default_logic.DefaultRuleTest;
 import org.semanticweb.drew.dlprogram.format.DLProgramStorer;
@@ -60,33 +61,24 @@ public class DefaultRuleRewriterTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		storer.storeProgramStatements(result, writer);
 		writer.close();
-		//System.out.println(result);
+		// System.out.println(result);
 
-		//System.out.println(rewriter.commonRules);
+		// System.out.println(rewriter.commonRules);
 	}
+
 	@Test
 	public void testPolicyRewriteRule() throws ParseException,
 			OWLOntologyCreationException, IOException {
-		InputStream owlStream = DefaultRuleTest.class
-				.getResourceAsStream("res/policy.df.owl");
-		OWLOntology ontology = OWLManager.createOWLOntologyManager()
-				.loadOntologyFromOntologyDocument(owlStream);
-
-		InputStream stream = DefaultRuleTest.class
-				.getResourceAsStream("res/policy.df");
-		DLProgramParser dfParser = new DLProgramParser(stream);
-		dfParser.setOntology(ontology);
-
-		List<DefaultRule> defaultRules = dfParser.defaultRules();
-		System.out.println(defaultRules);
+		String ontologyFile = "res/policy.df.owl";
+		String defaultFile = "res/policy.df";
+		DefaultLogicKB kb = loadDefaultLogicKB(ontologyFile, defaultFile);
 
 		DefaultRuleRewriter rewriter = new DefaultRuleRewriter();
 		// List<Clause> result = rewriter.rewrite(defaultRule);
-		List<ProgramStatement> result = rewriter.rewriteDefaultLogicKB(
-				ontology, defaultRules);
+		List<ProgramStatement> result = rewriter.rewriteDefaultLogicKB(kb);
 
 		DLProgramStorer storer = new DLProgramStorerImpl();
 		storer.storeProgramStatements(result, System.out);
@@ -96,12 +88,53 @@ public class DefaultRuleRewriterTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		storer.storeProgramStatements(result, writer);
 		writer.close();
-		//System.out.println(result);
+	}
 
-		//System.out.println(rewriter.commonRules);
+	@Test
+	public void testTypingPolicyRewriteRule() throws ParseException,
+			OWLOntologyCreationException, IOException {
+		String ontologyFile = "res/policy.df.owl";
+		String defaultFile = "res/policy-typing.df";
+		DefaultLogicKB kb = loadDefaultLogicKB(ontologyFile, defaultFile);
+
+		DefaultRuleRewriter rewriter = new DefaultRuleRewriter();
+		// List<Clause> result = rewriter.rewrite(defaultRule);
+		List<ProgramStatement> result = rewriter.rewriteDefaultLogicKB(kb);
+
+		DLProgramStorer storer = new DLProgramStorerImpl();
+		storer.storeProgramStatements(result, System.out);
+		FileWriter writer = null;
+		try {
+			writer = new FileWriter("tmp.dlv");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		storer.storeProgramStatements(result, writer);
+		writer.close();
+	}
+	
+	private DefaultLogicKB loadDefaultLogicKB(String ontologyFile,
+			String defaultFile) throws OWLOntologyCreationException,
+			ParseException {
+		InputStream owlStream = DefaultRuleTest.class
+				.getResourceAsStream(ontologyFile);
+		OWLOntology ontology = OWLManager.createOWLOntologyManager()
+				.loadOntologyFromOntologyDocument(owlStream);
+
+		InputStream stream = DefaultRuleTest.class
+				.getResourceAsStream(defaultFile);
+		DLProgramParser dfParser = new DLProgramParser(stream);
+		dfParser.setOntology(ontology);
+
+		List<DefaultRule> defaultRules = dfParser.defaultRules();
+		System.out.println(defaultRules);
+
+		DefaultLogicKB kb = new DefaultLogicKB(ontology, defaultRules);
+		return kb;
 	}
 
 	@Test
@@ -111,14 +144,12 @@ public class DefaultRuleRewriterTest {
 				.getResourceAsStream("default.dl");
 		DLProgramParser parser = new DLProgramParser(stream);
 		DLProgram program = parser.program();
-		
-		
-		
-		
+
 		System.out.println(program);
 	}
 
-	public static void main(String[] args) throws OWLOntologyCreationException, ParseException, IOException {
+	public static void main(String[] args) throws OWLOntologyCreationException,
+			ParseException, IOException {
 		new DefaultRuleRewriterTest().testPolicyRewriteRule();
 	}
 
