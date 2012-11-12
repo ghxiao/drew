@@ -1,0 +1,10 @@
+Usage
+=========
+
+
+Build 
+=========
+
+	$ mvn assembly:assembly -Dmaven.test.skip=true
+	
+
