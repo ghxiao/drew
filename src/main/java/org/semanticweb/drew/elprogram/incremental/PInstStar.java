@@ -4,6 +4,7 @@ import java.io.StringReader;
 import java.util.List;
 
 import org.semanticweb.drew.dlprogram.model.Clause;
+import org.semanticweb.drew.dlprogram.model.ProgramStatement;
 import org.semanticweb.drew.dlprogram.parser.DLProgramParser;
 import org.semanticweb.drew.dlprogram.parser.ParseException;
 
@@ -55,7 +56,7 @@ public class PInstStar {
 			+ "triple_p(X, R, Y, 0) :- triple(X, R, Y)."
 			+ "";
 	
-	static List<Clause> pInstStar;
+	static List<ProgramStatement> pInstStar;
 
 	static {
 
@@ -63,13 +64,13 @@ public class PInstStar {
 
 		DLProgramParser dlProgramParser = new DLProgramParser(reader);
 		try {
-			pInstStar = dlProgramParser.program().getClauses();
+			pInstStar = dlProgramParser.program().getStatements();
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static List<Clause> getPInstStar(){
+	public static List<ProgramStatement> getPInstStar(){
 		return pInstStar;
 	}
 }

@@ -132,7 +132,8 @@ public class PaperReviewBenchmarkGenerator {
 			// DatalogToStringHelper helper = new DatalogToStringHelper();
 			DLProgramStorerImpl helper = new DLProgramStorerImpl();
 			helper.setUsingDlvhexFormat(true);
-			dlpRules = helper.toString(program);
+			// FIXME:
+			//dlpRules = helper.toString(program);
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}

@@ -18,6 +18,7 @@ import org.semanticweb.drew.dlprogram.model.DLProgramKB;
 import org.semanticweb.drew.dlprogram.model.IRIConstant;
 import org.semanticweb.drew.dlprogram.model.Literal;
 import org.semanticweb.drew.dlprogram.model.NormalPredicate;
+import org.semanticweb.drew.dlprogram.model.ProgramStatement;
 import org.semanticweb.drew.dlprogram.model.Term;
 import org.semanticweb.drew.dlprogram.model.Variable;
 import org.semanticweb.drew.el.SymbolEncoder;
@@ -46,8 +47,8 @@ public class IncrementalELProgramRewriter implements
 		iriEncoder = DReWELManager.getInstance().getIRIEncoder();
 	}
 
-	public List<Clause> rewriteELProgram(DLProgram program) {
-		List<Clause> result = new ArrayList<Clause>();
+	public List<ProgramStatement> rewriteELProgram(DLProgram program) {
+		List<ProgramStatement> result = new ArrayList<ProgramStatement>();
 
 		final Set<DLInputSignature> dlInputSignatures = program
 				.getDLInputSignatures(true);
@@ -63,36 +64,44 @@ public class IncrementalELProgramRewriter implements
 		return result;
 	}
 
-	public List<Clause> rewriteELProgramKB(DLProgramKB kb) {
+	public List<ProgramStatement> rewriteELProgramKB(DLProgramKB kb) {
 
-		List<Clause> result = new ArrayList<Clause>();
+		List<ProgramStatement> result = new ArrayList<ProgramStatement>();
 
 		final OWLOntology ontology = kb.getOntology();
 		SROEL2DatalogRewriter ldlpCompiler = new SROEL2DatalogRewriter();
-		final List<Clause> compiledOntology = ldlpCompiler.rewrite(ontology)
-				.getClauses();
+		// final List<Clause> compiledOntology = ldlpCompiler.rewrite(ontology)
+		// .getClauses();
+		final List<ProgramStatement> compiledOntology = ldlpCompiler.rewrite(ontology)
+				.getStatements();
+
 		final DLProgram program = kb.getProgram();
 
 		result = rewriteELProgram(program);
 
 		DLProgram resultProgram = new DLProgram();
 
-		resultProgram.getClauses().addAll(result);
+		//resultProgram.getClauses().addAll(result);
+		resultProgram.addAll(result);
 
-		resultProgram.getClauses().addAll(compiledOntology);
-		resultProgram.getClauses().addAll(PInstStar.pInstStar);
+		resultProgram.addAll(compiledOntology);
+		resultProgram.addAll(PInstStar.pInstStar);
 
-		return resultProgram.getClauses();
+		return resultProgram.getStatements();
 	}
 
-	public List<Clause> compileProgram(DLProgram program) {
+	public List<ProgramStatement> compileProgram(DLProgram program) {
+		List<ProgramStatement> result = new ArrayList<ProgramStatement>();
 
-		List<Clause> result = new ArrayList<Clause>();
+		for (ProgramStatement ps : program.getStatements()) {
+			if (ps instanceof Clause) {
+				Clause clause = (Clause)ps;
+				Clause newClause = compileClause(clause);
 
-		for (Clause clause : program.getClauses()) {
-			Clause newClause = compileClause(clause);
-
-			result.add(newClause);
+				result.add(newClause);
+			}else{
+				result.add(ps);
+			}
 		}
 
 		return result;
@@ -332,9 +341,9 @@ public class IncrementalELProgramRewriter implements
 
 	@Override
 	public DLProgram rewrite(DLProgramKB kb) {
-		List<Clause> rules = rewriteELProgramKB(kb);
+		List<ProgramStatement> rules = rewriteELProgramKB(kb);
 		DLProgram result = new DLProgram();
-		result.getClauses().addAll(rules);
+		result.addAll(rules);
 		return result;
 	}
 }
