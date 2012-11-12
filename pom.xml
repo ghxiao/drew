@@ -4,7 +4,7 @@
 
 	<groupId>org.semanticweb.drew.el</groupId>
 	<artifactId>drew.el</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>drew.el</name>
@@ -89,11 +89,16 @@
 					<archive>
 						<manifest>
 							<mainClass>org.semanticweb.drew.el.cli.DReWELCLI</mainClass>
-						</manifest>
+						</manifest>						
 					</archive>
-					<descriptorRefs>
+					<descriptors>
+						<descriptor>src/main/assembly/assembly.xml</descriptor>
+					</descriptors>
+					<!-- <descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
+					 -->
+					  
 				</configuration>
 			</plugin>
 		</plugins>
