@@ -1,0 +1,26 @@
+#!/bin/bash
+
+DIRROOT="$1"
+
+if [ "$DIRROOT" = "" ]
+then
+  echo "DREW base dir missing"
+  exit 1
+fi
+
+# remove any trailing /
+DIRROOT=${DIRROOT%/}
+
+LIBDIR="$DIRROOT/lib"
+CLASSDIR="$DIRROOT/bin"
+
+CP="${CP:-}"
+
+CP="${CP}:$(find "$LIBDIR" -type f -name '*.jar' | tr '\n' ':')"
+
+if [ -e "$CLASSDIR" ]
+then
+  CP="${CLASSDIR}$CP"
+fi
+
+echo "$CP"

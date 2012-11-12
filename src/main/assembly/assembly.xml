@@ -10,7 +10,7 @@
 		<dependencySet>
 			<!-- Project artifact is not copied under library directory since it is 
 				added to the root directory of the zip package. -->
-			<useProjectArtifact>false</useProjectArtifact>
+			<useProjectArtifact>true</useProjectArtifact>
 			<outputDirectory>lib</outputDirectory>
 			<unpack>false</unpack>
 		</dependencySet>
