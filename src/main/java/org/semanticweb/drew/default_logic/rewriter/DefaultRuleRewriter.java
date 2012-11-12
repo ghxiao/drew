@@ -71,7 +71,8 @@ public class DefaultRuleRewriter {
 	}
 
 	/**
-	 * rewrite a terminological default logic KB=<L,D> into a list of datalog rules
+	 * rewrite a terminological default logic KB=<L,D> into a list of datalog
+	 * rules
 	 * 
 	 * @param ontology
 	 *            the ontology L
@@ -101,10 +102,10 @@ public class DefaultRuleRewriter {
 		return result;
 	}
 
-	public List<ProgramStatement> rewriteDefaultLogicKB(DefaultLogicKB kb){
+	public List<ProgramStatement> rewriteDefaultLogicKB(DefaultLogicKB kb) {
 		return rewriteDefaultLogicKB(kb.getOntology(), kb.getDfRules());
 	}
-	
+
 	public List<Clause> rewrite(List<DefaultRule> dfs) {
 		List<Clause> result = new ArrayList<Clause>();
 		for (DefaultRule df : dfs) {
@@ -162,12 +163,11 @@ public class DefaultRuleRewriter {
 			positiveBody.add(new Literal(p, X, //
 					toConstant(pre.getPredicate().asOWLPredicate()), c_im));
 		}
-		
-		for (Literal type : df.getTyping()){
+
+		for (Literal type : df.getTyping()) {
 			positiveBody.add(new Literal(isa, X, //
 					toConstant(type.getPredicate().asOWLPredicate())));
 		}
-		
 
 		List<Literal> negativeBody = new ArrayList<Literal>();
 
@@ -201,7 +201,7 @@ public class DefaultRuleRewriter {
 	}
 
 	List<ProgramStatement> rulesFromFile(String fileName) {
-		InputStream stream = DefaultRuleRewriterTest.class
+		InputStream stream = DefaultRuleRewriter.class
 				.getResourceAsStream(fileName);
 		DLProgramParser parser = new DLProgramParser(stream);
 		DLProgram program = null;
@@ -218,7 +218,7 @@ public class DefaultRuleRewriter {
 	List<ProgramStatement> commonRules() {
 		if (commonRules == null) {
 
-			InputStream stream = DefaultRuleRewriterTest.class
+			InputStream stream = DefaultRuleRewriter.class
 					.getResourceAsStream("default.dl");
 			DLProgramParser parser = new DLProgramParser(stream);
 			DLProgram program = null;
