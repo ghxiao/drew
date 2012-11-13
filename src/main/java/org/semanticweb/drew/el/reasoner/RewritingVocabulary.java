@@ -30,7 +30,7 @@ public class RewritingVocabulary {
 	public final static NormalPredicate SUB_EX = CacheManager.getInstance().getPredicate("subEx", 3);
 	public final static NormalPredicate SUP_EX = CacheManager.getInstance().getPredicate("supEx", 4);
 
-	public final static NormalPredicate SUB_ROLE = CacheManager.getInstance().getPredicate("subRole", 4);
+	public final static NormalPredicate SUB_ROLE = CacheManager.getInstance().getPredicate("subRole", 2);
 	public final static NormalPredicate SUB_R_CHAIN = CacheManager.getInstance().getPredicate("subRChain", 3);
 
 	public final static NormalPredicate SUB_R_CONJ = CacheManager.getInstance().getPredicate("subRConj", 3);
