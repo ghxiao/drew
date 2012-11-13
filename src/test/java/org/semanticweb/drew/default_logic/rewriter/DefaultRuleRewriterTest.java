@@ -48,7 +48,7 @@ public class DefaultRuleRewriterTest {
 		List<DefaultRule> defaultRules = dfParser.defaultRules();
 		System.out.println(defaultRules);
 
-		DefaultRuleRewriter rewriter = new DefaultRuleRewriter();
+		DefaultLogicKBRewriter rewriter = new DefaultLogicKBRewriter();
 		// List<Clause> result = rewriter.rewrite(defaultRule);
 		List<ProgramStatement> result = rewriter.rewriteDefaultLogicKB(
 				ontology, defaultRules);
@@ -76,7 +76,7 @@ public class DefaultRuleRewriterTest {
 		String defaultFile = "res/policy.df";
 		DefaultLogicKB kb = loadDefaultLogicKB(ontologyFile, defaultFile);
 
-		DefaultRuleRewriter rewriter = new DefaultRuleRewriter();
+		DefaultLogicKBRewriter rewriter = new DefaultLogicKBRewriter();
 		// List<Clause> result = rewriter.rewrite(defaultRule);
 		List<ProgramStatement> result = rewriter.rewriteDefaultLogicKB(kb);
 
@@ -100,7 +100,7 @@ public class DefaultRuleRewriterTest {
 		String defaultFile = "res/policy-typing.df";
 		DefaultLogicKB kb = loadDefaultLogicKB(ontologyFile, defaultFile);
 
-		DefaultRuleRewriter rewriter = new DefaultRuleRewriter();
+		DefaultLogicKBRewriter rewriter = new DefaultLogicKBRewriter();
 		// List<Clause> result = rewriter.rewrite(defaultRule);
 		List<ProgramStatement> result = rewriter.rewriteDefaultLogicKB(kb);
 

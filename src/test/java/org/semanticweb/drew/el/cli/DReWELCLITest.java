@@ -45,7 +45,14 @@ public class DReWELCLITest {
 		DReWELCLI.main(
 				"-ontology testcase/policy.owl -dlp testcase/empty.dlp --rewriting-only -dlv /usr/bin/dlv".split("\\s"));
 	}
+	
+	@Test
+	public void testDefault() throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException {
+		DReWELCLI.main(
+				"-ontology testcase/bird.owl -default testcase/bird.df -dlv /Users/xiao/bin/dlv".split("\\s"));
+	}
+	
 	public static void main(String[] args) throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException{
-		new DReWELCLITest().testPolicy();
+		new DReWELCLITest().testDefault();
 	}
 }

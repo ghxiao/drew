@@ -14,14 +14,18 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.semanticweb.drew.default_logic.DefaultRule;
+import org.semanticweb.drew.default_logic.rewriter.DefaultLogicKBRewriter;
 import org.semanticweb.drew.dlprogram.DLProgramKB2DatalogRewriter;
 import org.semanticweb.drew.dlprogram.format.DLProgramStorer;
 import org.semanticweb.drew.dlprogram.format.DLProgramStorerImpl;
 import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.model.DLProgramKB;
+import org.semanticweb.drew.dlprogram.model.ProgramStatement;
 import org.semanticweb.drew.dlprogram.parser.DLProgramParser;
 import org.semanticweb.drew.dlprogram.parser.ParseException;
 import org.semanticweb.drew.el.profile.SROELProfile;
@@ -136,6 +140,30 @@ public class DReWELCLI {
 			w.write(strDatalog);
 			w.close();
 			inputProgram.addText(strDatalog);
+		} else if (defaultFile != null) {
+			DLProgramParser parser = new DLProgramParser(new FileReader(
+					defaultFile));
+			List<DefaultRule> dfRules = parser.defaultRules();
+			DefaultLogicKBRewriter rewriter = new DefaultLogicKBRewriter();
+			List<ProgramStatement> result = rewriter.rewriteDefaultLogicKB(
+					ontology, dfRules);
+			StringBuilder target = new StringBuilder();
+
+			DLProgramStorer storer = new DLProgramStorerImpl();
+			DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
+			storer.storeProgramStatements(result, target);
+			FileWriter writer = null;
+			try {
+				datalogFile = "tmp.dlv";
+				writer = new FileWriter(datalogFile);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			filter = "in,out";
+
+			storer.storeProgramStatements(result, writer);
+			writer.close();
+			inputProgram.addFile(datalogFile);
 		}
 
 		if (rewriting_only) {
@@ -233,6 +261,7 @@ public class DReWELCLI {
 				i += 1;
 			} else {
 				System.err.println("Unknow option " + args[i]);
+				System.err.println();
 				return false;
 			}
 		}
@@ -242,8 +271,8 @@ public class DReWELCLI {
 			return false;
 		}
 
-		if (cqFile == null && sparqlFile == null && dlpFile == null) {
-			System.err.println("Please specify the cq file or the sparql file");
+		if (cqFile == null && sparqlFile == null && dlpFile == null && defaultFile == null) {
+			System.err.println("Please specify the cq file, or the sparql file, or dl porgram, or default rules file");
 			return false;
 		}
 

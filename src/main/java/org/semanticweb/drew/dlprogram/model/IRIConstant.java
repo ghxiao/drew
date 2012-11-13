@@ -24,5 +24,9 @@ public class IRIConstant extends Constant{
 		this.iri = iri;
 	}
 
+	@Override
+	public String toString(){
+		return iri.toString();
+	}
 	
 }
