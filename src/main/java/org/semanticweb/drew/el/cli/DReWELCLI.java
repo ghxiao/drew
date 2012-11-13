@@ -82,13 +82,23 @@ public class DReWELCLI {
 		OWLOntology ontology = man.loadOntologyFromOntologyDocument(file);
 
 		OWLProfileReport report = profile.checkOntology(ontology);
-		System.out.println(report);
+		if (!report.isInProfile()) {
+			System.err.println(report);
+		}
 		DLVInputProgram inputProgram = new DLVInputProgramImpl();
 		if (cqFile != null) {
 			SROEL2DatalogRewriter rewriter = new SROEL2DatalogRewriter();
 			DLProgram datalog = rewriter.rewrite(ontology);
 			DLProgramStorer storer = new DLProgramStorerImpl();
 			// DatalogToStringHelper helper = new DatalogToStringHelper();
+			FileWriter writer = null;
+			try {
+				datalogFile = "tmp.dlv";
+				writer = new FileWriter(datalogFile);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
 			StringBuilder target = new StringBuilder();
 			storer.storeDLProgram(datalog, target);
 			String strDatalog = target.toString();
@@ -96,9 +106,13 @@ public class DReWELCLI {
 			String cq = parseCQ();
 
 			/* I can add some file to the DLVInputProgram */
+			writer.append(cq);
+			writer.append(strDatalog);
+			writer.close();
+			inputProgram.addFile(datalogFile);
 
-			inputProgram.addText(strDatalog);
-			inputProgram.addText(cq);
+//			inputProgram.addText(strDatalog);
+//			inputProgram.addText(cq);
 		} else if (dlpFile != null) {
 			DLProgramKB kb = new DLProgramKB();
 			kb.setOntology(ontology);
@@ -139,7 +153,8 @@ public class DReWELCLI {
 			FileWriter w = new FileWriter(datalogFile);
 			w.write(strDatalog);
 			w.close();
-			inputProgram.addText(strDatalog);
+			inputProgram.addFile(datalogFile);
+			// inputProgram.addText(strDatalog);
 		} else if (defaultFile != null) {
 			DLProgramParser parser = new DLProgramParser(new FileReader(
 					defaultFile));
@@ -150,7 +165,8 @@ public class DReWELCLI {
 			StringBuilder target = new StringBuilder();
 
 			DLProgramStorer storer = new DLProgramStorerImpl();
-			DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
+			DReWELManager.getInstance().setNamingStrategy(
+					NamingStrategy.IRIFragment);
 			storer.storeProgramStatements(result, target);
 			FileWriter writer = null;
 			try {
@@ -184,9 +200,14 @@ public class DReWELCLI {
 				filters.add("ans");
 			}
 			if (filter != null) {
-				filters.add(filter);
+				String[] ss = filter.split(",");
+
+				for (String s : ss)
+					filters.add(s);
 			}
-			invocation.setFilter(filters, true);
+
+			if (filters != null && filters.size() > 0)
+				invocation.setFilter(filters, true);
 			ModelBufferedHandler modelBufferedHandler = new ModelBufferedHandler(
 					invocation);
 
@@ -207,7 +228,7 @@ public class DReWELCLI {
 			invocation.waitUntilExecutionFinishes();
 			List<DLVError> k = invocation.getErrors();
 			if (k.size() > 0)
-				System.out.println(k);
+				System.err.println(k);
 		}
 		// invocation.s
 	}
@@ -271,8 +292,10 @@ public class DReWELCLI {
 			return false;
 		}
 
-		if (cqFile == null && sparqlFile == null && dlpFile == null && defaultFile == null) {
-			System.err.println("Please specify the cq file, or the sparql file, or dl porgram, or default rules file");
+		if (cqFile == null && sparqlFile == null && dlpFile == null
+				&& defaultFile == null) {
+			System.err
+					.println("Please specify the cq file, or the sparql file, or dl porgram, or default rules file");
 			return false;
 		}
 

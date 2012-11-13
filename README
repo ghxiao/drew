@@ -1,10 +1,34 @@
 Usage
-=========
+=====
+
+DReW can be used from Command Line.
+
+In the following, we assume the dlv is located at $HOME/bin/dlv
+
+DL-Program Reasoner
+-------------------
+
+Answering Conjunctive Query
+---------------------------
+	
+	$ ./drew.el.sh -ontology sample_data/U0.owl -cq sample_data/lubm_q1.cq -dlv $HOME/bin/dlv
+	ans("<http://www.Department0.University0.edu/GraduateStudent142>")
+	ans("<http://www.Department0.University0.edu/GraduateStudent44>")
+	ans("<http://www.Department0.University0.edu/GraduateStudent124>")
+	ans("<http://www.Department0.University0.edu/GraduateStudent101>")
 
 
-Build 
-=========
+Default Reasoner
+----------------
 
-	$ mvn assembly:assembly -Dmaven.test.skip=true
+	$ ./drew.el.sh -ontology sample_data/bird.owl -default sample_data/bird.df -dlv $HOME/bin/dlv
+	in("Fred", "Flier")
+	out("Tweety", "Flier")
+	
+	
+Build From Source
+=================
+
+	$ ./build.sh
 	
 

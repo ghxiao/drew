@@ -11,14 +11,20 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 public class DReWELCLITest {
 
+
+	@Test
+	public void testDLP() throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException {
+		DReWELCLI.main("-ontology sample_data/U0.owl -dlp sample_data/lubm_0.elp -dlv /Users/xiao/bin/dlv".split("\\s"));
+	}
+	
 	@Test
 	public void test1() throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException {
-		DReWELCLI.main("-ontology testcase/U0_0.owl -cq testcase/lubm_q1.cq -dlv /Users/xiao/usr/bin/dlv".split("\\s"));
+		DReWELCLI.main("-ontology sample_data/U0.owl -cq testcase/lubm_q1.cq -dlv /Users/xiao/bin/dlv".split("\\s"));
 	}
 
 	@Test
 	public void test2() throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException {
-		DReWELCLI.main("-ontology testcase/U0_0.owl -dlp testcase/elprogram_0.dlp -filter f -dlv /Users/xiao/usr/bin/dlv".split("\\s"));
+		DReWELCLI.main("-ontology sample_data/U0_0.owl -dlp testcase/elprogram_0.dlp -filter f -dlv /Users/xiao/bin/dlv".split("\\s"));
 	}
 	
 	@Test
@@ -53,6 +59,6 @@ public class DReWELCLITest {
 	}
 	
 	public static void main(String[] args) throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException{
-		new DReWELCLITest().testDefault();
+		new DReWELCLITest().testDLP();
 	}
 }
