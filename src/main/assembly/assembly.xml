@@ -26,6 +26,11 @@
 				<include>*</include>
 			</includes>
 		</fileSet>
+		
+		<fileSet>
+			<directory>sample_data</directory>
+			<outputDirectory>sample_data</outputDirectory>			
+		</fileSet>
 		<!-- adds jar package to the root directory of zip package -->
 <!-- 		<fileSet> -->
 <!-- 			<directory>${project.build.directory}</directory> -->
