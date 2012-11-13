@@ -245,7 +245,7 @@ public class ELProgramKBRewriter implements DLProgramKB2DatalogRewriter {
 			}
 
 			NormalPredicate predicate = CacheManager.getInstance()
-					.getPredicate(name, arity);
+					.getPredicate(name, arity + 1); //reify
 
 			// Constant cP =
 			// CacheManager.getInstance().getConstant(iriEncoder.encode(op.getDLPredicate().getIRI()));

@@ -111,8 +111,8 @@ public class DReWELCLI {
 			writer.close();
 			inputProgram.addFile(datalogFile);
 
-//			inputProgram.addText(strDatalog);
-//			inputProgram.addText(cq);
+			// inputProgram.addText(strDatalog);
+			// inputProgram.addText(cq);
 		} else if (dlpFile != null) {
 			DLProgramKB kb = new DLProgramKB();
 			kb.setOntology(ontology);
@@ -313,8 +313,8 @@ public class DReWELCLI {
 	private static void printUsage() {
 
 		String usage = //
-		"Usage: jar -jar drew-el.jar -ontology <ontology_file> {-sparql <sparql_file> | -cq <cq_file> | -dlp <dlp_file>} "
-				+ "[-filter <filter>]"
+		"Usage: drew.el.sh -ontology <ontology_file> { -sparql <sparql_file> | -cq <cq_file> | -dlp <dlp_file> | -default <df_file> } "
+				+ "[-filter <filter>] "
 				+ "-dlv <dlv_path> [-verbose <verbose_level>]\n"
 				+ //
 				"  <ontology_file>\n"
@@ -333,6 +333,10 @@ public class DReWELCLI {
 				+ //
 				"    the dl-program file. \n"
 				+ //
+				"  <df_file>\n"
+				+ //
+				"    the default rules file. \n"
+				+ //
 				"  <dlv_path>\n"
 				+ //
 				"    the path of dlv \n"
@@ -342,7 +346,7 @@ public class DReWELCLI {
 				"    Specify verbose category (default: 0)\n"
 				+ "\n"
 				+ //
-				"Example: java -jar drew.el.jar -ontology university.owl -sparql q1.sparql -dlv /usr/bin/dlv " //
+				"Example: java -jar drew.el.jar -ontology university.owl -dlp rule.dlp -dlv /usr/bin/dlv " //
 		;
 
 		System.out.println(usage);

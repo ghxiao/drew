@@ -28,6 +28,16 @@
 		</fileSet>
 		
 		<fileSet>
+			<directory>.</directory>
+			<outputDirectory>.</outputDirectory>
+			<includes>
+				<include>README</include>
+				<include>LICENSE</include>
+				<include>CHANGELOG</include>
+			</includes>
+		</fileSet>
+		
+		<fileSet>
 			<directory>sample_data</directory>
 			<outputDirectory>sample_data</outputDirectory>			
 		</fileSet>
