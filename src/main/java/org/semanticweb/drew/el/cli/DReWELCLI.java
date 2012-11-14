@@ -62,6 +62,7 @@ public class DReWELCLI {
 	private static String rewriting = "default";
 	private static boolean rewriting_only = false;
 	private static String defaultFile;
+	private static String semantics = "asp";
 
 	/**
 	 * @param args
@@ -215,7 +216,11 @@ public class DReWELCLI {
 			if (filters != null && filters.size() > 0)
 				invocation.setFilter(filters, true);
 
+			if (semantics.equals("wf"))
+				invocation.addOption("-wf");
 
+			
+			
 			invocation.subscribe(new ModelHandler() {
 
 				@Override
@@ -223,7 +228,8 @@ public class DReWELCLI {
 						ModelResult modelResult) {
 					System.out.print("{ ");
 					Model model = (Model) modelResult;
-					// ATTENTION, this is necessary and stupid, should we report
+					// ATTENTION !!! this is necessary and stupid, should we
+					// report
 					// a bug to DLVWrapper?
 					model.beforeFirst();
 					while (model.hasMorePredicates()) {
@@ -299,7 +305,15 @@ public class DReWELCLI {
 			} else if (args[i].equals("--rewriting-only")) {
 				rewriting_only = true;
 				i += 1;
-			} else {
+			} else if (args[i].equals("-wf")) {
+				semantics = "wf";
+				i += 1;
+			} else if (args[i].equals("-asp")) {
+				semantics = "asp";
+				i += 1;
+			}
+
+			else {
 				System.err.println("Unknow option " + args[i]);
 				System.err.println();
 				return false;

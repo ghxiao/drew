@@ -38,6 +38,11 @@ public class DReWELCLITest {
 	}
 	
 	@Test
+	public void testNixonWF() throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException {
+		DReWELCLI.main("-wf -ontology testcase/nixon_pos.owl -default testcase/nixon_pos.df -dlv /Users/xiao/bin/dlv".split("\\s"));
+	}
+	
+	@Test
 	public void testPR() throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException {
 		DReWELCLI.main(
 				"-ontology benchmark/publication.owl -dlp benchmark/reviewers-1.elp -filter a -dlv /usr/bin/dlv".split("\\s"));
