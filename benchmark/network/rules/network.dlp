@@ -1,0 +1,9 @@
+#namespace("nw", "http://www.kr.tuwien.ac.at/staff/xiao/ontology/network.owl#").
+
+newnode(x1).
+newnode(x2).
+overloaded(X) :- DL[nw:wired+=connect;nw:HighTrafficNode](X).
+connect(X,Y) :- newnode(X),DL[;nw:Node](Y), not overloaded(Y), not excl(X,Y).
+excl(X,Y) :- connect(X,Z), DL[;nw:Node](Y), Y != Z.
+excl(X,Y) :- connect(Z,Y), newnode(Z), newnode(X), Z = X.
+excl(x1, "<http://www.kr.tuwien.ac.at/staff/xiao/ontology/network.owl#n4>").
