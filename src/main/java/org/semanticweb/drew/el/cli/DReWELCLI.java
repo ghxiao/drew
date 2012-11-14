@@ -1,5 +1,6 @@
 package org.semanticweb.drew.el.cli;
 
+import it.unical.mat.dlv.program.Literal;
 import it.unical.mat.wrapper.DLVError;
 import it.unical.mat.wrapper.DLVInputProgram;
 import it.unical.mat.wrapper.DLVInputProgramImpl;
@@ -8,12 +9,17 @@ import it.unical.mat.wrapper.DLVInvocationException;
 import it.unical.mat.wrapper.DLVWrapper;
 import it.unical.mat.wrapper.FactHandler;
 import it.unical.mat.wrapper.FactResult;
+import it.unical.mat.wrapper.Model;
 import it.unical.mat.wrapper.ModelBufferedHandler;
+import it.unical.mat.wrapper.ModelHandler;
+import it.unical.mat.wrapper.ModelResult;
+import it.unical.mat.wrapper.Predicate;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +147,7 @@ public class DReWELCLI {
 			storer.storeDLProgram(datalog, target);
 
 			String strDatalog = target.toString();
-			int j = dlpFile.indexOf('/');
+			int j = dlpFile.lastIndexOf('/');
 			String dlpTag = dlpFile;
 			if (j >= 0) {
 				dlpTag = dlpFile.substring(j + 1);
@@ -193,7 +199,7 @@ public class DReWELCLI {
 
 			invocation.setInputProgram(inputProgram);
 
-			invocation.setNumberOfModels(1);
+			// invocation.setNumberOfModels(1);
 			List<String> filters = new ArrayList<String>();
 
 			if (cqFile != null) {
@@ -208,23 +214,36 @@ public class DReWELCLI {
 
 			if (filters != null && filters.size() > 0)
 				invocation.setFilter(filters, true);
-			ModelBufferedHandler modelBufferedHandler = new ModelBufferedHandler(
-					invocation);
 
-			/* In this moment I can start the DLV execution */
-			FactHandler factHandler = new FactHandler() {
+
+			invocation.subscribe(new ModelHandler() {
+
 				@Override
-				public void handleResult(DLVInvocation obsd, FactResult res) {
-					String answerString = res.toString();
-					System.out.println(answerString);
-					// answers.add(answerString);
-				}
-			};
+				public void handleResult(DLVInvocation paramDLVInvocation,
+						ModelResult modelResult) {
+					System.out.print("{ ");
+					Model model = (Model) modelResult;
+					// ATTENTION, this is necessary and stupid, should we report
+					// a bug to DLVWrapper?
+					model.beforeFirst();
+					while (model.hasMorePredicates()) {
 
-			invocation.subscribe(factHandler);
+						Predicate predicate = model.nextPredicate();
+						while (predicate.hasMoreLiterals()) {
+
+							Literal literal = predicate.nextLiteral();
+							System.out.print(literal);
+							System.out.print(" ");
+						}
+					}
+
+					System.out.println("}");
+					System.out.println();
+				}
+			});
+
 			invocation.run();
-			if (!modelBufferedHandler.hasMoreModels())
-				System.out.println("No model");
+
 			invocation.waitUntilExecutionFinishes();
 			List<DLVError> k = invocation.getErrors();
 			if (k.size() > 0)

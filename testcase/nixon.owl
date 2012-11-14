@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE rdf:RDF []>
+<rdf:RDF
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+  xmlns="file://nixon_diamond/foobar#"
+  xml:base="file://nixon_diamond/foobar">
+
+  <owl:Ontology rdf:ID="nixon_diamond"/>
+
+  <owl:Class rdf:ID="P" />
+  <owl:Class rdf:ID="R" />
+  <owl:Class rdf:ID="Q" />
+
+	<R rdf:ID="nixon"/>
+	<Q rdf:about="#nixon"/>
+	<!--<R rdf:ID="kenedy"/>
+	<Q rdf:about="#kenedy"/>
+	<R rdf:ID="clinton"/>
+	<Q rdf:about="#clinton"/>-->
+</rdf:RDF>
+

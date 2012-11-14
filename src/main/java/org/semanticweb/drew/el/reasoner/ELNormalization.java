@@ -249,8 +249,11 @@ public class ELNormalization implements OWLAxiomVisitorEx<Object> {
 			// A subclass S Self
 			else if (subClass.getClassExpressionType() == ClassExpressionType.OBJECT_HAS_SELF) {
 				manager.addAxiom(normalizedOnt, axiom);
-			} else {
-				throw new IllegalStateException();
+			} 
+			// not in EL
+			else {
+				System.err.println("Warning. Ignoring axiom " + axiom);
+				//throw new IllegalStateException();
 
 			}
 
@@ -414,7 +417,8 @@ public class ELNormalization implements OWLAxiomVisitorEx<Object> {
 
 	@Override
 	public Object visit(OWLDifferentIndividualsAxiom axiom) {
-		throw new IllegalArgumentException(axiom.toString());
+		// do nothing because we already assumed UNA
+		return null;
 	}
 
 	@Override
@@ -482,9 +486,12 @@ public class ELNormalization implements OWLAxiomVisitorEx<Object> {
 
 	@Override
 	public Object visit(OWLSymmetricObjectPropertyAxiom axiom) {
-		OWLObjectPropertyExpression property = axiom.getProperty();
-		factory.getOWLSubObjectPropertyOfAxiom(property, property.getInverseProperty()).accept(this);
-		factory.getOWLSubObjectPropertyOfAxiom(property.getInverseProperty(), property).accept(this);
+//		OWLObjectPropertyExpression property = axiom.getProperty();
+//		factory.getOWLSubObjectPropertyOfAxiom(property, property.getInverseProperty()).accept(this);
+//		factory.getOWLSubObjectPropertyOfAxiom(property.getInverseProperty(), property).accept(this);
+//		return null;
+		
+		manager.addAxiom(normalizedOnt, axiom);
 		return null;
 	}
 
