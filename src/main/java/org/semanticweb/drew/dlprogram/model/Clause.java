@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+
+
 /**
  * The implementation of clause.
  * 
@@ -41,6 +43,12 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 		this.negatives = negativeBody;
 	}
 
+	public Clause(Literal head, List<Literal> body) {
+		this.head = head;
+
+		this.positives = body;
+	}
+	
 	public Clause() {
 
 	}
