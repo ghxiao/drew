@@ -21,6 +21,7 @@ import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.model.DLProgramKB;
 import org.semanticweb.drew.dlprogram.model.Literal;
 import org.semanticweb.drew.dlprogram.model.NormalPredicate;
+import org.semanticweb.drew.dlprogram.model.ProgramStatement;
 import org.semanticweb.drew.dlprogram.model.Term;
 import org.semanticweb.drew.dlprogram.model.Variable;
 
@@ -35,7 +36,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
  * KBCompiler: compile the dl-program KB to a datalog^n program.
  */
@@ -47,11 +47,12 @@ public class KBCompiler {
 	Variable Y = CacheManager.getInstance().getVariable("Y");
 
 	public DLProgram compile(DLProgramKB kb) {
-		List<Clause> result = new ArrayList<Clause>();
+		List<ProgramStatement> result = new ArrayList<ProgramStatement>();
 
 		final OWLOntology ontology = kb.getOntology();
 		LDLPOntologyCompiler ldlpCompiler = new LDLPOntologyCompiler();
-		final List<Clause> compiledOntology = ldlpCompiler.complile(ontology);
+		final List<ProgramStatement> compiledOntology = ldlpCompiler
+				.complile(ontology);
 		final DLProgram program = kb.getProgram();
 		final Set<DLInputSignature> dlInputSignatures = program
 				.getDLInputSignatures();
@@ -66,7 +67,8 @@ public class KBCompiler {
 		result.addAll(compileProgram(program));
 
 		DLProgram resultProgram = new DLProgram();
-		resultProgram.getClauses().addAll(result);
+		resultProgram.addAll(result);
+		// resultProgram.getClauses().addAll(result);
 
 		return resultProgram;
 	}
@@ -75,14 +77,18 @@ public class KBCompiler {
 	 * P -> P^{ord} replace all the DLAtom with a ordinary atom
 	 * 
 	 */
-	public List<Clause> compileProgram(DLProgram program) {
+	public List<ProgramStatement> compileProgram(DLProgram program) {
 
-		List<Clause> result = new ArrayList<Clause>();
+		List<ProgramStatement> result = new ArrayList<ProgramStatement>();
 
-		for (Clause clause : program.getClauses()) {
-			Clause newClause = compileClause(clause);
+		for (ProgramStatement stmt : program.getStatements()) {
 
-			result.add(newClause);			
+			if (stmt.isClause()) {
+
+				Clause newClause = compileClause(stmt.asClause());
+
+				result.add(newClause);
+			}
 		}
 
 		return result;
@@ -113,9 +119,9 @@ public class KBCompiler {
 			Literal newLit = compileDLAtom(lit);
 			newClause.getNegativeBody().add(newLit);
 		}
-		
+
 		logger.debug("{}\n   -> \n{}", clause, newClause);
-		
+
 		return newClause;
 	}
 
@@ -128,7 +134,7 @@ public class KBCompiler {
 
 	public Literal compileDLAtom(Literal lit) {
 		DLAtomPredicate p = (DLAtomPredicate) (lit.getPredicate());
-		DLInputSignature inputSigature = p.getInputSigature();
+		DLInputSignature inputSigature = p.getInputSignature();
 		OWLLogicalEntity query = p.getQuery();
 		String predicate = LDLPCompilerManager.getInstance()
 				.getPredicate(query);
@@ -198,29 +204,33 @@ public class KBCompiler {
 		return clauses;
 	}
 
-	List<Clause> subscript(List<Clause> clauses, DLInputSignature signature) {
+	List<ProgramStatement> subscript(List<ProgramStatement> stmts,
+			DLInputSignature signature) {
 
-		List<Clause> newClauses = new ArrayList<Clause>();
+		List<ProgramStatement> newStmts = new ArrayList<ProgramStatement>();
 		String sub = KBCompilerManager.getInstance().getSubscript(signature);
 
-		for (Clause clause : clauses) {
-			Literal head = clause.getHead();
-			List<Literal> body = clause.getPositiveBody();
-			// Note: In LDLp, we only have positive body
-			Literal newHead = subscript(head, sub);
-			Clause newClause = new Clause();
-			newClause.setHead(newHead);
-			for (Literal lit : body) {
-				Literal newLit = subscript(lit, sub);
-				newClause.getPositiveBody().add(newLit);
-			}
-			newClauses.add(newClause);
+		for (ProgramStatement stmt : stmts) {
+			if (stmt.isClause()) {
+				Clause clause = stmt.asClause();
+				Literal head = clause.getHead();
+				List<Literal> body = clause.getPositiveBody();
+				// Note: In LDLp, we only have positive body
+				Literal newHead = subscript(head, sub);
+				Clause newClause = new Clause();
+				newClause.setHead(newHead);
+				for (Literal lit : body) {
+					Literal newLit = subscript(lit, sub);
+					newClause.getPositiveBody().add(newLit);
+				}
+				newStmts.add(newClause);
 
-			logger.debug("{} / [{}]\n  ->\n{}", new Object[] { clause, signature,
-					newClause });
+				logger.debug("{} / [{}]\n  ->\n{}", new Object[] { stmt,
+						signature, newClause });
+			}
 		}
 
-		return newClauses;
+		return newStmts;
 	}
 
 	private Literal subscript(Literal literal, String sub) {

@@ -16,6 +16,7 @@ import java.util.Set;
 import org.semanticweb.drew.dlprogram.model.CacheManager;
 import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.Literal;
+import org.semanticweb.drew.dlprogram.model.ProgramStatement;
 import org.semanticweb.drew.dlprogram.model.Term;
 import org.semanticweb.drew.dlprogram.model.Variable;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -81,26 +82,26 @@ public class LDLPAxiomCompiler extends OWLAxiomVisitorAdapter {
 	Variable Y = CacheManager.getInstance().getVariable("Y");
 	Variable Z = CacheManager.getInstance().getVariable("Z");
 
-	private List<Clause> clauses;
+	private List<ProgramStatement> clauses;
 
-	public List<Clause> getClauses() {
+	public List<ProgramStatement> getClauses() {
 		return clauses;
 	}
 
 	public LDLPAxiomCompiler() {
-		this.clauses = new ArrayList<Clause>();
+		this.clauses = new ArrayList<ProgramStatement>();
 	}
 
-	public Clause compileOWLAxiom(OWLAxiom axiom) {
-		this.clauses = new ArrayList<Clause>();
+	public ProgramStatement compileOWLAxiom(OWLAxiom axiom) {
+		this.clauses = new ArrayList<ProgramStatement>();
 
 		axiom.accept(this);
 
 		return clauses.get(0);
 	}
 
-	public List<Clause> compile(OWLAxiom... axioms) {
-		this.clauses = new ArrayList<Clause>();
+	public List<ProgramStatement> compile(OWLAxiom... axioms) {
+		this.clauses = new ArrayList<ProgramStatement>();
 		for (OWLAxiom owlAxiom : axioms) {
 			owlAxiom.accept(this);
 		}
@@ -230,8 +231,8 @@ public class LDLPAxiomCompiler extends OWLAxiomVisitorAdapter {
 		logger.debug("{}\n\t->\n{}", axiom, clause);
 	}
 
-	public List<Clause> compile(Set<OWLAxiom> axioms) {
-		this.clauses = new ArrayList<Clause>();
+	public List<ProgramStatement> compile(Set<OWLAxiom> axioms) {
+		this.clauses = new ArrayList<ProgramStatement>();
 		for (OWLAxiom owlAxiom : axioms) {
 			owlAxiom.accept(this);
 		}

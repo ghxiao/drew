@@ -5,10 +5,11 @@ import java.util.Set;
 
 import org.semanticweb.drew.datalog.DLVReasoner;
 import org.semanticweb.drew.datalog.DatalogReasoner;
-import org.semanticweb.drew.datalog.XSBDatalogReasoner;
+//import org.semanticweb.drew.datalog.XSBDatalogReasoner;
 import org.semanticweb.drew.datalog.DatalogReasoner.TYPE;
 import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.Literal;
+import org.semanticweb.drew.dlprogram.model.ProgramStatement;
 import org.semanticweb.drew.sparql.SparqlCompiler;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -41,7 +42,7 @@ public class LDLPReasoner extends OWLReasonerAdapter {
 	final static Logger logger = LoggerFactory
 			.getLogger(LDLPClosureCompiler.class);
 
-	List<Clause> program;
+	List<ProgramStatement> program;
 
 	boolean compiled;
 
@@ -65,11 +66,11 @@ public class LDLPReasoner extends OWLReasonerAdapter {
 	public LDLPReasoner(OWLOntology rootOntology, DatalogReasoner.TYPE type) {
 
 		this(rootOntology, new SimpleConfiguration(), null);
-		if (type == TYPE.DLV) {
+		//if (type == TYPE.DLV) {
 			datalogReasoner = new DLVReasoner();
-		} else if (type == TYPE.XSB) {
-			datalogReasoner = new XSBDatalogReasoner();
-		}
+//		} else if (type == TYPE.XSB) {
+//			datalogReasoner = new XSBDatalogReasoner();
+//		}
 	}
 
 	// public OWLIndividual query(OWLClass cls) {
@@ -104,7 +105,7 @@ public class LDLPReasoner extends OWLReasonerAdapter {
 			compiled = true;
 		}
 
-		Clause query = axiomCompiler.compileOWLAxiom(axiom);
+		Clause query = (Clause)axiomCompiler.compileOWLAxiom(axiom);
 		// compiler.compileClassAssertionAxiom(classAssertionAxiom);
 
 		return datalogReasoner.isEntailed(program, query.getHead());

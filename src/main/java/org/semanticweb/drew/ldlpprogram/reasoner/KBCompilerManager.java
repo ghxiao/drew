@@ -1,7 +1,8 @@
 package org.semanticweb.drew.ldlpprogram.reasoner;
 
-import org.semanticweb.drew.dlprogram.DLInputSignature;
-import org.semanticweb.drew.utils.SymbolEncoder;
+import org.semanticweb.drew.dlprogram.model.DLInputSignature;
+//import org.semanticweb.drew.utils.SymbolEncoder;
+import org.semanticweb.drew.el.SymbolEncoder;
 
 
 public class KBCompilerManager {
@@ -19,6 +20,6 @@ public class KBCompilerManager {
 	}
 
 	public String getSubscript(DLInputSignature signature) {
-		return String.valueOf(signatureEncoder.getValueBySymbol(signature));
+		return String.valueOf(signatureEncoder.encode(signature));
 	}
 }

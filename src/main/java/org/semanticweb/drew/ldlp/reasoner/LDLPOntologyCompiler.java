@@ -13,6 +13,7 @@ import java.util.Set;
 
 
 import org.semanticweb.drew.dlprogram.model.Clause;
+import org.semanticweb.drew.dlprogram.model.ProgramStatement;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.slf4j.Logger;
@@ -27,19 +28,19 @@ public class LDLPOntologyCompiler {
 
 	final static Logger logger = LoggerFactory.getLogger(LDLPOntologyCompiler.class);
 	
-	List<Clause> clauses;
+	List<ProgramStatement> clauses;
 
-	public List<Clause> complile(OWLOntology ontology) {
+	public List<ProgramStatement> complile(OWLOntology ontology) {
 		final Set<OWLAxiom> axioms = ontology.getAxioms();
 		return compile(axioms);
 	}
 
-	public List<Clause> compile(final Set<OWLAxiom> axioms) {
+	public List<ProgramStatement> compile(final Set<OWLAxiom> axioms) {
 		reset();
 
 		logger.debug("-------------------compiling axioms:--------------------");
 		LDLPAxiomCompiler axiomCompiler = new LDLPAxiomCompiler();
-		final List<Clause> clauses = axiomCompiler.compile(axioms);
+		final List<ProgramStatement> clauses = axiomCompiler.compile(axioms);
 
 		logger.debug("-------------------building closure:--------------------");
 		LDLPClosureBuilder closureBuilder = new LDLPClosureBuilder();
@@ -54,11 +55,11 @@ public class LDLPOntologyCompiler {
 		return clauses;
 	}
 	
-	public List<Clause> compile(OWLAxiom... axioms) {
+	public List<ProgramStatement> compile(OWLAxiom... axioms) {
 		reset();
 
 		LDLPAxiomCompiler axiomCompiler = new LDLPAxiomCompiler();
-		final List<Clause> clauses = axiomCompiler.compile(axioms);
+		final List<ProgramStatement> clauses = axiomCompiler.compile(axioms);
 
 		LDLPClosureBuilder closureBuilder = new LDLPClosureBuilder();
 		final LDLPClosure closure = closureBuilder.build(axioms);
@@ -70,7 +71,7 @@ public class LDLPOntologyCompiler {
 
 	private void reset() {
 
-		clauses = new ArrayList<Clause>();
+		clauses = new ArrayList<ProgramStatement>();
 	}
 
 }
