@@ -16,6 +16,7 @@ import it.unical.mat.wrapper.ModelResult;
 import it.unical.mat.wrapper.Predicate;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -94,99 +95,11 @@ public class DReWELCLI {
 		}
 		DLVInputProgram inputProgram = new DLVInputProgramImpl();
 		if (cqFile != null) {
-			SROEL2DatalogRewriter rewriter = new SROEL2DatalogRewriter();
-			DLProgram datalog = rewriter.rewrite(ontology);
-			DLProgramStorer storer = new DLProgramStorerImpl();
-			// DatalogToStringHelper helper = new DatalogToStringHelper();
-			FileWriter writer = null;
-			try {
-				datalogFile = "tmp.dlv";
-				writer = new FileWriter(datalogFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-			StringBuilder target = new StringBuilder();
-			storer.storeDLProgram(datalog, target);
-			String strDatalog = target.toString();
-
-			String cq = parseCQ();
-
-			/* I can add some file to the DLVInputProgram */
-			writer.append(cq);
-			writer.append(strDatalog);
-			writer.close();
-			inputProgram.addFile(datalogFile);
-
-			// inputProgram.addText(strDatalog);
-			// inputProgram.addText(cq);
+			handleCQ(ontology, inputProgram);
 		} else if (dlpFile != null) {
-			DLProgramKB kb = new DLProgramKB();
-			kb.setOntology(ontology);
-
-			DLProgramParser parser = new DLProgramParser(
-					new FileReader(dlpFile));
-			DLProgram elprogram = parser.program();
-			kb.setProgram(elprogram);
-
-			DLProgram datalog;
-
-			DLProgramKB2DatalogRewriter compiler;
-
-			if (rewriting.equals("inc")) {
-				compiler = new IncrementalELProgramRewriter();
-			} else {
-				compiler = new ELProgramKBRewriter();
-			}
-
-			datalog = compiler.rewrite(kb);
-
-			// DatalogToStringHelper helper = new DatalogToStringHelper();
-
-			DLProgramStorer storer = new DLProgramStorerImpl();
-			StringBuilder target = new StringBuilder();
-			storer.storeDLProgram(datalog, target);
-
-			String strDatalog = target.toString();
-			int j = dlpFile.lastIndexOf('/');
-			String dlpTag = dlpFile;
-			if (j >= 0) {
-				dlpTag = dlpFile.substring(j + 1);
-			}
-
-			datalogFile = ontologyFile + "-" + dlpTag + "-" + rewriting + ".dl";
-			// inputProgram.addFile(datalogFile);
-
-			FileWriter w = new FileWriter(datalogFile);
-			w.write(strDatalog);
-			w.close();
-			inputProgram.addFile(datalogFile);
-			// inputProgram.addText(strDatalog);
+			handleDLProgram(ontology, inputProgram);
 		} else if (defaultFile != null) {
-			DLProgramParser parser = new DLProgramParser(new FileReader(
-					defaultFile));
-			List<DefaultRule> dfRules = parser.defaultRules();
-			DefaultLogicKBRewriter rewriter = new DefaultLogicKBRewriter();
-			List<ProgramStatement> result = rewriter.rewriteDefaultLogicKB(
-					ontology, dfRules);
-			StringBuilder target = new StringBuilder();
-
-			DLProgramStorer storer = new DLProgramStorerImpl();
-			DReWELManager.getInstance().setNamingStrategy(
-					NamingStrategy.IRIFragment);
-			storer.storeProgramStatements(result, target);
-			FileWriter writer = null;
-			try {
-				datalogFile = "tmp.dlv";
-				writer = new FileWriter(datalogFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			filter = "in,out";
-
-			storer.storeProgramStatements(result, writer);
-			writer.close();
-			inputProgram.addFile(datalogFile);
+			handleDefault(ontology, inputProgram);
 		}
 
 		if (rewriting_only) {
@@ -256,6 +169,111 @@ public class DReWELCLI {
 				System.err.println(k);
 		}
 		// invocation.s
+	}
+
+	private static void handleDefault(OWLOntology ontology,
+			DLVInputProgram inputProgram) throws FileNotFoundException,
+			ParseException, IOException {
+		DLProgramParser parser = new DLProgramParser(new FileReader(
+				defaultFile));
+		List<DefaultRule> dfRules = parser.defaultRules();
+		DefaultLogicKBRewriter rewriter = new DefaultLogicKBRewriter();
+		List<ProgramStatement> result = rewriter.rewriteDefaultLogicKB(
+				ontology, dfRules);
+		StringBuilder target = new StringBuilder();
+
+		DLProgramStorer storer = new DLProgramStorerImpl();
+		DReWELManager.getInstance().setNamingStrategy(
+				NamingStrategy.IRIFragment);
+		storer.storeProgramStatements(result, target);
+		FileWriter writer = null;
+		try {
+			datalogFile = "tmp.dlv";
+			writer = new FileWriter(datalogFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		filter = "in,out";
+
+		storer.storeProgramStatements(result, writer);
+		writer.close();
+		inputProgram.addFile(datalogFile);
+	}
+
+	private static void handleDLProgram(OWLOntology ontology,
+			DLVInputProgram inputProgram) throws FileNotFoundException,
+			ParseException, IOException {
+		DLProgramKB kb = new DLProgramKB();
+		kb.setOntology(ontology);
+
+		DLProgramParser parser = new DLProgramParser(
+				new FileReader(dlpFile));
+		DLProgram elprogram = parser.program();
+		kb.setProgram(elprogram);
+
+		DLProgram datalog;
+
+		DLProgramKB2DatalogRewriter compiler;
+
+		if (rewriting.equals("inc")) {
+			compiler = new IncrementalELProgramRewriter();
+		} else {
+			compiler = new ELProgramKBRewriter();
+		}
+
+		datalog = compiler.rewrite(kb);
+
+		// DatalogToStringHelper helper = new DatalogToStringHelper();
+
+		DLProgramStorer storer = new DLProgramStorerImpl();
+		StringBuilder target = new StringBuilder();
+		storer.storeDLProgram(datalog, target);
+
+		String strDatalog = target.toString();
+		int j = dlpFile.lastIndexOf('/');
+		String dlpTag = dlpFile;
+		if (j >= 0) {
+			dlpTag = dlpFile.substring(j + 1);
+		}
+
+		datalogFile = ontologyFile + "-" + dlpTag + "-" + rewriting + ".dl";
+		// inputProgram.addFile(datalogFile);
+
+		FileWriter w = new FileWriter(datalogFile);
+		w.write(strDatalog);
+		w.close();
+		inputProgram.addFile(datalogFile);
+		// inputProgram.addText(strDatalog);
+	}
+
+	private static void handleCQ(OWLOntology ontology,
+			DLVInputProgram inputProgram) throws IOException, ParseException {
+		SROEL2DatalogRewriter rewriter = new SROEL2DatalogRewriter();
+		DLProgram datalog = rewriter.rewrite(ontology);
+		DLProgramStorer storer = new DLProgramStorerImpl();
+		// DatalogToStringHelper helper = new DatalogToStringHelper();
+		FileWriter writer = null;
+		try {
+			datalogFile = "tmp.dlv";
+			writer = new FileWriter(datalogFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		StringBuilder target = new StringBuilder();
+		storer.storeDLProgram(datalog, target);
+		String strDatalog = target.toString();
+
+		String cq = parseCQ();
+
+		/* I can add some file to the DLVInputProgram */
+		writer.append(cq);
+		writer.append(strDatalog);
+		writer.close();
+		inputProgram.addFile(datalogFile);
+
+		// inputProgram.addText(strDatalog);
+		// inputProgram.addText(cq);
 	}
 
 	protected static String parseCQ() throws IOException, ParseException {
