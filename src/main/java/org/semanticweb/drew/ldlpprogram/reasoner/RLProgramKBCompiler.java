@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.semanticweb.drew.dlprogram.DLProgramKB2DatalogRewriter;
 import org.semanticweb.drew.dlprogram.model.CacheManager;
 import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.Constant;
@@ -39,14 +40,15 @@ import org.slf4j.LoggerFactory;
 /**
  * KBCompiler: compile the dl-program KB to a datalog^n program.
  */
-public class KBCompiler {
+public class RLProgramKBCompiler implements DLProgramKB2DatalogRewriter{
 
-	final static Logger logger = LoggerFactory.getLogger(KBCompiler.class);
+	final static Logger logger = LoggerFactory.getLogger(RLProgramKBCompiler.class);
 
 	Variable X = CacheManager.getInstance().getVariable("X");
 	Variable Y = CacheManager.getInstance().getVariable("Y");
 
-	public DLProgram compile(DLProgramKB kb) {
+	@Override
+	public DLProgram rewrite(DLProgramKB kb) {
 		List<ProgramStatement> result = new ArrayList<ProgramStatement>();
 
 		final OWLOntology ontology = kb.getOntology();

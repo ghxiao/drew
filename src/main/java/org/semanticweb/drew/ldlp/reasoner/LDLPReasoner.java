@@ -10,7 +10,8 @@ import org.semanticweb.drew.datalog.DatalogReasoner.TYPE;
 import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.Literal;
 import org.semanticweb.drew.dlprogram.model.ProgramStatement;
-import org.semanticweb.drew.sparql.SparqlCompiler;
+import org.semanticweb.drew.rl.sparql.SparqlCompiler;
+
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;

@@ -22,34 +22,22 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 public class DLProgramKBLoader {
 
-//	final static Logger logger = LoggerFactory
-//			.getLogger(DLProgramKBLoader.class);
 
-	/**
-	 * Load a dl-program kb from two files
-	 * 
-	 * @param path
-	 *            the prifex of kb path. <br/>
-	 *            The file path.ldl is an OWL ontology and path.dlp is a
-	 *            dl-program,
-	 * @throws FileNotFoundException
-	 * @throws ParseException
-	 */
-	public DLProgramKB load(String path) throws FileNotFoundException,
+	public DLProgramKB load(String ontologyPath, String dlpPath) throws FileNotFoundException,
 			ParseException {
 
 		DLProgramKB kb = new DLProgramKB();
 
-		OWLOntology ontology = loadOntology(path);
+		OWLOntology ontology = loadOntology(ontologyPath);
 
 		kb.ontology = ontology;
 
-		DLProgram program = loadDLProgram(path);
+		DLProgram program = loadDLProgram(dlpPath);
 		kb.program = program;
 		return kb;
 	}
 
-	private DLProgram loadDLProgram(String path) throws FileNotFoundException,
+	public DLProgram loadDLProgram(String path) throws FileNotFoundException,
 			ParseException {
 
 		BufferedReader reader = new BufferedReader(
@@ -60,7 +48,7 @@ public class DLProgramKBLoader {
 		return program;
 	}
 
-	private OWLOntology loadOntology(String path) {
+	public OWLOntology loadOntology(String path) {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 
 		OWLOntology ontology = null;

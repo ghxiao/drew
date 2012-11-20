@@ -1,5 +1,6 @@
 package org.semanticweb.drew.cli;
 
+import it.unical.mat.wrapper.DLVInputProgram;
 import it.unical.mat.wrapper.DLVInvocationException;
 
 import java.io.IOException;
@@ -8,11 +9,12 @@ import java.util.Arrays;
 import org.semanticweb.drew.dlprogram.parser.ParseException;
 import org.semanticweb.drew.el.cli.DReWELCLI;
 import org.semanticweb.drew.rl.cli.DReWRLCLI;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 import com.google.common.base.Joiner;
 
-public class CommandLine {
+public abstract class CommandLine {
 
 	/**
 	 * @param args
@@ -23,25 +25,37 @@ public class CommandLine {
 	 */
 	public static void main(String[] args) throws OWLOntologyCreationException,
 			IOException, ParseException, DLVInvocationException {
-		if(args.length == 0){
-			printUsage();
+		if (args.length == 0) {
+			//printUsage();
+			String usage = "Usage: drew [-rl | -el] ...";
+			System.err.println(usage);
 			System.exit(0);
 		}
-		
-		String[] subArgs = Arrays.copyOfRange(args, 1, args.length);
-		
-		Joiner.on(", ").appendTo(System.out, subArgs);
-		
+
+		// String[] subArgs = Arrays.copyOfRange(args, 1, args.length);
+
+		// Joiner.on(", ").appendTo(System.out, subArgs);
+
 		if (args[0].equals("-el")) {
-			DReWELCLI.main(subArgs);
+			DReWELCLI.main(args);
 		} else if (args[0].equals("-rl")) {
-			DReWRLCLI.main(subArgs);
+			DReWRLCLI.main(args);
 		}
 	}
 
-	private static void printUsage() {
-		String usage = "Usage: drew [-rl | -el] ...";
-		System.err.println(usage);
-	}
+	
+
+	public abstract boolean parseArgs(String[] args);
+
+	public abstract void go();
+
+	public abstract void handleDefault(OWLOntology ontology,
+			DLVInputProgram inputProgram);
+
+	public abstract void handleDLProgram(OWLOntology ontology,
+			DLVInputProgram inputProgram);
+
+	public abstract void handleCQ(OWLOntology ontology,
+			DLVInputProgram inputProgram);
 
 }

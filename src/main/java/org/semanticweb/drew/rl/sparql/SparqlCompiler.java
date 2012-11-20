@@ -1,4 +1,4 @@
-package org.semanticweb.drew.sparql;
+package org.semanticweb.drew.rl.sparql;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -9,7 +9,6 @@ import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.Literal;
 import org.semanticweb.drew.dlprogram.model.NormalPredicate;
 import org.semanticweb.drew.dlprogram.model.Term;
-import org.semanticweb.drew.ldlp.reasoner.LDLPCompilerManager;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import com.hp.hpl.jena.graph.Node;
@@ -24,6 +23,7 @@ import com.hp.hpl.jena.sparql.syntax.ElementPathBlock;
 public class SparqlCompiler {
 
 	public SparqlCompiler() {
+
 	}
 
 	/**
@@ -38,7 +38,8 @@ public class SparqlCompiler {
 			ansVars.add(compileTerm(var));
 		}
 
-		NormalPredicate ans = CacheManager.getInstance().getPredicate("ans", ansVars.size());
+		NormalPredicate ans = CacheManager.getInstance().getPredicate("ans",
+				ansVars.size());
 
 		Literal head = new Literal(ans, ansVars);
 
@@ -74,7 +75,8 @@ public class SparqlCompiler {
 
 	private Literal complileTriple(Triple triple) {
 
-		if (triple.getPredicate().getURI().equals(OWLRDFVocabulary.RDF_TYPE.toString())) {
+		if (triple.getPredicate().getURI()
+				.equals(OWLRDFVocabulary.RDF_TYPE.toString())) {
 			return new Literal(compilePredicate(triple.getObject(), 1), //
 					compileTerm(triple.getSubject()));
 		} else {

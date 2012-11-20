@@ -23,14 +23,14 @@ import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
  */
 public class KBReasoner {
 
-	KBCompiler compiler = new KBCompiler();
+	RLProgramKBCompiler compiler = new RLProgramKBCompiler();
 
 	DatalogReasoner datalogReasoner = new DLVReasoner();
 
 	DLProgram compiledClauses;
 
 	public KBReasoner(DLProgramKB kb) {
-		compiledClauses = compiler.compile(kb);
+		compiledClauses = compiler.rewrite(kb);
 	}
 
 	public boolean isEntailed(OWLClassAssertionAxiom axiom) {
