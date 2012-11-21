@@ -2,43 +2,54 @@ Install
 =======
 
 1. Download DLV from <http://www.dlvsystem.com/dlvsystem/index.php/Home>
-2. Download drew-el-verssion.zip and extract it  
-3. Set `DREWROOT` environment variable by `export $DREWROOT=/path/to/drew`
+2. Download drew-version.zip and extract it  
+3. Set `DREW_HOME` environment variable by `export DREW_HOME=/path/to/drew`
   
 Usage
 =====
 
-DReW can be used from command line, or as a java library.
+DReW can be used from command line
 
 ```
-Usage: drew.el.sh -ontology <ontology_file> {-sparql <sparql_file> | -cq <cq_file> | -dlp <dlp_file> | -default <df_file> } [-filter <filter>] -dlv <dlv_path> [-verbose <verbose_level>]
+Usage: drew [-rl | -el] [ -asp | -wf ] -ontology <ontology_file> {-sparql <sparql_file> | -cq <cq_file> | -dlp <dlp_file> | -default <df_file> } [-filter <filter>] -dlv <dlv_file> [-verbose <verbose_level>] 
+  -rl | -el 
+    rewriting for OWL 2 RL or OWL 2 EL
+  -asp, -wf
+    the semantics of DL-Programs 
+    -asp: Answer set semantics (default)
+    -wf: Well-founded semantics  
   <ontology_file>
-    the ontology file to be read, which has to be in Horn-SHIQ fragment 
+    the ontology file to be read 
   <sparql_file>
-    the sparql file to be query, which has to be a Conjunctive Query. 
+    the sparql file to be query, which has to be a conjunctive query 
   <cq_file>
-    the cq file to be query, which has to be a Conjunctive Query. 
+    the cq file to be query, which has to be a conjunctive query 
   <dlp_file>
-    the dl-program file. 
+    the dl-program file
   <df_file>
-    the default rules file. 
-  <dlv_path>
+    the default rules file 
+  <dlv_file>
     the path of dlv 
   <verbose_level>
     Specify verbose category (default: 0)
 
-Example: java -jar drew.el.jar -ontology university.owl -dlp rule.dlp -dlv /usr/bin/dlv 
+Example: drew -el -ontology university.owl -dlp rule.dlp -dlv /usr/bin/dlv 
 ```
 
-In the following, we assume the dlv is located at $HOME/bin/dlv
+A note on `-wf` option
+---------------------
+
+Due to a parser bug with the java library DLVWrapper, when using `-wf` option, please use script `dlv-wf` provided for `<dlv_file>` 
 
 Example Usage
 =============
 
+In the following, we assume the dlv is located at `$HOME/bin/dlv`
+
 DL-Program Reasoner
 -------------------
 
-	$ ./drew.el.sh -ontology sample_data/U0.owl -dlp sample_data/lubm_rule2.dlp -filter f -dlv $HOME/bin/dlv
+	$ ./drew -el -ontology sample_data/U0.owl -dlp sample_data/lubm_rule2.dlp -filter f -dlv $HOME/bin/dlv
 	f("a", "<http://www.Department0.University0.edu/AssistantProfessor0>")
 	f("<http://www.Department0.University0.edu/AssistantProfessor0/Publication0>", "<http://www.Department0.University0.edu/AssistantProfessor0>")
 	f("<http://www.Department0.University0.edu/AssistantProfessor0/Publication5>", "<http://www.Department0.University0.edu/AssistantProfessor0>")
@@ -46,12 +57,16 @@ DL-Program Reasoner
 	f("<http://www.Department0.University0.edu/AssistantProfessor0/Publication4>", "<http://www.Department0.University0.edu/AssistantProfessor0>")
 	f("<http://www.Department0.University0.edu/AssistantProfessor0/Publication2>", "<http://www.Department0.University0.edu/AssistantProfessor0>")
 	f("<http://www.Department0.University0.edu/AssistantProfessor0/Publication1>", "<http://www.Department0.University0.edu/AssistantProfessor0>")
+	
+	$ ./drew -rl -ontology sample_data/network.owl -dlp sample_data/network.dlp -filter connect -dlv $HOME/bin/dlv
+	
+	$ ./drew -rl -ontology sample_data/network.owl -dlp sample_data/network.dlp -filter connect -wf -dlv ./dlv-wf
 
 
 Answering Conjunctive Query
 ---------------------------
 	
-	$ ./drew.el.sh -ontology sample_data/U0.owl -cq sample_data/lubm_q1.cq -dlv $HOME/bin/dlv
+	$ ./drew -ontology sample_data/U0.owl -cq sample_data/lubm_q1.cq -dlv $HOME/bin/dlv
 	ans("<http://www.Department0.University0.edu/GraduateStudent142>")
 	ans("<http://www.Department0.University0.edu/GraduateStudent44>")
 	ans("<http://www.Department0.University0.edu/GraduateStudent124>")
@@ -61,7 +76,7 @@ Answering Conjunctive Query
 Default Reasoner
 ----------------
 
-	$ ./drew.el.sh -ontology sample_data/bird.owl -default sample_data/bird.df -dlv $HOME/bin/dlv
+	$ ./drew -ontology sample_data/bird.owl -default sample_data/bird.df -dlv $HOME/bin/dlv
 	in("Fred", "Flier")
 	out("Tweety", "Flier")
 	
@@ -71,4 +86,19 @@ Build From Source
 
 	$ ./build.sh
 	
+Publications
+============
 
+[1] T. Eiter, M. Ortiz, M. Simkus, T. Tran, and G. Xiao. Query rewriting for Horn-SHIQ plus rules. In Proc. of _AAAI 2012_. AAAI.
+
+[2] T. Eiter, T. Krennwallner, P. Schneider, and G. Xiao. Uniform Evaluation of Nonmonotonic DL-Programs. In FoIKS'12, pages 1–22. Springer.
+
+[3] Guohui Xiao and Thomas Eiter. Inline evaluation of hybrid knowledge bases – PhD description. In Proc. 5th International Conference on Web Reasoning and Rule Systems (RR 2011), volume 6902 of Lecture Notes in Computer Science, pages 300–305. Springer, 2011.
+
+[4] S. Heymans, T. Eiter, and G. Xiao. Tractable reasoning with DL-programs over datalog- rewritable description logics. In Proc. of ECAI 2010. IOS Press.
+
+[5] G. Xiao, S. Heymans, and T. Eiter. DReW: a reasoner for datalog-rewritable description logics and dl-programs. In _Informal Proc. 1st Int’l Workshop on Business Models, Business Rules and Ontologies (BuRO 2010)_, 2010.
+
+Contact
+=======
+Guohui Xiao <mailto:xiao@kr.tuwien.ac.at>
