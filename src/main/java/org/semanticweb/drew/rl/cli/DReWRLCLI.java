@@ -212,7 +212,7 @@ public class DReWRLCLI extends CommandLine {
 				dlpTag = dlpFile.substring(j + 1);
 			}
 
-			datalogFile = ontologyFile + "-" + dlpTag + ".dl";
+			datalogFile = ontologyFile + "-" + dlpTag + "-rl.dlv";
 			// inputProgram.addFile(datalogFile);
 
 			FileWriter w = new FileWriter(datalogFile);

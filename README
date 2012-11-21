@@ -1,12 +1,18 @@
+Introduction
+============
+
+
+
+
 Install
 =======
 
 1. Download DLV from <http://www.dlvsystem.com/dlvsystem/index.php/Home>
 2. Download drew-version.zip and extract it  
-3. Set `DREW_HOME` environment variable by `export DREW_HOME=/path/to/drew`
+3. Set environment variable `DREW_HOME` by `export DREW_HOME=/path/to/drew`
   
-Usage
-=====
+Command Usage
+=============
 
 DReW can be used from command line
 
