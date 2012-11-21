@@ -271,6 +271,7 @@ public class DReWELCLI extends CommandLine {
 		int i = 0;
 		while (i < args.length) {
 			if (args[i].equals("-el")) {
+				i += 1;
 				// fine
 			} else if (args[i].equals("-rl")) {
 				throw new IllegalStateException("-rl");

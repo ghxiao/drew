@@ -1,0 +1,3 @@
+#!/bin/sh
+
+ dlv $@ -wf | sed -e 's/^True: //g' | sed -e 's/^Undefined.*//g'

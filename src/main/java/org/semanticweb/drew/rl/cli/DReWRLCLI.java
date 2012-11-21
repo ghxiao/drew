@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,8 @@ import org.semanticweb.drew.dlprogram.parser.ParseException;
 import org.semanticweb.drew.el.reasoner.DReWELManager;
 import org.semanticweb.drew.el.reasoner.NamingStrategy;
 import org.semanticweb.drew.ldlp.profile.LDLPProfile;
+import org.semanticweb.drew.ldlp.reasoner.LDLPQueryResultDecompiler;
+import org.semanticweb.drew.ldlpprogram.reasoner.LDLPProgramQueryResultDecompiler;
 import org.semanticweb.drew.ldlpprogram.reasoner.RLProgramKBCompiler;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -53,6 +56,8 @@ public class DReWRLCLI extends CommandLine {
 	protected String defaultFile;
 	protected String semantics = "asp";
 	protected String[] args;
+	
+	int nModels = 0;
 
 	public DReWRLCLI(String[] args) {
 		this.args = args;
@@ -67,6 +72,7 @@ public class DReWRLCLI extends CommandLine {
 		int i = 0;
 		while (i < args.length) {
 			if (args[i].equals("-rl")) {
+				i += 1;
 				// fine
 			} else if (args[i].equals("-el")) {
 				throw new IllegalStateException("-el");
@@ -168,7 +174,7 @@ public class DReWRLCLI extends CommandLine {
 		} else if (defaultFile != null) {
 			handleDefault(ontology, inputProgram);
 		}
-		
+
 		runDLV(inputProgram);
 	}
 
@@ -226,7 +232,8 @@ public class DReWRLCLI extends CommandLine {
 			// do nothing
 		} else {
 			runDLV(inputProgram);
-			// TODO decode 
+			// TODO decode
+
 		}
 	}
 
@@ -256,16 +263,20 @@ public class DReWRLCLI extends CommandLine {
 			if (semantics.equals("wf"))
 				invocation.addOption("-wf");
 
+			
+			
 			invocation.subscribe(new ModelHandler() {
 
 				@Override
 				public void handleResult(DLVInvocation paramDLVInvocation,
 						ModelResult modelResult) {
+					nModels++;
+					
+					System.out.println(nModels);
 					System.out.print("{ ");
 					Model model = (Model) modelResult;
 					// ATTENTION !!! this is necessary and stupid, should we
-					// report
-					// a bug to DLVWrapper?
+					// report a bug to DLVWrapper?
 					model.beforeFirst();
 					while (model.hasMorePredicates()) {
 
@@ -273,8 +284,21 @@ public class DReWRLCLI extends CommandLine {
 						while (predicate.hasMoreLiterals()) {
 
 							Literal literal = predicate.nextLiteral();
-							System.out.print(literal);
-							System.out.print(" ");
+
+							DLProgramParser parser = new DLProgramParser(
+									new StringReader(literal.toString()));
+
+							LDLPProgramQueryResultDecompiler decompiler = new LDLPProgramQueryResultDecompiler();
+
+							try {
+								org.semanticweb.drew.dlprogram.model.Literal decompileLiteral = decompiler
+										.decompileLiteral(parser.literal());
+								System.out.print(decompileLiteral);
+								System.out.print(" ");
+							} catch (ParseException e) {
+								e.printStackTrace();
+							}
+
 						}
 					}
 
