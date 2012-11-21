@@ -10,3 +10,4 @@ tmp.*
 .pydevproject
 bin
 *.log
+\#*
