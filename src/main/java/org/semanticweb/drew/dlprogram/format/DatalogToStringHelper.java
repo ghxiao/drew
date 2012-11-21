@@ -23,6 +23,8 @@ import org.semanticweb.drew.el.reasoner.DatalogFormat;
 import org.semanticweb.drew.el.reasoner.PInst;
 import org.semanticweb.owlapi.model.IRI;
 
+// use DLProgramStorer instead
+@Deprecated
 public class DatalogToStringHelper {
 
 	StringBuilder sb;
