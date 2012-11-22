@@ -1,18 +1,22 @@
+DReW Reasoner
+=============
+
+
 Introduction
-============
+------------
 
 `DReW` is a reasoner for DL-Programs over Datalog-rewritable Descritption Logics.
 
 
 Download and Install
-====================
+--------------------
 
 1. Download DLV from <http://www.dlvsystem.com/dlvsystem/index.php/Home> 
 2. Download drew-version.zip from <https://github.com/ghxiao/drew/downloads> and extract it  
 3. Set environment variable `DREW_HOME` by `export DREW_HOME=/path/to/drew`
   
 Command Line Usage
-==================
+------------------
 
 DReW can be used from command line
 
@@ -44,20 +48,18 @@ Usage: drew [-rl | -el] [ -asp | -wf ] -ontology <ontology_file> {-sparql <sparq
 Example: drew -el -ontology university.owl -dlp rule.dlp -dlv /usr/bin/dlv 
 ```
 
-### A note on `-wf` option
+#### A note on `-wf` option
 
 Due to a parser bug with the java library DLVWrapper, when using `-wf` option, please use the script `dlv-wf` provided for `<dlv_file>` .
 
 Examples
-=============
+--------
 
 In the following, we assume the dlv is located at `$HOME/bin/dlv` .
 
-DL-Program Reasoning
---------------------
+### DL-Program Reasoning
 
-
-### Example with network DL-Programs under ASP semantics	
+#### Example with network DL-Programs under ASP semantics	
 	./drew -rl -ontology sample_data/network.owl -dlp sample_data/network.dlp -filter connect -dlv $HOME/bin/dlv
 
 	{ connect(x1, <http://www.kr.tuwien.ac.at/staff/xiao/ontology/network.owl#n1>) connect(x2, <http://www.kr.tuwien.ac.at/staff/xiao/ontology/network.owl#n5>) }
@@ -69,28 +71,27 @@ DL-Program Reasoning
 	{ connect(x1, <http://www.kr.tuwien.ac.at/staff/xiao/ontology/network.owl#n1>) connect(x2, <http://www.kr.tuwien.ac.at/staff/xiao/ontology/network.owl#n4>) }
 	
 
-### Example with network DL-Programs under Well-founded semantics
+#### Example with network DL-Programs under Well-founded semantics
 	
-	$ ./drew -rl -ontology sample_data/network.owl -dlp sample_data/network.dlp -filter connect -wf -dlv ./dlv-wf
+	$ ./drew -rl -ontology sample_data/network.owl -dlp sample_data/network.dlp -filter overloaded -wf -dlv ./dlv-wf
+	{ overloaded(<http://www.kr.tuwien.ac.at/staff/xiao/ontology/network.owl#n2>) }
 
 
-Answering Conjunctive Query
----------------------------
+### Answering Conjunctive Query
 	
 	$ ./drew -rl -ontology sample_data/U0.owl -cq sample_data/lubm_q1.cq -dlv $HOME/bin/dlv
 	{ ans(<http://www.Department0.University0.edu/GraduateStudent142>) ans(<http://www.Department0.University0.edu/GraduateStudent44>) ans(<http://www.Department0.University0.edu/GraduateStudent124>) ans(<http://www.Department0.University0.edu/GraduateStudent101>) }
 
 
-Default Reasoning
------------------
+### Default Reasoning
 
 	$ ./drew -el -ontology sample_data/bird.owl -default sample_data/bird.df -dlv $HOME/bin/dlv
 	in("Fred", "Flier")
 	out("Tweety", "Flier")
 	
 	
-Build From Source
-=================
+Building DReW FROM MASTER
+-------------------------
 
 	$ git clone https://github.com/ghxiao/drew.git
 	$ cd drew
@@ -98,8 +99,8 @@ Build From Source
 	
 Then you will find `drew-verson.zip` in the `target` folder. 
 
-Publications
-============
+References
+----------
 
 [1] T. Eiter, M. Ortiz, M. Simkus, T. Tran, and G. Xiao. Query rewriting for Horn-SHIQ plus rules. In Proc. of _AAAI 2012_. AAAI.
 
@@ -112,5 +113,5 @@ Publications
 [5] G. Xiao, S. Heymans, and T. Eiter. DReW: a reasoner for datalog-rewritable description logics and dl-programs. In _Informal Proc. 1st Int’l Workshop on Business Models, Business Rules and Ontologies (BuRO 2010)_, 2010.
 
 Contact
-=======
+-------
 Guohui Xiao <mailto:xiao@kr.tuwien.ac.at>
