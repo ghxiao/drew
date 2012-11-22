@@ -18,7 +18,7 @@ public class DLProgramStorerImplTest {
 		DLProgramParser parser = new DLProgramParser(new StringReader(s));
 		DLProgram program = parser.program();
 		DLProgramStorer storer = new DLProgramStorerImpl();
-		storer.storeDLProgram(program, System.out);
+		storer.store(program, System.out);
 		//System.out.println(program);
 	}
 	
@@ -28,7 +28,7 @@ public class DLProgramStorerImplTest {
 		DLProgramParser parser = new DLProgramParser(new StringReader(s));
 		DLProgram program = parser.program();
 		DLProgramStorer storer = new DLProgramStorerImpl();
-		storer.storeDLProgram(program, System.out);
+		storer.store(program, System.out);
 		//System.out.println(program);
 	}
 	
@@ -38,7 +38,7 @@ public class DLProgramStorerImplTest {
 		DLProgramParser parser = new DLProgramParser(new StringReader(s));
 		DLProgram program = parser.program();
 		DLProgramStorer storer = new DLProgramStorerImpl();
-		storer.storeDLProgram(program, System.out);
+		storer.store(program, System.out);
 		//System.out.println(program);
 	}
 	
@@ -48,7 +48,7 @@ public class DLProgramStorerImplTest {
 		DLProgramParser parser = new DLProgramParser(new StringReader(s));
 		DLProgram program = parser.program();
 		DLProgramStorer storer = new DLProgramStorerImpl();
-		storer.storeDLProgram(program, System.out);
+		storer.store(program, System.out);
 		//System.out.println(program);
 	}
 

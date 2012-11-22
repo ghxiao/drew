@@ -57,7 +57,7 @@ public class SparqlCompiler {
 						TriplePath triplePath = patternElts.next();
 						Triple triple = triplePath.asTriple();
 						final Literal lit = complileTriple(triple);
-						// System.out.println(triple + " ==> " + lit);
+						//System.out.println(triple + " ==> " + lit);
 						body.add(lit);
 					}
 					return new Clause(head, body);

@@ -34,7 +34,7 @@ public class ToDlvhexFormat {
 			DLProgramParser parser =new DLProgramParser(reader);
 			DLProgram program = parser.program();
 			helper.setUsingDlvhexFormat(true);
-			helper.storeDLProgram(program, new FileWriter(dlvhex));
+			helper.store(program, new FileWriter(dlvhex));
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

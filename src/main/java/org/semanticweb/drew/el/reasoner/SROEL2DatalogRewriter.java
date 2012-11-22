@@ -99,7 +99,7 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements
 					datalogFile));
 			writer.write(PInst.getPInst().toString());
 			
-			new DLProgramStorerImpl().storeDLProgram(datalog, writer);
+			new DLProgramStorerImpl().store(datalog, writer);
 			
 			//writer.write(new DatalogToStringHelper().toString(datalog));
 			writer.close();

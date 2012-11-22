@@ -12,6 +12,7 @@ import it.unical.mat.wrapper.ModelHandler;
 import it.unical.mat.wrapper.ModelResult;
 import it.unical.mat.wrapper.Predicate;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -24,21 +25,30 @@ import java.util.List;
 import org.semanticweb.drew.cli.CommandLine;
 import org.semanticweb.drew.dlprogram.format.DLProgramStorer;
 import org.semanticweb.drew.dlprogram.format.DLProgramStorerImpl;
+import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.model.DLProgramKB;
+import org.semanticweb.drew.dlprogram.model.ProgramStatement;
 import org.semanticweb.drew.dlprogram.parser.DLProgramParser;
 import org.semanticweb.drew.dlprogram.parser.ParseException;
 import org.semanticweb.drew.el.reasoner.DReWELManager;
 import org.semanticweb.drew.el.reasoner.NamingStrategy;
 import org.semanticweb.drew.ldlp.profile.LDLPProfile;
+import org.semanticweb.drew.ldlp.reasoner.LDLPOntologyCompiler;
+import org.semanticweb.drew.ldlp.reasoner.LDLPQueryCompiler;
 import org.semanticweb.drew.ldlpprogram.reasoner.LDLPProgramQueryResultDecompiler;
 import org.semanticweb.drew.ldlpprogram.reasoner.RLProgramKBCompiler;
+import org.semanticweb.drew.rl.sparql.SparqlCompiler;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.profiles.OWLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
+
+import com.hp.hpl.jena.query.Query;
+import com.hp.hpl.jena.query.QueryFactory;
+import com.hp.hpl.jena.query.Syntax;
 
 public class DReWRLCLI extends CommandLine {
 
@@ -53,7 +63,7 @@ public class DReWRLCLI extends CommandLine {
 	protected String defaultFile;
 	protected String semantics = "asp";
 	protected String[] args;
-	
+
 	int nModels = 0;
 
 	public DReWRLCLI(String[] args) {
@@ -166,6 +176,8 @@ public class DReWRLCLI extends CommandLine {
 
 		if (cqFile != null) {
 			handleCQ(ontology, inputProgram);
+		} else if (sparqlFile != null) {
+			handleSparql(ontology, inputProgram);
 		} else if (dlpFile != null) {
 			handleDLProgram(ontology, inputProgram);
 		} else if (defaultFile != null) {
@@ -173,6 +185,51 @@ public class DReWRLCLI extends CommandLine {
 		}
 
 		runDLV(inputProgram);
+	}
+
+	private void handleSparql(OWLOntology ontology, DLVInputProgram inputProgram) {
+
+		String line;
+		String queryText = "";
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(sparqlFile));
+			while ((line = reader.readLine()) != null) {
+				queryText = queryText + line + "\n";
+			}
+			reader.close();
+			Query query = QueryFactory.create(queryText, Syntax.syntaxARQ);
+			SparqlCompiler sparqlCompiler = new SparqlCompiler();
+
+			LDLPOntologyCompiler compiler = new LDLPOntologyCompiler();
+			List<ProgramStatement> datalogClauses = compiler.complile(ontology);
+
+			DLProgramStorer storer = new DLProgramStorerImpl();
+
+			int j = sparqlFile.lastIndexOf('/');
+			String dlpTag = sparqlFile;
+			if (j >= 0) {
+				dlpTag = sparqlFile.substring(j + 1);
+			}
+
+			datalogFile = ontologyFile + "-" + dlpTag + "-rl.dlv";
+			// inputProgram.addFile(datalogFile);
+
+			FileWriter w = new FileWriter(datalogFile);
+			storer.store(datalogClauses, w);
+
+			Clause drewQuery = sparqlCompiler.compileQuery(query);
+			LDLPQueryCompiler queryCompiler = new LDLPQueryCompiler();
+			Clause drewRLQuery = queryCompiler.compileQuery(drewQuery);
+			storer.store(drewRLQuery, w);
+
+			inputProgram.addFile(datalogFile);
+			
+			filter = "ans";
+			
+			w.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -200,7 +257,7 @@ public class DReWRLCLI extends CommandLine {
 
 			DLProgramStorer storer = new DLProgramStorerImpl();
 			StringBuilder target = new StringBuilder();
-			storer.storeDLProgram(datalog, target);
+			storer.store(datalog, target);
 
 			String strDatalog = target.toString();
 			int j = dlpFile.lastIndexOf('/');
@@ -253,16 +310,14 @@ public class DReWRLCLI extends CommandLine {
 			if (semantics.equals("wf"))
 				invocation.addOption("-wf");
 
-			
-			
 			invocation.subscribe(new ModelHandler() {
 
 				@Override
 				public void handleResult(DLVInvocation paramDLVInvocation,
 						ModelResult modelResult) {
 					nModels++;
-					
-					System.out.println(nModels);
+
+//					System.out.println(nModels);
 					System.out.print("{ ");
 					Model model = (Model) modelResult;
 					// ATTENTION !!! this is necessary and stupid, should we
@@ -313,7 +368,6 @@ public class DReWRLCLI extends CommandLine {
 
 	@Override
 	public void handleCQ(OWLOntology ontology, DLVInputProgram inputProgram) {
-		// TODO Auto-generated method stub
 
 	}
 

@@ -19,9 +19,10 @@ public interface DLProgramStorer {
 	 *            {@link java.lang.StringBuilder}, or {@link java.io.FileWriter}
 	 * @throws IOException
 	 */
-	public void storeDLProgram(DLProgram program, Appendable target);
+	public void store(DLProgram program, Appendable target);
 	
-	public void storeProgramStatements(Collection<ProgramStatement> program, Appendable target);
+	public void store(Collection<ProgramStatement> program, Appendable target);
 	
+	public void store(ProgramStatement stmt, Appendable target);
 	
 }

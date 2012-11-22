@@ -54,7 +54,7 @@ public class DefaultRuleRewriterTest {
 				ontology, defaultRules);
 
 		DLProgramStorer storer = new DLProgramStorerImpl();
-		storer.storeProgramStatements(result, System.out);
+		storer.store(result, System.out);
 		FileWriter writer = null;
 		try {
 			writer = new FileWriter("tmp.dlv");
@@ -62,7 +62,7 @@ public class DefaultRuleRewriterTest {
 			e.printStackTrace();
 		}
 
-		storer.storeProgramStatements(result, writer);
+		storer.store(result, writer);
 		writer.close();
 		// System.out.println(result);
 
@@ -81,7 +81,7 @@ public class DefaultRuleRewriterTest {
 		List<ProgramStatement> result = rewriter.rewriteDefaultLogicKB(kb);
 
 		DLProgramStorer storer = new DLProgramStorerImpl();
-		storer.storeProgramStatements(result, System.out);
+		storer.store(result, System.out);
 		FileWriter writer = null;
 		try {
 			writer = new FileWriter("tmp.dlv");
@@ -89,7 +89,7 @@ public class DefaultRuleRewriterTest {
 			e.printStackTrace();
 		}
 
-		storer.storeProgramStatements(result, writer);
+		storer.store(result, writer);
 		writer.close();
 	}
 
@@ -105,7 +105,7 @@ public class DefaultRuleRewriterTest {
 		List<ProgramStatement> result = rewriter.rewriteDefaultLogicKB(kb);
 
 		DLProgramStorer storer = new DLProgramStorerImpl();
-		storer.storeProgramStatements(result, System.out);
+		storer.store(result, System.out);
 		FileWriter writer = null;
 		try {
 			writer = new FileWriter("tmp.dlv");
@@ -113,7 +113,7 @@ public class DefaultRuleRewriterTest {
 			e.printStackTrace();
 		}
 
-		storer.storeProgramStatements(result, writer);
+		storer.store(result, writer);
 		writer.close();
 	}
 	

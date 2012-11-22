@@ -19,12 +19,12 @@ public class LDLPQueryCompiler {
 	final static Logger logger = LoggerFactory
 			.getLogger(LDLPQueryCompiler.class);
 
-	Clause compileQuery(Clause query) {
+	public Clause compileQuery(Clause query) {
 
 		Clause newQuery = new Clause();
 
 		Literal head = query.getHead();
-		Literal newHead = compileLiteral(head);
+		Literal newHead = compileHeadLiteral(head);
 		newQuery.setHead(newHead);
 
 		for (Literal bodyLiteral : query.getPositiveBody()) {
@@ -36,6 +36,18 @@ public class LDLPQueryCompiler {
 		return newQuery;
 	}
 
+	// keep the head predicate
+	public Literal compileHeadLiteral(Literal literal) {
+		NormalPredicate normalLiteral = (NormalPredicate) literal
+				.getPredicate();
+
+		List<Term> terms = literal.getTerms();
+		List<Term> newTerms = compileTerms(terms);
+
+		Literal newLiteral = new Literal(normalLiteral, newTerms);
+		return newLiteral;
+	}
+	
 	public Literal compileLiteral(Literal literal) {
 		NormalPredicate normalLiteral = (NormalPredicate) literal
 				.getPredicate();

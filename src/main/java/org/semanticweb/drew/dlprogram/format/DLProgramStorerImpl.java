@@ -22,7 +22,7 @@ import org.semanticweb.owlapi.model.IRI;
 
 public class DLProgramStorerImpl implements DLProgramStorer {
 
-	//Appendable target;
+	// Appendable target;
 
 	/*
 	 * In dlvhex format, prefix is not allowed
@@ -41,44 +41,31 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 
 	}
 
-//	public void saveToFile(DLProgram program, String file) {
-//		saveToFile(program.getStatements(), file);
-//	}
-
-//	public void saveToFile(List<ProgramStatement> program, String file) {
-//		try {
-//			FileWriter writer = new FileWriter(file);
-//			// if (DReWELManager.getInstance().getDatalogFormat() ==
-//			// DatalogFormat.XSB) {
-//			// writer.write(PInst.strXSBHeader);
-//			// }
-//			writer.write(writeStatements(program));
-//			writer.close();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
-
 	void writeDLProgram(DLProgram program, Appendable target) {
 		// sb = new StringBuilder();
 		List<ProgramStatement> stmts = program.getStatements();
 		writeStatements(stmts, target);
 	}
 
-	public void writeStatements(Collection<ProgramStatement> statements, Appendable target) {
+	public void writeStatements(Collection<ProgramStatement> statements,
+			Appendable target) {
 		// target = new StringBuilder();
 
 		for (ProgramStatement r : statements) {
-			if (r.isClause()) {
-				writeCluase(r.asClause(), target);
-				write("\n", target);
-			} else if (r.isComment()) {
-				write(r.asComment().toString(), target);
-			} else {
-				throw new IllegalStateException();
-			}
+			writeStatement(r, target);
 		}
-		//return target.toString();
+		// return target.toString();
+	}
+
+	private void writeStatement(ProgramStatement stmt, Appendable target) {
+		if (stmt.isClause()) {
+			writeCluase(stmt.asClause(), target);
+			write("\n", target);
+		} else if (stmt.isComment()) {
+			write(stmt.asComment().toString(), target);
+		} else {
+			throw new IllegalStateException();
+		}
 	}
 
 	void writeCluase(Clause r, Appendable target) {
@@ -242,7 +229,8 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 			IRI iri = iriConstant.getIRI();
 			switch (DReWELManager.getInstance().getNamingStrategy()) {
 			case IntEncoding:
-				write(DReWELManager.getInstance().getIRIEncoder().encode(iri), target);
+				write(DReWELManager.getInstance().getIRIEncoder().encode(iri),
+						target);
 				break;
 			case IRIFragment:
 				String fragment = iri.getFragment();
@@ -315,16 +303,17 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 	}
 
 	@Override
-	public void storeDLProgram(DLProgram program, Appendable target) {
-		//this.target = target;
+	public void store(DLProgram program, Appendable target) {
 		writeDLProgram(program, target);
 	}
 
 	@Override
-	public void storeProgramStatements(Collection<ProgramStatement> statements,
-			Appendable target) {
+	public void store(Collection<ProgramStatement> statements, Appendable target) {
 		writeStatements(statements, target);
 	}
-	
-	
+
+	@Override
+	public void store(ProgramStatement statement, Appendable target) {
+		writeStatement(statement, target);
+	}
 }

@@ -2,7 +2,7 @@
 
 if [ "$DREW_HOME" = "" ]
 then
-  echo "Please set DREW_HOME by `export DREW_HOME=/path/to/drew`"
+  echo "Please set DREW_HOME by \`export DREW_HOME=/path/to/drew\`"
   exit 1
 fi
 

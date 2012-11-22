@@ -135,7 +135,7 @@ public class DReWELCLI extends CommandLine {
 			DLProgramStorer storer = new DLProgramStorerImpl();
 			DReWELManager.getInstance().setNamingStrategy(
 					NamingStrategy.IRIFragment);
-			storer.storeProgramStatements(result, target);
+			storer.store(result, target);
 			FileWriter writer = null;
 			try {
 				datalogFile = "tmp.dlv";
@@ -145,7 +145,7 @@ public class DReWELCLI extends CommandLine {
 			}
 			filter = "in,out";
 
-			storer.storeProgramStatements(result, writer);
+			storer.store(result, writer);
 			writer.close();
 			inputProgram.addFile(datalogFile);
 		} catch (FileNotFoundException e) {
@@ -183,7 +183,7 @@ public class DReWELCLI extends CommandLine {
 
 			DLProgramStorer storer = new DLProgramStorerImpl();
 			StringBuilder target = new StringBuilder();
-			storer.storeDLProgram(datalog, target);
+			storer.store(datalog, target);
 
 			String strDatalog = target.toString();
 			int j = dlpFile.lastIndexOf('/');
@@ -220,7 +220,7 @@ public class DReWELCLI extends CommandLine {
 			writer = new FileWriter(datalogFile);
 
 			StringBuilder target = new StringBuilder();
-			storer.storeDLProgram(datalog, target);
+			storer.store(datalog, target);
 			String strDatalog = target.toString();
 
 			String cq = parseCQ();
@@ -246,7 +246,7 @@ public class DReWELCLI extends CommandLine {
 
 			DLProgramStorer storer = new DLProgramStorerImpl();
 			StringBuilder target = new StringBuilder();
-			storer.storeDLProgram(cqProgram, target);
+			storer.store(cqProgram, target);
 
 			String cq = target.toString();
 			return cq;

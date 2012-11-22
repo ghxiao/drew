@@ -78,7 +78,7 @@ public class AppTest extends TestCase {
 		rewriter.saveToFile("testcase/test01.owl.dl");
 
 		DLProgramStorer storer = new DLProgramStorerImpl();
-		storer.storeDLProgram(datalog, System.out);
+		storer.store(datalog, System.out);
 		System.out.println();
 		
 //		DatalogToStringHelper builder = new DatalogToStringHelper();
@@ -108,7 +108,7 @@ public class AppTest extends TestCase {
 		DLProgram datalog = rewriter.rewrite(ontology);
 
 		DLProgramStorer storer = new DLProgramStorerImpl();
-		storer.storeDLProgram(datalog, System.out);
+		storer.store(datalog, System.out);
 		System.out.println();
 //		DatalogToStringHelper builder = new DatalogToStringHelper();
 //		String strDatalog = builder.toString(datalog);
@@ -136,7 +136,7 @@ public class AppTest extends TestCase {
 		DLProgram datalog = rewriter.rewrite(ontology);
 
 		DLProgramStorer storer = new DLProgramStorerImpl();
-		storer.storeDLProgram(datalog, System.out);
+		storer.store(datalog, System.out);
 		System.out.println();
 		
 //		DatalogToStringHelper builder = new DatalogToStringHelper();
@@ -165,7 +165,7 @@ public class AppTest extends TestCase {
 		DLProgram datalog = rewriter.rewrite(ontology);
 
 		DLProgramStorer storer = new DLProgramStorerImpl();
-		storer.storeDLProgram(datalog, System.out);
+		storer.store(datalog, System.out);
 		System.out.println();
 		
 //		DatalogToStringHelper builder = new DatalogToStringHelper();
@@ -194,7 +194,7 @@ public class AppTest extends TestCase {
 		DLProgram datalog = rewriter.rewrite(ontology);
 
 		DLProgramStorer storer = new DLProgramStorerImpl();
-		storer.storeDLProgram(datalog, System.out);
+		storer.store(datalog, System.out);
 		System.out.println();
 		
 //		DatalogToStringHelper builder = new DatalogToStringHelper();
@@ -242,7 +242,7 @@ public class AppTest extends TestCase {
 		DLProgram datalog = rewriter.rewrite(ontology);
 
 		DLProgramStorer storer = new DLProgramStorerImpl();
-		storer.storeDLProgram(datalog, System.out);
+		storer.store(datalog, System.out);
 		System.out.println();
 		
 //		DatalogToStringHelper builder = new DatalogToStringHelper();
@@ -277,7 +277,7 @@ public class AppTest extends TestCase {
 		DLProgram datalog = compiler.rewrite(kb);
 		// System.out.println(datalog);
 		DLProgramStorer storer = new DLProgramStorerImpl();
-		storer.storeDLProgram(datalog, System.out);
+		storer.store(datalog, System.out);
 		System.out.println();
 //		DatalogToStringHelper builder = new DatalogToStringHelper();
 //		String prologFileName = "testcase/testELProgram.pl";
@@ -302,7 +302,7 @@ public class AppTest extends TestCase {
 		DLProgram datalog = rewriter.rewrite(ontology);
 
 		DLProgramStorer storer = new DLProgramStorerImpl();
-		storer.storeDLProgram(datalog, System.out);
+		storer.store(datalog, System.out);
 		System.out.println();
 		
 //		DatalogToStringHelper builder = new DatalogToStringHelper();
@@ -335,7 +335,7 @@ public class AppTest extends TestCase {
 		DLProgram datalog = rewriter.rewrite(ontology);
 
 		DLProgramStorer storer = new DLProgramStorerImpl();
-		storer.storeDLProgram(datalog, System.out);
+		storer.store(datalog, System.out);
 		System.out.println();
 //		DatalogToStringHelper builder = new DatalogToStringHelper();
 //		builder.saveToFile(datalog, prologFileName);
@@ -367,7 +367,7 @@ public class AppTest extends TestCase {
 		DLProgram datalog = rewriter.rewrite(ontology);
 
 		DLProgramStorer storer = new DLProgramStorerImpl();
-		storer.storeDLProgram(datalog, System.out);
+		storer.store(datalog, System.out);
 		System.out.println();
 		
 //		DatalogToStringHelper builder = new DatalogToStringHelper();

@@ -56,16 +56,20 @@ In the following, we assume the dlv is located at `$HOME/bin/dlv` .
 DL-Program Reasoning
 --------------------
 
-	$ ./drew -el -ontology sample_data/U0.owl -dlp sample_data/lubm_rule2.dlp -filter f -dlv $HOME/bin/dlv
-	f("a", "<http://www.Department0.University0.edu/AssistantProfessor0>")
-	f("<http://www.Department0.University0.edu/AssistantProfessor0/Publication0>", "<http://www.Department0.University0.edu/AssistantProfessor0>")
-	f("<http://www.Department0.University0.edu/AssistantProfessor0/Publication5>", "<http://www.Department0.University0.edu/AssistantProfessor0>")
-	f("<http://www.Department0.University0.edu/AssistantProfessor0/Publication3>", "<http://www.Department0.University0.edu/AssistantProfessor0>")
-	f("<http://www.Department0.University0.edu/AssistantProfessor0/Publication4>", "<http://www.Department0.University0.edu/AssistantProfessor0>")
-	f("<http://www.Department0.University0.edu/AssistantProfessor0/Publication2>", "<http://www.Department0.University0.edu/AssistantProfessor0>")
-	f("<http://www.Department0.University0.edu/AssistantProfessor0/Publication1>", "<http://www.Department0.University0.edu/AssistantProfessor0>")
+
+### Example with network DL-Programs under ASP semantics	
+	./drew -rl -ontology sample_data/network.owl -dlp sample_data/network.dlp -filter connect -dlv $HOME/bin/dlv
+
+	{ connect(x1, <http://www.kr.tuwien.ac.at/staff/xiao/ontology/network.owl#n1>) connect(x2, <http://www.kr.tuwien.ac.at/staff/xiao/ontology/network.owl#n5>) }
+
+	{ connect(x1, <http://www.kr.tuwien.ac.at/staff/xiao/ontology/network.owl#n5>) connect(x2, <http://www.kr.tuwien.ac.at/staff/xiao/ontology/network.owl#n1>) }
+
+	{ connect(x1, <http://www.kr.tuwien.ac.at/staff/xiao/ontology/network.owl#n5>) connect(x2, <http://www.kr.tuwien.ac.at/staff/xiao/ontology/network.owl#n4>) }
+
+	{ connect(x1, <http://www.kr.tuwien.ac.at/staff/xiao/ontology/network.owl#n1>) connect(x2, <http://www.kr.tuwien.ac.at/staff/xiao/ontology/network.owl#n4>) }
 	
-	$ ./drew -rl -ontology sample_data/network.owl -dlp sample_data/network.dlp -filter connect -dlv $HOME/bin/dlv
+
+### Example with network DL-Programs under Well-founded semantics
 	
 	$ ./drew -rl -ontology sample_data/network.owl -dlp sample_data/network.dlp -filter connect -wf -dlv ./dlv-wf
 
@@ -73,17 +77,14 @@ DL-Program Reasoning
 Answering Conjunctive Query
 ---------------------------
 	
-	$ ./drew -ontology sample_data/U0.owl -cq sample_data/lubm_q1.cq -dlv $HOME/bin/dlv
-	ans("<http://www.Department0.University0.edu/GraduateStudent142>")
-	ans("<http://www.Department0.University0.edu/GraduateStudent44>")
-	ans("<http://www.Department0.University0.edu/GraduateStudent124>")
-	ans("<http://www.Department0.University0.edu/GraduateStudent101>")
+	$ ./drew -rl -ontology sample_data/U0.owl -cq sample_data/lubm_q1.cq -dlv $HOME/bin/dlv
+	{ ans(<http://www.Department0.University0.edu/GraduateStudent142>) ans(<http://www.Department0.University0.edu/GraduateStudent44>) ans(<http://www.Department0.University0.edu/GraduateStudent124>) ans(<http://www.Department0.University0.edu/GraduateStudent101>) }
 
 
 Default Reasoning
 -----------------
 
-	$ ./drew -ontology sample_data/bird.owl -default sample_data/bird.df -dlv $HOME/bin/dlv
+	$ ./drew -el -ontology sample_data/bird.owl -default sample_data/bird.df -dlv $HOME/bin/dlv
 	in("Fred", "Flier")
 	out("Tweety", "Flier")
 	
@@ -95,6 +96,8 @@ Build From Source
 	$ cd drew
 	$ ./build.sh
 	
+Then you will find `drew-verson.zip` in the `target` folder. 
+
 Publications
 ============
 

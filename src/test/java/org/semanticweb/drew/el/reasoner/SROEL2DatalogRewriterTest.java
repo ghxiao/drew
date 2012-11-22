@@ -42,7 +42,7 @@ public class SROEL2DatalogRewriterTest {
 		//f.saveToFile(compiledOntology, "benchmark/galen/ontology/el-galen.dl");
 	
 		Appendable target = new FileWriter("benchmark/galen/ontology/el-galen.dl");
-		storer.storeProgramStatements(compiledOntology, target );
+		storer.store(compiledOntology, target );
 		
 		
 	}
