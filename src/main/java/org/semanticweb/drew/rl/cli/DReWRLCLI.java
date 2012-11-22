@@ -1,14 +1,5 @@
 package org.semanticweb.drew.rl.cli;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
-
 import it.unical.mat.dlv.program.Literal;
 import it.unical.mat.wrapper.DLVError;
 import it.unical.mat.wrapper.DLVInputProgram;
@@ -21,21 +12,27 @@ import it.unical.mat.wrapper.ModelHandler;
 import it.unical.mat.wrapper.ModelResult;
 import it.unical.mat.wrapper.Predicate;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.semanticweb.drew.cli.CommandLine;
 import org.semanticweb.drew.dlprogram.format.DLProgramStorer;
 import org.semanticweb.drew.dlprogram.format.DLProgramStorerImpl;
 import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.model.DLProgramKB;
-import org.semanticweb.drew.dlprogram.model.DLProgramKBLoader;
 import org.semanticweb.drew.dlprogram.parser.DLProgramParser;
 import org.semanticweb.drew.dlprogram.parser.ParseException;
 import org.semanticweb.drew.el.reasoner.DReWELManager;
 import org.semanticweb.drew.el.reasoner.NamingStrategy;
 import org.semanticweb.drew.ldlp.profile.LDLPProfile;
-import org.semanticweb.drew.ldlp.reasoner.LDLPQueryResultDecompiler;
 import org.semanticweb.drew.ldlpprogram.reasoner.LDLPProgramQueryResultDecompiler;
 import org.semanticweb.drew.ldlpprogram.reasoner.RLProgramKBCompiler;
-
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;

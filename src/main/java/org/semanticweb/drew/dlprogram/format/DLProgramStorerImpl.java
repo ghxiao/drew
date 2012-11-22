@@ -1,6 +1,5 @@
 package org.semanticweb.drew.dlprogram.format;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Types;
 import java.util.Collection;
@@ -19,8 +18,6 @@ import org.semanticweb.drew.dlprogram.model.Predicate;
 import org.semanticweb.drew.dlprogram.model.ProgramStatement;
 import org.semanticweb.drew.dlprogram.model.Term;
 import org.semanticweb.drew.el.reasoner.DReWELManager;
-import org.semanticweb.drew.el.reasoner.DatalogFormat;
-import org.semanticweb.drew.el.reasoner.PInst;
 import org.semanticweb.owlapi.model.IRI;
 
 public class DLProgramStorerImpl implements DLProgramStorer {

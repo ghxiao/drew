@@ -8,7 +8,7 @@ import org.semanticweb.drew.default_logic.OWLPredicate;
 import org.semanticweb.owlapi.model.OWLLogicalEntity;
 
 /**
- * TODO describe this class please.
+ * DL Atom predicate in form of DL[S1+=p1, ..., Sn+=pn; Q]
  */
 public class DLAtomPredicate implements Predicate {
 

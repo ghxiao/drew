@@ -145,6 +145,7 @@ public class NormalPredicate implements Predicate, Cloneable {
 	 * 
 	 * @return predicate arity
 	 */
+	@Override
 	public int getArity() {
 		return arity;
 	}

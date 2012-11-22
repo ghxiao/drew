@@ -20,7 +20,7 @@ public class DefaultLogicKBReasoner {
 	public List<List<Literal>> computeExtensions() {
 		List<ProgramStatement> rewrittenRules = rewriter.rewriteDefaultLogicKB(kb);
 		
-		
+		// TODO
 		
 		return null;
 		

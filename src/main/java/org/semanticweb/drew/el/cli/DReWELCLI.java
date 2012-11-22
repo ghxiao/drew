@@ -7,10 +7,7 @@ import it.unical.mat.wrapper.DLVInputProgramImpl;
 import it.unical.mat.wrapper.DLVInvocation;
 import it.unical.mat.wrapper.DLVInvocationException;
 import it.unical.mat.wrapper.DLVWrapper;
-import it.unical.mat.wrapper.FactHandler;
-import it.unical.mat.wrapper.FactResult;
 import it.unical.mat.wrapper.Model;
-import it.unical.mat.wrapper.ModelBufferedHandler;
 import it.unical.mat.wrapper.ModelHandler;
 import it.unical.mat.wrapper.ModelResult;
 import it.unical.mat.wrapper.Predicate;
@@ -20,8 +17,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +33,6 @@ import org.semanticweb.drew.dlprogram.parser.DLProgramParser;
 import org.semanticweb.drew.dlprogram.parser.ParseException;
 import org.semanticweb.drew.el.profile.SROELProfile;
 import org.semanticweb.drew.el.reasoner.DReWELManager;
-
 import org.semanticweb.drew.el.reasoner.NamingStrategy;
 import org.semanticweb.drew.el.reasoner.SROEL2DatalogRewriter;
 import org.semanticweb.drew.elprogram.ELProgramKBRewriter;

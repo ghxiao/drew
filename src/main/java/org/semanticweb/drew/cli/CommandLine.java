@@ -4,15 +4,12 @@ import it.unical.mat.wrapper.DLVInputProgram;
 import it.unical.mat.wrapper.DLVInvocationException;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import org.semanticweb.drew.dlprogram.parser.ParseException;
 import org.semanticweb.drew.el.cli.DReWELCLI;
 import org.semanticweb.drew.rl.cli.DReWRLCLI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-
-import com.google.common.base.Joiner;
 
 public abstract class CommandLine {
 

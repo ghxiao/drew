@@ -2,7 +2,6 @@ package org.semanticweb.drew.default_logic.rewriter;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.semanticweb.drew.default_logic.DefaultLogicKB;
@@ -234,7 +233,6 @@ public class DefaultLogicKBRewriter {
 			try {
 				program = parser.program();
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			commonRules = program.getStatements();

@@ -60,6 +60,7 @@ public class Constant implements Term {
 	 * 
 	 * @return name of the term
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}

@@ -21,7 +21,8 @@ import org.semanticweb.drew.ldlp.reasoner.LDLPAxiomCompiler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
+//use official DLVWrapper instead
+@Deprecated
 public class DLVReasoner implements DatalogReasoner {
 
 	final static Logger logger = LoggerFactory.getLogger(LDLPAxiomCompiler.class);

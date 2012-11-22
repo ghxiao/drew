@@ -269,6 +269,7 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 	 *            the other clause
 	 * @return compare result
 	 */
+	@Override
 	public int compareTo(Clause that) {
 		int result;
 

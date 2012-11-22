@@ -15,6 +15,8 @@ import org.semanticweb.drew.dlprogram.model.Literal;
 import org.semanticweb.drew.dlprogram.model.ProgramStatement;
 
 
+// use official DLVWrapper instead
+@Deprecated
 /**
  * Interface for Datalog Reasoner
  */
