@@ -4,20 +4,22 @@ Introduction
 DReW is a reasoner for DL-Programs over Datalog-rewritable Descritption Logics.
 
 
-Install
-=======
+Download and Install
+====================
 
-1. Download DLV from <http://www.dlvsystem.com/dlvsystem/index.php/Home>
-2. Download drew-version.zip and extract it  
+1. Download DLV from <http://www.dlvsystem.com/dlvsystem/index.php/Home> 
+2. Download drew-version.zip from <https://github.com/ghxiao/drew/downloads> and extract it  
 3. Set environment variable `DREW_HOME` by `export DREW_HOME=/path/to/drew`
   
-Command Usage
-=============
+Command Line Usage
+==================
 
 DReW can be used from command line
 
 ```
-Usage: drew [-rl | -el] [ -asp | -wf ] -ontology <ontology_file> {-sparql <sparql_file> | -cq <cq_file> | -dlp <dlp_file> | -default <df_file> } [-filter <filter>] -dlv <dlv_file> [-verbose <verbose_level>] 
+Usage: drew [-rl | -el] [ -asp | -wf ] -ontology <ontology_file> {-sparql <sparql_file> 
+    | -cq <cq_file> | -dlp <dlp_file> | -default <df_file> } 
+    [-filter <filter>] -dlv <dlv_file> [-verbose <verbose_level>] 
   -rl | -el 
     rewriting for OWL 2 RL or OWL 2 EL
   -asp, -wf
@@ -42,18 +44,17 @@ Usage: drew [-rl | -el] [ -asp | -wf ] -ontology <ontology_file> {-sparql <sparq
 Example: drew -el -ontology university.owl -dlp rule.dlp -dlv /usr/bin/dlv 
 ```
 
-A note on `-wf` option
----------------------
+### A note on `-wf` option
 
-Due to a parser bug with the java library DLVWrapper, when using `-wf` option, please use script `dlv-wf` provided for `<dlv_file>` 
+Due to a parser bug with the java library DLVWrapper, when using `-wf` option, please use the script `dlv-wf` provided for `<dlv_file>` .
 
-Example Usage
+Examples
 =============
 
-In the following, we assume the dlv is located at `$HOME/bin/dlv`
+In the following, we assume the dlv is located at `$HOME/bin/dlv` .
 
-DL-Program Reasoner
--------------------
+DL-Program Reasoning
+--------------------
 
 	$ ./drew -el -ontology sample_data/U0.owl -dlp sample_data/lubm_rule2.dlp -filter f -dlv $HOME/bin/dlv
 	f("a", "<http://www.Department0.University0.edu/AssistantProfessor0>")
@@ -79,8 +80,8 @@ Answering Conjunctive Query
 	ans("<http://www.Department0.University0.edu/GraduateStudent101>")
 
 
-Default Reasoner
-----------------
+Default Reasoning
+-----------------
 
 	$ ./drew -ontology sample_data/bird.owl -default sample_data/bird.df -dlv $HOME/bin/dlv
 	in("Fred", "Flier")
@@ -90,6 +91,8 @@ Default Reasoner
 Build From Source
 =================
 
+	$ git clone https://github.com/ghxiao/drew.git
+	$ cd drew
 	$ ./build.sh
 	
 Publications
