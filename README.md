@@ -1,7 +1,7 @@
 Introduction
 ============
 
-DReW is a reasoner for DL-Programs over Datalog-rewritable Descritption Logics.
+`DReW` is a reasoner for DL-Programs over Datalog-rewritable Descritption Logics.
 
 
 Download and Install
