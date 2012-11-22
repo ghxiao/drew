@@ -225,13 +225,6 @@ public class DReWRLCLI extends CommandLine {
 			e.printStackTrace();
 		}
 
-		if (rewriting_only) {
-			// do nothing
-		} else {
-			runDLV(inputProgram);
-			// TODO decode
-
-		}
 	}
 
 	public void runDLV(DLVInputProgram inputProgram) {
