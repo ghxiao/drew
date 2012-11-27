@@ -15,11 +15,12 @@
 		</layout>
 	</appender>
 	<root>
-	<!--
+	
 		<priority value="info"></priority>
 		<appender-ref ref="stdout" />
-		-->
+		<!--  
 		<priority value="info"></priority>
 		<appender-ref ref="file" />
+		-->
 	</root>
 </log4j:configuration>
