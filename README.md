@@ -27,8 +27,7 @@ DReW can be used from command line
 
 ```
 Usage: drew [-rl | -el] [ -asp | -wf ] -ontology <ontology_file> {-sparql <sparql_file> 
-    | -cq <cq_file> | -dlp <dlp_file> | -default <df_file> } 
-    [-filter <filter>] -dlv <dlv_file> [-verbose <verbose_level>] 
+	| -dlp <dlp_file> | -default <df_file> } [-filter <filter>] -dlv <dlv_file> [-verbose <verbose_level>] 
   -rl | -el 
     rewriting for OWL 2 RL or OWL 2 EL
   -asp, -wf
@@ -39,8 +38,6 @@ Usage: drew [-rl | -el] [ -asp | -wf ] -ontology <ontology_file> {-sparql <sparq
     the ontology file to be read 
   <sparql_file>
     the sparql file to be query, which has to be a conjunctive query 
-  <cq_file>
-    the cq file to be query, which has to be a conjunctive query 
   <dlp_file>
     the dl-program file
   <df_file>
@@ -84,7 +81,7 @@ In the following, we assume the dlv executable file is located at `$HOME/bin/dlv
 
 ### Answering Conjunctive Query
 	
-	$ ./drew -rl -ontology sample_data/U0.owl -cq sample_data/lubm_q1.sparql -dlv $HOME/bin/dlv
+	$ ./drew -rl -ontology sample_data/U0.owl -sparql sample_data/lubm_q1.sparql -dlv $HOME/bin/dlv
 	{ ans(<http://www.Department0.University0.edu/GraduateStudent142>) ans(<http://www.Department0.University0.edu/GraduateStudent44>) ans(<http://www.Department0.University0.edu/GraduateStudent124>) ans(<http://www.Department0.University0.edu/GraduateStudent101>) }
 
 
