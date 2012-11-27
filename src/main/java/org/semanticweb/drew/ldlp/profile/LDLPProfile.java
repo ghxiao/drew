@@ -25,7 +25,8 @@ public class LDLPProfile implements OWLProfile {
      * Gets the name of the profile.
      * @return A string that represents the name of the profile
      */
-    public String getName() {
+    @Override
+	public String getName() {
         return "LDL+";
     }
 
@@ -36,7 +37,8 @@ public class LDLPProfile implements OWLProfile {
      * @return An <code>OWLProfileReport</code> that describes whether or not the
      *         ontology is within this profile.
      */
-    public OWLProfileReport checkOntology(OWLOntology ontology) {
+    @Override
+	public OWLProfileReport checkOntology(OWLOntology ontology) {
         //OWL2DLProfile profile = new OWL2DLProfile();
         //OWLProfileReport report = profile.checkOntology(ontology);
         Set<OWLProfileViolation> violations = new HashSet<OWLProfileViolation>();

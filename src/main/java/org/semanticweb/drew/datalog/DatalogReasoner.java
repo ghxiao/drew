@@ -9,7 +9,6 @@ package org.semanticweb.drew.datalog;
 
 import java.util.List;
 
-import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.model.Literal;
 import org.semanticweb.drew.dlprogram.model.ProgramStatement;

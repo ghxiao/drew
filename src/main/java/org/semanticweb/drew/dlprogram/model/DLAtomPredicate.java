@@ -63,8 +63,7 @@ public class DLAtomPredicate implements Predicate {
 
 	@Override
 	public int compareTo(Predicate o) {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -72,6 +71,7 @@ public class DLAtomPredicate implements Predicate {
 		this.arity = arity;
 	}
 
+	@Override
 	public int getArity() {
 		return arity;
 	}

@@ -1,13 +1,8 @@
 package org.semanticweb.drew.el.reasoner;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.semanticweb.drew.dlprogram.model.CacheManager;
 import org.semanticweb.drew.dlprogram.model.NormalPredicate;
-import org.semanticweb.drew.dlprogram.model.Predicate;
-import org.semanticweb.drew.dlprogram.model.PredicateType;
 
 public class RewritingVocabulary {
 	

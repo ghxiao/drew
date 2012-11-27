@@ -2,12 +2,7 @@ package org.semanticweb.drew.el.reasoner;
 
 import org.semanticweb.drew.dlprogram.model.DLInputSignature;
 import org.semanticweb.drew.el.SymbolEncoder;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLDataProperty;
-import org.semanticweb.owlapi.model.OWLIndividual;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 public class DReWELManager {

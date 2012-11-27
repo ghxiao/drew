@@ -8,6 +8,7 @@ import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Deprecated
 public class NamedMatcher implements NamedMatchResult {
 
 	private Matcher matcher;

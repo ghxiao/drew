@@ -23,11 +23,13 @@ import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
 public class LDLPBaseClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
 
-    public Boolean visit(OWLClass desc) {
+    @Override
+	public Boolean visit(OWLClass desc) {
         return !desc.isOWLNothing();
     }
 
-    public Boolean visit(OWLObjectIntersectionOf desc) {
+    @Override
+	public Boolean visit(OWLObjectIntersectionOf desc) {
         for (OWLClassExpression op : desc.getOperands()) {
             if (!(op.accept(this))) {
                 return false;
@@ -36,67 +38,83 @@ public class LDLPBaseClassExpressionChecker implements OWLClassExpressionVisitor
         return true;
     }
 
-    public Boolean visit(OWLObjectUnionOf desc) {
+    @Override
+	public Boolean visit(OWLObjectUnionOf desc) {
     	return false;
     }
 
-    public Boolean visit(OWLObjectComplementOf desc) {
+    @Override
+	public Boolean visit(OWLObjectComplementOf desc) {
         return false;
     }
 
-    public Boolean visit(OWLObjectSomeValuesFrom desc) {
+    @Override
+	public Boolean visit(OWLObjectSomeValuesFrom desc) {
     	return false;
     }
 
-    public Boolean visit(OWLObjectAllValuesFrom desc) {
+    @Override
+	public Boolean visit(OWLObjectAllValuesFrom desc) {
         return false;
     }
 
-    public Boolean visit(OWLObjectHasValue desc) {
+    @Override
+	public Boolean visit(OWLObjectHasValue desc) {
     	return false;
     }
 
-    public Boolean visit(OWLObjectMinCardinality desc) {
+    @Override
+	public Boolean visit(OWLObjectMinCardinality desc) {
     	return false;
     }
 
-    public Boolean visit(OWLObjectExactCardinality desc) {
+    @Override
+	public Boolean visit(OWLObjectExactCardinality desc) {
         return false;
     }
 
-    public Boolean visit(OWLObjectMaxCardinality desc) {
+    @Override
+	public Boolean visit(OWLObjectMaxCardinality desc) {
         return false;
     }
 
-    public Boolean visit(OWLObjectHasSelf desc) {
+    @Override
+	public Boolean visit(OWLObjectHasSelf desc) {
         return false;
     }
 
-    public Boolean visit(OWLObjectOneOf desc) {
+    @Override
+	public Boolean visit(OWLObjectOneOf desc) {
         return true;
     }
 
-    public Boolean visit(OWLDataSomeValuesFrom desc) {
+    @Override
+	public Boolean visit(OWLDataSomeValuesFrom desc) {
         return false;
     }
 
-    public Boolean visit(OWLDataAllValuesFrom desc) {
+    @Override
+	public Boolean visit(OWLDataAllValuesFrom desc) {
         return false;
     }
 
-    public Boolean visit(OWLDataHasValue desc) {
+    @Override
+	public Boolean visit(OWLDataHasValue desc) {
         return true;
     }
 
-    public Boolean visit(OWLDataMinCardinality desc) {
+    @Override
+	public Boolean visit(OWLDataMinCardinality desc) {
         return false;
     }
 
-    public Boolean visit(OWLDataExactCardinality desc) {
+    @Override
+	public Boolean visit(OWLDataExactCardinality desc) {
         return false;
     }
 
-    public Boolean visit(OWLDataMaxCardinality desc) {
+    @Override
+	public Boolean visit(OWLDataMaxCardinality desc) {
         return false;
     }
 }

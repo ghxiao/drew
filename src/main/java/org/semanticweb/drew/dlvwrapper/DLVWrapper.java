@@ -18,6 +18,8 @@ import org.slf4j.LoggerFactory;
 import com.google.code.regex.NamedMatcher;
 import com.google.code.regex.NamedPattern;
 
+// using the offical DLVWrapper instead
+@Deprecated
 public class DLVWrapper {
 	String dlvPath;
 

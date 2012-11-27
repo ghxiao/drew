@@ -63,6 +63,7 @@ public class Functor implements Cloneable, Comparable<Functor> {
 	/**
 	 * Functors are sorted in alphabetic order.
 	 */
+	@Override
 	public int compareTo(Functor that) {
 		return name.compareTo(that.name);
 	}

@@ -31,12 +31,7 @@ import org.semanticweb.drew.el.reasoner.DReWELManager;
 import org.semanticweb.drew.el.reasoner.PInst;
 import org.semanticweb.drew.el.reasoner.RewritingVocabulary;
 import org.semanticweb.drew.el.reasoner.SROEL2DatalogRewriter;
-import org.semanticweb.drew.elprogram.incremental.PInstStar;
 import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLClassExpression;
-import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLogicalEntity;
 import org.semanticweb.owlapi.model.OWLOntology;
 //import org.slf4j.Logger;
@@ -63,6 +58,7 @@ public class ELProgramKBRewriter implements DLProgramKB2DatalogRewriter {
 		iriEncoder = DReWELManager.getInstance().getIRIEncoder();
 	}
 
+	@Override
 	public DLProgram rewrite(DLProgramKB kb) {
 		List<ProgramStatement> result = new ArrayList<ProgramStatement>();
 

@@ -2,7 +2,6 @@ package org.semanticweb.drew.elprogram.incremental;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -25,7 +24,6 @@ import org.semanticweb.drew.el.SymbolEncoder;
 import org.semanticweb.drew.el.reasoner.DReWELManager;
 import org.semanticweb.drew.el.reasoner.RewritingVocabulary;
 import org.semanticweb.drew.el.reasoner.SROEL2DatalogRewriter;
-import org.semanticweb.drew.elprogram.DLAtomPredicatesCompiler;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLLogicalEntity;
 import org.semanticweb.owlapi.model.OWLOntology;

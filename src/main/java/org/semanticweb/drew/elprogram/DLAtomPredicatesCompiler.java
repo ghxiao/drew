@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.lang.model.type.PrimitiveType;
-
 import org.semanticweb.drew.dlprogram.model.CacheManager;
 import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.Constant;
@@ -13,7 +11,6 @@ import org.semanticweb.drew.dlprogram.model.DLAtomPredicate;
 import org.semanticweb.drew.dlprogram.model.DLInputSignature;
 import org.semanticweb.drew.dlprogram.model.Literal;
 import org.semanticweb.drew.dlprogram.model.NormalPredicate;
-import org.semanticweb.drew.dlprogram.model.Term;
 import org.semanticweb.drew.dlprogram.model.Variable;
 import org.semanticweb.drew.el.SymbolEncoder;
 import org.semanticweb.drew.el.reasoner.DReWELManager;

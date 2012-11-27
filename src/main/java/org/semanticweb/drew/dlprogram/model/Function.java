@@ -61,6 +61,7 @@ public class Function implements Term {
 	 * 
 	 * @return name of the term
 	 */
+	@Override
 	public String getName() {
 		return null;
 	}

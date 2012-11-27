@@ -3,8 +3,6 @@ package org.semanticweb.drew.el.reasoner;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.semanticweb.owlapi.model.IRI;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 public class SuperSomeAxiomEncoder {
