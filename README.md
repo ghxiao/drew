@@ -1,3 +1,4 @@
+
 DReW Reasoner
 =============
 
@@ -5,14 +6,18 @@ DReW Reasoner
 Introduction
 ------------
 
-`DReW` is a reasoner for DL-Programs over Datalog-rewritable Descritption Logics.
+- `DReW` is a reasoner for DL-Programs over Datalog-rewritable Description Logics
+	- DL-Programs are a powerful combination of OWL ontology and Datalog (with negation) rules
+	- `DReW` uses [OWL API](http://owlapi.sourceforge.net/) for parsing and managing ontologies
+	- `DReW` uses [DLV](http://www.dlvsystem.com/dlvsystem/index.php/Home) as the backend Datalog Engine
+- `DReW` is open sourced and hosted at <https://github.com/ghxiao/drew>
 
 
 Download and Install
 --------------------
 
 1. Download DLV from <http://www.dlvsystem.com/dlvsystem/index.php/Home> 
-2. Download drew-version.zip from <https://github.com/ghxiao/drew/downloads> and extract it  
+2. Download drew-_version_.zip from <https://github.com/ghxiao/drew/downloads> and extract it  
 3. Set environment variable `DREW_HOME` by `export DREW_HOME=/path/to/drew`
   
 Command Line Usage
@@ -55,7 +60,7 @@ Due to a parser bug with the java library DLVWrapper, when using `-wf` option, p
 Examples
 --------
 
-In the following, we assume the dlv is located at `$HOME/bin/dlv` .
+In the following, we assume the dlv executable file is located at `$HOME/bin/dlv` .
 
 ### DL-Program Reasoning
 
@@ -90,28 +95,28 @@ In the following, we assume the dlv is located at `$HOME/bin/dlv` .
 	out("Tweety", "Flier")
 	
 	
-Building DReW FROM MASTER
+Building DReW from source
 -------------------------
 
 	$ git clone https://github.com/ghxiao/drew.git
 	$ cd drew
 	$ ./build.sh
 	
-Then you will find `drew-verson.zip` in the `target` folder. 
+Then you will find `drew-_verson_.zip` in the `target` folder. 
 
 References
 ----------
 
 [1] T. Eiter, M. Ortiz, M. Simkus, T. Tran, and G. Xiao. Query rewriting for Horn-SHIQ plus rules. In Proc. of _AAAI 2012_. AAAI.
 
-[2] T. Eiter, T. Krennwallner, P. Schneider, and G. Xiao. Uniform Evaluation of Nonmonotonic DL-Programs. In FoIKS'12, pages 1–22. Springer.
+[2] T. Eiter, T. Krennwallner, P. Schneider, and G. Xiao. Uniform Evaluation of Nonmonotonic DL-Programs. In _FoIKS'12_, pages 1–22. Springer.
 
-[3] Guohui Xiao and Thomas Eiter. Inline evaluation of hybrid knowledge bases – PhD description. In Proc. 5th International Conference on Web Reasoning and Rule Systems (RR 2011), volume 6902 of Lecture Notes in Computer Science, pages 300–305. Springer, 2011.
+[3] Guohui Xiao and Thomas Eiter. Inline evaluation of hybrid knowledge bases – PhD description. In _Proc. 5th International Conference on Web Reasoning and Rule Systems (RR 2011)_, pages 300–305. Springer, 2011.
 
-[4] S. Heymans, T. Eiter, and G. Xiao. Tractable reasoning with DL-programs over datalog- rewritable description logics. In Proc. of ECAI 2010. IOS Press.
+[4] S. Heymans, T. Eiter, and G. Xiao. Tractable reasoning with DL-programs over datalog- rewritable description logics. In Proc. of _ECAI 2010_. IOS Press.
 
 [5] G. Xiao, S. Heymans, and T. Eiter. DReW: a reasoner for datalog-rewritable description logics and dl-programs. In _Informal Proc. 1st Int’l Workshop on Business Models, Business Rules and Ontologies (BuRO 2010)_, 2010.
 
 Contact
 -------
-Guohui Xiao <mailto:xiao@kr.tuwien.ac.at>
+Guohui Xiao <mailto:xiao(a)kr.tuwien.ac.at>
