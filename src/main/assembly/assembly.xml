@@ -39,7 +39,14 @@
 		
 		<fileSet>
 			<directory>sample_data</directory>
-			<outputDirectory>sample_data</outputDirectory>			
+			<outputDirectory>sample_data</outputDirectory>		
+			<includes>
+				<include>*.df</include>
+				<include>*.owl</include>
+				<include>*.cq</include>
+				<include>*.dlp</include>
+				<include>*.sparql</include>
+			</includes>	
 		</fileSet>
 		<!-- adds jar package to the root directory of zip package -->
 <!-- 		<fileSet> -->

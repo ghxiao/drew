@@ -94,6 +94,8 @@ public class DReWELCLI extends CommandLine {
 			handleDLProgram(ontology, inputProgram);
 		} else if (defaultFile != null) {
 			handleDefault(ontology, inputProgram);
+		} else if (sparqlFile != null) {
+			handleSparql(ontology, inputProgram);
 		}
 
 		if (rewriting_only) {
@@ -104,8 +106,9 @@ public class DReWELCLI extends CommandLine {
 
 	}
 
-	
-
+	private void handleSparql(OWLOntology ontology, DLVInputProgram inputProgram) {
+		throw new UnsupportedOperationException("not implemented yet! try using `drew -rl`");
+	}
 
 	/**
 	 * @param args
@@ -336,7 +339,7 @@ public class DReWELCLI extends CommandLine {
 		return true;
 
 	}
-	
+
 	public void runDLV(DLVInputProgram inputProgram) {
 		DLVInvocation invocation = DLVWrapper.getInstance().createInvocation(
 				dlvPath);

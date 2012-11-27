@@ -368,7 +368,7 @@ public class DReWRLCLI extends CommandLine {
 
 	@Override
 	public void handleCQ(OWLOntology ontology, DLVInputProgram inputProgram) {
-
+		throw new UnsupportedOperationException("not implemented yet! try using `drew -el`");
 	}
 
 	public void printUsage() {

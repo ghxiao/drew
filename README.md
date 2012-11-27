@@ -84,7 +84,7 @@ In the following, we assume the dlv executable file is located at `$HOME/bin/dlv
 
 ### Answering Conjunctive Query
 	
-	$ ./drew -rl -ontology sample_data/U0.owl -cq sample_data/lubm_q1.cq -dlv $HOME/bin/dlv
+	$ ./drew -rl -ontology sample_data/U0.owl -cq sample_data/lubm_q1.sparql -dlv $HOME/bin/dlv
 	{ ans(<http://www.Department0.University0.edu/GraduateStudent142>) ans(<http://www.Department0.University0.edu/GraduateStudent44>) ans(<http://www.Department0.University0.edu/GraduateStudent124>) ans(<http://www.Department0.University0.edu/GraduateStudent101>) }
 
 
