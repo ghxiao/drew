@@ -193,10 +193,20 @@ public class DReWRLCLI extends CommandLine {
 	private void handleSparql(OWLOntology ontology, DLVInputProgram inputProgram) {
 
 		String queryText = "";
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(sparqlFile));
+
+		int j = sparqlFile.lastIndexOf('/');
+		String dlpTag = sparqlFile;
+		if (j >= 0) {
+			dlpTag = sparqlFile.substring(j + 1);
+		}
+
+		datalogFile = ontologyFile + "-" + dlpTag + "-rl.dlv";
+
+		try (BufferedReader reader = new BufferedReader(new FileReader(
+				sparqlFile)); //
+				FileWriter w = new FileWriter(datalogFile) //
+		) {
 			queryText = CharStreams.toString(reader);
-			reader.close();
 			Query query = QueryFactory.create(queryText, Syntax.syntaxARQ);
 			SparqlCompiler sparqlCompiler = new SparqlCompiler();
 
@@ -205,16 +215,6 @@ public class DReWRLCLI extends CommandLine {
 
 			DLProgramStorer storer = new DLProgramStorerImpl();
 
-			int j = sparqlFile.lastIndexOf('/');
-			String dlpTag = sparqlFile;
-			if (j >= 0) {
-				dlpTag = sparqlFile.substring(j + 1);
-			}
-
-			datalogFile = ontologyFile + "-" + dlpTag + "-rl.dlv";
-			// inputProgram.addFile(datalogFile);
-
-			FileWriter w = new FileWriter(datalogFile);
 			storer.store(datalogClauses, w);
 
 			Clause drewQuery = sparqlCompiler.compileQuery(query);
@@ -223,10 +223,9 @@ public class DReWRLCLI extends CommandLine {
 			storer.store(drewRLQuery, w);
 
 			inputProgram.addFile(datalogFile);
-			
+
 			filter = "ans";
-			
-			w.close();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -234,11 +233,7 @@ public class DReWRLCLI extends CommandLine {
 
 	@Override
 	public void handleDefault(OWLOntology ontology, DLVInputProgram inputProgram) {
-		
-		
-		
-		
-		
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -322,7 +317,7 @@ public class DReWRLCLI extends CommandLine {
 						ModelResult modelResult) {
 					nModels++;
 
-//					System.out.println(nModels);
+					// System.out.println(nModels);
 					System.out.print("{ ");
 					Model model = (Model) modelResult;
 					// ATTENTION !!! this is necessary and stupid, should we
@@ -373,7 +368,8 @@ public class DReWRLCLI extends CommandLine {
 
 	@Override
 	public void handleCQ(OWLOntology ontology, DLVInputProgram inputProgram) {
-		throw new UnsupportedOperationException("not implemented yet! try using `drew -el`");
+		throw new UnsupportedOperationException(
+				"not implemented yet! try using `drew -el`");
 	}
 
 	public void printUsage() {
