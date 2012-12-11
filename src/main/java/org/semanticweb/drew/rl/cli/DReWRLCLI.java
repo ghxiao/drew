@@ -46,6 +46,9 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.profiles.OWLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.CharStreams;
+import com.google.common.io.Files;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.Syntax;
@@ -189,13 +192,10 @@ public class DReWRLCLI extends CommandLine {
 
 	private void handleSparql(OWLOntology ontology, DLVInputProgram inputProgram) {
 
-		String line;
 		String queryText = "";
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(sparqlFile));
-			while ((line = reader.readLine()) != null) {
-				queryText = queryText + line + "\n";
-			}
+			queryText = CharStreams.toString(reader);
 			reader.close();
 			Query query = QueryFactory.create(queryText, Syntax.syntaxARQ);
 			SparqlCompiler sparqlCompiler = new SparqlCompiler();
@@ -234,6 +234,11 @@ public class DReWRLCLI extends CommandLine {
 
 	@Override
 	public void handleDefault(OWLOntology ontology, DLVInputProgram inputProgram) {
+		
+		
+		
+		
+		
 		throw new UnsupportedOperationException();
 	}
 

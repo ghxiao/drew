@@ -324,7 +324,7 @@ public class DReWELCLI extends CommandLine {
 			return false;
 		}
 
-		if (cqFile == null && sparqlFile == null && dlpFile == null
+		if (rewriting_only && cqFile == null && sparqlFile == null && dlpFile == null
 				&& defaultFile == null) {
 			System.err
 					.println("Please specify the cq file, or the sparql file, or dl porgram, or default rules file");
