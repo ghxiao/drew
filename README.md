@@ -9,16 +9,15 @@ Introduction
 
 - `DReW` is a reasoner for DL-Programs over Datalog-rewritable Description Logics
 	- DL-Programs are a powerful combination of OWL ontology and Datalog (with negation) rules
-	- `DReW` uses [OWL API](http://owlapi.sourceforge.net/) for parsing and managing ontologies
-	- `DReW` uses [DLV](http://www.dlvsystem.com/dlvsystem/index.php/Home) as the backend Datalog Engine
 - `DReW` is open sourced and hosted at <https://github.com/ghxiao/drew>
 
 
 Download and Install
 --------------------
 
-1. Download DLV from <http://www.dlvsystem.com/dlvsystem/index.php/Home> 
-2. Download drew-_version_.zip from <https://github.com/ghxiao/drew/downloads> and extract it  
+
+1. Download drew-_version_.zip from <https://github.com/ghxiao/drew/downloads> and extract it  
+2. Download DLV from <http://www.dlvsystem.com/dlvsystem/index.php/Home> 
 3. Set environment variable `DREW_HOME` by `export DREW_HOME=/path/to/drew`
   
 Command Line Usage
@@ -100,10 +99,20 @@ Building DReW from source
 	$ cd drew
 	$ ./build.sh
 	
-Then you will find `drew-_verson_.zip` in the `target` folder. 
+Then you will find `drew-xx.zip` in the `target` folder. 
+
+
+Dependencies
+------------
+
+- [OWL API](http://owlapi.sourceforge.net/) for parsing and managing ontologies
+- [DLV](http://www.dlvsystem.com/dlvsystem/index.php/Home) as the backend Datalog Engine
+- [Jena](http://jena.apache.org/) for SPARQL Parser
+
 
 References
 ----------
+
 
 [1] Guohui Xiao, Thomas Eiter and Stijn Heymans. The DReW System for Nonmonotonic DL-Programs. In: _Proceedings of Joint Conference of the Sixth Chinese Semantic Web Symposium and the First Chinese Web Science Conference (SWWS 2012)_. 
 
