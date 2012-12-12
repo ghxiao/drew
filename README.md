@@ -1,4 +1,5 @@
 
+
 DReW Reasoner
 =============
 
@@ -50,7 +51,7 @@ Usage: drew [-rl | -el] [ -asp | -wf ] -ontology <ontology_file> {-sparql <sparq
 Example: drew -el -ontology university.owl -dlp rule.dlp -dlv /usr/bin/dlv 
 ```
 
-#### A note on `-wf` option
+##### A note on `-wf` option
 
 Due to a parser bug with the java library DLVWrapper, when using `-wf` option, please use the script `dlv-wf` provided for `<dlv_file>` .
 
@@ -104,15 +105,17 @@ Then you will find `drew-_verson_.zip` in the `target` folder.
 References
 ----------
 
-[1] T. Eiter, M. Ortiz, M. Simkus, T. Tran, and G. Xiao. Query rewriting for Horn-SHIQ plus rules. In Proc. of _AAAI 2012_. AAAI.
+[1] Guohui Xiao, Thomas Eiter and Stijn Heymans. The DReW System for Nonmonotonic DL-Programs. In: _Proceedings of Joint Conference of the Sixth Chinese Semantic Web Symposium and the First Chinese Web Science Conference (SWWS 2012)_. 
 
-[2] T. Eiter, T. Krennwallner, P. Schneider, and G. Xiao. Uniform Evaluation of Nonmonotonic DL-Programs. In _FoIKS'12_, pages 1–22. Springer.
+[2] T. Eiter, M. Ortiz, M. Simkus, T. Tran, and G. Xiao. Query rewriting for Horn-SHIQ plus rules. In Proc. of _AAAI 2012_. AAAI.
 
-[3] Guohui Xiao and Thomas Eiter. Inline evaluation of hybrid knowledge bases – PhD description. In _Proc. 5th International Conference on Web Reasoning and Rule Systems (RR 2011)_, pages 300–305. Springer, 2011.
+[3] T. Eiter, T. Krennwallner, P. Schneider, and G. Xiao. Uniform Evaluation of Nonmonotonic DL-Programs. In _FoIKS'12_, pages 1–22. Springer.
 
-[4] S. Heymans, T. Eiter, and G. Xiao. Tractable reasoning with DL-programs over datalog- rewritable description logics. In Proc. of _ECAI 2010_. IOS Press.
+[4] Guohui Xiao and Thomas Eiter. Inline evaluation of hybrid knowledge bases – PhD description. In _Proc. 5th International Conference on Web Reasoning and Rule Systems (RR 2011)_, pages 300–305. Springer, 2011.
 
-[5] G. Xiao, S. Heymans, and T. Eiter. DReW: a reasoner for datalog-rewritable description logics and dl-programs. In _Informal Proc. 1st Int’l Workshop on Business Models, Business Rules and Ontologies (BuRO 2010)_, 2010.
+[5] S. Heymans, T. Eiter, and G. Xiao. Tractable reasoning with DL-programs over datalog- rewritable description logics. In Proc. of _ECAI 2010_. IOS Press.
+
+[6] G. Xiao, S. Heymans, and T. Eiter. DReW: a reasoner for datalog-rewritable description logics and dl-programs. In _Informal Proc. 1st Int’l Workshop on Business Models, Business Rules and Ontologies (BuRO 2010)_, 2010.
 
 Contact
 -------
