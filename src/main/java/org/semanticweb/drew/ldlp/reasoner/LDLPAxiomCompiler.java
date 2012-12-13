@@ -89,11 +89,11 @@ public class LDLPAxiomCompiler extends OWLAxiomVisitorAdapter {
 	}
 
 	public LDLPAxiomCompiler() {
-		this.clauses = new ArrayList<ProgramStatement>();
+		this.clauses = new ArrayList<>();
 	}
 
 	public ProgramStatement compileOWLAxiom(OWLAxiom axiom) {
-		this.clauses = new ArrayList<ProgramStatement>();
+		this.clauses = new ArrayList<>();
 
 		axiom.accept(this);
 
@@ -101,7 +101,7 @@ public class LDLPAxiomCompiler extends OWLAxiomVisitorAdapter {
 	}
 
 	public List<ProgramStatement> compile(OWLAxiom... axioms) {
-		this.clauses = new ArrayList<ProgramStatement>();
+		this.clauses = new ArrayList<>();
 		for (OWLAxiom owlAxiom : axioms) {
 			owlAxiom.accept(this);
 		}
@@ -121,9 +121,8 @@ public class LDLPAxiomCompiler extends OWLAxiomVisitorAdapter {
 		String a = ldlpCompierManager.getConstant(subject);
 		String b = ldlpCompierManager.getConstant(object);
 
-		head[0] = new Literal(predicate, new Term[] {
-				CacheManager.getInstance().getConstant(a),
-				CacheManager.getInstance().getConstant(b) });
+		head[0] = new Literal(predicate, CacheManager.getInstance().getConstant(a),
+                CacheManager.getInstance().getConstant(b));
 		body = new Literal[0];
 		Clause clause = new Clause(head, body);
 		clauses.add(clause);
@@ -139,8 +138,8 @@ public class LDLPAxiomCompiler extends OWLAxiomVisitorAdapter {
 
 		String predicate = ldlpCompierManager.getPredicate(cls);
 		String a = ldlpCompierManager.getConstant(individual);
-		head[0] = new Literal(predicate, new Term[] { CacheManager
-				.getInstance().getConstant(a) });
+		head[0] = new Literal(predicate, CacheManager
+				.getInstance().getConstant(a));
 		body = new Literal[0];
 		Clause clause = new Clause(head, body);
 		clauses.add(clause);
@@ -158,22 +157,22 @@ public class LDLPAxiomCompiler extends OWLAxiomVisitorAdapter {
 			head = new Literal[1];
 			head[0] = new Literal(
 					ldlpCompierManager.getPredicate(superClass),
-					new Term[] { X });
+                    X);
 			body = new Literal[1];
 			body[0] = new Literal(ldlpCompierManager.getPredicate(subClass),
-					new Term[] { X });
+                    X);
 		} else {
 			OWLObjectAllValuesFrom E_only_A = (OWLObjectAllValuesFrom) superClass;
 			final OWLClassExpression A = E_only_A.getFiller();
 			final OWLObjectPropertyExpression E = E_only_A.getProperty();
 			head = new Literal[1];
 			head[0] = new Literal(ldlpCompierManager.getPredicate(A),
-					new Term[] { Y });
+                    Y);
 			body = new Literal[2];
 			body[0] = new Literal(ldlpCompierManager.getPredicate(subClass),
-					new Term[] { X });
+                    X);
 			body[1] = new Literal(ldlpCompierManager.getPredicate(E),
-					new Term[] { X, Y });
+                    X, Y);
 		}
 
 		Clause clause = new Clause(head, body);
@@ -188,10 +187,10 @@ public class LDLPAxiomCompiler extends OWLAxiomVisitorAdapter {
 				.getSuperProperty();
 		Literal[] head = new Literal[1];
 		head[0] = new Literal(ldlpCompierManager.getPredicate(superProperty),
-				new Term[] { X, Y });
+                X, Y);
 		Literal[] body = new Literal[1];
 		body[0] = new Literal(ldlpCompierManager.getPredicate(subProperty),
-				new Term[] { X, Y });
+                X, Y);
 		Clause clause = new Clause(head, body);
 		clauses.add(clause);
 		logger.debug("{}\n\t->\n{}", axiom, clause);
@@ -204,10 +203,10 @@ public class LDLPAxiomCompiler extends OWLAxiomVisitorAdapter {
 
 		Literal[] head = new Literal[1];
 		head[0] = new Literal(ldlpCompierManager.getPredicate(domain),
-				new Term[] { X });
+                X);
 		Literal[] body = new Literal[1];
 		body[0] = new Literal(ldlpCompierManager.getPredicate(property),
-				new Term[] { X, Y });
+                X, Y);
 
 		Clause clause = new Clause(head, body);
 		clauses.add(clause);
@@ -221,10 +220,10 @@ public class LDLPAxiomCompiler extends OWLAxiomVisitorAdapter {
 
 		Literal[] head = new Literal[1];
 		head[0] = new Literal(ldlpCompierManager.getPredicate(range),
-				new Term[] { Y });
+                Y);
 		Literal[] body = new Literal[1];
 		body[0] = new Literal(ldlpCompierManager.getPredicate(property),
-				new Term[] { X, Y });
+                X, Y);
 
 		Clause clause = new Clause(head, body);
 		clauses.add(clause);
@@ -232,7 +231,7 @@ public class LDLPAxiomCompiler extends OWLAxiomVisitorAdapter {
 	}
 
 	public List<ProgramStatement> compile(Set<OWLAxiom> axioms) {
-		this.clauses = new ArrayList<ProgramStatement>();
+		this.clauses = new ArrayList<>();
 		for (OWLAxiom owlAxiom : axioms) {
 			owlAxiom.accept(this);
 		}
@@ -254,9 +253,8 @@ public class LDLPAxiomCompiler extends OWLAxiomVisitorAdapter {
 		String a = ldlpCompierManager.getConstant(subject);
 		String b = ldlpCompierManager.getConstant(object);
 
-		head[0] = new Literal(predicate, new Term[] {
-				CacheManager.getInstance().getConstant(a),
-				CacheManager.getInstance().getConstant(b) });
+		head[0] = new Literal(predicate, CacheManager.getInstance().getConstant(a),
+                CacheManager.getInstance().getConstant(b));
 		body = new Literal[0];
 		Clause clause = new Clause(head, body);
 		clauses.add(clause);

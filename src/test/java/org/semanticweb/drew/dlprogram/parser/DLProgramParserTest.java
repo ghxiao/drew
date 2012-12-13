@@ -25,8 +25,8 @@ public class DLProgramParserTest {
 		String s = "p(X) :- q(X), not r(X), not -s(Y), -f(X,Y). ";
 		DLProgramParser parser = new DLProgramParser(new StringReader(s));
 		DLProgram program = parser.program();
-		System.out.println(program);;
-	}
+		System.out.println(program);
+    }
 
 	
 	

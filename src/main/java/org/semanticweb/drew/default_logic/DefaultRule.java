@@ -25,10 +25,10 @@ public class DefaultRule {
 	}
 
 	public DefaultRule() {
-		this.prerequisite = new ArrayList<Literal>();
-		this.justifications = new ArrayList<List<Literal>>();
-		this.conclusion = new ArrayList<Literal>();
-		this.typing = new ArrayList<Literal>();
+		this.prerequisite = new ArrayList<>();
+		this.justifications = new ArrayList<>();
+		this.conclusion = new ArrayList<>();
+		this.typing = new ArrayList<>();
 	}
 
 	public List<Literal> getPrerequisite() {

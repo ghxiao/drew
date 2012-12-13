@@ -36,11 +36,11 @@ public class DefaultRuleTest {
 		Variable X = CacheManager.getInstance().getVariable("X");
 		Literal bird_X = new Literal(bird, X);
 		Literal flier_X = new Literal(flier, X);
-		List<Literal> pre = new ArrayList<Literal>();
+		List<Literal> pre = new ArrayList<>();
 		pre.add(bird_X);
-		List<Literal> just = new ArrayList<Literal>();
+		List<Literal> just = new ArrayList<>();
 		just.add(flier_X);
-		List<List<Literal>> justs = new ArrayList<List<Literal>>();
+		List<List<Literal>> justs = new ArrayList<>();
 		justs.add(just);
 		List<Literal> conc = just;
 		rule.setPrerequisite(pre);

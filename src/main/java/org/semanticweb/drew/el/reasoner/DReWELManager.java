@@ -36,9 +36,9 @@ public class DReWELManager {
 	}
 
 	private DReWELManager() {
-		this.iriEncoder = new SymbolEncoder<IRI>();
-		this.superSomeAxiomEncoder = new SymbolEncoder<OWLSubClassOfAxiom>();
-		this.dlInputSignatureEncoder = new SymbolEncoder<DLInputSignature>();
+		this.iriEncoder = new SymbolEncoder<>();
+		this.superSomeAxiomEncoder = new SymbolEncoder<>();
+		this.dlInputSignatureEncoder = new SymbolEncoder<>();
 		//this.namingStrategy = NamingStrategy.IntEncoding;
 		this.namingStrategy = NamingStrategy.IRIFragment;
 		this.datalogFormat = DatalogFormat.DLV;

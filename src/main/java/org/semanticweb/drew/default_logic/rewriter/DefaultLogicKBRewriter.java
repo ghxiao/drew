@@ -90,7 +90,7 @@ public class DefaultLogicKBRewriter {
 	 */
 	public List<ProgramStatement> rewriteDefaultLogicKB(OWLOntology ontology,
 			List<DefaultRule> dfs) {
-		List<ProgramStatement> result = new ArrayList<ProgramStatement>();
+		List<ProgramStatement> result = new ArrayList<>();
 
 		SROEL2DatalogRewriter elRewriter = new SROEL2DatalogRewriter();
 
@@ -115,7 +115,7 @@ public class DefaultLogicKBRewriter {
 	}
 
 	public List<Clause> rewrite(List<DefaultRule> dfs) {
-		List<Clause> result = new ArrayList<Clause>();
+		List<Clause> result = new ArrayList<>();
 		for (DefaultRule df : dfs) {
 			result.addAll(rewrite(df));
 		}
@@ -123,7 +123,7 @@ public class DefaultLogicKBRewriter {
 	}
 
 	public List<Clause> rewrite(DefaultRule df) {
-		List<Clause> result = new ArrayList<Clause>();
+		List<Clause> result = new ArrayList<>();
 		// Literal pre = df.getPrerequisite().get(0);
 		Literal conc = df.getConclusion().get(0);
 
@@ -164,7 +164,7 @@ public class DefaultLogicKBRewriter {
 		Literal head = new Literal(im, X, toConstant(df.getConclusion().get(0)
 				.getPredicate().asOWLPredicate()));
 
-		List<Literal> positiveBody = new ArrayList<Literal>();
+		List<Literal> positiveBody = new ArrayList<>();
 
 		for (Literal pre : df.getPrerequisite()) {
 			p = pre.isNegative() ? dl_neg : dl;
@@ -177,7 +177,7 @@ public class DefaultLogicKBRewriter {
 					toConstant(type.getPredicate().asOWLPredicate())));
 		}
 
-		List<Literal> negativeBody = new ArrayList<Literal>();
+		List<Literal> negativeBody = new ArrayList<>();
 
 		for (List<Literal> justs : df.getJustifications()) {
 			Literal just0 = justs.get(0);

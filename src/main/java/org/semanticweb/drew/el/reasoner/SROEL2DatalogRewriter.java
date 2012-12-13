@@ -393,14 +393,14 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements
 	}
 
 	protected void addFact(NormalPredicate predicate, int... params) {
-		List<Term> terms = new ArrayList<Term>();
+		List<Term> terms = new ArrayList<>();
 
 		for (int param : params) {
 			terms.add(CacheManager.getInstance().getConstant(param));
 		}
 
 		datalog.add(new Clause(new Literal[] { new Literal(predicate, terms
-				.toArray(new Term[0])) }, new Literal[] {}));
+                .toArray(new Term[terms.size()])) }, new Literal[] {}));
 	}
 
 	@Override
@@ -519,7 +519,7 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements
 
 	private void addFact(NormalPredicate predicate, IRI... params) {
 
-		List<Term> terms = new ArrayList<Term>();
+		List<Term> terms = new ArrayList<>();
 
 		for (IRI param : params) {
 			terms.add(CacheManager.getInstance().getConstant(param));
@@ -527,7 +527,7 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements
 
 		datalog.add(
 				new Clause(new Literal[] { new Literal(predicate, terms
-						.toArray(new Term[0])) }, new Literal[] {}));
+                        .toArray(new Term[terms.size()])) }, new Literal[] {}));
 	}
 
 	@Override

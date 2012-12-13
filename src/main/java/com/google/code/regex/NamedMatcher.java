@@ -93,7 +93,7 @@ public class NamedMatcher implements NamedMatchResult {
 	}
 
 	public List<String> orderedGroups() {
-		ArrayList<String> groups = new ArrayList<String>();
+		ArrayList<String> groups = new ArrayList<>();
 		for (int i = 1; i <= groupCount(); i++) {
 			groups.add(group(i));
 		}
@@ -105,7 +105,7 @@ public class NamedMatcher implements NamedMatchResult {
 	}
 
 	public Map<String, String> namedGroups() {
-		Map<String, String> result = new LinkedHashMap<String, String>();
+		Map<String, String> result = new LinkedHashMap<>();
 
 		for (int i = 1; i <= groupCount(); i++) {
 			String groupName = parentPattern.groupNames().get(i-1);

@@ -113,7 +113,7 @@ public class DLVWrapper {
 	// TODO: return more models
 	public List<Literal> querySM(String queryStr, String filter)
 			throws DLVInvocationException {
-		List<Literal> result = new ArrayList<Literal>();
+		List<Literal> result = new ArrayList<>();
 
 		// boolean result = false;
 		try {
@@ -205,7 +205,7 @@ public class DLVWrapper {
 	public List<Literal> queryWFS(String queryStr, String filter)
 			throws DLVInvocationException {
 
-		List<Literal> result = new ArrayList<Literal>();
+		List<Literal> result = new ArrayList<>();
 
 		// boolean result = false;
 		try {

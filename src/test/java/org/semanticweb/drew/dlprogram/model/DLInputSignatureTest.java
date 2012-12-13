@@ -34,7 +34,7 @@ public class DLInputSignatureTest {
 		NormalPredicate p2 = CacheManager.getInstance().getPredicate("p2", 1);
 		DLInputOperation S2_uplus_p2 = new DLInputOperation(S2, p2);
 
-		List<DLInputOperation> operations = new ArrayList<DLInputOperation>();
+		List<DLInputOperation> operations = new ArrayList<>();
 		operations.add(S1_uplus_p1);
 		operations.add(S2_uplus_p2);
 		signature.setOperations(operations);

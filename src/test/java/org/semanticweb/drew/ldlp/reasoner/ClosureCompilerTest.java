@@ -107,7 +107,7 @@ public class ClosureCompilerTest {
 	@Test
 	public void testVisitOWLClass() throws OWLOntologyCreationException {
 		final OWLClassAssertionAxiom a_is_A = factory.getOWLClassAssertionAxiom(A, a);
-		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+		Set<OWLAxiom> axioms = new HashSet<>();
 		axioms.add(a_is_A);
 		ontology = manager.createOntology(axioms);
 		final LDLPClosure closure = builder.build(ontology);

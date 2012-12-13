@@ -23,9 +23,9 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 
 	private Literal head = Literal.FALSE;
 
-	List<Literal> positives = new ArrayList<Literal>();
+	List<Literal> positives = new ArrayList<>();
 
-	List<Literal> negatives = new ArrayList<Literal>();
+	List<Literal> negatives = new ArrayList<>();
 
 	public Clause(Literal[] head, Literal[] body) {
 		this(head[0], body);
@@ -103,7 +103,7 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 	 * @return predicates in positive literals
 	 */
 	public Set<Predicate> getPositivePredicates() {
-		Set<Predicate> result = new HashSet<Predicate>();
+		Set<Predicate> result = new HashSet<>();
 
 		for (Literal literal : positives) {
 			result.add(literal.getPredicate());
@@ -118,7 +118,7 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 	 * @return predicates in negative literals
 	 */
 	public Set<Predicate> getNegativePredicates() {
-		Set<Predicate> result = new HashSet<Predicate>();
+		Set<Predicate> result = new HashSet<>();
 
 		for (Literal literal : negatives) {
 			result.add(literal.getPredicate());
@@ -134,7 +134,7 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 	 * @return all body literals
 	 */
 	public Set<Literal> getBody() {
-		Set<Literal> result = new TreeSet<Literal>();
+		Set<Literal> result = new TreeSet<>();
 
 		result.addAll(positives);
 		result.addAll(negatives);
@@ -151,7 +151,7 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 	 * @return all body literals
 	 */
 	public List<Literal> getNormalPositiveBody() {
-		List<Literal> result = new ArrayList<Literal>();
+		List<Literal> result = new ArrayList<>();
 
 		for (Literal literal : positives) {
 			if (literal.getPredicate() instanceof NormalPredicate
@@ -166,7 +166,7 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 	}
 
 	public List<Literal> getNormalNegativeBody() {
-		List<Literal> result = new ArrayList<Literal>();
+		List<Literal> result = new ArrayList<>();
 
 		for (Literal literal : negatives) {
 			if (literal.getPredicate() instanceof NormalPredicate
@@ -187,7 +187,7 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 	 * @return all body literals
 	 */
 	public Set<Literal> getSpecialPositiveBody() {
-		Set<Literal> result = new TreeSet<Literal>();
+		Set<Literal> result = new TreeSet<>();
 
 		for (Literal literal : positives) {
 			if (literal.getPredicate() instanceof NormalPredicate
@@ -233,7 +233,7 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 	 * @return terms appearing in the clause
 	 */
 	public Set<Term> getTerms() {
-		Set<Term> result = new HashSet<Term>();
+		Set<Term> result = new HashSet<>();
 
 		for (Literal literal : positives) {
 			result.addAll(literal.getTerms());
@@ -251,7 +251,7 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 	 * @return terms appearing in the clause
 	 */
 	public Set<Variable> getVariables() {
-		Set<Variable> result = new HashSet<Variable>();
+		Set<Variable> result = new HashSet<>();
 
 		for (Term term : getTerms()) {
 			if (term instanceof Variable) {
@@ -299,7 +299,7 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 	 * @return string form of body
 	 */
 	private String bodyToString() {
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 
 		for (Literal literal : positives) {
 			if (result.length() > 0) {
@@ -344,8 +344,8 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 	public Clause clone() {
 		try {
 			Clause result = (Clause) super.clone();
-			result.positives = new ArrayList<Literal>(positives);
-			result.negatives = new ArrayList<Literal>(negatives);
+			result.positives = new ArrayList<>(positives);
+			result.negatives = new ArrayList<>(negatives);
 			return result;
 		} catch (CloneNotSupportedException e) {
 			throw new AssertionError(); // cannot happen
@@ -373,7 +373,7 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 	}
 
 	public Set<DLInputSignature> getDLInputSignatures() {
-		Set<DLInputSignature> signatures = new HashSet<DLInputSignature>();
+		Set<DLInputSignature> signatures = new HashSet<>();
 		for (Literal lit : this.getDLAtoms()) {
 			if (lit.getPredicate() instanceof DLAtomPredicate) {
 				final DLAtomPredicate predicate = (DLAtomPredicate) (lit
@@ -385,7 +385,7 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 	}
 
 	public Set<Literal> getDLAtoms() {
-		Set<Literal> result = new HashSet<Literal>();
+		Set<Literal> result = new HashSet<>();
 
 		for (Literal literal : positives) {
 			if (!(literal.getPredicate() instanceof NormalPredicate))
@@ -408,7 +408,7 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 	}
 
 	public Set<DLAtomPredicate> getDLAtomPredicates() {
-		Set<DLAtomPredicate> result = new HashSet<DLAtomPredicate>();
+		Set<DLAtomPredicate> result = new HashSet<>();
 
 		for (Literal literal : positives) {
 			if (!(literal.getPredicate() instanceof NormalPredicate))
@@ -431,7 +431,7 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 	}
 
 	public List<Literal> getPositiveDLAtoms() {
-		List<Literal> result = new ArrayList<Literal>();
+		List<Literal> result = new ArrayList<>();
 
 		for (Literal literal : positives) {
 			if (!(literal.getPredicate() instanceof NormalPredicate)) {
@@ -443,7 +443,7 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 	}
 
 	public List<Literal> getNegativeDLAtoms() {
-		List<Literal> result = new ArrayList<Literal>();
+		List<Literal> result = new ArrayList<>();
 
 		for (Literal literal : negatives) {
 			if (!(literal.getPredicate() instanceof NormalPredicate))

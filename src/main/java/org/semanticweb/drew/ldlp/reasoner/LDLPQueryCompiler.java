@@ -72,7 +72,7 @@ public class LDLPQueryCompiler {
 	}
 
 	private List<Term> compileTerms(final List<Term> terms) {
-		List<Term> newHeadTerms = new ArrayList<Term>();
+		List<Term> newHeadTerms = new ArrayList<>();
 		for (Term t : terms) {
 			if (t instanceof Variable) {
 				Variable var = (Variable) t;

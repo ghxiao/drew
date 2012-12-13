@@ -72,7 +72,7 @@ public class LDLPObjectClosureBuilderTest {
 	@Test
 	public void testVisitOWLClassAssertionAxiom1() throws OWLOntologyCreationException {
 		final OWLClassAssertionAxiom a_is_A = factory.getOWLClassAssertionAxiom(A, a);
-		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+		Set<OWLAxiom> axioms = new HashSet<>();
 		axioms.add(a_is_A);
 		ontology = manager.createOntology(axioms);
 		final LDLPClosure closure = builder.build(ontology);
@@ -89,7 +89,7 @@ public class LDLPObjectClosureBuilderTest {
 	public void testVisitOWLClassAssertionAxiom2() throws OWLOntologyCreationException {
 		final OWLObjectIntersectionOf A_and_B_and_C = factory.getOWLObjectIntersectionOf(A, B, C);
 		final OWLClassAssertionAxiom axiom = factory.getOWLClassAssertionAxiom(A_and_B_and_C, a);
-		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+		Set<OWLAxiom> axioms = new HashSet<>();
 		axioms.add(axiom);
 		ontology = manager.createOntology(axioms);
 		final LDLPClosure closure = builder.build(ontology);
@@ -130,7 +130,7 @@ public class LDLPObjectClosureBuilderTest {
 	public void testVisitOWLSubClassOfAxiom() throws OWLOntologyCreationException {
 
 		final OWLAxiom axiom = factory.getOWLSubClassOfAxiom(A, B);
-		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+		Set<OWLAxiom> axioms = new HashSet<>();
 		axioms.add(axiom);
 		ontology = manager.createOntology(axioms);
 		final LDLPClosure closure = builder.build(ontology);
@@ -147,7 +147,7 @@ public class LDLPObjectClosureBuilderTest {
 	@Test
 	public void testVisitOWLSubObjectPropertyOfAxiom() throws OWLOntologyCreationException {
 		final OWLAxiom axiom = factory.getOWLSubObjectPropertyOfAxiom(E, F);
-		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+		Set<OWLAxiom> axioms = new HashSet<>();
 		axioms.add(axiom);
 		ontology = manager.createOntology(axioms);
 		final LDLPClosure closure = builder.build(ontology);
@@ -168,7 +168,7 @@ public class LDLPObjectClosureBuilderTest {
 		final OWLObjectSomeValuesFrom sup = factory.getOWLObjectSomeValuesFrom(E, A);
 
 		final OWLAxiom axiom = factory.getOWLSubClassOfAxiom(sub, sup);
-		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+		Set<OWLAxiom> axioms = new HashSet<>();
 		axioms.add(axiom);
 		ontology = manager.createOntology(axioms);
 		final LDLPClosure closure = builder.build(ontology);

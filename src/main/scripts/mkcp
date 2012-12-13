@@ -2,7 +2,7 @@
 
 DIRROOT="$1"
 
-if [ "$DIRROOT" = "" ]
+if [ "${DIRROOT}" = "" ]
 then
   echo "DREW base dir missing"
   exit 1
@@ -11,16 +11,16 @@ fi
 # remove any trailing /
 DIRROOT=${DIRROOT%/}
 
-LIBDIR="$DIRROOT/lib"
-CLASSDIR="$DIRROOT/bin"
+LIBDIR="${DIRROOT}/lib"
+CLASSDIR="${DIRROOT}/bin"
 
 CP="${CP:-}"
 
-CP="${CP}:$(find "$LIBDIR" -type f -name '*.jar' | tr '\n' ':')"
+CP="${CP}:$(find "${LIBDIR}" -type f -name '*.jar' | tr '\n' ':')"
 
-if [ -e "$CLASSDIR" ]
+if [ -e "${CLASSDIR}" ]
 then
-  CP="${CLASSDIR}$CP"
+  CP="${CLASSDIR}${CP}"
 fi
 
-echo "$CP"
+echo "${CP}"

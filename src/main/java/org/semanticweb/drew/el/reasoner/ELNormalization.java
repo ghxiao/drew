@@ -169,7 +169,7 @@ public class ELNormalization implements OWLAxiomVisitorEx<Object> {
 			if (subClass.getClassExpressionType() == ClassExpressionType.OBJECT_INTERSECTION_OF) {
 				OWLObjectIntersectionOf inter = (OWLObjectIntersectionOf) subClass;
 				Set<OWLClassExpression> operands = inter.getOperands();
-				Set<OWLClassExpression> newOps = new HashSet<OWLClassExpression>();
+				Set<OWLClassExpression> newOps = new HashSet<>();
 				if (operands.size() == 2) {
 					boolean normalized = true;
 					for (OWLClassExpression op : operands) {
@@ -206,7 +206,7 @@ public class ELNormalization implements OWLAxiomVisitorEx<Object> {
 					factory.getOWLSubClassOfAxiom(factory.getOWLObjectIntersectionOf(first, second), freshClass)
 							.accept(this);
 
-					Set<OWLClassExpression> rest = new HashSet<OWLClassExpression>();
+					Set<OWLClassExpression> rest = new HashSet<>();
 					rest.add(freshClass);
 					while (iterator.hasNext()) {
 						rest.add(iterator.next());

@@ -60,7 +60,7 @@ public class ELProgramKBRewriter implements DLProgramKB2DatalogRewriter {
 
 	@Override
 	public DLProgram rewrite(DLProgramKB kb) {
-		List<ProgramStatement> result = new ArrayList<ProgramStatement>();
+		List<ProgramStatement> result = new ArrayList<>();
 
 		final OWLOntology ontology = kb.getOntology();
 		SROEL2DatalogRewriter elCompiler = new SROEL2DatalogRewriter();
@@ -118,7 +118,7 @@ public class ELProgramKBRewriter implements DLProgramKB2DatalogRewriter {
 	 */
 	public List<ProgramStatement> compileProgram(DLProgram program) {
 
-		List<ProgramStatement> result = new ArrayList<ProgramStatement>();
+		List<ProgramStatement> result = new ArrayList<>();
 
 		for (ProgramStatement ps : program.getStatements()) {
 			if (ps instanceof Clause) {
@@ -199,7 +199,7 @@ public class ELProgramKBRewriter implements DLProgramKB2DatalogRewriter {
 	}
 
 	public List<Term> compileTerms(List<Term> terms) {
-		List<Term> newTerms = new ArrayList<Term>();
+		List<Term> newTerms = new ArrayList<>();
 		for (Term term : terms) {
 			newTerms.add(complileTerm(term));
 
@@ -228,7 +228,7 @@ public class ELProgramKBRewriter implements DLProgramKB2DatalogRewriter {
 
 		int sub = dlInputSignatureEncoder.encode(signature);
 
-		List<Clause> clauses = new ArrayList<Clause>();
+		List<Clause> clauses = new ArrayList<>();
 		for (DLInputOperation op : signature.getOperations()) {
 			NormalPredicate inputPredicate = op.getInputPredicate();
 			int arity = inputPredicate.getArity();
@@ -273,7 +273,7 @@ public class ELProgramKBRewriter implements DLProgramKB2DatalogRewriter {
 	List<ProgramStatement> subscript(List<ProgramStatement> pInst,
 			DLInputSignature signature) {
 
-		List<ProgramStatement> newStatements = new ArrayList<ProgramStatement>();
+		List<ProgramStatement> newStatements = new ArrayList<>();
 
 		String sub = String.valueOf(dlInputSignatureEncoder.encode(signature));
 		// getSubscript(signature);

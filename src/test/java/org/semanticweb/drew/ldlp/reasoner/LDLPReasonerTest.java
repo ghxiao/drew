@@ -49,7 +49,7 @@ public class LDLPReasonerTest {
 		final OWLNamedIndividual a = ind("a");
 		final OWLNamedIndividual b = ind("b");
 
-		Set<OWLAxiom> axioms = new HashSet<OWLAxiom>();
+		Set<OWLAxiom> axioms = new HashSet<>();
 		axioms.add(assert$(A, a));
 		axioms.add(assert$(A, b));
 		axioms.add(assert$(B, b));

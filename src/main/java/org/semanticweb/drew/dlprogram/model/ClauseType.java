@@ -10,5 +10,5 @@ package org.semanticweb.drew.dlprogram.model;
  * 
  */
 public enum ClauseType {
-	FACT, RULE, CONSTRAINT;
+	FACT, RULE, CONSTRAINT
 }

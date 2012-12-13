@@ -66,7 +66,7 @@ public class LDLPClosureCompiler implements OWLClassExpressionVisitor, OWLProper
 	private List<Clause> clauses;
 
 	public LDLPClosureCompiler() {
-		this.clauses = new ArrayList<Clause>();
+		this.clauses = new ArrayList<>();
 	}
 
 	public List<Clause> compile(LDLPClosure closure) {
@@ -121,12 +121,12 @@ public class LDLPClosureCompiler implements OWLClassExpressionVisitor, OWLProper
 		final Set<OWLClassExpression> operands = ce.getOperands();
 		int n = operands.size();
 		Literal[] head = new Literal[1];
-		head[0] = new Literal(manager.getPredicate(ce), new Term[] { X });
+		head[0] = new Literal(manager.getPredicate(ce), X);
 		Literal[] body = new Literal[n];
 
 		int i = 0;
 		for (OWLClassExpression operand : operands) {
-			body[i] = new Literal(manager.getPredicate(operand), new Term[] { X });
+			body[i] = new Literal(manager.getPredicate(operand), X);
 			i++;
 		}
 
@@ -153,10 +153,10 @@ public class LDLPClosureCompiler implements OWLClassExpressionVisitor, OWLProper
 		int i = 0;
 		for (OWLClassExpression operand : operands) {
 			Literal[] head = new Literal[1];
-			head[0] = new Literal(manager.getPredicate(ce), new Term[] { X });
+			head[0] = new Literal(manager.getPredicate(ce), X);
 			Literal[] body = new Literal[1];
 
-			body[0] = new Literal(manager.getPredicate(operand), new Term[] { X });
+			body[0] = new Literal(manager.getPredicate(operand), X);
 
 			final Clause clause = new Clause(head, body);
 			clauses.add(clause);
@@ -180,10 +180,10 @@ public class LDLPClosureCompiler implements OWLClassExpressionVisitor, OWLProper
 	@Override
 	public void visit(OWLObjectSomeValuesFrom ce) {
 		Literal[] head = new Literal[1];
-		head[0] = new Literal(manager.getPredicate(ce), new Term[] { X });
+		head[0] = new Literal(manager.getPredicate(ce), X);
 		Literal[] body = new Literal[2];
-		body[0] = new Literal(manager.getPredicate(ce.getProperty()), new Term[] { X, Y });
-		body[1] = new Literal(manager.getPredicate(ce.getFiller()), new Term[] { Y });
+		body[0] = new Literal(manager.getPredicate(ce.getProperty()), X, Y);
+		body[1] = new Literal(manager.getPredicate(ce.getFiller()), Y);
 		final Clause clause = new Clause(head, body);
 		clauses.add(clause);
 		logger.debug("{}\n\t->\n{}", ce, clause);
@@ -217,8 +217,8 @@ public class LDLPClosureCompiler implements OWLClassExpressionVisitor, OWLProper
 		final int n = ce.getCardinality();
 		final OWLClassExpression D = ce.getFiller();
 		Literal[] head = new Literal[1];
-		head[0] = new Literal(manager.getPredicate(ce), new Term[] { X });
-		List<Literal> bodyLiterals = new ArrayList<Literal>();
+		head[0] = new Literal(manager.getPredicate(ce), X);
+		List<Literal> bodyLiterals = new ArrayList<>();
 		Variable[] Ys = new Variable[n];
 		for (int i = 0; i < Ys.length; i++) {
 			Ys[i] = CacheManager.getInstance().getVariable("Y" + (i + 1));
@@ -296,10 +296,10 @@ public class LDLPClosureCompiler implements OWLClassExpressionVisitor, OWLProper
 	@Override
 	public void visit(OWLDataSomeValuesFrom ce) {
 		Literal[] head = new Literal[1];
-		head[0] = new Literal(manager.getPredicate(ce), new Term[] { X });
+		head[0] = new Literal(manager.getPredicate(ce), X);
 		Literal[] body = new Literal[2];
-		body[0] = new Literal(manager.getPredicate(ce.getProperty()), new Term[] { X, Y });
-		body[1] = new Literal(manager.getPredicate(ce.getFiller()), new Term[] { Y });
+		body[0] = new Literal(manager.getPredicate(ce.getProperty()), X, Y);
+		body[1] = new Literal(manager.getPredicate(ce.getFiller()), Y);
 		final Clause clause = new Clause(head, body);
 		clauses.add(clause);
 		logger.debug("{}\n\t->\n{}", ce, clause);
@@ -319,10 +319,10 @@ public class LDLPClosureCompiler implements OWLClassExpressionVisitor, OWLProper
 	@Override
 	public void visit(OWLDataHasValue ce) {
 		Literal[] head = new Literal[1];
-		head[0] = new Literal(manager.getPredicate(ce), new Term[] { X });
+		head[0] = new Literal(manager.getPredicate(ce), X);
 		Literal[] body = new Literal[1];
-		body[0] = new Literal(manager.getPredicate(ce.getProperty()), new Term[] { X,
-				CacheManager.getInstance().getConstant(manager.getConstant(ce.getValue().toString())) });
+		body[0] = new Literal(manager.getPredicate(ce.getProperty()), X,
+                CacheManager.getInstance().getConstant(manager.getConstant(ce.getValue().toString())));
 
 		final Clause clause = new Clause(head, body);
 		clauses.add(clause);

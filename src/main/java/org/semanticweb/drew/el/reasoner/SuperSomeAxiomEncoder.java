@@ -15,8 +15,8 @@ public class SuperSomeAxiomEncoder {
 
 	public SuperSomeAxiomEncoder() {
 		maxEncode = -1;
-		int2axiom = new HashMap<Integer, OWLSubClassOfAxiom>();
-		axiom2int = new HashMap<OWLSubClassOfAxiom, Integer>();
+		int2axiom = new HashMap<>();
+		axiom2int = new HashMap<>();
 	}
 
 	public int encode(OWLSubClassOfAxiom axiom) {

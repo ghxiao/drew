@@ -143,7 +143,7 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 			}
 		} else if (predicate instanceof DLAtomPredicate) {
 
-			write(((DLAtomPredicate) predicate).toString(), target);
+			write(predicate.toString(), target);
 			if (terms.size() > 0) {
 				write("(", target);
 				for (Iterator<Term> iter = terms.iterator(); iter.hasNext();) {

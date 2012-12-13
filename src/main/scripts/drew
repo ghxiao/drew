@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$DREW_HOME" = "" ]
+if [ "${DREW_HOME}" = "" ]
 then
   echo "Please set DREW_HOME by \`export DREW_HOME=/path/to/drew\`"
   exit 1
@@ -8,5 +8,5 @@ fi
 
 CP="$(${DREW_HOME}/mkcp ${DREW_HOME})"
 
-exec java $JVM_ARGS -cp "$CP" -DentityExpansionLimit=128000 org.semanticweb.drew.cli.CommandLine "$@"
+exec java ${JVM_ARGS} -cp "${CP}" -DentityExpansionLimit=128000 org.semanticweb.drew.cli.CommandLine "$@"
 

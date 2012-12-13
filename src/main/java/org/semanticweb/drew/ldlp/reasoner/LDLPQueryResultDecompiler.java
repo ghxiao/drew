@@ -20,7 +20,7 @@ public class LDLPQueryResultDecompiler {
 	.getLogger(LDLPQueryResultDecompiler.class);
 	
 	public List<Literal> decompileLiterals(List<Literal> lits) {
-		List<Literal> newLits = new ArrayList<Literal>();
+		List<Literal> newLits = new ArrayList<>();
 		for(Literal lit:lits){
 			Literal newLit = decompileLiteral(lit);
 			newLits.add(newLit);
@@ -42,7 +42,7 @@ public class LDLPQueryResultDecompiler {
 
 	public	List<Term> decompileTerms(List<Term> terms) {
 
-		List<Term> decompiledTerms = new ArrayList<Term>();
+		List<Term> decompiledTerms = new ArrayList<>();
 		
 		for(Term term: terms){
 			Term decompiledTerm = decompileTerm(term);

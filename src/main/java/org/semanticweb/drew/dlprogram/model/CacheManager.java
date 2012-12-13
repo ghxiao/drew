@@ -14,15 +14,15 @@ import org.semanticweb.owlapi.model.IRI;
 public class CacheManager {
 	private static final CacheManager instance = new CacheManager();
 
-	private Map<String, NormalPredicate> predicates = new HashMap<String, NormalPredicate>();
+	private Map<String, NormalPredicate> predicates = new HashMap<>();
 
-	private Map<String, Variable> vars = new HashMap<String, Variable>();
+	private Map<String, Variable> vars = new HashMap<>();
 
-	private Map<String, Constant> integers = new HashMap<String, Constant>();
+	private Map<String, Constant> integers = new HashMap<>();
 
-	private Map<String, Constant> varchars = new HashMap<String, Constant>();
+	private Map<String, Constant> varchars = new HashMap<>();
 
-	private Map<IRI, IRIConstant> iris = new HashMap<IRI, IRIConstant>();
+	private Map<IRI, IRIConstant> iris = new HashMap<>();
 
 	
 	private CacheManager() {
@@ -74,7 +74,7 @@ public class CacheManager {
 		Constant result;
 		result = iris.get(iri);
 		if (result != null) {
-			return (Constant) result;
+			return result;
 		} else {
 			IRIConstant constant = new IRIConstant(iri);
 			iris.put(iri, constant);
@@ -97,7 +97,7 @@ public class CacheManager {
 		case Types.VARCHAR:
 			result = varchars.get(name);
 			if (result != null) {
-				return (Constant) result;
+				return result;
 			} else {
 				Constant constant = new Constant(name, type);
 				varchars.put(name, constant);
@@ -106,7 +106,7 @@ public class CacheManager {
 		case Types.INTEGER:
 			result = integers.get(name);
 			if (result != null) {
-				return (Constant) result;
+				return result;
 			} else {
 				Constant constant = new Constant(name, type);
 				integers.put(name, constant);

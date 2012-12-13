@@ -18,7 +18,7 @@ import java.util.List;
 public class Function implements Term {
 	private Functor functor;
 
-	private ArrayList<Term> terms = new ArrayList<Term>();
+	private ArrayList<Term> terms = new ArrayList<>();
 
 	/**
 	 * Get the functor.
@@ -110,7 +110,7 @@ public class Function implements Term {
 
 	@Override
 	public String toString() {
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 
 		if (functor.isOperator()) {
 			if (needBracket(terms.get(0))) {
@@ -149,7 +149,7 @@ public class Function implements Term {
 	public Function clone() {
 		try {
 			Function result = (Function) super.clone();
-			result.terms = new ArrayList<Term>(terms);
+			result.terms = new ArrayList<>(terms);
 			return result;
 		} catch (CloneNotSupportedException e) {
 			throw new AssertionError(); // cannot happen

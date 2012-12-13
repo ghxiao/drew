@@ -26,7 +26,7 @@ public class Literal implements Cloneable, Comparable<Literal> {
 
 	private Predicate predicate;
 
-	private List<Term> terms = new ArrayList<Term>();
+	private List<Term> terms = new ArrayList<>();
 
 	/*
 	 * classical negation / "true" negation
@@ -211,7 +211,7 @@ public class Literal implements Cloneable, Comparable<Literal> {
 	public Literal clone() {
 		try {
 			Literal result = (Literal) super.clone();
-			result.terms = new ArrayList<Term>(terms);
+			result.terms = new ArrayList<>(terms);
 			return result;
 		} catch (CloneNotSupportedException e) {
 			throw new AssertionError(); // cannot happen

@@ -49,7 +49,7 @@ public class RLProgramKBCompiler implements DLProgramKB2DatalogRewriter{
 
 	@Override
 	public DLProgram rewrite(DLProgramKB kb) {
-		List<ProgramStatement> result = new ArrayList<ProgramStatement>();
+		List<ProgramStatement> result = new ArrayList<>();
 
 		final OWLOntology ontology = kb.getOntology();
 		LDLPOntologyCompiler ldlpCompiler = new LDLPOntologyCompiler();
@@ -81,7 +81,7 @@ public class RLProgramKBCompiler implements DLProgramKB2DatalogRewriter{
 	 */
 	public List<ProgramStatement> compileProgram(DLProgram program) {
 
-		List<ProgramStatement> result = new ArrayList<ProgramStatement>();
+		List<ProgramStatement> result = new ArrayList<>();
 
 		for (ProgramStatement stmt : program.getStatements()) {
 
@@ -151,7 +151,7 @@ public class RLProgramKBCompiler implements DLProgramKB2DatalogRewriter{
 	}
 
 	public List<Term> compileTerms(List<Term> terms) {
-		List<Term> newTerms = new ArrayList<Term>();
+		List<Term> newTerms = new ArrayList<>();
 		for (Term term : terms) {
 			newTerms.add(complileTerm(term));
 
@@ -175,7 +175,7 @@ public class RLProgramKBCompiler implements DLProgramKB2DatalogRewriter{
 
 	public List<Clause> compileSignature(DLInputSignature signature) {
 		String sub = KBCompilerManager.getInstance().getSubscript(signature);
-		List<Clause> clauses = new ArrayList<Clause>();
+		List<Clause> clauses = new ArrayList<>();
 		for (DLInputOperation op : signature.getOperations()) {
 			String name = LDLPCompilerManager.getInstance().getPredicate(
 					op.getDLPredicate())
@@ -209,7 +209,7 @@ public class RLProgramKBCompiler implements DLProgramKB2DatalogRewriter{
 	List<ProgramStatement> subscript(List<ProgramStatement> stmts,
 			DLInputSignature signature) {
 
-		List<ProgramStatement> newStmts = new ArrayList<ProgramStatement>();
+		List<ProgramStatement> newStmts = new ArrayList<>();
 		String sub = KBCompilerManager.getInstance().getSubscript(signature);
 
 		for (ProgramStatement stmt : stmts) {

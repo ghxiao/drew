@@ -74,7 +74,7 @@ public class OntologyRendererTest {
 		writer.close();
 
 		List<OWLProfileViolation> violations = report.getViolations();
-		Map<AxiomType<?>, Integer> count = new HashMap<AxiomType<?>, Integer>();
+		Map<AxiomType<?>, Integer> count = new HashMap<>();
 
 		for (OWLProfileViolation v : violations) {
 			AxiomType<?> type = v.getAxiom().getAxiomType();

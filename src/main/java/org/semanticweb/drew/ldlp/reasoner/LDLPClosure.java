@@ -36,13 +36,13 @@ public class LDLPClosure {
 	private Set<OWLLiteral> literals;
 
 	public LDLPClosure() {
-		namedClasses = new HashSet<OWLClass>();
-		namedIndividuals = new HashSet<OWLIndividual>();
-		namedProperties = new HashSet<OWLObjectProperty>();
-		namedDataProperties = new HashSet<OWLDataProperty>();
-		literals = new HashSet<OWLLiteral>();
-		complexClassExpressions = new HashSet<OWLClassExpression>();
-		complexPropertyExpressions = new HashSet<OWLObjectPropertyExpression>();
+		namedClasses = new HashSet<>();
+		namedIndividuals = new HashSet<>();
+		namedProperties = new HashSet<>();
+		namedDataProperties = new HashSet<>();
+		literals = new HashSet<>();
+		complexClassExpressions = new HashSet<>();
+		complexPropertyExpressions = new HashSet<>();
 		
 	}
 

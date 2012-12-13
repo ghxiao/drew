@@ -42,10 +42,8 @@ public class DLInputOperation {
 				return false;
 		} else if (!inputPredicate.equals(other.inputPredicate))
 			return false;
-		if (type != other.type)
-			return false;
-		return true;
-	}
+        return type == other.type;
+    }
 
 	// only DL concept or role name allowed
 	OWLLogicalEntity dlPredicate;

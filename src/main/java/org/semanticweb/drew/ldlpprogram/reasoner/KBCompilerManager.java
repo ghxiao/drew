@@ -9,7 +9,7 @@ public class KBCompilerManager {
 
 	final static KBCompilerManager instance = new KBCompilerManager();
 
-	SymbolEncoder<DLInputSignature> signatureEncoder = new SymbolEncoder<DLInputSignature>();
+	SymbolEncoder<DLInputSignature> signatureEncoder = new SymbolEncoder<>();
 
 	public static KBCompilerManager getInstance() {
 		return instance;

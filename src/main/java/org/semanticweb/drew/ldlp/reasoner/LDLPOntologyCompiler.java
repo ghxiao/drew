@@ -71,7 +71,7 @@ public class LDLPOntologyCompiler {
 
 	private void reset() {
 
-		clauses = new ArrayList<ProgramStatement>();
+		clauses = new ArrayList<>();
 	}
 
 }

@@ -31,8 +31,8 @@ public class SparqlCompiler {
 	 */
 	public Clause compileQuery(Query query) {
 
-		List<Literal> body = new ArrayList<Literal>();
-		List<Term> ansVars = new ArrayList<Term>();
+		List<Literal> body = new ArrayList<>();
+		List<Term> ansVars = new ArrayList<>();
 		List<Var> projectVars = query.getProjectVars();
 		for (Var var : projectVars) {
 			ansVars.add(compileTerm(var));
@@ -56,7 +56,7 @@ public class SparqlCompiler {
 					while (patternElts.hasNext()) {
 						TriplePath triplePath = patternElts.next();
 						Triple triple = triplePath.asTriple();
-						final Literal lit = complileTriple(triple);
+						final Literal lit = compileTriple(triple);
 						//System.out.println(triple + " ==> " + lit);
 						body.add(lit);
 					}
@@ -73,7 +73,7 @@ public class SparqlCompiler {
 		return null;
 	}
 
-	private Literal complileTriple(Triple triple) {
+	private Literal compileTriple(Triple triple) {
 
 		if (triple.getPredicate().getURI()
 				.equals(OWLRDFVocabulary.RDF_TYPE.toString())) {

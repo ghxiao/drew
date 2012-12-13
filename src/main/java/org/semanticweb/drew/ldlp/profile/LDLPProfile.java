@@ -41,7 +41,7 @@ public class LDLPProfile implements OWLProfile {
 	public OWLProfileReport checkOntology(OWLOntology ontology) {
         //OWL2DLProfile profile = new OWL2DLProfile();
         //OWLProfileReport report = profile.checkOntology(ontology);
-        Set<OWLProfileViolation> violations = new HashSet<OWLProfileViolation>();
+        Set<OWLProfileViolation> violations = new HashSet<>();
         //violations.addAll(report.getViolations());
 
         OWLOntologyWalker walker = new OWLOntologyWalker(ontology.getImportsClosure());

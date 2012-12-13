@@ -65,7 +65,7 @@ public class NamedPattern {
 	}
 
 	static List<String> extractGroupNames(String namedPattern) {
-		List<String> groupNames = new ArrayList<String>();
+		List<String> groupNames = new ArrayList<>();
 		Matcher matcher = NAMED_GROUP_PATTERN.matcher(namedPattern);
 		while(matcher.find()) {
 			groupNames.add(matcher.group(1));

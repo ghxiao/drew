@@ -59,9 +59,9 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 class LDLPProfileChecker extends OWLOntologyWalkerVisitor {
 
 
-	private Set<IRI> allowedDatatypes = new HashSet<IRI>();
+	private Set<IRI> allowedDatatypes = new HashSet<>();
 
-	private Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();
+	private Set<OWLProfileViolation> profileViolations = new HashSet<>();
 
 	private LDLPSubClassExpressionChecker subClassExpressionChecker = new LDLPSubClassExpressionChecker();
 
@@ -135,7 +135,7 @@ class LDLPProfileChecker extends OWLOntologyWalkerVisitor {
 	}
 
 	public Set<OWLProfileViolation> getProfileViolations() {
-		return new HashSet<OWLProfileViolation>(profileViolations);
+		return new HashSet<>(profileViolations);
 	}
 
 	public Object visit(OWLClassAssertionAxiom axiom) {

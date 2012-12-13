@@ -14,8 +14,8 @@ public class SymbolEncoder<K> {
 
 	public SymbolEncoder() {
 		maxEncode = -1;
-		int2K = new HashMap<Integer, K>();
-		K2int = new HashMap<K, Integer>();
+		int2K = new HashMap<>();
+		K2int = new HashMap<>();
 	}
 
 	public int encode(K K) {

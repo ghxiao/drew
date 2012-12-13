@@ -35,9 +35,9 @@ public class LDLPCompilerManager {
 
 	}
 
-	SymbolEncoder<String> predicates = new SymbolEncoder<String>();
+	SymbolEncoder<String> predicates = new SymbolEncoder<>();
 
-	SymbolEncoder<String> constants = new SymbolEncoder<String>();
+	SymbolEncoder<String> constants = new SymbolEncoder<>();
 
 	final String TOP = "top";
 
@@ -124,8 +124,8 @@ public class LDLPCompilerManager {
 	}
 
 	public void reset() {
-		predicates = new SymbolEncoder<String>();
-		constants = new SymbolEncoder<String>();
+		predicates = new SymbolEncoder<>();
+		constants = new SymbolEncoder<>();
 	}
 
 	public void dump() {

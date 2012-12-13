@@ -29,7 +29,7 @@ public class DLAtomPredicatesCompiler {
 	}
 
 	public List<Clause> compile(Collection<DLAtomPredicate> dlAtomPredicates) {
-		List<Clause> result = new ArrayList<Clause>();
+		List<Clause> result = new ArrayList<>();
 		for (DLAtomPredicate predicate : dlAtomPredicates) {
 			result.add(compile(predicate));
 		}

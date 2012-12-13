@@ -22,7 +22,7 @@ public class DLProgram implements Cloneable {
 
 	}
 
-	private List<ProgramStatement> statements = new ArrayList<ProgramStatement>();
+	private List<ProgramStatement> statements = new ArrayList<>();
 
 	// private List<Clause> clauses = new ArrayList<Clause>();
 
@@ -47,7 +47,7 @@ public class DLProgram implements Cloneable {
 	 */
 	public List<Clause> getClausesAboutPredicate(NormalPredicate predicate,
 			ClauseType type) {
-		List<Clause> result = new ArrayList<Clause>();
+		List<Clause> result = new ArrayList<>();
 
 		for (ProgramStatement stmt : statements) {
 			if(stmt.isClause()){
@@ -88,7 +88,7 @@ public class DLProgram implements Cloneable {
 
 	@Override
 	public String toString() {
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 
 		for (ProgramStatement stmt : statements) {
 			result.append(stmt).append("\n");
@@ -133,7 +133,7 @@ public class DLProgram implements Cloneable {
 	}
 
 	public Set<DLInputSignature> getDLInputSignatures(boolean withEmpty) {
-		Set<DLInputSignature> signatures = new HashSet<DLInputSignature>();
+		Set<DLInputSignature> signatures = new HashSet<>();
 
 		if (withEmpty) {
 			signatures.add(DLInputSignature.EMPTY);
@@ -162,7 +162,7 @@ public class DLProgram implements Cloneable {
 	}
 
 	public Set<DLAtomPredicate> getDLAtomPredicates() {
-		Set<DLAtomPredicate> dlAtoms = new HashSet<DLAtomPredicate>();
+		Set<DLAtomPredicate> dlAtoms = new HashSet<>();
 
 		for (ProgramStatement s : this.getStatements()) {
 			if (s instanceof Clause) {

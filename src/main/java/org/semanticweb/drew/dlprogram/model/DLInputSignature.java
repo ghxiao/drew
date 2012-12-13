@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class DLInputSignature {
 
-	List<DLInputOperation> operations = new ArrayList<DLInputOperation>();
+	List<DLInputOperation> operations = new ArrayList<>();
 
 	public final static DLInputSignature EMPTY = new DLInputSignature();
 

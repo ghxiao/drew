@@ -107,7 +107,7 @@ public class SROELProfile implements OWLProfile {
 	// private OWLOntology ont;
 
 	public SROELProfile() {
-		allowedDatatypes = new HashSet<IRI>();
+		allowedDatatypes = new HashSet<>();
 		allowedDatatypes.add(OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI());
 
 		allowedDatatypes.add(OWLRDFVocabulary.RDF_XML_LITERAL.getIRI());
@@ -141,7 +141,7 @@ public class SROELProfile implements OWLProfile {
 		// this.ont = ontology;
 		OWL2DLProfile profile = new OWL2DLProfile();
 		OWLProfileReport report = profile.checkOntology(ontology);
-		Set<OWLProfileViolation> violations = new HashSet<OWLProfileViolation>();
+		Set<OWLProfileViolation> violations = new HashSet<>();
 		violations.addAll(report.getViolations());
 		OWLOntologyWalker ontologyWalker = new OWLOntologyWalker(
 				ontology.getImportsClosure());
@@ -157,7 +157,7 @@ public class SROELProfile implements OWLProfile {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		OWLOntology out = manager.createOntology();
 		Set<OWLAxiom> inAxioms = in.getAxioms();
-		Set<OWLAxiom> outAxioms = new HashSet<OWLAxiom>(inAxioms);
+		Set<OWLAxiom> outAxioms = new HashSet<>(inAxioms);
 		List<OWLProfileViolation> violations = report.getViolations();
 		for(OWLProfileViolation v:violations){
 			outAxioms.remove(v.getAxiom());
@@ -174,7 +174,7 @@ public class SROELProfile implements OWLProfile {
 
 		private OWLObjectPropertyManager propertyManager;
 
-		private Set<OWLProfileViolation> profileViolations = new HashSet<OWLProfileViolation>();
+		private Set<OWLProfileViolation> profileViolations = new HashSet<>();
 
 		public SROELProfileObjectVisitor(OWLOntologyWalker walker,
 				OWLOntologyManager man) {
@@ -183,7 +183,7 @@ public class SROELProfile implements OWLProfile {
 		}
 
 		public Set<OWLProfileViolation> getProfileViolations() {
-			return new HashSet<OWLProfileViolation>(profileViolations);
+			return new HashSet<>(profileViolations);
 		}
 
 		private OWLObjectPropertyManager getPropertyManager() {

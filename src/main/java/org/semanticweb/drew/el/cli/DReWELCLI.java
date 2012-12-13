@@ -18,6 +18,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.semanticweb.drew.cli.CommandLine;
@@ -267,56 +268,71 @@ public class DReWELCLI extends CommandLine {
 	public boolean parseArgs(String[] args) {
 		int i = 0;
 		while (i < args.length) {
-			if (args[i].equals("-el")) {
-				i += 1;
-				// fine
-			} else if (args[i].equals("-rl")) {
-				throw new IllegalStateException("-rl");
-			} else if (args[i].equals("-ontology")) {
-				ontologyFile = args[i + 1];
-				i += 2;
-			} else if (args[i].equals("-sparql")) {
-				sparqlFile = args[i + 1];
-				i += 2;
-			} else if (args[i].equals("-cq")) {
-				cqFile = args[i + 1];
-				i += 2;
-			} else if (args[i].equals("-dlp")) {
-				dlpFile = args[i + 1];
-				i += 2;
-			} else if (args[i].equals("-sparql")) {
-				sparqlFile = args[i + 1];
-				i += 2;
-			} else if (args[i].equals("-default")) {
-				defaultFile = args[i + 1];
-				i += 2;
-			} else if (args[i].equals("-filter")) {
-				filter = args[i + 1];
-				i += 2;
-			} else if (args[i].equals("-dlv")) {
-				dlvPath = args[i + 1];
-				i += 2;
-			} else if (args[i].equals("-verbose")) {
-				DReWELManager.getInstance().setVerboseLevel(
-						Integer.parseInt(args[i + 1]));
-				i += 2;
-			} else if (args[i].equals("-rewriting")) {
-				rewriting = args[i + 1];
-				i += 2;
-			} else if (args[i].equals("--rewriting-only")) {
-				rewriting_only = true;
-				i += 1;
-			} else if (args[i].equals("-wf")) {
-				semantics = "wf";
-				i += 1;
-			} else if (args[i].equals("-asp")) {
-				semantics = "asp";
-				i += 1;
-			} else {
-				System.err.println("Unknow option " + args[i]);
-				System.err.println();
-				return false;
-			}
+            switch (args[i]) {
+                case "-el":
+                    i += 1;
+                    // fine
+                    break;
+                case "-rl":
+                    throw new IllegalStateException("-rl");
+                case "-ontology":
+                    ontologyFile = args[i + 1];
+                    i += 2;
+                    break;
+                case "-sparql":
+                    sparqlFile = args[i + 1];
+                    i += 2;
+                    break;
+                case "-cq":
+                    cqFile = args[i + 1];
+                    i += 2;
+                    break;
+                case "-dlp":
+                    dlpFile = args[i + 1];
+                    i += 2;
+                    break;
+                case "-sparql":
+                    sparqlFile = args[i + 1];
+                    i += 2;
+                    break;
+                case "-default":
+                    defaultFile = args[i + 1];
+                    i += 2;
+                    break;
+                case "-filter":
+                    filter = args[i + 1];
+                    i += 2;
+                    break;
+                case "-dlv":
+                    dlvPath = args[i + 1];
+                    i += 2;
+                    break;
+                case "-verbose":
+                    DReWELManager.getInstance().setVerboseLevel(
+                            Integer.parseInt(args[i + 1]));
+                    i += 2;
+                    break;
+                case "-rewriting":
+                    rewriting = args[i + 1];
+                    i += 2;
+                    break;
+                case "--rewriting-only":
+                    rewriting_only = true;
+                    i += 1;
+                    break;
+                case "-wf":
+                    semantics = "wf";
+                    i += 1;
+                    break;
+                case "-asp":
+                    semantics = "asp";
+                    i += 1;
+                    break;
+                default:
+                    System.err.println("Unknow option " + args[i]);
+                    System.err.println();
+                    return false;
+            }
 		}
 
 		if (ontologyFile == null) {
@@ -348,7 +364,7 @@ public class DReWELCLI extends CommandLine {
 			invocation.setInputProgram(inputProgram);
 
 			// invocation.setNumberOfModels(1);
-			List<String> filters = new ArrayList<String>();
+			List<String> filters = new ArrayList<>();
 
 			if (cqFile != null) {
 				filters.add("ans");
@@ -356,8 +372,7 @@ public class DReWELCLI extends CommandLine {
 			if (filter != null) {
 				String[] ss = filter.split(",");
 
-				for (String s : ss)
-					filters.add(s);
+                Collections.addAll(filters, ss);
 			}
 
 			if (filters != null && filters.size() > 0)

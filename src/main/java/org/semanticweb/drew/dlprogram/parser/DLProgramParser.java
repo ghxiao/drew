@@ -25,13 +25,13 @@ public class DLProgramParser implements DLProgramParserConstants {
  // final static Logger logger = LoggerFactory.getLogger(DLProgramParser.class);
 
         // namespace abbreviation to the full name
-  Map < String, String > namespaces = new HashMap < String, String > ();
+  Map < String, String > namespaces = new HashMap<>();
 
   // fragments to object properties
-  Map < String, OWLObjectProperty > objectProperties = new HashMap <String, OWLObjectProperty> ();
+  Map < String, OWLObjectProperty > objectProperties = new HashMap<>();
 
   // fragments to classes
-  Map < String, OWLClass> classes = new HashMap < String, OWLClass> ();
+  Map < String, OWLClass> classes = new HashMap<>();
 
   OWLOntology ontology;
 
@@ -698,7 +698,7 @@ public class DLProgramParser implements DLProgramParserConstants {
   }
 
   final public List < Literal > getModel() throws ParseException {
-  List < Literal > literals = new ArrayList < Literal > ();
+  List < Literal > literals = new ArrayList<>();
   Literal literal;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case TRUE:
@@ -793,7 +793,7 @@ public class DLProgramParser implements DLProgramParserConstants {
   }
 
   final public List< Literal > conjunction() throws ParseException {
-        List< Literal > literals = new ArrayList < Literal > ();
+        List< Literal > literals = new ArrayList<>();
         Literal literal;
     literal = defaultLiteral();
           literals.add(literal);
@@ -878,7 +878,7 @@ public class DLProgramParser implements DLProgramParserConstants {
   }
 
   final public List<DefaultRule > defaultRules() throws ParseException {
-  List<DefaultRule > rules = new ArrayList<DefaultRule >();
+  List<DefaultRule > rules = new ArrayList<>();
   DefaultRule rule;
     label_13:
     while (true) {
@@ -1266,7 +1266,7 @@ public class DLProgramParser implements DLProgramParserConstants {
       return (jj_ntk = jj_nt.kind);
   }
 
-  private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
+  private java.util.List<int[]> jj_expentries = new java.util.ArrayList<>();
   private int[] jj_expentry;
   private int jj_kind = -1;
   private int[] jj_lasttokens = new int[100];

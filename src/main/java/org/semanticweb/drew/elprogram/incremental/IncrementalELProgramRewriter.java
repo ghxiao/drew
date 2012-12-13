@@ -46,7 +46,7 @@ public class IncrementalELProgramRewriter implements
 	}
 
 	public List<ProgramStatement> rewriteELProgram(DLProgram program) {
-		List<ProgramStatement> result = new ArrayList<ProgramStatement>();
+		List<ProgramStatement> result = new ArrayList<>();
 
 		final Set<DLInputSignature> dlInputSignatures = program
 				.getDLInputSignatures(true);
@@ -64,7 +64,7 @@ public class IncrementalELProgramRewriter implements
 
 	public List<ProgramStatement> rewriteELProgramKB(DLProgramKB kb) {
 
-		List<ProgramStatement> result = new ArrayList<ProgramStatement>();
+		List<ProgramStatement> result = new ArrayList<>();
 
 		final OWLOntology ontology = kb.getOntology();
 		SROEL2DatalogRewriter ldlpCompiler = new SROEL2DatalogRewriter();
@@ -89,7 +89,7 @@ public class IncrementalELProgramRewriter implements
 	}
 
 	public List<ProgramStatement> compileProgram(DLProgram program) {
-		List<ProgramStatement> result = new ArrayList<ProgramStatement>();
+		List<ProgramStatement> result = new ArrayList<>();
 
 		for (ProgramStatement ps : program.getStatements()) {
 			if (ps instanceof Clause) {
@@ -170,7 +170,7 @@ public class IncrementalELProgramRewriter implements
 	}
 
 	public List<Term> compileTerms(List<Term> terms) {
-		List<Term> newTerms = new ArrayList<Term>();
+		List<Term> newTerms = new ArrayList<>();
 		for (Term term : terms) {
 			newTerms.add(complileTerm(term));
 
@@ -191,7 +191,7 @@ public class IncrementalELProgramRewriter implements
 		// Variable X = CacheManager.getInstance().getVariable("X");
 		// Variable Y = CacheManager.getInstance().getVariable("Y");
 
-		List<Clause> clauses = new ArrayList<Clause>();
+		List<Clause> clauses = new ArrayList<>();
 
 		// signatures.add(DLInputSignature.EMPTY);
 
@@ -217,7 +217,7 @@ public class IncrementalELProgramRewriter implements
 							CacheManager.getInstance().getConstant(
 									signatureEncoder.encode(inputs2))));
 					clauses.add(subsetClause);
-					List<DLInputOperation> delta = new ArrayList<DLInputOperation>(
+					List<DLInputOperation> delta = new ArrayList<>(
 							inputs2.getOperations());
 					delta.removeAll(inputs1.getOperations());
 					for (DLInputOperation input : delta) {
@@ -255,7 +255,7 @@ public class IncrementalELProgramRewriter implements
 	}
 
 	public List<Clause> rewriteDLAtomPredicate(DLAtomPredicate dlAtomPredicate) {
-		List<Clause> clauses = new ArrayList<Clause>();
+		List<Clause> clauses = new ArrayList<>();
 
 		int arity = dlAtomPredicate.getArity();
 		DLInputSignature input = dlAtomPredicate.getInputSignature();

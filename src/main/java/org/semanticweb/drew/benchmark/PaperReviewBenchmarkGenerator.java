@@ -48,11 +48,11 @@ public class PaperReviewBenchmarkGenerator {
 
 	private int nSubmissions = 20;
 
-	private List<OWLIndividual> authors = new ArrayList<OWLIndividual>();
-	private List<OWLIndividual> organizations = new ArrayList<OWLIndividual>();
+	private List<OWLIndividual> authors = new ArrayList<>();
+	private List<OWLIndividual> organizations = new ArrayList<>();
 
-	private List<String> firstnames = new ArrayList<String>();
-	private List<String> lastnames = new ArrayList<String>();
+	private List<String> firstnames = new ArrayList<>();
+	private List<String> lastnames = new ArrayList<>();
 	private OWLClass personClass;
 	private OWLClass keywordClass;
 
@@ -67,9 +67,9 @@ public class PaperReviewBenchmarkGenerator {
 	private OWLClass areaClass;
 	private OWLClass articleInProceedingsClass;
 
-	private List<OWLIndividual> areas = new ArrayList<OWLIndividual>();
+	private List<OWLIndividual> areas = new ArrayList<>();
 
-	private List<OWLIndividual> keywords = new ArrayList<OWLIndividual>();
+	private List<OWLIndividual> keywords = new ArrayList<>();
 
 	private OWLObjectProperty hasMemberProperty;
 
