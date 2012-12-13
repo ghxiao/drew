@@ -11,3 +11,7 @@ tmp.*
 bin
 *.log
 \#*
+
+# intellij IDEA files
+*.iml
+*.idea
