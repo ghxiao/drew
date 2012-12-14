@@ -7,9 +7,9 @@ import org.semanticweb.drew.el.SymbolEncoder;
 
 public class KBCompilerManager {
 
-	final static KBCompilerManager instance = new KBCompilerManager();
+	private final static KBCompilerManager instance = new KBCompilerManager();
 
-	SymbolEncoder<DLInputSignature> signatureEncoder = new SymbolEncoder<>();
+	private SymbolEncoder<DLInputSignature> signatureEncoder = new SymbolEncoder<>();
 
 	public static KBCompilerManager getInstance() {
 		return instance;

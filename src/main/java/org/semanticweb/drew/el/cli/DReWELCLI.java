@@ -46,20 +46,20 @@ import org.semanticweb.owlapi.profiles.OWLProfileReport;
 
 public class DReWELCLI extends CommandLine {
 
-	protected String ontologyFile;
-	protected String sparqlFile;
-	protected String dlvPath;
-	protected String cqFile;
-	protected String dlpFile;
-	protected String filter;
-	protected String datalogFile;
-	protected String rewriting = "default";
-	protected boolean rewriting_only = false;
-	protected String defaultFile;
-	protected String semantics = "asp";
-	protected String[] args;
+	private String ontologyFile;
+	private String sparqlFile;
+	private String dlvPath;
+	private String cqFile;
+	private String dlpFile;
+	private String filter;
+	private String datalogFile;
+	private String rewriting = "default";
+	private boolean rewriting_only = false;
+	private String defaultFile;
+	private String semantics = "asp";
+	private String[] args;
 
-	public DReWELCLI(String[] args) {
+	private DReWELCLI(String[] args) {
 		this.args = args;
 	}
 
@@ -113,8 +113,7 @@ public class DReWELCLI extends CommandLine {
 
 	/**
 	 * @param args
-	 * @throws RecognitionException
-	 * @throws OWLOntologyCreationException
+     * @throws OWLOntologyCreationException
 	 * @throws IOException
 	 * @throws ParseException
 	 * @throws DLVInvocationException
@@ -152,14 +151,10 @@ public class DReWELCLI extends CommandLine {
 			storer.store(result, writer);
 			writer.close();
 			inputProgram.addFile(datalogFile);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
+		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		}
-	}
+    }
 
 	@Override
 	public void handleDLProgram(OWLOntology ontology,
@@ -204,12 +199,10 @@ public class DReWELCLI extends CommandLine {
 			w.close();
 			inputProgram.addFile(datalogFile);
 			// inputProgram.addText(strDatalog);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
+		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		}
-	}
+    }
 
 	@Override
 	public void handleCQ(OWLOntology ontology, DLVInputProgram inputProgram) {
@@ -240,7 +233,7 @@ public class DReWELCLI extends CommandLine {
 		}
 	}
 
-	protected String parseCQ() {
+	String parseCQ() throws FileNotFoundException {
 		try {
 			FileReader reader = new FileReader(cqFile);
 			DLProgramParser dlProgramParser = new DLProgramParser(reader);
@@ -256,11 +249,9 @@ public class DReWELCLI extends CommandLine {
 			return cq;
 		} catch (ParseException e) {
 			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		}
 
-		return null;
+        return null;
 
 	}
 
@@ -277,10 +268,6 @@ public class DReWELCLI extends CommandLine {
                     throw new IllegalStateException("-rl");
                 case "-ontology":
                     ontologyFile = args[i + 1];
-                    i += 2;
-                    break;
-                case "-sparql":
-                    sparqlFile = args[i + 1];
                     i += 2;
                     break;
                 case "-cq":
@@ -329,7 +316,7 @@ public class DReWELCLI extends CommandLine {
                     i += 1;
                     break;
                 default:
-                    System.err.println("Unknow option " + args[i]);
+                    System.err.println("Unknown option " + args[i]);
                     System.err.println();
                     return false;
             }
@@ -356,7 +343,7 @@ public class DReWELCLI extends CommandLine {
 
 	}
 
-	public void runDLV(DLVInputProgram inputProgram) {
+	void runDLV(DLVInputProgram inputProgram) {
 		DLVInvocation invocation = DLVWrapper.getInstance().createInvocation(
 				dlvPath);
 
@@ -415,14 +402,12 @@ public class DReWELCLI extends CommandLine {
 			if (k.size() > 0)
 				System.err.println(k);
 
-		} catch (DLVInvocationException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (DLVInvocationException | IOException e) {
 			e.printStackTrace();
 		}
-	}
+    }
 
-	public void printUsage() {
+	void printUsage() {
 
 		String usage = //
 		"Usage: drew.el.sh -ontology <ontology_file> { -sparql <sparql_file> | -cq <cq_file> | -dlp <dlp_file> | -default <df_file> } "

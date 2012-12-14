@@ -71,13 +71,13 @@ class LDLPProfileChecker extends OWLOntologyWalkerVisitor {
 
 	private LDLPSuperClassExpressionChecker superClassExpressionChecker = new LDLPSuperClassExpressionChecker();
 
-	public boolean isLDLPSuperClassExpression(OWLClassExpression ce) {
+	boolean isLDLPSuperClassExpression(OWLClassExpression ce) {
 		return ce.accept(superClassExpressionChecker);
 	}
 
 	private LDLPEquivalentClassExpressionChecker equivalentClassExpressionChecker = new LDLPEquivalentClassExpressionChecker();
 
-	public boolean isLDLPEquivalentClassExpression(OWLClassExpression ce) {
+	boolean isLDLPEquivalentClassExpression(OWLClassExpression ce) {
 		return ce.accept(equivalentClassExpressionChecker);
 	}
 

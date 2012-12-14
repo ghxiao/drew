@@ -51,15 +51,12 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements
 		OWLEntityVisitor {
 
-	private SymbolEncoder<IRI> iriEncoder;
+    private DLProgram datalog;
 
-	private DLProgram datalog;
-	private SymbolEncoder<OWLSubClassOfAxiom> superSomeAxiomEncoder;
-
-	public SROEL2DatalogRewriter() {
-		this.iriEncoder = DReWELManager.getInstance().getIRIEncoder();
-		this.superSomeAxiomEncoder = DReWELManager.getInstance()
-				.getSuperSomeAxiomEncoder();
+    public SROEL2DatalogRewriter() {
+        SymbolEncoder<IRI> iriEncoder = DReWELManager.getInstance().getIRIEncoder();
+        SymbolEncoder<OWLSubClassOfAxiom> superSomeAxiomEncoder = DReWELManager.getInstance()
+                .getSuperSomeAxiomEncoder();
 	}
 
 	public DLProgram rewrite(OWLOntology ontology) {

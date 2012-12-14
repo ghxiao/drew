@@ -42,10 +42,10 @@ import org.slf4j.LoggerFactory;
  */
 public class RLProgramKBCompiler implements DLProgramKB2DatalogRewriter{
 
-	final static Logger logger = LoggerFactory.getLogger(RLProgramKBCompiler.class);
+	private final static Logger logger = LoggerFactory.getLogger(RLProgramKBCompiler.class);
 
-	Variable X = CacheManager.getInstance().getVariable("X");
-	Variable Y = CacheManager.getInstance().getVariable("Y");
+	private Variable X = CacheManager.getInstance().getVariable("X");
+	private Variable Y = CacheManager.getInstance().getVariable("Y");
 
 	@Override
 	public DLProgram rewrite(DLProgramKB kb) {
@@ -79,7 +79,7 @@ public class RLProgramKBCompiler implements DLProgramKB2DatalogRewriter{
 	 * P -> P^{ord} replace all the DLAtom with a ordinary atom
 	 * 
 	 */
-	public List<ProgramStatement> compileProgram(DLProgram program) {
+    List<ProgramStatement> compileProgram(DLProgram program) {
 
 		List<ProgramStatement> result = new ArrayList<>();
 
@@ -96,7 +96,7 @@ public class RLProgramKBCompiler implements DLProgramKB2DatalogRewriter{
 		return result;
 	}
 
-	public Clause compileClause(Clause clause) {
+	Clause compileClause(Clause clause) {
 		Clause newClause = new Clause();
 		Literal head = clause.getHead();
 		Literal newHead = compileNormalLiteral(head);
@@ -134,7 +134,7 @@ public class RLProgramKBCompiler implements DLProgramKB2DatalogRewriter{
 		return newLit;
 	}
 
-	public Literal compileDLAtom(Literal lit) {
+	Literal compileDLAtom(Literal lit) {
 		DLAtomPredicate p = (DLAtomPredicate) (lit.getPredicate());
 		DLInputSignature inputSigature = p.getInputSignature();
 		OWLLogicalEntity query = p.getQuery();
@@ -150,7 +150,7 @@ public class RLProgramKBCompiler implements DLProgramKB2DatalogRewriter{
 		return newLit;
 	}
 
-	public List<Term> compileTerms(List<Term> terms) {
+	List<Term> compileTerms(List<Term> terms) {
 		List<Term> newTerms = new ArrayList<>();
 		for (Term term : terms) {
 			newTerms.add(complileTerm(term));
@@ -160,7 +160,7 @@ public class RLProgramKBCompiler implements DLProgramKB2DatalogRewriter{
 		return newTerms;
 	}
 
-	public Term complileTerm(Term term) {
+	Term complileTerm(Term term) {
 		if (term instanceof Constant) {
 			Constant constant = (Constant) term;
 			String name = constant.getName();
@@ -173,7 +173,7 @@ public class RLProgramKBCompiler implements DLProgramKB2DatalogRewriter{
 		}
 	}
 
-	public List<Clause> compileSignature(DLInputSignature signature) {
+	List<Clause> compileSignature(DLInputSignature signature) {
 		String sub = KBCompilerManager.getInstance().getSubscript(signature);
 		List<Clause> clauses = new ArrayList<>();
 		for (DLInputOperation op : signature.getOperations()) {

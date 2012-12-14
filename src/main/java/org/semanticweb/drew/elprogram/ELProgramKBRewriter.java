@@ -45,10 +45,10 @@ public class ELProgramKBRewriter implements DLProgramKB2DatalogRewriter {
 	// final static Logger logger =
 	// LoggerFactory.getLogger(ELProgramKBCompiler.class);
 
-	Variable X = CacheManager.getInstance().getVariable("X");
-	Variable Y = CacheManager.getInstance().getVariable("Y");
+	private Variable X = CacheManager.getInstance().getVariable("X");
+	private Variable Y = CacheManager.getInstance().getVariable("Y");
 
-	SymbolEncoder<DLInputSignature> dlInputSignatureEncoder;
+	private SymbolEncoder<DLInputSignature> dlInputSignatureEncoder;
 
 	private SymbolEncoder<IRI> iriEncoder;
 
@@ -116,7 +116,7 @@ public class ELProgramKBRewriter implements DLProgramKB2DatalogRewriter {
 	 * P -> P^{o} replace all the DLAtom with a ordinary atom
 	 * 
 	 */
-	public List<ProgramStatement> compileProgram(DLProgram program) {
+    List<ProgramStatement> compileProgram(DLProgram program) {
 
 		List<ProgramStatement> result = new ArrayList<>();
 
@@ -134,7 +134,7 @@ public class ELProgramKBRewriter implements DLProgramKB2DatalogRewriter {
 		return result;
 	}
 
-	public Clause compileClause(Clause clause) {
+	Clause compileClause(Clause clause) {
 		Clause newClause = new Clause();
 		Literal head = clause.getHead();
 		Literal newHead = compileNormalLiteral(head);
@@ -165,14 +165,14 @@ public class ELProgramKBRewriter implements DLProgramKB2DatalogRewriter {
 		return newClause;
 	}
 
-	public Literal compileNormalLiteral(Literal lit) {
+	Literal compileNormalLiteral(Literal lit) {
 		List<Term> terms = lit.getTerms();
 		List<Term> newTerms = compileTerms(terms);
 		Literal newLit = new Literal(lit.getPredicate(), newTerms);
 		return newLit;
 	}
 
-	public Literal compileDLAtom(Literal lit) {
+	Literal compileDLAtom(Literal lit) {
 		DLAtomPredicate p = (DLAtomPredicate) (lit.getPredicate());
 		DLInputSignature inputSigature = p.getInputSignature();
 		OWLLogicalEntity query = p.getQuery();
@@ -198,7 +198,7 @@ public class ELProgramKBRewriter implements DLProgramKB2DatalogRewriter {
 		return newLit;
 	}
 
-	public List<Term> compileTerms(List<Term> terms) {
+	List<Term> compileTerms(List<Term> terms) {
 		List<Term> newTerms = new ArrayList<>();
 		for (Term term : terms) {
 			newTerms.add(complileTerm(term));
@@ -208,7 +208,7 @@ public class ELProgramKBRewriter implements DLProgramKB2DatalogRewriter {
 		return newTerms;
 	}
 
-	public Term complileTerm(Term term) {
+	Term complileTerm(Term term) {
 		if (term instanceof Constant) {
 			// Constant constant = (Constant) term;
 			// String name = constant.getName();
@@ -223,7 +223,7 @@ public class ELProgramKBRewriter implements DLProgramKB2DatalogRewriter {
 		}
 	}
 
-	public List<Clause> compileSignature(DLInputSignature signature) {
+	List<Clause> compileSignature(DLInputSignature signature) {
 		// String sub = KBCompilerManager.getInstance().getSubscript(signature);
 
 		int sub = dlInputSignatureEncoder.encode(signature);

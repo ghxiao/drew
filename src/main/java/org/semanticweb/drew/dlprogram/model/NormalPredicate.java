@@ -16,15 +16,15 @@ import org.semanticweb.drew.default_logic.OWLPredicate;
  * @author Samuel
  */
 public class NormalPredicate implements Predicate, Cloneable {
-	public static final NormalPredicate GREATER = new NormalPredicate(">", 2, PredicateType.BUILTIN);
+	private static final NormalPredicate GREATER = new NormalPredicate(">", 2, PredicateType.BUILTIN);
 
-	public static final NormalPredicate GREATEREQUAL = new NormalPredicate(">=", 2, PredicateType.BUILTIN);
+	private static final NormalPredicate GREATEREQUAL = new NormalPredicate(">=", 2, PredicateType.BUILTIN);
 
-	public static final NormalPredicate EQUAL = new NormalPredicate("=", 2, PredicateType.BUILTIN);
+	private static final NormalPredicate EQUAL = new NormalPredicate("=", 2, PredicateType.BUILTIN);
 
-	public static final NormalPredicate LESSEQUAL = new NormalPredicate("<=", 2, PredicateType.BUILTIN);
+	private static final NormalPredicate LESSEQUAL = new NormalPredicate("<=", 2, PredicateType.BUILTIN);
 
-	public static final NormalPredicate LESS = new NormalPredicate("<", 2, PredicateType.BUILTIN);
+	private static final NormalPredicate LESS = new NormalPredicate("<", 2, PredicateType.BUILTIN);
 
 	public static final NormalPredicate NOTEQUAL = new NormalPredicate("!=", 2, PredicateType.BUILTIN);
 
@@ -32,7 +32,7 @@ public class NormalPredicate implements Predicate, Cloneable {
 
 	public static final NormalPredicate FALSE = new NormalPredicate("false", 0, PredicateType.LOGIC);
 
-	public static final NormalPredicate FAIL = new NormalPredicate("fail", 0, PredicateType.LOGIC);
+	private static final NormalPredicate FAIL = new NormalPredicate("fail", 0, PredicateType.LOGIC);
 
 	static final NormalPredicate[] builtins = { GREATER, GREATEREQUAL, EQUAL, LESSEQUAL, LESS, NOTEQUAL, FAIL };
 
@@ -72,13 +72,13 @@ public class NormalPredicate implements Predicate, Cloneable {
 
 	String name;
 
-	int arity;
+	private int arity;
 
 	PredicateType type;
 
-	String string;
+	private String string;
 
-	int hash;
+	private int hash;
 
 	/**
 	 * Constructor for build-in predicate. It is privately used by the global
@@ -185,7 +185,7 @@ public class NormalPredicate implements Predicate, Cloneable {
 	@Override
 	public Object clone() {
 		try {
-			return (NormalPredicate) super.clone();
+			return super.clone();
 		} catch (CloneNotSupportedException e) {
 			throw new AssertionError(); // cannot happen
 		}

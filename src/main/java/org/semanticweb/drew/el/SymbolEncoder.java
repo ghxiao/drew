@@ -10,7 +10,7 @@ public class SymbolEncoder<K> {
 
 	private Map<K, Integer> K2int;
 
-	int maxEncode;
+	private int maxEncode;
 
 	public SymbolEncoder() {
 		maxEncode = -1;

@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
  */
 public class LDLPClosure {
 
-	final static Logger logger = LoggerFactory.getLogger(LDLPClosure.class);
+	private final static Logger logger = LoggerFactory.getLogger(LDLPClosure.class);
 
 	private Set<OWLIndividual> namedIndividuals;
 	private Set<OWLClass> namedClasses;

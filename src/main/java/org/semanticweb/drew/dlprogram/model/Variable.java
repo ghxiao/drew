@@ -11,9 +11,9 @@ package org.semanticweb.drew.dlprogram.model;
  * 
  */
 public class Variable implements Term {
-	String name;
+	private String name;
 
-	int hash;
+	private int hash;
 
 	/**
 	 * Constructor that is only visible inside the package. Customer should use {@link CacheManager} to create process unique

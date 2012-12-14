@@ -27,7 +27,7 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 	/*
 	 * In dlvhex format, prefix is not allowed
 	 */
-	boolean usingDlvhexFormat;
+    private boolean usingDlvhexFormat;
 
 	public boolean isUsingDlvhexFormat() {
 		return usingDlvhexFormat;
@@ -47,8 +47,8 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 		writeStatements(stmts, target);
 	}
 
-	public void writeStatements(Collection<ProgramStatement> statements,
-			Appendable target) {
+	void writeStatements(Collection<ProgramStatement> statements,
+                         Appendable target) {
 		// target = new StringBuilder();
 
 		for (ProgramStatement r : statements) {

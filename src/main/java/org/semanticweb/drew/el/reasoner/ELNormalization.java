@@ -60,13 +60,13 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-public class ELNormalization implements OWLAxiomVisitorEx<Object> {
+class ELNormalization implements OWLAxiomVisitorEx<Object> {
 
-	OWLOntology normalizedOnt;
+	private OWLOntology normalizedOnt;
 
-	int freshClassCounter = 0;
+	private int freshClassCounter = 0;
 
-	OWLOntologyManager manager;
+	private OWLOntologyManager manager;
 
 	private OWLDataFactory factory;
 

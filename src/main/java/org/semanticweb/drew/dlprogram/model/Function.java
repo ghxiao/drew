@@ -25,7 +25,7 @@ public class Function implements Term {
 	 * 
 	 * @return the functor of the function
 	 */
-	public Functor getFunctor() {
+    Functor getFunctor() {
 		return functor;
 	}
 

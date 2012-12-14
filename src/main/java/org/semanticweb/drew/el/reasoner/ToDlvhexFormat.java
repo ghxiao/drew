@@ -26,7 +26,7 @@ public class ToDlvhexFormat {
 		t.toDlvhex("benchmark/galen/rules/q1.elp");
 	}
 	
-	public void toDlvhex(String dlpFile){
+	void toDlvhex(String dlpFile){
 		String dlvhex = dlpFile.replaceAll("elp", "dlvhex");
 		DLProgramStorerImpl helper = new DLProgramStorerImpl();
 		try {
@@ -36,10 +36,6 @@ public class ToDlvhexFormat {
 			helper.setUsingDlvhexFormat(true);
 			helper.store(program, new FileWriter(dlvhex));
 			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -39,22 +39,22 @@ import org.slf4j.LoggerFactory;
 
 import com.hp.hpl.jena.query.Query;
 
-public class LDLPReasoner extends OWLReasonerAdapter {
-	final static Logger logger = LoggerFactory
+class LDLPReasoner extends OWLReasonerAdapter {
+	private final static Logger logger = LoggerFactory
 			.getLogger(LDLPClosureCompiler.class);
 
-	List<ProgramStatement> program;
+	private List<ProgramStatement> program;
 
-	boolean compiled;
+	private boolean compiled;
 
-	LDLPOntologyCompiler ontologyCompiler;
+	private LDLPOntologyCompiler ontologyCompiler;
 
-	LDLPAxiomCompiler axiomCompiler = new LDLPAxiomCompiler();
+	private LDLPAxiomCompiler axiomCompiler = new LDLPAxiomCompiler();
 
-	DatalogReasoner datalogReasoner;
+	private DatalogReasoner datalogReasoner;
 
-	protected LDLPReasoner(OWLOntology rootOntology,
-			OWLReasonerConfiguration configuration, BufferingMode bufferingMode) {
+	private LDLPReasoner(OWLOntology rootOntology,
+                         OWLReasonerConfiguration configuration, BufferingMode bufferingMode) {
 		super(rootOntology, configuration, bufferingMode);
 		ontologyCompiler = new LDLPOntologyCompiler();
 		// datalogReasoner = new XSBDatalogReasoner();
@@ -64,7 +64,7 @@ public class LDLPReasoner extends OWLReasonerAdapter {
 		this(rootOntology, TYPE.DLV);
 	}
 
-	public LDLPReasoner(OWLOntology rootOntology, DatalogReasoner.TYPE type) {
+	private LDLPReasoner(OWLOntology rootOntology, DatalogReasoner.TYPE type) {
 
 		this(rootOntology, new SimpleConfiguration(), null);
 		//if (type == TYPE.DLV) {

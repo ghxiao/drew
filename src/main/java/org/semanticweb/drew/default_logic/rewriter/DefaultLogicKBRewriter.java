@@ -30,27 +30,27 @@ public class DefaultLogicKBRewriter {
 	static final String POSTFIX_IN = "_in";
 	static final String POSTFIX_OUT = "_out";
 
-	List<ProgramStatement> commonRules;
+	private List<ProgramStatement> commonRules;
 
 	NormalPredicate in = CacheManager.getInstance().getPredicate("in", 2);
 	NormalPredicate out = CacheManager.getInstance().getPredicate("out", 2);
-	NormalPredicate im = CacheManager.getInstance().getPredicate("im", 2);
-	NormalPredicate dl = CacheManager.getInstance().getPredicate("dl", 3);
-	NormalPredicate isa = CacheManager.getInstance().getPredicate("isa", 2);
-	NormalPredicate dl_neg = CacheManager.getInstance().getPredicate("dl_neg",
+	private NormalPredicate im = CacheManager.getInstance().getPredicate("im", 2);
+	private NormalPredicate dl = CacheManager.getInstance().getPredicate("dl", 3);
+	private NormalPredicate isa = CacheManager.getInstance().getPredicate("isa", 2);
+	private NormalPredicate dl_neg = CacheManager.getInstance().getPredicate("dl_neg",
 			3);
-	NormalPredicate concl = CacheManager.getInstance().getPredicate("concl", 1);
-	NormalPredicate just = CacheManager.getInstance().getPredicate("just", 1);
-	NormalPredicate typing = CacheManager.getInstance().getPredicate("typing",
+	private NormalPredicate concl = CacheManager.getInstance().getPredicate("concl", 1);
+	private NormalPredicate just = CacheManager.getInstance().getPredicate("just", 1);
+	private NormalPredicate typing = CacheManager.getInstance().getPredicate("typing",
 			1);
 
-	Variable X = CacheManager.getInstance().getVariable("X");
+	private Variable X = CacheManager.getInstance().getVariable("X");
 	Variable Y = CacheManager.getInstance().getVariable("Y");
 
-	Constant c_in = CacheManager.getInstance().getConstant("in");
-	Constant c_im = CacheManager.getInstance().getConstant("im");
+	private Constant c_in = CacheManager.getInstance().getConstant("in");
+	private Constant c_im = CacheManager.getInstance().getConstant("im");
 
-	ShortFormProvider sfp;
+	private ShortFormProvider sfp;
 
 	// FIXME: in general, for a default ([a : b_1, ..., b_m] / [c] ),
 	// every pre/just_i, concl can be a conjunction of literals. For simplicity,
@@ -58,18 +58,18 @@ public class DefaultLogicKBRewriter {
 
 	// im(X, c) :- dl(X, a, in), not dl_neg(X, b_1, in), ..., not dl_neg(X, b_m,
 	// in).
-	boolean hasTyping = false;
+    private boolean hasTyping = false;
 
 	public DefaultLogicKBRewriter() {
 		sfp = new SimpleShortFormProvider();
 	}
 
-	public Constant toConstant(OWLPredicate p) {
+	Constant toConstant(OWLPredicate p) {
 		return CacheManager.getInstance().getConstant(
 				unquote(sfp.getShortForm(p.getLogicalEntity())));
 	}
 	
-	public String unquote(String s){
+	String unquote(String s){
 		int len = s.length();
 		if(s.charAt(0)=='<' && s.charAt(len-1)=='>'){
 			return s.substring(1, len-1);
@@ -114,7 +114,7 @@ public class DefaultLogicKBRewriter {
 		return rewriteDefaultLogicKB(kb.getOntology(), kb.getDfRules());
 	}
 
-	public List<Clause> rewrite(List<DefaultRule> dfs) {
+	List<Clause> rewrite(List<DefaultRule> dfs) {
 		List<Clause> result = new ArrayList<>();
 		for (DefaultRule df : dfs) {
 			result.addAll(rewrite(df));
@@ -122,7 +122,7 @@ public class DefaultLogicKBRewriter {
 		return result;
 	}
 
-	public List<Clause> rewrite(DefaultRule df) {
+	List<Clause> rewrite(DefaultRule df) {
 		List<Clause> result = new ArrayList<>();
 		// Literal pre = df.getPrerequisite().get(0);
 		Literal conc = df.getConclusion().get(0);

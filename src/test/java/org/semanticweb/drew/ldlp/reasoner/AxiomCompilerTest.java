@@ -28,15 +28,12 @@ public class AxiomCompilerTest {
 
 	private List<ProgramStatement> clauses;
 	private LDLPAxiomCompiler axiomCompiler;
-	private OWLOntologyManager manager;
-	private OWLDataFactory factory;
+    private OWLDataFactory factory;
 	private OWLIndividual a;
 	private OWLIndividual b;
-	private OWLIndividual c;
-	private OWLClass A;
+    private OWLClass A;
 	private OWLClass B;
-	private OWLClass C;
-	private OWLObjectProperty E;
+    private OWLObjectProperty E;
 	private OWLObjectProperty F;
 
 	@Before
@@ -46,14 +43,14 @@ public class AxiomCompilerTest {
 		LDLPCompilerManager.getInstance().reset();
 		axiomCompiler = new LDLPAxiomCompiler();
 
-		manager = OWLManager.createOWLOntologyManager();
+        OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		factory = manager.getOWLDataFactory();
 		A = factory.getOWLClass(IRI.create("A"));
 		B = factory.getOWLClass(IRI.create("B"));
-		C = factory.getOWLClass(IRI.create("C"));
+        OWLClass c1 = factory.getOWLClass(IRI.create("C"));
 		a = factory.getOWLNamedIndividual(IRI.create("a"));
 		b = factory.getOWLNamedIndividual(IRI.create("b"));
-		c = factory.getOWLNamedIndividual(IRI.create("c"));
+        OWLIndividual c = factory.getOWLNamedIndividual(IRI.create("c"));
 		E = factory.getOWLObjectProperty(IRI.create("E"));
 		F = factory.getOWLObjectProperty(IRI.create("F"));
 	}

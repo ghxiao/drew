@@ -74,13 +74,13 @@ import org.slf4j.LoggerFactory;
 
 public class LDLPAxiomCompiler extends OWLAxiomVisitorAdapter {
 
-	LDLPCompilerManager ldlpCompierManager = LDLPCompilerManager
+	private LDLPCompilerManager ldlpCompierManager = LDLPCompilerManager
 			.getInstance();
-	final static Logger logger = LoggerFactory
+	private final static Logger logger = LoggerFactory
 			.getLogger(LDLPAxiomCompiler.class);
-	Variable X = CacheManager.getInstance().getVariable("X");
-	Variable Y = CacheManager.getInstance().getVariable("Y");
-	Variable Z = CacheManager.getInstance().getVariable("Z");
+	private Variable X = CacheManager.getInstance().getVariable("X");
+	private Variable Y = CacheManager.getInstance().getVariable("Y");
+	private Variable Z = CacheManager.getInstance().getVariable("Z");
 
 	private List<ProgramStatement> clauses;
 

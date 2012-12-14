@@ -36,12 +36,12 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 public class PaperReviewBenchmarkGenerator {
 
-	String baseIRI = "http://www.semanticweb.org/ontologies/2011/7/publication.owl";
+	private String baseIRI = "http://www.semanticweb.org/ontologies/2011/7/publication.owl";
 
-	Random rand = new Random();
+	private Random rand = new Random();
 
-	int nAuthors = 100;
-	int nOrganizations = 20;
+	private int nAuthors = 100;
+	private int nOrganizations = 20;
 	private int nAreas = 20;
 	private int nKeywords = 80;
 	private int nArticleInProceedings = 200;
@@ -87,15 +87,15 @@ public class PaperReviewBenchmarkGenerator {
 		rand.setSeed(12345678L);
 	}
 
-	public String elpRules;
+	private String elpRules;
 
-	public static String dlpRules;
+	private static String dlpRules;
 
 	public void generate(String rootPath) {
 		generate(rootPath, 1);
 	}
 
-	public void generate(String rootPath, int n) {
+	void generate(String rootPath, int n) {
 
 		this.rootPath = rootPath;
 
@@ -108,14 +108,12 @@ public class PaperReviewBenchmarkGenerator {
 		generateOntology(n);
 		try {
 			generateDLProgram(n);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void generateDLProgram(int n) throws IOException {
+	void generateDLProgram(int n) throws IOException {
 		elpRules = "";
 		BufferedReader reader = new BufferedReader(new FileReader(this
 				.getClass().getResource("review.elp").getFile()));
@@ -168,7 +166,7 @@ public class PaperReviewBenchmarkGenerator {
 
 	}
 
-	public void generateOntology(int n) {
+	void generateOntology(int n) {
 
 		try {
 			manager = OWLManager.createOWLOntologyManager();
@@ -220,15 +218,11 @@ public class PaperReviewBenchmarkGenerator {
 					ontology,
 					IRI.create(new File("benchmark/review/publication-" + n
 							+ ".owl")));
-		} catch (OWLOntologyCreationException e) {
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		} catch (OWLOntologyStorageException e) {
+		} catch (OWLOntologyCreationException | OWLOntologyStorageException | URISyntaxException e) {
 			e.printStackTrace();
 		}
 
-	}
+    }
 
 	private void generateKeywords() {
 		for (int i = 0; i < nKeywords; i++) {

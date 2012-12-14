@@ -46,11 +46,11 @@ public class DLInputOperation {
     }
 
 	// only DL concept or role name allowed
-	OWLLogicalEntity dlPredicate;
+    private OWLLogicalEntity dlPredicate;
 
-	NormalPredicate inputPredicate;
+	private NormalPredicate inputPredicate;
 
-	DLInputOperator type;
+	private DLInputOperator type;
 
 	/**
 	 * @return the dlPredicate
@@ -62,7 +62,7 @@ public class DLInputOperation {
 	public DLInputOperation() {
 	}
 
-	public DLInputOperation(OWLLogicalEntity dlPredicate, NormalPredicate inputPredicate, DLInputOperator type) {
+	private DLInputOperation(OWLLogicalEntity dlPredicate, NormalPredicate inputPredicate, DLInputOperator type) {
 		super();
 		this.dlPredicate = dlPredicate;
 		this.inputPredicate = inputPredicate;

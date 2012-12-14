@@ -21,11 +21,11 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
-public class LDLPSuperClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
+class LDLPSuperClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
 
-	LDLPBaseClassExpressionChecker baseClassExpressionChecker = new LDLPBaseClassExpressionChecker();
+	private LDLPBaseClassExpressionChecker baseClassExpressionChecker = new LDLPBaseClassExpressionChecker();
 	LDLPSubClassExpressionChecker subClassExpressionChecker = new LDLPSubClassExpressionChecker();
-	LDLPSubPropertyExpressionChecker subPropertyExpressionChecker = new LDLPSubPropertyExpressionChecker();
+	private LDLPSubPropertyExpressionChecker subPropertyExpressionChecker = new LDLPSubPropertyExpressionChecker();
 
 	public Boolean visit(OWLClass desc) {
 		return !desc.isOWLNothing();

@@ -46,14 +46,14 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 
 
 public class ClosureCompilerTest {
-	Variable X = CacheManager.getInstance().getVariable("X");
-	Variable Y = CacheManager.getInstance().getVariable("Y");
+	private Variable X = CacheManager.getInstance().getVariable("X");
+	private Variable Y = CacheManager.getInstance().getVariable("Y");
 	Variable Z = CacheManager.getInstance().getVariable("Z");
 	Variable X1 = CacheManager.getInstance().getVariable("X1");
 	Variable X2 = CacheManager.getInstance().getVariable("X2");
 	Variable X3 = CacheManager.getInstance().getVariable("X3");
-	Variable Y1 = CacheManager.getInstance().getVariable("Y1");
-	Variable Y2 = CacheManager.getInstance().getVariable("Y2");
+	private Variable Y1 = CacheManager.getInstance().getVariable("Y1");
+	private Variable Y2 = CacheManager.getInstance().getVariable("Y2");
 	Variable Y3 = CacheManager.getInstance().getVariable("Y3");
 	
 	
@@ -61,16 +61,14 @@ public class ClosureCompilerTest {
 	private OWLDataFactory factory;
 	private OWLIndividual a;
 	private OWLIndividual b;
-	private OWLIndividual c;
-	private OWLClass A;
+    private OWLClass A;
 	private OWLClass B;
 	private OWLClass C;
 	private OWLObjectProperty E;
-	private OWLObjectProperty F;
-	LDLPClosureBuilder builder;
-	OWLOntology ontology;
-	public LDLPClosureCompiler closureCompiler;
-	LDLPClosure closure;
+    private LDLPClosureBuilder builder;
+	private OWLOntology ontology;
+	private LDLPClosureCompiler closureCompiler;
+	private LDLPClosure closure;
 	private String TOP1 = LDLPCompilerManager.getInstance().getTop1();
 	private String TOP2 = LDLPCompilerManager.getInstance().getTop2();
 	private String NOTEQUAL = LDLPCompilerManager.getInstance().getNotEqual();
@@ -85,9 +83,9 @@ public class ClosureCompilerTest {
 		C = factory.getOWLClass(IRI.create("C"));
 		a = factory.getOWLNamedIndividual(IRI.create("a"));
 		b = factory.getOWLNamedIndividual(IRI.create("b"));
-		c = factory.getOWLNamedIndividual(IRI.create("c"));
+        OWLIndividual c = factory.getOWLNamedIndividual(IRI.create("c"));
 		E = factory.getOWLObjectProperty(IRI.create("E"));
-		F = factory.getOWLObjectProperty(IRI.create("F"));
+        OWLObjectProperty f = factory.getOWLObjectProperty(IRI.create("F"));
 		builder = new LDLPClosureBuilder();
 		closureCompiler = new LDLPClosureCompiler();
 

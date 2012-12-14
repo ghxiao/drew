@@ -100,10 +100,10 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
  * TODO describe this class please.
  */
 
-public class LDLPClosureBuilder extends OWLAxiomVisitorAdapter implements OWLClassExpressionVisitor,
+class LDLPClosureBuilder extends OWLAxiomVisitorAdapter implements OWLClassExpressionVisitor,
 		OWLPropertyExpressionVisitor, OWLIndividualVisitor, OWLDataVisitor {
 
-	LDLPClosure closure = new LDLPClosure();
+	private LDLPClosure closure = new LDLPClosure();
 
 	public LDLPClosureBuilder() {
 

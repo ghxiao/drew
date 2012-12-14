@@ -23,9 +23,9 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 
 	private Literal head = Literal.FALSE;
 
-	List<Literal> positives = new ArrayList<>();
+	private List<Literal> positives = new ArrayList<>();
 
-	List<Literal> negatives = new ArrayList<>();
+	private List<Literal> negatives = new ArrayList<>();
 
 	public Clause(Literal[] head, Literal[] body) {
 		this(head[0], body);
@@ -232,7 +232,7 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 	 * 
 	 * @return terms appearing in the clause
 	 */
-	public Set<Term> getTerms() {
+    Set<Term> getTerms() {
 		Set<Term> result = new HashSet<>();
 
 		for (Literal literal : positives) {
@@ -384,7 +384,7 @@ public class Clause implements ProgramStatement, Cloneable, Comparable<Clause> {
 		return signatures;
 	}
 
-	public Set<Literal> getDLAtoms() {
+	Set<Literal> getDLAtoms() {
 		Set<Literal> result = new HashSet<>();
 
 		for (Literal literal : positives) {

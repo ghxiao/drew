@@ -16,7 +16,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 /**
  * TODO describe this class please.
  */
-public class UseOfNonLDLPSubPropertyExpression extends OWLProfileViolation {
+class UseOfNonLDLPSubPropertyExpression extends OWLProfileViolation {
 
 	@SuppressWarnings("unchecked")
 	private OWLPropertyExpression propertyExpression;

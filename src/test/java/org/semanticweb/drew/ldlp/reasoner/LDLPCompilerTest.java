@@ -27,9 +27,9 @@ import org.semanticweb.owlapi.util.SimpleIRIMapper;
  * TODO describe this class please.
  */
 public class LDLPCompilerTest {
-	public final static String uri = "http://www.kr.tuwien.ac.at/staff/xiao/ldl/role_inverse.ldl";
+	private final static String uri = "http://www.kr.tuwien.ac.at/staff/xiao/ldl/role_inverse.ldl";
 
-	public final static String phyUri = "file:kb/role_inverse.ldl";
+	private final static String phyUri = "file:kb/role_inverse.ldl";
 
 	private static OWLOntologyManager manager = OWLManager
 			.createOWLOntologyManager();

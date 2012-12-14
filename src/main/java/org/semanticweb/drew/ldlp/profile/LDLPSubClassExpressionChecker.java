@@ -21,7 +21,7 @@ import org.semanticweb.owlapi.model.OWLObjectOneOf;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
-public class LDLPSubClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
+class LDLPSubClassExpressionChecker implements OWLClassExpressionVisitorEx<Boolean> {
 
 	LDLPBaseClassExpressionChecker baseExpressionChecker = new LDLPBaseClassExpressionChecker();
 	

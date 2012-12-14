@@ -88,7 +88,7 @@ public class Token implements java.io.Serializable {
   /**
    * Constructs a new token for the specified Image and Kind.
    */
-  public Token(int kind, String image)
+  private Token(int kind, String image)
   {
     this.kind = kind;
     this.image = image;

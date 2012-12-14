@@ -25,14 +25,14 @@ import org.semanticweb.owlapi.model.IRI;
 
 // use DLProgramStorer instead
 @Deprecated
-public class DatalogToStringHelper {
+class DatalogToStringHelper {
 
-	StringBuilder sb;
+	private StringBuilder sb;
 
 	/*
 	 * In dlvhex format, prefix is not allowed
 	 */
-	boolean usingDlvhexFormat;
+    private boolean usingDlvhexFormat;
 
 	public boolean isUsingDlvhexFormat() {
 		return usingDlvhexFormat;
@@ -61,7 +61,7 @@ public class DatalogToStringHelper {
 		saveToFile(program.getStatements(), file);
 	}
 
-	public void saveToFile(List<ProgramStatement> program, String file) {
+	void saveToFile(List<ProgramStatement> program, String file) {
 		try {
 			FileWriter writer = new FileWriter(file);
 			if (DReWELManager.getInstance().getDatalogFormat() == DatalogFormat.XSB) {
@@ -80,7 +80,7 @@ public class DatalogToStringHelper {
 		return toString(clauses);
 	}
 
-	public String toString(Collection<ProgramStatement> statements) {
+	String toString(Collection<ProgramStatement> statements) {
 		sb = new StringBuilder();
 
 		for (ProgramStatement r : statements) {

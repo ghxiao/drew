@@ -20,7 +20,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 //import org.slf4j.LoggerFactory;
 
 
-public class DLProgramKBLoader {
+class DLProgramKBLoader {
 
 
 	public DLProgramKB load(String ontologyPath, String dlpPath) throws FileNotFoundException,
@@ -37,7 +37,7 @@ public class DLProgramKBLoader {
 		return kb;
 	}
 
-	public DLProgram loadDLProgram(String path) throws FileNotFoundException,
+	DLProgram loadDLProgram(String path) throws FileNotFoundException,
 			ParseException {
 
 		BufferedReader reader = new BufferedReader(
@@ -48,7 +48,7 @@ public class DLProgramKBLoader {
 		return program;
 	}
 
-	public OWLOntology loadOntology(String path) {
+	OWLOntology loadOntology(String path) {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 
 		OWLOntology ontology = null;

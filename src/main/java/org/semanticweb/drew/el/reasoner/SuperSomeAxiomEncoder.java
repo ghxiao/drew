@@ -5,13 +5,13 @@ import java.util.Map;
 
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-public class SuperSomeAxiomEncoder {
+class SuperSomeAxiomEncoder {
 
 	private Map<Integer, OWLSubClassOfAxiom> int2axiom;
 
 	private Map<OWLSubClassOfAxiom, Integer> axiom2int;
 
-	int maxEncode;
+	private int maxEncode;
 
 	public SuperSomeAxiomEncoder() {
 		maxEncode = -1;

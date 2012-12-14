@@ -8,8 +8,8 @@ import org.semanticweb.drew.dlprogram.model.ProgramStatement;
 import org.semanticweb.drew.dlprogram.parser.DLProgramParser;
 import org.semanticweb.drew.dlprogram.parser.ParseException;
 
-public class PInstStar {
-	static String strPInstStar = "isa_p(X, X, I) :- nom(X), input(I).\n"
+class PInstStar {
+	private static String strPInstStar = "isa_p(X, X, I) :- nom(X), input(I).\n"
 			+ "self_p(X, V, I) :- nom(X), triple_p(X, V, X, I).\n"
 			+ "isa_p(X, Z, I) :- top(Z), isa_p(X, Z1, I).  \n"
 			+ "isa_p(X, Z, I) :- top(Z), isa_p(X, Z1, I), subset(I1,I).  \n"

@@ -17,7 +17,7 @@ import org.semanticweb.drew.el.reasoner.DReWELManager;
 import org.semanticweb.drew.el.reasoner.RewritingVocabulary;
 import org.semanticweb.owlapi.model.IRI;
 
-public class DLAtomPredicatesCompiler {
+class DLAtomPredicatesCompiler {
 
 	private SymbolEncoder<DLInputSignature> dlInputSignatureEncoder;
 	private SymbolEncoder<IRI> iriEncoder;

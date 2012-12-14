@@ -23,11 +23,11 @@ import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
  */
 public class KBReasoner {
 
-	RLProgramKBCompiler compiler = new RLProgramKBCompiler();
+	private RLProgramKBCompiler compiler = new RLProgramKBCompiler();
 
-	DatalogReasoner datalogReasoner = new DLVReasoner();
+	private DatalogReasoner datalogReasoner = new DLVReasoner();
 
-	DLProgram compiledClauses;
+	private DLProgram compiledClauses;
 
 	public KBReasoner(DLProgramKB kb) {
 		compiledClauses = compiler.rewrite(kb);
@@ -38,7 +38,7 @@ public class KBReasoner {
 		return isEntailed(query);
 	}
 
-	public boolean isEntailed(Literal query) {
+	boolean isEntailed(Literal query) {
 		Literal newQuery = compiler.compileNormalLiteral(query);
 		return datalogReasoner.isEntailed(compiledClauses, newQuery);
 	}

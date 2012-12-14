@@ -27,10 +27,10 @@ import org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException;
 import org.semanticweb.owlapi.reasoner.impl.OWLReasonerBase;
 import org.semanticweb.owlapi.util.Version;
 
-public abstract class OWLReasonerAdapter extends OWLReasonerBase {
+abstract class OWLReasonerAdapter extends OWLReasonerBase {
 
-	public OWLReasonerAdapter(OWLOntology rootOntology, OWLReasonerConfiguration configuration,
-			BufferingMode bufferingMode) {
+	OWLReasonerAdapter(OWLOntology rootOntology, OWLReasonerConfiguration configuration,
+                       BufferingMode bufferingMode) {
 		super(rootOntology, configuration, bufferingMode);
 	}
 

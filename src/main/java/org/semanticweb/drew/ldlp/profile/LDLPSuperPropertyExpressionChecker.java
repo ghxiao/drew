@@ -12,7 +12,7 @@ import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitorEx;
 //import at.ac.tuwien.kr.owlapi.model.ldl.LDLObjectPropertyTransitiveClosureOf;
 //import at.ac.tuwien.kr.owlapi.model.ldl.LDLObjectPropertyUnionOf;
 
-public class LDLPSuperPropertyExpressionChecker implements OWLPropertyExpressionVisitorEx<Boolean> {
+class LDLPSuperPropertyExpressionChecker implements OWLPropertyExpressionVisitorEx<Boolean> {
 
 	@Override
 	public Boolean visit(OWLObjectProperty property) {

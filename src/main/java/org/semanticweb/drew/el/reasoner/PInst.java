@@ -9,7 +9,7 @@ import org.semanticweb.drew.dlprogram.parser.ParseException;
 
 public class PInst {
 
-	static String strPInst = "isa(X, X) :- nom(X).\n" + //
+	private static String strPInst = "isa(X, X) :- nom(X).\n" + //
 			"self(X, V) :- nom(X), rol(V), triple(X, V, X).\n" + //
 			// "isa(X, Z) :- top(Z), isa(X, Z1).\n" + //
 			// "isa(X, Y) :- bot(Z), isa(U, Z), isa(X, Z1), cls(Y).\n" + //
@@ -73,7 +73,7 @@ public class PInst {
 			// "cls(_) :- fail.\n" + //
 			"";
 
-	static String strXSBDeclaration = //
+	private static String strXSBDeclaration = //
 	"subConj(X, Y, Z) :- fail.\n" + //
 			"subEx(X, Y, Z) :- fail.\n" + //
 			"supEx(X, Y, Z, W) :- fail.\n" + //
@@ -95,7 +95,7 @@ public class PInst {
 			"domain(X, Y) :- fail.\n" + //
 			"domainD(X, Y) :- fail.\n" + //
 			"";
-	static List<ProgramStatement> pInst;
+	private static List<ProgramStatement> pInst;
 
 	private static List<ProgramStatement> xsbDeclaration;
 

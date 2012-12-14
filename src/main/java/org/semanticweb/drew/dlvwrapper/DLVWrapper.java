@@ -21,28 +21,28 @@ import com.google.code.regex.NamedPattern;
 // using the offical DLVWrapper instead
 @Deprecated
 public class DLVWrapper {
-	String dlvPath;
+	private String dlvPath;
 
-	String program;
+	private String program;
 
-	static final Logger logger = LoggerFactory.getLogger(DLVWrapper.class);
+	private static final Logger logger = LoggerFactory.getLogger(DLVWrapper.class);
 
 	private Runtime runtime = Runtime.getRuntime();
 
-	String predicateRegex = "(?<predicate>[a-z][a-zA-Z\\d_]*)";
+	private String predicateRegex = "(?<predicate>[a-z][a-zA-Z\\d_]*)";
 
-	String termRegex = "(?<term>[a-z][a-zA-Z\\d_]*)";
+	private String termRegex = "(?<term>[a-z][a-zA-Z\\d_]*)";
 
-	String literalRegex = String.format("(?<literal>%s(\\((%s(,%s)*)?\\))?)",
+	private String literalRegex = String.format("(?<literal>%s(\\((%s(,%s)*)?\\))?)",
 			predicateRegex, termRegex, termRegex);
 
-	String literalListRegex = String.format("(?<literalList>%s(,\\s*%s)*)",
+	private String literalListRegex = String.format("(?<literalList>%s(,\\s*%s)*)",
 			literalRegex, literalRegex);
 
-	String lineRegex = String.format("(?<true>True:)?\\s*(\\{%s\\})\\s*",
+	private String lineRegex = String.format("(?<true>True:)?\\s*(\\{%s\\})\\s*",
 			literalListRegex);
 
-	String trueLineRegex = String.format("True:\\s*(\\{%s\\})\\s*",
+	private String trueLineRegex = String.format("True:\\s*(\\{%s\\})\\s*",
 			literalListRegex);
 
 	public DLVWrapper() {
@@ -91,16 +91,12 @@ public class DLVWrapper {
 						"An error is occurred calling DLV.");
 			version = str;
 			dlv.waitFor();
-		} catch (IOException localIOException) {
+		} catch (IOException | InterruptedException localIOException) {
 			throw new DLVInvocationException(
 					"An error is occurred calling DLV: "
 							+ localIOException.getMessage());
-		} catch (InterruptedException localInterruptedException) {
-			throw new DLVInvocationException(
-					"An error is occurred calling DLV: "
-							+ localInterruptedException.getMessage());
 		}
-		return version;
+        return version;
 	}
 
 	public List<Literal> queryWFS(String queryStr)
@@ -189,15 +185,12 @@ public class DLVWrapper {
 			}
 
 			dlv.waitFor();
-		} catch (IOException ex) {
+		} catch (IOException | InterruptedException ex) {
 			throw new DLVInvocationException(
 					"An error is occurred calling DLV: " + ex.getMessage());
-		} catch (InterruptedException ex) {
-			throw new DLVInvocationException(
-					"An error is occurred calling DLV: " + ex.getMessage());
-		} 
+		}
 
-		return result;
+        return result;
 
 	}
 
@@ -272,18 +265,12 @@ public class DLVWrapper {
 			}
 
 			dlv.waitFor();
-		} catch (IOException ex) {
-			throw new DLVInvocationException(
-					"An error is occurred calling DLV: " + ex.getMessage());
-		} catch (InterruptedException ex) {
-			throw new DLVInvocationException(
-					"An error is occurred calling DLV: " + ex.getMessage());
-		} catch (ParseException ex) {
+		} catch (IOException | ParseException | InterruptedException ex) {
 			throw new DLVInvocationException(
 					"An error is occurred calling DLV: " + ex.getMessage());
 		}
 
-		return result;
+        return result;
 
 	}
 
@@ -360,15 +347,12 @@ public class DLVWrapper {
 			}
 
 			dlv.waitFor();
-		} catch (IOException ex) {
-			throw new DLVInvocationException(
-					"An error is occurred calling DLV: " + ex.getMessage());
-		} catch (InterruptedException ex) {
+		} catch (IOException | InterruptedException ex) {
 			throw new DLVInvocationException(
 					"An error is occurred calling DLV: " + ex.getMessage());
 		}
 
-		return result;
+        return result;
 
 	}
 
@@ -400,13 +384,10 @@ public class DLVWrapper {
 			}
 
 			dlv.waitFor();
-		} catch (IOException ex) {
-			throw new DLVInvocationException(
-					"An error is occurred calling DLV: " + ex.getMessage());
-		} catch (InterruptedException ex) {
+		} catch (IOException | InterruptedException ex) {
 			throw new DLVInvocationException(
 					"An error is occurred calling DLV: " + ex.getMessage());
 		}
-	}
+    }
 
 }

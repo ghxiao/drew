@@ -26,16 +26,16 @@ import org.slf4j.LoggerFactory;
  */
 public class LDLPOntologyCompiler {
 
-	final static Logger logger = LoggerFactory.getLogger(LDLPOntologyCompiler.class);
+	private final static Logger logger = LoggerFactory.getLogger(LDLPOntologyCompiler.class);
 	
-	List<ProgramStatement> clauses;
+	private List<ProgramStatement> clauses;
 
 	public List<ProgramStatement> complile(OWLOntology ontology) {
 		final Set<OWLAxiom> axioms = ontology.getAxioms();
 		return compile(axioms);
 	}
 
-	public List<ProgramStatement> compile(final Set<OWLAxiom> axioms) {
+	List<ProgramStatement> compile(final Set<OWLAxiom> axioms) {
 		reset();
 
 		logger.debug("-------------------compiling axioms:--------------------");

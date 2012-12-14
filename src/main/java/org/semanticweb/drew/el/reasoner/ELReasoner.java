@@ -27,7 +27,7 @@ import org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException;
 import org.semanticweb.owlapi.reasoner.impl.OWLReasonerBase;
 import org.semanticweb.owlapi.util.Version;
 
-public class ELReasoner extends OWLReasonerBase {
+class ELReasoner extends OWLReasonerBase {
 
 	protected ELReasoner(OWLOntology rootOntology, OWLReasonerConfiguration configuration, BufferingMode bufferingMode) {
 		super(rootOntology, configuration, bufferingMode);

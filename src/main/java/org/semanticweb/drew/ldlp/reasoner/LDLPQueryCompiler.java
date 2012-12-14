@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 public class LDLPQueryCompiler {
 
-	final static Logger logger = LoggerFactory
+	private final static Logger logger = LoggerFactory
 			.getLogger(LDLPQueryCompiler.class);
 
 	public Clause compileQuery(Clause query) {
@@ -37,7 +37,7 @@ public class LDLPQueryCompiler {
 	}
 
 	// keep the head predicate
-	public Literal compileHeadLiteral(Literal literal) {
+    Literal compileHeadLiteral(Literal literal) {
 		NormalPredicate normalLiteral = (NormalPredicate) literal
 				.getPredicate();
 
@@ -48,7 +48,7 @@ public class LDLPQueryCompiler {
 		return newLiteral;
 	}
 	
-	public Literal compileLiteral(Literal literal) {
+	Literal compileLiteral(Literal literal) {
 		NormalPredicate normalLiteral = (NormalPredicate) literal
 				.getPredicate();
 		NormalPredicate newHeadPredicate = compileNormalPredicate(normalLiteral);

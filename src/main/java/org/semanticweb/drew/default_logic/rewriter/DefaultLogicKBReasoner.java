@@ -6,11 +6,11 @@ import org.semanticweb.drew.default_logic.DefaultLogicKB;
 import org.semanticweb.drew.dlprogram.model.Literal;
 import org.semanticweb.drew.dlprogram.model.ProgramStatement;
 
-public class DefaultLogicKBReasoner {
+class DefaultLogicKBReasoner {
 
-	DefaultLogicKB kb;
+	private DefaultLogicKB kb;
 
-	DefaultLogicKBRewriter rewriter;
+	private DefaultLogicKBRewriter rewriter;
 	
 	public DefaultLogicKBReasoner(DefaultLogicKB kb) {
 		this.kb = kb;

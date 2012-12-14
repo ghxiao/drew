@@ -102,7 +102,7 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 public class SROELProfile implements OWLProfile {
 
-	protected Set<IRI> allowedDatatypes;
+	private Set<IRI> allowedDatatypes;
 
 	// private OWLOntology ont;
 
@@ -167,7 +167,7 @@ public class SROELProfile implements OWLProfile {
 		return out;
 	}
 
-	protected class SROELProfileObjectVisitor extends
+	class SROELProfileObjectVisitor extends
 			OWLOntologyWalkerVisitor<Object> {
 
 		private OWLOntologyManager man;

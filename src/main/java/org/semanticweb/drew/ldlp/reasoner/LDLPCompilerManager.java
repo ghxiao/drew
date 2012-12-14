@@ -25,21 +25,21 @@ public class LDLPCompilerManager {
 
 	private static LDLPCompilerManager instance = new LDLPCompilerManager();
 
-	final static Logger logger = LoggerFactory.getLogger(LDLPCompilerManager.class);
+	private final static Logger logger = LoggerFactory.getLogger(LDLPCompilerManager.class);
 
 	public static LDLPCompilerManager getInstance() {
 		return instance;
 	}
 
-	public LDLPCompilerManager() {
+	private LDLPCompilerManager() {
 
 	}
 
-	SymbolEncoder<String> predicates = new SymbolEncoder<>();
+	private SymbolEncoder<String> predicates = new SymbolEncoder<>();
 
-	SymbolEncoder<String> constants = new SymbolEncoder<>();
+	private SymbolEncoder<String> constants = new SymbolEncoder<>();
 
-	final String TOP = "top";
+	private final String TOP = "top";
 
 	public String getTop1() {
 		return TOP + "1";
@@ -61,9 +61,9 @@ public class LDLPCompilerManager {
 
 		String predicate;
 
-		if (owlObject instanceof OWLClass && ((OWLEntity) owlObject).isTopEntity()) {
+		if (owlObject instanceof OWLClass && owlObject.isTopEntity()) {
 			predicate = getTop1();
-		} else if (owlObject instanceof OWLObjectProperty && ((OWLEntity) owlObject).isTopEntity()) {
+		} else if (owlObject instanceof OWLObjectProperty && owlObject.isTopEntity()) {
 			predicate = getTop2();
 		} else {
 			final String iri = owlObject.toString();

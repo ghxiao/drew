@@ -25,15 +25,15 @@ public class DLProgramParser implements DLProgramParserConstants {
  // final static Logger logger = LoggerFactory.getLogger(DLProgramParser.class);
 
         // namespace abbreviation to the full name
-  Map < String, String > namespaces = new HashMap<>();
+        private Map < String, String > namespaces = new HashMap<>();
 
   // fragments to object properties
-  Map < String, OWLObjectProperty > objectProperties = new HashMap<>();
+  private Map < String, OWLObjectProperty > objectProperties = new HashMap<>();
 
   // fragments to classes
-  Map < String, OWLClass> classes = new HashMap<>();
+  private Map < String, OWLClass> classes = new HashMap<>();
 
-  OWLOntology ontology;
+  private OWLOntology ontology;
 
   public void setOntology(OWLOntology ontology)
   {
@@ -63,7 +63,7 @@ public class DLProgramParser implements DLProgramParserConstants {
   public void process() throws ParseException
   {}
 
-  public void adjustDLInputOperationArity(DLProgram program)
+  void adjustDLInputOperationArity(DLProgram program)
   {
     for (DLInputSignature signature : program.getDLInputSignatures())
     {
@@ -77,7 +77,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     }
   }
 
-  final public String dlPredicate() throws ParseException {
+  final String dlPredicate() throws ParseException {
   String name;
     if (jj_2_1(2147483647)) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -151,7 +151,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public DLInputOperation dlInputOperation() throws ParseException {
+  final DLInputOperation dlInputOperation() throws ParseException {
   DLInputOperation op = new DLInputOperation();
   String name;
     name = dlPredicate();
@@ -182,7 +182,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public DLInputSignature dlInputSignature() throws ParseException {
+  final DLInputSignature dlInputSignature() throws ParseException {
   DLInputSignature signature = new DLInputSignature();
   DLInputOperation op;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -195,8 +195,7 @@ public class DLProgramParser implements DLProgramParserConstants {
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case CONJUNCTION:
-          ;
-          break;
+            break;
         default:
           jj_la1[5] = jj_gen;
           break label_1;
@@ -208,13 +207,12 @@ public class DLProgramParser implements DLProgramParserConstants {
       break;
     default:
       jj_la1[6] = jj_gen;
-      ;
     }
     {if (true) return signature;}
     throw new Error("Missing return statement in function");
   }
 
-  final public DLAtomPredicate dlAtomPredicate() throws ParseException {
+  final DLAtomPredicate dlAtomPredicate() throws ParseException {
   DLAtomPredicate predicate = new DLAtomPredicate();
   DLInputSignature signature;
   String name;
@@ -233,7 +231,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public Constant constant() throws ParseException {
+  final Constant constant() throws ParseException {
   String name;
   int type;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -264,13 +262,13 @@ public class DLProgramParser implements DLProgramParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public Term variable() throws ParseException {
+  final Term variable() throws ParseException {
     jj_consume_token(VARIABLE);
     {if (true) return CacheManager.getInstance().getVariable(token.image);}
     throw new Error("Missing return statement in function");
   }
 
-  final public Functor functor() throws ParseException {
+  final Functor functor() throws ParseException {
   Functor functor = new Functor();
     jj_consume_token(IDENTIFIER);
     functor.setName(token.image);
@@ -278,7 +276,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public Function function() throws ParseException {
+  final Function function() throws ParseException {
   Function function = new Function();
   Functor functor;
   Term term;
@@ -297,8 +295,7 @@ public class DLProgramParser implements DLProgramParserConstants {
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case CONJUNCTION:
-          ;
-          break;
+            break;
         default:
           jj_la1[8] = jj_gen;
           break label_2;
@@ -310,14 +307,13 @@ public class DLProgramParser implements DLProgramParserConstants {
       break;
     default:
       jj_la1[9] = jj_gen;
-      ;
     }
     jj_consume_token(RIGHTBRACKET);
     {if (true) return function;}
     throw new Error("Missing return statement in function");
   }
 
-  final public Term unary() throws ParseException {
+  final Term unary() throws ParseException {
   Term term;
     if (jj_2_2(2147483647)) {
       term = function();
@@ -346,7 +342,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public Term multiplicative() throws ParseException {
+  final Term multiplicative() throws ParseException {
   Term left, right;
   Token token;
     left = unary();
@@ -356,8 +352,7 @@ public class DLProgramParser implements DLProgramParserConstants {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case TIMES:
       case DIVIDE:
-        ;
-        break;
+          break;
       default:
         jj_la1[11] = jj_gen;
         break label_3;
@@ -387,7 +382,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public Term additive() throws ParseException {
+  final Term additive() throws ParseException {
   Term left, right;
   Token token;
     left = multiplicative();
@@ -397,8 +392,7 @@ public class DLProgramParser implements DLProgramParserConstants {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case PLUS:
       case MINUS:
-        ;
-        break;
+          break;
       default:
         jj_la1[13] = jj_gen;
         break label_4;
@@ -428,7 +422,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public Term term() throws ParseException {
+  final Term term() throws ParseException {
   Term term;
     term = additive();
     {if (true) return term;}
@@ -473,7 +467,6 @@ public class DLProgramParser implements DLProgramParserConstants {
             break;
           default:
             jj_la1[15] = jj_gen;
-            ;
           }
           switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
           case IDENTIFIER:
@@ -508,8 +501,7 @@ public class DLProgramParser implements DLProgramParserConstants {
           while (true) {
             switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
             case CONJUNCTION:
-              ;
-              break;
+                break;
             default:
               jj_la1[18] = jj_gen;
               break label_5;
@@ -523,7 +515,6 @@ public class DLProgramParser implements DLProgramParserConstants {
           break;
         default:
           jj_la1[19] = jj_gen;
-          ;
         }
     if (!isDLAtomPredicate)
     {
@@ -545,7 +536,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public Clause clause() throws ParseException {
+  final Clause clause() throws ParseException {
   Clause clause = new Clause();
   Literal literal;
   boolean not = false;
@@ -562,7 +553,6 @@ public class DLProgramParser implements DLProgramParserConstants {
       break;
     default:
       jj_la1[21] = jj_gen;
-      ;
     }
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case IMPLY:
@@ -576,7 +566,6 @@ public class DLProgramParser implements DLProgramParserConstants {
         break;
       default:
         jj_la1[22] = jj_gen;
-        ;
       }
       literal = literal();
       if (not)
@@ -591,8 +580,7 @@ public class DLProgramParser implements DLProgramParserConstants {
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case CONJUNCTION:
-          ;
-          break;
+            break;
         default:
           jj_la1[23] = jj_gen;
           break label_6;
@@ -607,7 +595,6 @@ public class DLProgramParser implements DLProgramParserConstants {
           break;
         default:
           jj_la1[24] = jj_gen;
-          ;
         }
         literal = literal();
         if (not)
@@ -622,7 +609,6 @@ public class DLProgramParser implements DLProgramParserConstants {
       break;
     default:
       jj_la1[25] = jj_gen;
-      ;
     }
     jj_consume_token(ENDOFSTATEMENT);
     if (clause.getBody().size() == 0)
@@ -634,7 +620,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public void namespace() throws ParseException {
+  final void namespace() throws ParseException {
   String key, value;
     jj_consume_token(NAMESPACE);
     jj_consume_token(LEFTBRACKET);
@@ -655,8 +641,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case NAMESPACE:
-        ;
-        break;
+          break;
       default:
         jj_la1[26] = jj_gen;
         break label_7;
@@ -675,8 +660,7 @@ public class DLProgramParser implements DLProgramParserConstants {
       case VARIABLE:
       case MINUS:
       case LEFTBRACKET:
-        ;
-        break;
+          break;
       default:
         jj_la1[27] = jj_gen;
         break label_8;
@@ -707,7 +691,6 @@ public class DLProgramParser implements DLProgramParserConstants {
       break;
     default:
       jj_la1[28] = jj_gen;
-      ;
     }
     jj_consume_token(32);
     literal = literal();
@@ -716,8 +699,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case CONJUNCTION:
-        ;
-        break;
+          break;
       default:
         jj_la1[29] = jj_gen;
         break label_9;
@@ -731,7 +713,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public Literal defaultLiteral() throws ParseException {
+  final Literal defaultLiteral() throws ParseException {
         Literal literal = new Literal();
         OWLPredicate predicate;
         String predicateName;
@@ -745,7 +727,6 @@ public class DLProgramParser implements DLProgramParserConstants {
       break;
     default:
       jj_la1[30] = jj_gen;
-      ;
     }
     predicateName = dlPredicate();
 
@@ -757,8 +738,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case CONJUNCTION:
-        ;
-        break;
+          break;
       default:
         jj_la1[31] = jj_gen;
         break label_10;
@@ -792,7 +772,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public List< Literal > conjunction() throws ParseException {
+  final List< Literal > conjunction() throws ParseException {
         List< Literal > literals = new ArrayList<>();
         Literal literal;
     literal = defaultLiteral();
@@ -801,8 +781,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case 34:
-        ;
-        break;
+          break;
       default:
         jj_la1[32] = jj_gen;
         break label_11;
@@ -833,8 +812,7 @@ public class DLProgramParser implements DLProgramParserConstants {
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
         case CONJUNCTION:
-          ;
-          break;
+            break;
         default:
           jj_la1[33] = jj_gen;
           break label_12;
@@ -846,7 +824,6 @@ public class DLProgramParser implements DLProgramParserConstants {
       break;
     default:
       jj_la1[34] = jj_gen;
-      ;
     }
     jj_consume_token(RIGHT_SQUARE_BRACKET);
     jj_consume_token(DIVIDE);
@@ -871,7 +848,6 @@ public class DLProgramParser implements DLProgramParserConstants {
       break;
     default:
       jj_la1[35] = jj_gen;
-      ;
     }
         {if (true) return df;}
     throw new Error("Missing return statement in function");
@@ -884,8 +860,7 @@ public class DLProgramParser implements DLProgramParserConstants {
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case LEFT_SQUARE_BRACKET:
-        ;
-        break;
+          break;
       default:
         jj_la1[36] = jj_gen;
         break label_13;
@@ -1093,12 +1068,12 @@ public class DLProgramParser implements DLProgramParserConstants {
   }
 
   /** Generated Token Manager. */
-  public DLProgramParserTokenManager token_source;
-  JavaCharStream jj_input_stream;
+  private DLProgramParserTokenManager token_source;
+  private JavaCharStream jj_input_stream;
   /** Current token. */
-  public Token token;
+  private Token token;
   /** Next token. */
-  public Token jj_nt;
+  private Token jj_nt;
   private int jj_ntk;
   private Token jj_scanpos, jj_lastpos;
   private int jj_la;
@@ -1125,7 +1100,7 @@ public class DLProgramParser implements DLProgramParserConstants {
      this(stream, null);
   }
   /** Constructor with InputStream and supplied encoding */
-  public DLProgramParser(java.io.InputStream stream, String encoding) {
+  private DLProgramParser(java.io.InputStream stream, String encoding) {
     try { jj_input_stream = new JavaCharStream(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source = new DLProgramParserTokenManager(jj_input_stream);
     token = new Token();
@@ -1140,7 +1115,7 @@ public class DLProgramParser implements DLProgramParserConstants {
      ReInit(stream, null);
   }
   /** Reinitialise. */
-  public void ReInit(java.io.InputStream stream, String encoding) {
+  void ReInit(java.io.InputStream stream, String encoding) {
     try { jj_input_stream.ReInit(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source.ReInit(jj_input_stream);
     token = new Token();
@@ -1298,7 +1273,7 @@ public class DLProgramParser implements DLProgramParserConstants {
   }
 
   /** Generate ParseException. */
-  public ParseException generateParseException() {
+  ParseException generateParseException() {
     jj_expentries.clear();
     boolean[] la1tokens = new boolean[35];
     if (jj_kind >= 0) {

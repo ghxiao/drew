@@ -15,7 +15,7 @@ public class DLAtomPredicate implements Predicate {
 	private DLInputSignature inputSignature;
 
 	// only DL concept or role name allowed
-	OWLLogicalEntity query;
+    private OWLLogicalEntity query;
 
 	private int arity;
 

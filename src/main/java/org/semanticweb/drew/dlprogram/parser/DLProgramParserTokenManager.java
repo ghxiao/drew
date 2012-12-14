@@ -20,7 +20,7 @@ public class DLProgramParserTokenManager implements DLProgramParserConstants
 {
 
   /** Debug output. */
-  public  java.io.PrintStream debugStream = System.out;
+  private java.io.PrintStream debugStream = System.out;
   /** Set debug output. */
   public  void setDebugStream(java.io.PrintStream ds) { debugStream = ds; }
 private final int jjStopStringLiteralDfa_0(int pos, long active0)
@@ -332,10 +332,10 @@ private int jjStartNfaWithStates_0(int pos, int kind, int state)
    catch(java.io.IOException e) { return pos + 1; }
    return jjMoveNfa_0(state, pos + 1);
 }
-static final long[] jjbitVec0 = {
+private static final long[] jjbitVec0 = {
    0xfffffffffffffffeL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
 };
-static final long[] jjbitVec2 = {
+private static final long[] jjbitVec2 = {
    0x0L, 0x0L, 0xffffffffffffffffL, 0xffffffffffffffffL
 };
 private int jjMoveNfa_0(int startState, int curPos)
@@ -701,7 +701,7 @@ private int jjMoveNfa_0(int startState, int curPos)
       catch(java.io.IOException e) { return curPos; }
    }
 }
-static final int[] jjnextStates = {
+private static final int[] jjnextStates = {
    14, 30, 26, 16, 17, 19, 1, 2, 4, 
 };
 private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2)
@@ -718,7 +718,7 @@ private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, lo
 }
 
 /** Token literal values. */
-public static final String[] jjstrLiteralImages = {
+private static final String[] jjstrLiteralImages = {
 "", null, null, null, null, null, "\156\157\164", "\124\162\165\145", 
 "\43\156\141\155\145\163\160\141\143\145", "\54", "\72\55", "\72", "\56", null, "\104\114", "\133", "\135", null, null, 
 null, null, null, "\53", "\55", "\52", "\57", "\50", "\51", "\53\75", "\55\75", null, 
@@ -728,16 +728,16 @@ null, null, null, "\53", "\55", "\52", "\57", "\50", "\51", "\53\75", "\55\75", 
 public static final String[] lexStateNames = {
    "DEFAULT",
 };
-static final long[] jjtoToken = {
+private static final long[] jjtoToken = {
    0x7ffffffc1L, 
 };
 static final long[] jjtoSkip = {
    0x3eL, 
 };
-protected JavaCharStream input_stream;
+private JavaCharStream input_stream;
 private final int[] jjrounds = new int[31];
 private final int[] jjstateSet = new int[62];
-protected char curChar;
+private char curChar;
 /** Constructor. */
 public DLProgramParserTokenManager(JavaCharStream stream){
    if (JavaCharStream.staticFlag)
@@ -775,7 +775,7 @@ public void ReInit(JavaCharStream stream, int lexState)
 }
 
 /** Switch to specified lex state. */
-public void SwitchTo(int lexState)
+void SwitchTo(int lexState)
 {
    if (lexState >= 1 || lexState < 0)
       throw new TokenMgrError("Error: Ignoring invalid lexical state : " + lexState + ". State unchanged.", TokenMgrError.INVALID_LEXICAL_STATE);
@@ -783,7 +783,7 @@ public void SwitchTo(int lexState)
       curLexState = lexState;
 }
 
-protected Token jjFillToken()
+Token jjFillToken()
 {
    final Token t;
    final String curTokenImage;
@@ -807,12 +807,12 @@ protected Token jjFillToken()
    return t;
 }
 
-int curLexState = 0;
-int defaultLexState = 0;
-int jjnewStateCnt;
-int jjround;
-int jjmatchedPos;
-int jjmatchedKind;
+private int curLexState = 0;
+private int defaultLexState = 0;
+private int jjnewStateCnt;
+private int jjround;
+private int jjmatchedPos;
+private int jjmatchedKind;
 
 /** Get the next Token. */
 public Token getNextToken() 

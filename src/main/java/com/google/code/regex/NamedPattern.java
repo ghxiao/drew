@@ -64,7 +64,7 @@ public class NamedPattern {
 		return namedPattern;
 	}
 
-	static List<String> extractGroupNames(String namedPattern) {
+	private static List<String> extractGroupNames(String namedPattern) {
 		List<String> groupNames = new ArrayList<>();
 		Matcher matcher = NAMED_GROUP_PATTERN.matcher(namedPattern);
 		while(matcher.find()) {
@@ -73,7 +73,7 @@ public class NamedPattern {
 		return groupNames;
 	}
 
-	static Pattern buildStandardPattern(String namedPattern) {
+	private static Pattern buildStandardPattern(String namedPattern) {
 		return Pattern.compile(NAMED_GROUP_PATTERN.matcher(namedPattern).replaceAll("("));
 	}
 

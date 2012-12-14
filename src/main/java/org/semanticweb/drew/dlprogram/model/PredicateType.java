@@ -12,5 +12,5 @@ package org.semanticweb.drew.dlprogram.model;
  * @author Samuel
  */
 public enum PredicateType {
-	NORMAL, BUILTIN, LOGIC, UNKNOWN;
+	NORMAL, BUILTIN, LOGIC, UNKNOWN
 }

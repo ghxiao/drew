@@ -31,11 +31,11 @@ import org.semanticweb.owlapi.model.OWLOntology;
 public class IncrementalELProgramRewriter implements
 		DLProgramKB2DatalogRewriter {
 
-	Variable X = CacheManager.getInstance().getVariable("X");
-	Variable Y = CacheManager.getInstance().getVariable("Y");
-	Variable I = CacheManager.getInstance().getVariable("I");
+	private Variable X = CacheManager.getInstance().getVariable("X");
+	private Variable Y = CacheManager.getInstance().getVariable("Y");
+	private Variable I = CacheManager.getInstance().getVariable("I");
 
-	SymbolEncoder<DLInputSignature> dlInputSignatureEncoder;
+	private SymbolEncoder<DLInputSignature> dlInputSignatureEncoder;
 
 	private SymbolEncoder<IRI> iriEncoder;
 
@@ -88,7 +88,7 @@ public class IncrementalELProgramRewriter implements
 		return resultProgram.getStatements();
 	}
 
-	public List<ProgramStatement> compileProgram(DLProgram program) {
+	List<ProgramStatement> compileProgram(DLProgram program) {
 		List<ProgramStatement> result = new ArrayList<>();
 
 		for (ProgramStatement ps : program.getStatements()) {
@@ -105,7 +105,7 @@ public class IncrementalELProgramRewriter implements
 		return result;
 	}
 
-	public Clause compileClause(Clause clause) {
+	Clause compileClause(Clause clause) {
 		Clause newClause = new Clause();
 		Literal head = clause.getHead();
 		Literal newHead = compileNormalLiteral(head);
@@ -136,14 +136,14 @@ public class IncrementalELProgramRewriter implements
 		return newClause;
 	}
 
-	public Literal compileNormalLiteral(Literal lit) {
+	Literal compileNormalLiteral(Literal lit) {
 		List<Term> terms = lit.getTerms();
 		List<Term> newTerms = compileTerms(terms);
 		Literal newLit = new Literal(lit.getPredicate(), newTerms);
 		return newLit;
 	}
 
-	public Literal compileDLAtom(Literal lit) {
+	Literal compileDLAtom(Literal lit) {
 		DLAtomPredicate p = (DLAtomPredicate) (lit.getPredicate());
 		DLInputSignature inputSigature = p.getInputSignature();
 		OWLLogicalEntity query = p.getQuery();
@@ -169,7 +169,7 @@ public class IncrementalELProgramRewriter implements
 		return newLit;
 	}
 
-	public List<Term> compileTerms(List<Term> terms) {
+	List<Term> compileTerms(List<Term> terms) {
 		List<Term> newTerms = new ArrayList<>();
 		for (Term term : terms) {
 			newTerms.add(complileTerm(term));
@@ -179,7 +179,7 @@ public class IncrementalELProgramRewriter implements
 		return newTerms;
 	}
 
-	public Term complileTerm(Term term) {
+	Term complileTerm(Term term) {
 		return term;
 	}
 

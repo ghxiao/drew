@@ -12,13 +12,13 @@ import java.sql.Types;
  * 
  */
 public class Constant implements Term {
-	int type = Types.VARCHAR;
+	private int type = Types.VARCHAR;
 
-	String name;
+	private String name;
 
-	String string;
+	private String string;
 
-	int hash;
+	private int hash;
 
 	/**
 	 * Constructor that is visible inside the package. Customer should use

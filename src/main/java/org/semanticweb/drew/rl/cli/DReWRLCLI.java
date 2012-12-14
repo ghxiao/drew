@@ -56,21 +56,21 @@ import com.hp.hpl.jena.query.Syntax;
 
 public class DReWRLCLI extends CommandLine {
 
-	protected String ontologyFile;
-	protected String sparqlFile;
-	protected String dlvPath;
-	protected String cqFile;
-	protected String dlpFile;
-	protected String filter;
-	protected String datalogFile;
-	protected boolean rewriting_only = false;
-	protected String defaultFile;
-	protected String semantics = "asp";
-	protected String[] args;
+	private String ontologyFile;
+	private String sparqlFile;
+	private String dlvPath;
+	private String cqFile;
+	private String dlpFile;
+	private String filter;
+	private String datalogFile;
+	private boolean rewriting_only = false;
+	private String defaultFile;
+	private String semantics = "asp";
+	private String[] args;
 
-	int nModels = 0;
+	private int nModels = 0;
 
-	public DReWRLCLI(String[] args) {
+	private DReWRLCLI(String[] args) {
 		this.args = args;
 	}
 
@@ -289,17 +289,13 @@ public class DReWRLCLI extends CommandLine {
 			w.close();
 			inputProgram.addFile(datalogFile);
 
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	public void runDLV(DLVInputProgram inputProgram) {
+	void runDLV(DLVInputProgram inputProgram) {
 		DLVInvocation invocation = DLVWrapper.getInstance().createInvocation(
 				dlvPath);
 
@@ -373,12 +369,10 @@ public class DReWRLCLI extends CommandLine {
 			if (k.size() > 0)
 				System.err.println(k);
 
-		} catch (DLVInvocationException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (DLVInvocationException | IOException e) {
 			e.printStackTrace();
 		}
-	}
+    }
 
 	@Override
 	public void handleCQ(OWLOntology ontology, DLVInputProgram inputProgram) {
@@ -386,7 +380,7 @@ public class DReWRLCLI extends CommandLine {
 				"not implemented yet! try using `drew -el`");
 	}
 
-	public void printUsage() {
+	void printUsage() {
 
 		String usage = //
 		"Usage: drew -rl -ontology <ontology_file> { -sparql <sparql_file> | -cq <cq_file> | -dlp <dlp_file> | -default <df_file> } "

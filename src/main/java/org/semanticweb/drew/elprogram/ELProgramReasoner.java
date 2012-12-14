@@ -4,14 +4,12 @@ import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.model.DLProgramKB;
 
 // TODO
-public class ELProgramReasoner {
+class ELProgramReasoner {
 
-	private DLProgramKB kb;
-
-	private DLProgram rewritedKB;
+    private DLProgram rewritedKB;
 
 	public ELProgramReasoner(DLProgramKB kb) {
-		this.kb = kb;
+        DLProgramKB kb1 = kb;
 	}
 
 }

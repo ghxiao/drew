@@ -11,7 +11,7 @@ package org.semanticweb.drew.dlprogram.model;
 public enum DLInputOperator {
 	U_PLUS("+="), U_MINUS("-=");
 	
-	String symbol;
+	private String symbol;
 	
 	DLInputOperator(String symbol){
 		this.symbol = symbol;

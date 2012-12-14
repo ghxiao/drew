@@ -41,14 +41,14 @@ public class TokenMgrError extends Error
    * Indicates the reason why the exception is thrown. It will have
    * one of the above 4 values.
    */
-  int errorCode;
+  private int errorCode;
 
   /**
    * Replaces unprintable characters by their escaped (or unicode escaped)
    * equivalents in the given string
    */
-  protected static final String addEscapes(String str) {
-    StringBuffer retval = new StringBuffer();
+  private static String addEscapes(String str) {
+    StringBuilder retval = new StringBuilder();
     char ch;
     for (int i = 0; i < str.length(); i++) {
       switch (str.charAt(i))
@@ -104,7 +104,7 @@ public class TokenMgrError extends Error
    *    curchar     : the offending character
    * Note: You can customize the lexical error message by modifying this method.
    */
-  protected static String LexicalError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, String errorAfter, char curChar) {
+  private static String LexicalError(boolean EOFSeen, int lexState, int errorLine, int errorColumn, String errorAfter, char curChar) {
     return("Lexical error at line " +
           errorLine + ", column " +
           errorColumn + ".  Encountered: " +

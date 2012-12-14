@@ -4,10 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 
-import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.junit.Test;
@@ -20,7 +18,6 @@ import org.semanticweb.drew.dlprogram.parser.ParseException;
 import org.semanticweb.drew.el.profile.SROELProfile;
 import org.semanticweb.drew.el.reasoner.DReWELManager;
 import org.semanticweb.drew.el.reasoner.DatalogFormat;
-//import org.semanticweb.drew.el.reasoner.DatalogToStringHelper;
 import org.semanticweb.drew.el.reasoner.NamingStrategy;
 import org.semanticweb.drew.el.reasoner.SROEL2DatalogRewriter;
 import org.semanticweb.drew.elprogram.ELProgramKBRewriter;
@@ -34,16 +31,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileReport;
 /**
  * Unit test for simple App.
  */
-public class AppTest extends TestCase {
-	/**
-	 * Create the test case
-	 * 
-	 * @param testName
-	 *            name of the test case
-	 */
-	public AppTest(String testName) {
-		super(testName);
-	}
+public class AppTest {
 
 	/**
 	 * @return the suite of tests being tested
@@ -57,7 +45,8 @@ public class AppTest extends TestCase {
 	 * 
 	 * @throws OWLOntologyCreationException
 	 */
-	public void testApp() throws OWLOntologyCreationException {
+	@Test
+    public void testApp() throws OWLOntologyCreationException {
 		DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
 		final String owlFileName = "testcase/Test01.owl";
 
@@ -89,7 +78,8 @@ public class AppTest extends TestCase {
 
 	}
 
-	public void testTopBot() throws OWLOntologyCreationException {
+	@Test
+    public void testTopBot() throws OWLOntologyCreationException {
 		DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
 		final String owlFileName = "testcase/testTopBot.owl";
 
@@ -117,7 +107,8 @@ public class AppTest extends TestCase {
 		System.out.println("---------------------------------------");
 	}
 
-	public void testSubRole() throws OWLOntologyCreationException {
+	@Test
+    public void testSubRole() throws OWLOntologyCreationException {
 		DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
 		final String owlFileName = "testcase/testSubRole.owl";
 
@@ -146,7 +137,8 @@ public class AppTest extends TestCase {
 		System.out.println("---------------------------------------");
 	}
 
-	public void testNom() throws OWLOntologyCreationException {
+	@Test
+    public void testNom() throws OWLOntologyCreationException {
 		DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
 		final String owlFileName = "testcase/testNom.owl";
 
@@ -175,7 +167,8 @@ public class AppTest extends TestCase {
 		System.out.println("---------------------------------------");
 	}
 
-	public void testSelf() throws OWLOntologyCreationException {
+	@Test
+    public void testSelf() throws OWLOntologyCreationException {
 		DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
 		final String owlFileName = "testcase/testSelf.owl";
 
@@ -203,7 +196,8 @@ public class AppTest extends TestCase {
 //		System.out.println(strDatalog);
 	}
 
-	public void testRoleChain() throws OWLOntologyCreationException, OWLOntologyStorageException, IOException {
+	@Test
+    public void testRoleChain() throws OWLOntologyCreationException, OWLOntologyStorageException, IOException {
 		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
 		// OWLDataFactory factory = man.getOWLDataFactory();
 		//

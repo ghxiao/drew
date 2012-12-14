@@ -41,15 +41,13 @@ public class LDLPObjectClosureBuilderTest {
 	private OWLOntologyManager manager;
 	private OWLDataFactory factory;
 	private OWLIndividual a;
-	private OWLIndividual b;
-	private OWLIndividual c;
-	private OWLClass A;
+    private OWLClass A;
 	private OWLClass B;
 	private OWLClass C;
 	private OWLObjectProperty E;
 	private OWLObjectProperty F;
-	LDLPClosureBuilder builder;
-	OWLOntology ontology;
+	private LDLPClosureBuilder builder;
+	private OWLOntology ontology;
 
 	@Before
 	public void setUp() {
@@ -61,8 +59,8 @@ public class LDLPObjectClosureBuilderTest {
 		B = factory.getOWLClass(IRI.create("B"));
 		C = factory.getOWLClass(IRI.create("C"));
 		a = factory.getOWLNamedIndividual(IRI.create("a"));
-		b = factory.getOWLNamedIndividual(IRI.create("b"));
-		c = factory.getOWLNamedIndividual(IRI.create("c"));
+        OWLIndividual b = factory.getOWLNamedIndividual(IRI.create("b"));
+        OWLIndividual c = factory.getOWLNamedIndividual(IRI.create("c"));
 		E = factory.getOWLObjectProperty(IRI.create("E"));
 		F = factory.getOWLObjectProperty(IRI.create("F"));
 		builder = new LDLPClosureBuilder();

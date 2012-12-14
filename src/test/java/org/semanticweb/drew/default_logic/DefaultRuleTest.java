@@ -69,7 +69,7 @@ public class DefaultRuleTest {
 		System.out.println(string);
 	}
 
-	public static Function<Iterable<?>, StringBuilder> joinFunction(final Joiner joiner, final StringBuilder sb) {
+	private static Function<Iterable<?>, StringBuilder> joinFunction(final Joiner joiner, final StringBuilder sb) {
 		return new Function<Iterable<?>, StringBuilder>() {
 
 			@Override
@@ -117,8 +117,8 @@ public class DefaultRuleTest {
 		String s = "[ p1(X) & p2(X); j11(X) & j12 (X), j21(X), j31(X) & j32(X) & j33(X) ] / [ c1(X) & c2(X) ]";
 		DLProgramParser parser = new DLProgramParser(new StringReader(s));
 		DefaultRule result = parser.defaultRule();
-		System.out.println(result);;
-	}
+		System.out.println(result);
+    }
 	
 	@Test
 	public void testDefault003() throws ParseException {
