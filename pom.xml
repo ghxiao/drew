@@ -14,12 +14,12 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>owlapi</groupId>
-			<artifactId>owlapi</artifactId>
-			<version>3.2.4</version>
-			<scope>compile</scope>
-		</dependency>
+
+        <dependency>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>owlapi-apibinding</artifactId>
+            <version>3.4</version>
+        </dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
