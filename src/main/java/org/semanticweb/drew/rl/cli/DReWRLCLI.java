@@ -105,10 +105,6 @@ public class DReWRLCLI extends CommandLine {
                     dlpFile = args[i + 1];
                     i += 2;
                     break;
-                case "-sparql":
-                    sparqlFile = args[i + 1];
-                    i += 2;
-                    break;
                 case "-default":
                     defaultFile = args[i + 1];
                     i += 2;
@@ -290,6 +286,8 @@ public class DReWRLCLI extends CommandLine {
 			inputProgram.addFile(datalogFile);
 
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 

@@ -20,7 +20,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 //import org.slf4j.LoggerFactory;
 
 
-class DLProgramKBLoader {
+public class DLProgramKBLoader {
 
 
 	public DLProgramKB load(String ontologyPath, String dlpPath) throws FileNotFoundException,

@@ -13,7 +13,7 @@ import org.semanticweb.drew.dlprogram.parser.ParseException;
 @Deprecated
 public class ToDlvhexFormat {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		ToDlvhexFormat t = new ToDlvhexFormat();
 //		t.toDlvhex("benchmark/lubm/rules/lubm_0.elp");
 //		t.toDlvhex("benchmark/lubm/rules/lubm_1.elp");
@@ -26,7 +26,7 @@ public class ToDlvhexFormat {
 		t.toDlvhex("benchmark/galen/rules/q1.elp");
 	}
 	
-	void toDlvhex(String dlpFile){
+	void toDlvhex(String dlpFile) throws ParseException{
 		String dlvhex = dlpFile.replaceAll("elp", "dlvhex");
 		DLProgramStorerImpl helper = new DLProgramStorerImpl();
 		try {
