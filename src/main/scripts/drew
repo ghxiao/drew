@@ -6,7 +6,9 @@ then
   exit 1
 fi
 
-CP="$(${DREW_HOME}/mkcp ${DREW_HOME})"
+drew_jar=drew-0.3-beta-2.jar
 
-exec java ${JVM_ARGS} -cp "${CP}" -DentityExpansionLimit=128000 org.semanticweb.drew.cli.CommandLine "$@"
+JVM_ARGS="-DentityExpansionLimit=128000"
+
+exec java ${JVM_ARGS} -jar ${DREW_HOME}/lib/${drew_jar} "$@"
 
