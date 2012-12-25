@@ -4,7 +4,7 @@
 
 	<groupId>org.semanticweb.drew</groupId>
 	<artifactId>drew</artifactId>
-	<version>0.3-beta-1</version>
+	<version>0.3-beta-2</version>
 	<packaging>jar</packaging>
 
 	<name>drew</name>
@@ -76,23 +76,6 @@
 
 	<build>
 		<plugins>
-			<!-- <plugin> -->
-			<!-- <groupId>org.codehaus.mojo</groupId> -->
-			<!-- <artifactId>javacc-maven-plugin</artifactId> -->
-			<!-- <version>2.6</version> -->
-			<!-- <executions> -->
-			<!-- <execution> -->
-			<!-- <id>javacc</id> -->
-			<!-- <goals> -->
-			<!-- <goal>javacc</goal> -->
-			<!-- </goals> -->
-			<!-- <configuration> -->
-			<!-- <lookAhead>2</lookAhead> -->
-			<!-- <isStatic>false</isStatic> -->
-			<!-- </configuration> -->
-			<!-- </execution> -->
-			<!-- </executions> -->
-			<!-- </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -103,20 +86,32 @@
 				</configuration>
 			</plugin>
 
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>org.semanticweb.drew.cli.CommandLine</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
 			<!-- mvn assembly:single -->
 			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
+                <version>2.4</version>
 				<configuration>
-					<archive>
-						<manifest>
-							<mainClass>org.semanticweb.drew.cli.CommandLine</mainClass>
-						</manifest>
-					</archive>
 					<descriptors>
 						<descriptor>src/main/assembly/assembly.xml</descriptor>
 					</descriptors>
 				</configuration>
-			</plugin>
+            </plugin>
 		</plugins>
 	</build>
 </project>

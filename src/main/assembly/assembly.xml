@@ -1,4 +1,8 @@
-<assembly>
+<?xml version="1.0" ?>
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+
 	<id>bin</id>
 	<!-- Generates a zip package containing the needed files -->
 	<formats>
@@ -8,7 +12,7 @@
 	<!-- Adds dependencies to zip package under lib directory -->
 	<dependencySets>
 		<dependencySet>
-			<!-- Project artifact is not copied under library directory since it is 
+			<!-- Project artifact is not copied under library directory since it is
 				added to the root directory of the zip package. -->
 			<useProjectArtifact>true</useProjectArtifact>
 			<outputDirectory>lib</outputDirectory>
@@ -17,7 +21,7 @@
 	</dependencySets>
 
 	<fileSets>
-		<!-- Adds startup scripts to the root directory of zip package. The startup 
+		<!-- Adds startup scripts to the root directory of zip package. The startup
 			scripts are located to src/main/scripts directory as stated by Maven conventions. -->
 		<fileSet>
 			<directory>${project.build.scriptSourceDirectory}</directory>
@@ -26,35 +30,35 @@
 				<include>*</include>
 			</includes>
 		</fileSet>
-		
+
 		<fileSet>
 			<directory>.</directory>
 			<outputDirectory>.</outputDirectory>
 			<includes>
-				<include>README</include>
-				<include>LICENSE</include>
-				<include>CHANGELOG</include>
+				<include>README*</include>
+				<include>LICENSE*</include>
+				<include>CHANGELOG*</include>
 			</includes>
 		</fileSet>
-		
+
 		<fileSet>
 			<directory>sample_data</directory>
-			<outputDirectory>sample_data</outputDirectory>		
+			<outputDirectory>sample_data</outputDirectory>
 			<includes>
 				<include>*.df</include>
 				<include>*.owl</include>
 				<include>*.cq</include>
 				<include>*.dlp</include>
 				<include>*.sparql</include>
-			</includes>	
+			</includes>
 		</fileSet>
 		<!-- adds jar package to the root directory of zip package -->
-<!-- 		<fileSet> -->
-<!-- 			<directory>${project.build.directory}</directory> -->
-<!-- 			<outputDirectory></outputDirectory> -->
-<!-- 			<includes> -->
-<!-- 				<include>*.jar</include> -->
-<!-- 			</includes> -->
-<!-- 		</fileSet> -->
+ 		<fileSet>
+ 			<directory>${project.build.directory}</directory>
+ 			<outputDirectory>lib</outputDirectory>
+ 			<includes>
+ 				<include>*.jar</include>
+ 			</includes>
+ 		</fileSet>
 	</fileSets>
 </assembly>
