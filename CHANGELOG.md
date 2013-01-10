@@ -1,15 +1,26 @@
-## v 0.3
+## 2013-01-19 Guohui Xiao <xiao@kr.tuwien.ac.at>
 
-A big refactior on the original code and combining the EL and RL encoding in the single program, corresponing to the SWWS 2012 paper [1]. 
+v0.3-beta-2 released 
+* fix the command bug with EL ontology only rewriting
 
-## v 0.2
+## 2012-11 Guohui Xiao <xiao@kr.tuwien.ac.at>
 
-EL Rewriting and Default Logic support. 
+v0.3-beta-1 released
+
+* A big refactior on the original code and combining the EL and RL encoding in the single program, corresponing to the SWWS 2012 paper [1]. 
+
+## 2012-01 Guohui Xiao <xiao@kr.tuwien.ac.at>
+
+v0.2 released
+
+* EL Rewriting and Default Logic support. 
 Corresponding to the FoIKS 2012 paper [2].
 
-## v 0.1
+## 2010-06 Guohui Xiao <xiao@kr.tuwien.ac.at>
 
-The original version of DReW, with LDLp (RL) rewriting, corresponding to the ECAI 2010 [4] and BuRO 2010 paper [3].
+v0.1 released
+
+* The original version of DReW, with LDLp (RL) rewriting, corresponding to the ECAI 2010 [4] and BuRO 2010 paper [3].
 
 
 ## Refrences
