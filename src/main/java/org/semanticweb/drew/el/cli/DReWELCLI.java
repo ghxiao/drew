@@ -97,6 +97,9 @@ public class DReWELCLI extends CommandLine {
 			handleDefault(ontology, inputProgram);
 		} else if (sparqlFile != null) {
 			handleSparql(ontology, inputProgram);
+		} else { // ontology part only
+			handleOntology(ontology);
+			rewriting_only = true;
 		}
 
 		if (rewriting_only) {
@@ -107,13 +110,29 @@ public class DReWELCLI extends CommandLine {
 
 	}
 
+	private void handleOntology(OWLOntology ontology) {
+		SROEL2DatalogRewriter rewriter = new SROEL2DatalogRewriter();
+		DLProgram datalog = rewriter.rewrite(ontology);
+		DLProgramStorer storer = new DLProgramStorerImpl();
+		// DatalogToStringHelper helper = new DatalogToStringHelper();
+
+		datalogFile = ontologyFile + ".dlv";
+		try (FileWriter writer = new FileWriter(datalogFile)) {
+			storer.store(datalog, writer);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	private void handleSparql(OWLOntology ontology, DLVInputProgram inputProgram) {
-		throw new UnsupportedOperationException("not implemented yet! try using `drew -rl`");
+		throw new UnsupportedOperationException(
+				"not implemented yet! try using `drew -rl`");
 	}
 
 	/**
 	 * @param args
-     * @throws OWLOntologyCreationException
+	 * @throws OWLOntologyCreationException
 	 * @throws IOException
 	 * @throws ParseException
 	 * @throws DLVInvocationException
@@ -154,7 +173,7 @@ public class DReWELCLI extends CommandLine {
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		}
-    }
+	}
 
 	@Override
 	public void handleDLProgram(OWLOntology ontology,
@@ -202,7 +221,7 @@ public class DReWELCLI extends CommandLine {
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		}
-    }
+	}
 
 	@Override
 	public void handleCQ(OWLOntology ontology, DLVInputProgram inputProgram) {
@@ -251,7 +270,7 @@ public class DReWELCLI extends CommandLine {
 			e.printStackTrace();
 		}
 
-        return null;
+		return null;
 
 	}
 
@@ -259,67 +278,68 @@ public class DReWELCLI extends CommandLine {
 	public boolean parseArgs(String[] args) {
 		int i = 0;
 		while (i < args.length) {
-            switch (args[i]) {
-                case "-el":
-                    i += 1;
-                    // fine
-                    break;
-                case "-rl":
-                    throw new IllegalStateException("-rl");
-                case "-ontology":
-                    ontologyFile = args[i + 1];
-                    i += 2;
-                    break;
-                case "-cq":
-                    cqFile = args[i + 1];
-                    i += 2;
-                    break;
-                case "-dlp":
-                    dlpFile = args[i + 1];
-                    i += 2;
-                    break;
-                case "-sparql":
-                    sparqlFile = args[i + 1];
-                    i += 2;
-                    break;
-                case "-default":
-                    defaultFile = args[i + 1];
-                    i += 2;
-                    break;
-                case "-filter":
-                    filter = args[i + 1];
-                    i += 2;
-                    break;
-                case "-dlv":
-                    dlvPath = args[i + 1];
-                    i += 2;
-                    break;
-                case "-verbose":
-                    DReWELManager.getInstance().setVerboseLevel(
-                            Integer.parseInt(args[i + 1]));
-                    i += 2;
-                    break;
-                case "-rewriting":
-                    rewriting = args[i + 1];
-                    i += 2;
-                    break;
-                case "--rewriting-only":
-                    rewriting_only = true;
-                    i += 1;
-                    break;
-                case "-wf":
-                    semantics = "wf";
-                    i += 1;
-                    break;
-                case "-asp":
-                    semantics = "asp";
-                    i += 1;
-                    break;
-                default:
-                    System.err.println("Unknown option " + args[i]);
-                    System.err.println();
-                    return false;
-            }
+			switch (args[i]) {
+			case "-el":
+				i += 1;
+				// fine
+				break;
+			case "-rl":
+				throw new IllegalStateException("-rl");
+			case "-ontology":
+				ontologyFile = args[i + 1];
+				i += 2;
+				break;
+			case "-cq":
+				cqFile = args[i + 1];
+				i += 2;
+				break;
+			case "-dlp":
+				dlpFile = args[i + 1];
+				i += 2;
+				break;
+			case "-sparql":
+				sparqlFile = args[i + 1];
+				i += 2;
+				break;
+			case "-default":
+				defaultFile = args[i + 1];
+				i += 2;
+				break;
+			case "-filter":
+				filter = args[i + 1];
+				i += 2;
+				break;
+			case "-dlv":
+				dlvPath = args[i + 1];
+				i += 2;
+				break;
+			case "-verbose":
+				DReWELManager.getInstance().setVerboseLevel(
+						Integer.parseInt(args[i + 1]));
+				i += 2;
+				break;
+			case "-rewriting":
+				rewriting = args[i + 1];
+				i += 2;
+				break;
+			case "--rewriting-only":
+			case "-r":	
+				rewriting_only = true;
+				i += 1;
+				break;
+			case "-wf":
+				semantics = "wf";
+				i += 1;
+				break;
+			case "-asp":
+				semantics = "asp";
+				i += 1;
+				break;
+			default:
+				System.err.println("Unknown option " + args[i]);
+				System.err.println();
+				return false;
+			}
 		}
 
 		if (ontologyFile == null) {
@@ -327,14 +347,14 @@ public class DReWELCLI extends CommandLine {
 			return false;
 		}
 
-		if (rewriting_only && cqFile == null && sparqlFile == null && dlpFile == null
-				&& defaultFile == null) {
+		if (rewriting_only && cqFile == null && sparqlFile == null
+				&& dlpFile == null && defaultFile == null && !rewriting_only) {
 			System.err
 					.println("Please specify the cq file, or the sparql file, or dl porgram, or default rules file");
 			return false;
 		}
 
-		if (dlvPath == null) {
+		if (dlvPath == null && !rewriting_only ) {
 			System.err.println("Please specify the path of dlv reasoner");
 			return false;
 		}
@@ -359,7 +379,7 @@ public class DReWELCLI extends CommandLine {
 			if (filter != null) {
 				String[] ss = filter.split(",");
 
-                Collections.addAll(filters, ss);
+				Collections.addAll(filters, ss);
 			}
 
 			if (filters != null && filters.size() > 0)
@@ -405,7 +425,7 @@ public class DReWELCLI extends CommandLine {
 		} catch (DLVInvocationException | IOException e) {
 			e.printStackTrace();
 		}
-    }
+	}
 
 	void printUsage() {
 
