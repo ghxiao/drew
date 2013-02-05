@@ -144,7 +144,6 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 				write(")", target);
 			}
 		}
-
 	}
 
 	void writeNormalPredicate(NormalPredicate logicPredicate, Appendable target) {

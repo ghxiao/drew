@@ -25,6 +25,13 @@ public class DReWRLCLITest {
 		DReWRLCLI.main("-rl", "--rewriting-only", "-ontology",
 				"benchmark/network/ontology/network.owl");
 	}
+	
+	@Test
+	public void testEDIOntology() throws OWLOntologyCreationException,
+			IOException, ParseException, DLVInvocationException {
+		DReWRLCLI.main("-rl", "--rewriting-only", "-ontology",
+				"/Users/xiao/Dropbox/krrepos/xiao/benchmark/data/ontologies/edi/testBI5.owl");
+	}
 
 	@Test
 	public void testSparql() throws OWLOntologyCreationException, IOException,

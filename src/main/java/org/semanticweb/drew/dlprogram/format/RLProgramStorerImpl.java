@@ -48,21 +48,29 @@ public class RLProgramStorerImpl extends DLProgramStorerImpl {
 
 	@Override
 	void writeStringConstant(Term t, Appendable target) {
-		write("\"", target);
+		boolean isIRI = false;
+		String name = t.getName();
+		String newp = name;
 		try {
-			String name = t.getName();
-			String newp = name;
 			if (name.matches("^o\\d+$")) {
 				String d = ldlpCompilerManager.decompile(name);
 				Matcher matcher = qIriPattern.matcher(d);
 				if (matcher.find()) {
 					newp = matcher.group(1);
+					isIRI = true;
+				} else {
+					// datatype
+					newp = d;
 				}
 			}
+
+			if (isIRI)
+				write("\"", target);
 			target.append(newp);
+			if (isIRI)
+				write("\"", target);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		write("\"", target);
 	}
 }
