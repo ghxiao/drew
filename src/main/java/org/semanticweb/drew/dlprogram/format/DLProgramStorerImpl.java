@@ -22,12 +22,10 @@ import org.semanticweb.owlapi.model.IRI;
 
 public class DLProgramStorerImpl implements DLProgramStorer {
 
-	// Appendable target;
-
 	/*
 	 * In dlvhex format, prefix is not allowed
 	 */
-    private boolean usingDlvhexFormat;
+	private boolean usingDlvhexFormat;
 
 	public boolean isUsingDlvhexFormat() {
 		return usingDlvhexFormat;
@@ -42,24 +40,21 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 	}
 
 	void writeDLProgram(DLProgram program, Appendable target) {
-		// sb = new StringBuilder();
 		List<ProgramStatement> stmts = program.getStatements();
 		writeStatements(stmts, target);
 	}
 
 	void writeStatements(Collection<ProgramStatement> statements,
-                         Appendable target) {
-		// target = new StringBuilder();
+			Appendable target) {
 
 		for (ProgramStatement r : statements) {
 			writeStatement(r, target);
 		}
-		// return target.toString();
 	}
 
 	private void writeStatement(ProgramStatement stmt, Appendable target) {
 		if (stmt.isClause()) {
-			writeCluase(stmt.asClause(), target);
+			writeClause(stmt.asClause(), target);
 			write("\n", target);
 		} else if (stmt.isComment()) {
 			write(stmt.asComment().toString(), target);
@@ -68,7 +63,7 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 		}
 	}
 
-	void writeCluase(Clause r, Appendable target) {
+	void writeClause(Clause r, Appendable target) {
 		if (!(r.getHead().equals(Literal.FALSE))) {
 			writeLiteral(r.getHead(), target);
 		}
@@ -101,34 +96,29 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 		final Predicate predicate = lit.getPredicate();
 		List<Term> terms = lit.getTerms();
 		if (predicate instanceof NormalPredicate) {
-			// sb.append(((NormalPredicate) predicate).getName());
 
 			NormalPredicate normalPredicate = (NormalPredicate) predicate;
 			switch (normalPredicate.getType()) {
 			case BUILTIN:
-				// sb.append(terms.get(0));
 				writeTerm(terms.get(0), target);
 				write(" ", target);
 				write(normalPredicate.getName(), target);
 				write(" ", target);
-				// sb.append(terms.get(1));
 				writeTerm(terms.get(1), target);
-				// return result.toString();
 				break;
 			case LOGIC:
 				write(normalPredicate.getName(), target);
-				// return normalPredicate.name;
 				break;
 			case NORMAL:
 				if (lit.isNegative()) {
 					write("-", target);
 				}
 
-				write(normalPredicate.getName(), target);
+				// write(normalPredicate.getName(), target);
+				writeNormalPredicate(normalPredicate, target);
 				if (terms.size() > 0) {
 					write("(", target);
 					for (Iterator<Term> iter = terms.iterator(); iter.hasNext();) {
-						// sb.append(iter.next());
 						writeTerm(iter.next(), target);
 						if (iter.hasNext()) {
 							write(", ", target);
@@ -136,7 +126,6 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 					}
 					write(")", target);
 				}
-				// return result.toString();
 				break;
 			default:
 				throw new IllegalStateException();
@@ -147,7 +136,6 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 			if (terms.size() > 0) {
 				write("(", target);
 				for (Iterator<Term> iter = terms.iterator(); iter.hasNext();) {
-					// sb.append(iter.next());
 					writeTerm(iter.next(), target);
 					if (iter.hasNext()) {
 						write(", ", target);
@@ -157,70 +145,14 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 			}
 		}
 
-		//
-		// if (predicate instanceof NormalPredicate) {
-		//
-		// NormalPredicate normalPredicate = (NormalPredicate) predicate;
-		//
-		// switch (normalPredicate.type) {
-		// case BUILTIN:
-		// result.append(terms.get(0));
-		// result.append(" ").append(normalPredicate.name).append(" ");
-		// result.append(terms.get(1));
-		// return result.toString();
-		// case LOGIC:
-		// return normalPredicate.name;
-		// case NORMAL:
-		// result.append(normalPredicate.name);
-		// if (terms.size() > 0) {
-		// result.append("(");
-		// for (Iterator<Term> iter = terms.iterator(); iter.hasNext();) {
-		// result.append(iter.next());
-		// if (iter.hasNext()) {
-		// result.append(", ");
-		// }
-		// }
-		// result.append(")");
-		// }
-		// return result.toString();
-		// default:
-		// throw new IllegalStateException();
-		// }
-		// } else if (predicate instanceof DLAtomPredicate) {
-		//
-		// DLAtomPredicate dlAtomPredicate = (DLAtomPredicate) predicate;
-		// result.append(dlAtomPredicate.toString());
-		// if (terms.size() > 0) {
-		// result.append("(");
-		// for (Iterator<Term> iter = terms.iterator(); iter.hasNext();) {
-		// result.append(iter.next());
-		// if (iter.hasNext()) {
-		// result.append(", ");
-		// }
-		// }
-		// result.append(")");
-		// }
-		// return result.toString();
-		// }
-		//
-		//
-		// NormalPredicate np = (NormalPredicate) predicate;
-		// np.getType() ==
-		//
-		// if (lit.getTerms().size() > 0) {
-		//
-		// sb.append("(");
-		// boolean first = true;
-		// for (Term t : lit.getTerms()) {
-		// if (!first) {
-		// sb.append(", ");
-		// }
-		// first = false;
-		//
-		// toString(t);
-		// }
-		// sb.append(")");
-		// }
+	}
+
+	void writeNormalPredicate(NormalPredicate logicPredicate, Appendable target) {
+		try {
+			target.append(logicPredicate.getName());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	void writeTerm(Term t, Appendable target) {
@@ -252,39 +184,43 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 
 		} else if (t instanceof Constant
 				&& ((Constant) t).getType() == Types.VARCHAR) {
-			write("\"", target);
-			write(t.toString(), target);
-			write("\"", target);
+			writeStringConstant(t, target);
 		} else {
 			write(t.toString(), target);
 		}
 	}
 
-	private String toString(DLAtomPredicate predicate, Appendable target) {
-		StringBuilder result = new StringBuilder();
-		result.append("DL[");
-		boolean first = true;
-		for (DLInputOperation op : predicate.getInputSignature()
-				.getOperations()) {
-			if (!first)
-				result.append(",");
-			first = false;
-			result.append(op.getDLPredicate().getIRI().getFragment());
-			result.append(op.getType());
-			result.append(op.getInputPredicate().getName());
-			// 1st difference
-		}
-		// 2nd diff
-		if (predicate.getInputSignature().getOperations().size() > 0)
-			result.append(";");
-
-		// 3rd diff
-		result.append(predicate.getQuery().getIRI().getFragment());
-
-		result.append("]");
-
-		return result.toString();
+	void writeStringConstant(Term t, Appendable target) {
+		write("\"", target);
+		write(t.toString(), target);
+		write("\"", target);
 	}
+
+	// private String toString(DLAtomPredicate predicate, Appendable target) {
+	// StringBuilder result = new StringBuilder();
+	// result.append("DL[");
+	// boolean first = true;
+	// for (DLInputOperation op : predicate.getInputSignature()
+	// .getOperations()) {
+	// if (!first)
+	// result.append(",");
+	// first = false;
+	// result.append(op.getDLPredicate().getIRI().getFragment());
+	// result.append(op.getType());
+	// result.append(op.getInputPredicate().getName());
+	// // 1st difference
+	// }
+	// // 2nd diff
+	// if (predicate.getInputSignature().getOperations().size() > 0)
+	// result.append(";");
+	//
+	// // 3rd diff
+	// result.append(predicate.getQuery().getIRI().getFragment());
+	//
+	// result.append("]");
+	//
+	// return result.toString();
+	// }
 
 	void write(String string, Appendable target) {
 		try {

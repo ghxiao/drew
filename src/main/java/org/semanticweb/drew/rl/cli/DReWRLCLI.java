@@ -26,6 +26,8 @@ import java.util.List;
 import org.semanticweb.drew.cli.CommandLine;
 import org.semanticweb.drew.dlprogram.format.DLProgramStorer;
 import org.semanticweb.drew.dlprogram.format.DLProgramStorerImpl;
+import org.semanticweb.drew.dlprogram.format.RLProgramStorerImpl;
+import org.semanticweb.drew.dlprogram.model.CacheManager;
 import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.model.DLProgramKB;
@@ -75,7 +77,7 @@ public class DReWRLCLI extends CommandLine {
 		this.args = args;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String... args) {
 		new DReWRLCLI(args).go();
 	}
 
@@ -196,6 +198,7 @@ public class DReWRLCLI extends CommandLine {
 		} else if (dlpFile != null) {
 			handleDLProgram(ontology, inputProgram);
 		} else { // ontology part only
+			DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
 			handleOntology(ontology);
 			rewriting_only = true;
 		}
@@ -210,7 +213,8 @@ public class DReWRLCLI extends CommandLine {
 	private void handleOntology(OWLOntology ontology) {
 		LDLPOntologyCompiler rewriter = new LDLPOntologyCompiler();
 		List<ProgramStatement> datalog = rewriter.compile(ontology);
-		DLProgramStorer storer = new DLProgramStorerImpl();
+		//DLProgramStorer storer = new DLProgramStorerImpl();
+		DLProgramStorer storer = new RLProgramStorerImpl();
 		// DatalogToStringHelper helper = new DatalogToStringHelper();
 
 		datalogFile = ontologyFile + ".dlv";
@@ -265,7 +269,6 @@ public class DReWRLCLI extends CommandLine {
 
 	@Override
 	public void handleDefault(OWLOntology ontology, DLVInputProgram inputProgram) {
-
 		throw new UnsupportedOperationException();
 	}
 

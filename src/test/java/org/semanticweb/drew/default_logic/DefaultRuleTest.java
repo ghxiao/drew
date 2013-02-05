@@ -49,47 +49,6 @@ public class DefaultRuleTest {
 		System.out.println(rule);
 	}
 
-	@Test
-	public void testNestingJoiner() {
-
-		StringBuilder sb = new StringBuilder();
-
-		List<ArrayList<Integer>> matrix = Lists.newArrayList( //
-				Lists.newArrayList(1, 2, 3), //
-				Lists.newArrayList(4, 5, 6), //
-				Lists.newArrayList(7, 8, 9));
-
-		// Joiner.on('\n').appendTo(sb, parts)
-
-		String string = Joiner.on('\n').appendTo(sb, Iterables.transform(matrix, joinFunction(Joiner.on(", "), sb))).toString();
-
-		// String string = Joiner.on('\n').join(Iterables.transform(matrix,
-		// joinFunction(Joiner.on(", "))));
-
-		System.out.println(string);
-	}
-
-	private static Function<Iterable<?>, StringBuilder> joinFunction(final Joiner joiner, final StringBuilder sb) {
-		return new Function<Iterable<?>, StringBuilder>() {
-
-			@Override
-			public StringBuilder apply(Iterable<?> input) {
-				return joiner.appendTo(sb, input);
-				// return joiner.join(input);
-			}
-		};
-	}
-
-	public static Function<Iterable<?>, String> joinFunction(final Joiner joiner) {
-		return new Function<Iterable<?>, String>() {
-
-			@Override
-			public String apply(Iterable<?> input) {
-
-				return joiner.join(input);
-			}
-		};
-	}
 
 	@Test public void testDefaultLogicRuleParser001() throws FileNotFoundException, ParseException, OWLOntologyCreationException{
 		
