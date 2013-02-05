@@ -1,6 +1,5 @@
 package org.semanticweb.drew.el.reasoner;
 
-import java.nio.channels.IllegalSelectorException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;

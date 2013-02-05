@@ -29,9 +29,6 @@ public abstract class CommandLine {
 			System.exit(0);
 		}
 
-		// String[] subArgs = Arrays.copyOfRange(args, 1, args.length);
-
-		// Joiner.on(", ").appendTo(System.out, subArgs);
 
 		if (args[0].equals("-el")) {
 			DReWELCLI.main(args);

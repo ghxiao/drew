@@ -63,7 +63,7 @@ public class DLAtomPredicate implements Predicate {
 
 	@Override
 	public int compareTo(Predicate o) {
-		throw new UnsupportedOperationException();
+		return this.toString().compareTo(o.toString());
 	}
 
 	@Override

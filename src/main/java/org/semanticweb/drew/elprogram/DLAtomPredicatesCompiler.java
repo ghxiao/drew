@@ -78,7 +78,8 @@ class DLAtomPredicatesCompiler {
 					.getPredicate(bodyPredicateName, 3);
 			Literal body = new Literal(bodyPredicate, X, q, Y);
 			clause.getPositiveBody().add(body);
-		}
+		} else 
+            throw new IllegalStateException();
 		return clause;
 	}
 }
