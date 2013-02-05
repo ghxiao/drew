@@ -205,8 +205,6 @@ public class DReWRLCLI extends CommandLine {
 		} else {
 			runDLV(inputProgram);
 		}
-
-		runDLV(inputProgram);
 	}
 
 	private void handleOntology(OWLOntology ontology) {
