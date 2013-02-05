@@ -21,11 +21,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
 
 
-//import edu.stanford.db.lp.ProgramClause;
-
-/**
- * TODO describe this class please.
- */
 public class LDLPCompilerTest {
 	private final static String uri = "http://www.kr.tuwien.ac.at/staff/xiao/ldl/role_inverse.ldl";
 
@@ -64,7 +59,7 @@ public class LDLPCompilerTest {
 			System.out.println("Compiled:");
 
 			LDLPOntologyCompiler compiler = new LDLPOntologyCompiler();
-			final List<ProgramStatement> datalogClauses = compiler.complile(ontology);
+			final List<ProgramStatement> datalogClauses = compiler.compile(ontology);
 
 			for (ProgramStatement clause : datalogClauses) {
 				System.out.println(clause);

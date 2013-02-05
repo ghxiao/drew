@@ -54,7 +54,7 @@ public class RLProgramKBCompiler implements DLProgramKB2DatalogRewriter{
 		final OWLOntology ontology = kb.getOntology();
 		LDLPOntologyCompiler ldlpCompiler = new LDLPOntologyCompiler();
 		final List<ProgramStatement> compiledOntology = ldlpCompiler
-				.complile(ontology);
+				.compile(ontology);
 		final DLProgram program = kb.getProgram();
 		final Set<DLInputSignature> dlInputSignatures = program
 				.getDLInputSignatures();

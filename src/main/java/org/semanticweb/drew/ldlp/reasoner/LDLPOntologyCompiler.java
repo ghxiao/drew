@@ -30,7 +30,7 @@ public class LDLPOntologyCompiler {
 	
 	private List<ProgramStatement> clauses;
 
-	public List<ProgramStatement> complile(OWLOntology ontology) {
+	public List<ProgramStatement> compile(OWLOntology ontology) {
 		final Set<OWLAxiom> axioms = ontology.getAxioms();
 		return compile(axioms);
 	}

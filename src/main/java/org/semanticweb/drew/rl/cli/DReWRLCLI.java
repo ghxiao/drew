@@ -34,6 +34,7 @@ import org.semanticweb.drew.dlprogram.parser.DLProgramParser;
 import org.semanticweb.drew.dlprogram.parser.ParseException;
 import org.semanticweb.drew.el.reasoner.DReWELManager;
 import org.semanticweb.drew.el.reasoner.NamingStrategy;
+import org.semanticweb.drew.el.reasoner.SROEL2DatalogRewriter;
 import org.semanticweb.drew.ldlp.profile.LDLPProfile;
 import org.semanticweb.drew.ldlp.reasoner.LDLPOntologyCompiler;
 import org.semanticweb.drew.ldlp.reasoner.LDLPQueryCompiler;
@@ -82,63 +83,63 @@ public class DReWRLCLI extends CommandLine {
 	public boolean parseArgs(String[] args) {
 		int i = 0;
 		while (i < args.length) {
-            switch (args[i]) {
-                case "-rl":
-                    i += 1;
-                    // fine
-                    break;
-                case "-el":
-                    throw new IllegalStateException("-el");
-                case "-ontology":
-                    ontologyFile = args[i + 1];
-                    i += 2;
-                    break;
-                case "-sparql":
-                    sparqlFile = args[i + 1];
-                    i += 2;
-                    break;
-                case "-cq":
-                    cqFile = args[i + 1];
-                    i += 2;
-                    break;
-                case "-dlp":
-                    dlpFile = args[i + 1];
-                    i += 2;
-                    break;
-                case "-default":
-                    defaultFile = args[i + 1];
-                    i += 2;
-                    break;
-                case "-filter":
-                    filter = args[i + 1];
-                    i += 2;
-                    break;
-                case "-dlv":
-                    dlvPath = args[i + 1];
-                    i += 2;
-                    break;
-                case "-verbose":
-                    DReWELManager.getInstance().setVerboseLevel(
-                            Integer.parseInt(args[i + 1]));
-                    i += 2;
-                    break;
-                case "--rewriting-only":
-                    rewriting_only = true;
-                    i += 1;
-                    break;
-                case "-wf":
-                    semantics = "wf";
-                    i += 1;
-                    break;
-                case "-asp":
-                    semantics = "asp";
-                    i += 1;
-                    break;
-                default:
-                    System.err.println("Unknown option " + args[i]);
-                    System.err.println();
-                    return false;
-            }
+			switch (args[i]) {
+			case "-rl":
+				i += 1;
+				// fine
+				break;
+			case "-el":
+				throw new IllegalStateException("-el");
+			case "-ontology":
+				ontologyFile = args[i + 1];
+				i += 2;
+				break;
+			case "-sparql":
+				sparqlFile = args[i + 1];
+				i += 2;
+				break;
+			case "-cq":
+				cqFile = args[i + 1];
+				i += 2;
+				break;
+			case "-dlp":
+				dlpFile = args[i + 1];
+				i += 2;
+				break;
+			case "-default":
+				defaultFile = args[i + 1];
+				i += 2;
+				break;
+			case "-filter":
+				filter = args[i + 1];
+				i += 2;
+				break;
+			case "-dlv":
+				dlvPath = args[i + 1];
+				i += 2;
+				break;
+			case "-verbose":
+				DReWELManager.getInstance().setVerboseLevel(
+						Integer.parseInt(args[i + 1]));
+				i += 2;
+				break;
+			case "--rewriting-only":
+				rewriting_only = true;
+				i += 1;
+				break;
+			case "-wf":
+				semantics = "wf";
+				i += 1;
+				break;
+			case "-asp":
+				semantics = "asp";
+				i += 1;
+				break;
+			default:
+				System.err.println("Unknown option " + args[i]);
+				System.err.println();
+				return false;
+			}
 		}
 
 		if (ontologyFile == null) {
@@ -147,13 +148,13 @@ public class DReWRLCLI extends CommandLine {
 		}
 
 		if (cqFile == null && sparqlFile == null && dlpFile == null
-				&& defaultFile == null) {
+				&& defaultFile == null && !rewriting_only) {
 			System.err
 					.println("Please specify the cq file, or the sparql file, or dl program, or default rules file");
 			return false;
 		}
 
-		if (dlvPath == null) {
+		if (dlvPath == null && !rewriting_only) {
 			System.err.println("Please specify the path of dlv reasoner");
 			return false;
 		}
@@ -194,11 +195,33 @@ public class DReWRLCLI extends CommandLine {
 			handleSparql(ontology, inputProgram);
 		} else if (dlpFile != null) {
 			handleDLProgram(ontology, inputProgram);
-		} else if (defaultFile != null) {
-			handleDefault(ontology, inputProgram);
+		} else { // ontology part only
+			handleOntology(ontology);
+			rewriting_only = true;
+		}
+
+		if (rewriting_only) {
+			// do nothing
+		} else {
+			runDLV(inputProgram);
 		}
 
 		runDLV(inputProgram);
+	}
+
+	private void handleOntology(OWLOntology ontology) {
+		LDLPOntologyCompiler rewriter = new LDLPOntologyCompiler();
+		List<ProgramStatement> datalog = rewriter.compile(ontology);
+		DLProgramStorer storer = new DLProgramStorerImpl();
+		// DatalogToStringHelper helper = new DatalogToStringHelper();
+
+		datalogFile = ontologyFile + ".dlv";
+		try (FileWriter writer = new FileWriter(datalogFile)) {
+			storer.store(datalog, writer);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	private void handleSparql(OWLOntology ontology, DLVInputProgram inputProgram) {
@@ -222,7 +245,7 @@ public class DReWRLCLI extends CommandLine {
 			SparqlCompiler sparqlCompiler = new SparqlCompiler();
 
 			LDLPOntologyCompiler compiler = new LDLPOntologyCompiler();
-			List<ProgramStatement> datalogClauses = compiler.complile(ontology);
+			List<ProgramStatement> datalogClauses = compiler.compile(ontology);
 
 			DLProgramStorer storer = new DLProgramStorerImpl();
 
@@ -309,7 +332,7 @@ public class DReWRLCLI extends CommandLine {
 			if (filter != null) {
 				String[] ss = filter.split(",");
 
-                Collections.addAll(filters, ss);
+				Collections.addAll(filters, ss);
 			}
 
 			if (filters != null && filters.size() > 0)
@@ -370,7 +393,7 @@ public class DReWRLCLI extends CommandLine {
 		} catch (DLVInvocationException | IOException e) {
 			e.printStackTrace();
 		}
-    }
+	}
 
 	@Override
 	public void handleCQ(OWLOntology ontology, DLVInputProgram inputProgram) {

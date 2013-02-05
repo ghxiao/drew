@@ -101,7 +101,7 @@ class LDLPReasoner extends OWLReasonerAdapter {
 
 		if (!compiled) {
 			logger.debug("Program Compiling Started");
-			program = ontologyCompiler.complile(this.getRootOntology());
+			program = ontologyCompiler.compile(this.getRootOntology());
 			logger.debug("Program Compiling Finished");
 			compiled = true;
 		}
@@ -122,7 +122,7 @@ class LDLPReasoner extends OWLReasonerAdapter {
 	 * @return
 	 */
 	public List<Literal> query(Clause q) {
-		program = ontologyCompiler.complile(this.getRootOntology());
+		program = ontologyCompiler.compile(this.getRootOntology());
 
 		LDLPQueryCompiler queryComiler = new LDLPQueryCompiler();
 		Clause query = queryComiler.compileQuery(q);
@@ -235,7 +235,7 @@ class LDLPReasoner extends OWLReasonerAdapter {
 	public List<Literal> executeQuery(Query query) {
 		if (!compiled) {
 			logger.debug("Program Compiling Started");
-			program = ontologyCompiler.complile(this.getRootOntology());
+			program = ontologyCompiler.compile(this.getRootOntology());
 			logger.debug("Program Compiling Finished");
 			compiled = true;
 		}
