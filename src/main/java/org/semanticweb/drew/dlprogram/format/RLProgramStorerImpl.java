@@ -60,14 +60,15 @@ public class RLProgramStorerImpl extends DLProgramStorerImpl {
 					isIRI = true;
 				} else {
 					// datatype
-					newp = d;
+					//newp = d;
+					newp = d.replace('\"', '\'');
 				}
 			}
 
-			if (isIRI)
+//			if (isIRI)
 				write("\"", target);
 			target.append(newp);
-			if (isIRI)
+//			if (isIRI)
 				write("\"", target);
 		} catch (IOException e) {
 			e.printStackTrace();

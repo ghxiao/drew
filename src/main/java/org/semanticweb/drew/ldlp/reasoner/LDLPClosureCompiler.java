@@ -48,10 +48,11 @@ import org.slf4j.LoggerFactory;
 //import edu.stanford.db.lp.Term;
 //import edu.stanford.db.lp.VariableTerm;
 
-public class LDLPClosureCompiler implements OWLClassExpressionVisitor, OWLPropertyExpressionVisitor,
-		OWLIndividualVisitor {
+public class LDLPClosureCompiler implements OWLClassExpressionVisitor,
+		OWLPropertyExpressionVisitor, OWLIndividualVisitor {
 
-	private final static Logger logger = LoggerFactory.getLogger(LDLPClosureCompiler.class);
+	private final static Logger logger = LoggerFactory
+			.getLogger(LDLPClosureCompiler.class);
 
 	private LDLPCompilerManager manager = LDLPCompilerManager.getInstance();
 
@@ -83,7 +84,8 @@ public class LDLPClosureCompiler implements OWLClassExpressionVisitor, OWLProper
 			prop.accept(this);
 		}
 
-		for (OWLObjectPropertyExpression prop : closure.getComplexPropertyExpressions()) {
+		for (OWLObjectPropertyExpression prop : closure
+				.getComplexPropertyExpressions()) {
 			prop.accept(this);
 		}
 
@@ -196,10 +198,32 @@ public class LDLPClosureCompiler implements OWLClassExpressionVisitor, OWLProper
 
 	}
 
+	/**
+	 * <pre>
+	 * (R value o)(X) :- R(X, o).
+	 * R(X, o) :- (R value o)(X).
+	 * </pre>
+	 */
+
 	@Override
 	public void visit(OWLObjectHasValue ce) {
-		// TODO Auto-generated method stub
-		System.err.println("skip" + ce);
+		// TODO: Check the completeness
+		OWLObjectPropertyExpression property = ce.getProperty();
+		OWLIndividual value = ce.getValue();
+		Literal[] head = new Literal[1];
+		head[0] = new Literal(manager.getPredicate(ce), X);
+		Literal[] body = new Literal[1];
+		body[0] = new Literal(manager.getPredicate(property), X, CacheManager
+				.getInstance().getConstant(manager.getConstant(value)));
+
+		Clause clause = new Clause(head, body);
+		clauses.add(clause);
+		logger.debug("{}\n\t->\n{}", ce, clause);
+
+		clause = new Clause(body, head);
+		clauses.add(clause);
+		logger.debug("{}\n\t->\n{}", ce, clause);
+
 		// throw new UnsupportedOperationException();
 	}
 
@@ -234,7 +258,8 @@ public class LDLPClosureCompiler implements OWLClassExpressionVisitor, OWLProper
 
 		for (int i = 0; i < n; i++) {
 			for (int j = i + 1; j < n; j++) {
-				bodyLiterals.add(new Literal(NormalPredicate.NOTEQUAL, Ys[i], Ys[j]));
+				bodyLiterals.add(new Literal(NormalPredicate.NOTEQUAL, Ys[i],
+						Ys[j]));
 			}
 		}
 		Literal[] body = new Literal[0];
@@ -280,7 +305,8 @@ public class LDLPClosureCompiler implements OWLClassExpressionVisitor, OWLProper
 		for (OWLIndividual ind : individuals) {
 			Literal[] head = new Literal[1];
 			final String constant = manager.getConstant(ind);
-			head[0] = new Literal(predicate, CacheManager.getInstance().getConstant(constant));
+			head[0] = new Literal(predicate, CacheManager.getInstance()
+					.getConstant(constant));
 			Literal[] body = new Literal[0];
 			final Clause clause = new Clause(head, body);
 			clauses.add(clause);
@@ -322,13 +348,13 @@ public class LDLPClosureCompiler implements OWLClassExpressionVisitor, OWLProper
 		head[0] = new Literal(manager.getPredicate(ce), X);
 		Literal[] body = new Literal[1];
 		body[0] = new Literal(manager.getPredicate(ce.getProperty()), X,
-                CacheManager.getInstance().getConstant(manager.getConstant(ce.getValue().toString())));
+				CacheManager.getInstance().getConstant(
+						manager.getConstant(ce.getValue().toString())));
 
 		final Clause clause = new Clause(head, body);
 		clauses.add(clause);
 		logger.debug("{}\n\t->\n{}", ce, clause);
 
-		
 	}
 
 	@Override
