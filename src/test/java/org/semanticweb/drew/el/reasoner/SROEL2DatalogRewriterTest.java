@@ -23,28 +23,56 @@ public class SROEL2DatalogRewriterTest {
 	@Test
 	public void test() throws OWLOntologyCreationException, IOException {
 		SROELProfile profile = new SROELProfile();
-		//String ontologyFile= "testcase/policy.owl";
-		String ontologyFile= "benchmark/galen/ontology/EL-GALEN.owl";
+		// String ontologyFile= "testcase/policy.owl";
+		String ontologyFile = "benchmark/galen/ontology/EL-GALEN.owl";
 		File file = new File(ontologyFile);
 		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
 		OWLOntology ontology = man.loadOntologyFromOntologyDocument(file);
-		
+
 		SROEL2DatalogRewriter elCompiler = new SROEL2DatalogRewriter();
-		final List<ProgramStatement> compiledOntology = elCompiler.rewrite(ontology)
-				.getStatements();
+		final List<ProgramStatement> compiledOntology = elCompiler.rewrite(
+				ontology).getStatements();
 		DReWELManager.getInstance().setDatalogFormat(DatalogFormat.DLV);
-		DReWELManager.getInstance().setNamingStrategy(NamingStrategy.IRIFragment);
+		DReWELManager.getInstance().setNamingStrategy(
+				NamingStrategy.IRIFragment);
+
+		// DatalogToStringHelper f = new DatalogToStringHelper();
+		DLProgramStorer storer = new DLProgramStorerImpl();
+
+		// f.saveToFile(compiledOntology,
+		// "benchmark/galen/ontology/el-galen.dl");
+
+		Appendable target = new FileWriter(
+				"benchmark/galen/ontology/el-galen.dl");
+		storer.store(compiledOntology, target);
+
+	}
+
+	@Test
+	public void testDisjunctions() throws OWLOntologyCreationException {
+		SROELProfile profile = new SROELProfile();
+		// String ontologyFile= "testcase/policy.owl";
+		String ontologyFile = "testcase/testDisjunction.owl";
+		//String ontologyFile = "/Users/xiao/Downloads/fr-basic-def.owl";
+		File file = new File(ontologyFile);
+		OWLOntologyManager man = OWLManager.createOWLOntologyManager();
+		OWLOntology ontology = man.loadOntologyFromOntologyDocument(file);
+
+		SROEL2DatalogRewriter elCompiler = new SROEL2DatalogRewriter();
+		final List<ProgramStatement> compiledOntology = elCompiler.rewrite(
+				ontology).getStatements();
+		DReWELManager.getInstance().setDatalogFormat(DatalogFormat.DLV);
+		DReWELManager.getInstance().setNamingStrategy(
+				NamingStrategy.IRIFragment);
+
+		// DatalogToStringHelper f = new DatalogToStringHelper();
+		DLProgramStorer storer = new DLProgramStorerImpl();
+
+		// f.saveToFile(compiledOntology,
+		// "benchmark/galen/ontology/el-galen.dl");
+
 		
-		//DatalogToStringHelper f = new DatalogToStringHelper(); 
-		DLProgramStorer storer =new DLProgramStorerImpl();
-		
-		
-		//f.saveToFile(compiledOntology, "benchmark/galen/ontology/el-galen.dl");
-	
-		Appendable target = new FileWriter("benchmark/galen/ontology/el-galen.dl");
-		storer.store(compiledOntology, target );
-		
-		
+		storer.store(compiledOntology, System.out);
 	}
 
 }

@@ -299,22 +299,26 @@ class ELNormalization implements OWLAxiomVisitorEx<Object> {
 
 			// A subclass all(R, C') -> {A subclass all(R, D), D subclass C'}
 			else if (superClass.getClassExpressionType() == ClassExpressionType.OBJECT_ALL_VALUES_FROM) {
-
-				throw new IllegalStateException();
+				System.err.println("Warning. ignore " + axiom);
+				
+				//throw new IllegalStateException();
 
 			}
 
 			// A subclass max(R, 1, B') -> {A subclass max(R, 1, D), D subclass
 			// B'}
 			else if (superClass.getClassExpressionType() == ClassExpressionType.OBJECT_MAX_CARDINALITY) {
-				throw new IllegalStateException();
+				
+				System.err.println("Warning. ignore " + axiom);
+				//throw new IllegalStateException();
 
 			}
 
 			// A subclass min(R, n, B') -> {A subclass min(R, n, D), D subclass
 			// B'}
 			else if (superClass.getClassExpressionType() == ClassExpressionType.OBJECT_MIN_CARDINALITY) {
-				throw new IllegalStateException();
+				System.err.println("Warning. ignore " + axiom);
+				//throw new IllegalStateException();
 
 			}
 
