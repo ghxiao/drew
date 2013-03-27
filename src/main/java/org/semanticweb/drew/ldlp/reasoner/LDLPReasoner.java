@@ -39,6 +39,8 @@ import org.slf4j.LoggerFactory;
 
 import com.hp.hpl.jena.query.Query;
 
+//TODO: this file use the deprecated DatalogReasoner class, pls use the DLVWrapper directly
+@Deprecated
 class LDLPReasoner extends OWLReasonerAdapter {
 	private final static Logger logger = LoggerFactory
 			.getLogger(LDLPClosureCompiler.class);
