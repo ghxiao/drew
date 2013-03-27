@@ -6,9 +6,9 @@ then
   exit 1
 fi
 
-drew_jar=drew-0.3-beta-2.jar
+drew_jar=$(ls $DREW_HOME/lib/drew-*.jar)
 
 JVM_ARGS="-DentityExpansionLimit=128000"
 
-exec java ${JVM_ARGS} -jar ${DREW_HOME}/lib/${drew_jar} "$@"
+exec java ${JVM_ARGS} -jar ${drew_jar} "$@"
 
