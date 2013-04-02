@@ -25,4 +25,6 @@ public interface DLProgramStorer {
 	
 	public void store(ProgramStatement stmt, Appendable target);
 	
+	public void setPrefix(String prefix);
+	
 }

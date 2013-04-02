@@ -51,5 +51,16 @@ public class DLProgramStorerImplTest {
 		storer.store(program, System.out);
 		//System.out.println(program);
 	}
+	
+	@Test
+	public void test4_prefix() throws ParseException {
+		String s = "p(X) :- q(X). ";
+		DLProgramParser parser = new DLProgramParser(new StringReader(s));
+		DLProgram program = parser.program();
+		DLProgramStorer storer = new DLProgramStorerImpl();
+		storer.setPrefix("preOnt____");
+		storer.store(program, System.out);
+		//System.out.println(program);
+	}
 
 }

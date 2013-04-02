@@ -3,8 +3,10 @@ package org.semanticweb.drew.dlprogram.format;
 import java.io.IOException;
 import java.sql.Types;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.Constant;
@@ -27,6 +29,9 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 	 */
 	private boolean usingDlvhexFormat;
 
+	//private Map<String, String> prefixMap = new HashMap<>();
+	private String prefix;
+	
 	public boolean isUsingDlvhexFormat() {
 		return usingDlvhexFormat;
 	}
@@ -148,6 +153,9 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 
 	void writeNormalPredicate(NormalPredicate logicPredicate, Appendable target) {
 		try {
+			if(prefix != null){
+				target.append(prefix);
+			}
 			target.append(logicPredicate.getName());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -251,4 +259,21 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 	public void store(ProgramStatement statement, Appendable target) {
 		writeStatement(statement, target);
 	}
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	@Override
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
+//	public Map<String, String> getPrefixMap() {
+//		return prefixMap;
+//	}
+//
+//	public void setPrefixMap(Map<String, String> prefixMap) {
+//		this.prefixMap = prefixMap;
+//	}
 }
