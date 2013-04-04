@@ -29,6 +29,14 @@ public class RLProgramStorerImpl extends DLProgramStorerImpl {
 	@Override
 	void writeNormalPredicate(NormalPredicate predicate, Appendable target) {
 
+		if(getPrefix() != null){
+			try {
+				target.append(getPrefix());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		// Pattern pdPattern = Pattern.compile("^p\\d+$");
 		try {
 			String name = predicate.getName();
