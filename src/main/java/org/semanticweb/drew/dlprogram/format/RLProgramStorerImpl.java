@@ -29,16 +29,11 @@ public class RLProgramStorerImpl extends DLProgramStorerImpl {
 	@Override
 	void writeNormalPredicate(NormalPredicate predicate, Appendable target) {
 
-		if(getPrefix() != null){
-			try {
-				target.append(getPrefix());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
 		// Pattern pdPattern = Pattern.compile("^p\\d+$");
 		try {
+			if (getPrefix() != null) {
+				target.append(getPrefix());
+			}
 			String name = predicate.getName();
 			String newp = name;
 			if (name.matches("^p\\d+$")) {
@@ -68,16 +63,16 @@ public class RLProgramStorerImpl extends DLProgramStorerImpl {
 					isIRI = true;
 				} else {
 					// datatype
-					//newp = d;
+					// newp = d;
 					newp = d.replace('\"', '\'');
 				}
 			}
 
-//			if (isIRI)
-				write("\"", target);
+			// if (isIRI)
+			write("\"", target);
 			target.append(newp);
-//			if (isIRI)
-				write("\"", target);
+			// if (isIRI)
+			write("\"", target);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
