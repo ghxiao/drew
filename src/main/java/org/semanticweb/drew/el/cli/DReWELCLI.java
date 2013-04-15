@@ -184,6 +184,7 @@ public class DReWELCLI extends CommandLine {
 
 			DLProgramParser parser = new DLProgramParser(
 					new FileReader(dlpFile));
+			parser.setOntology(ontology);
 			DLProgram elprogram = parser.program();
 			kb.setProgram(elprogram);
 

@@ -282,6 +282,7 @@ public class DReWRLCLI extends CommandLine {
 
 			DLProgramParser parser;
 			parser = new DLProgramParser(new FileReader(dlpFile));
+			parser.setOntology(ontology);
 			elprogram = parser.program();
 			kb.setProgram(elprogram);
 
