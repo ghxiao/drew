@@ -1,0 +1,15 @@
+%  -*- prolog -*-
+
+dom("<http://www.kr.tuwien.ac.at/staff/xiao/ontology/graph#a>").
+dom("<http://www.kr.tuwien.ac.at/staff/xiao/ontology/graph#b>").
+dom("<http://www.kr.tuwien.ac.at/staff/xiao/ontology/graph#c>").
+dom("<http://www.kr.tuwien.ac.at/staff/xiao/ontology/graph#d>").
+dom("<http://www.kr.tuwien.ac.at/staff/xiao/ontology/graph#e>").
+dom("<http://www.kr.tuwien.ac.at/staff/xiao/ontology/graph#f>").
+dom("<http://www.kr.tuwien.ac.at/staff/xiao/ontology/graph#g>").
+
+% tc(X, Y) :- DL[;"http://www.kr.tuwien.ac.at/staff/xiao/ontology/graph#arc"](X, Y), dom(X), dom(Y).
+
+tc(X, Y) :- DL["http://www.kr.tuwien.ac.at/staff/xiao/ontology/graph#arc"](X, Z), tc(Z, Y), dom(X), dom(Y), dom(Z).
+tc(X, Y) :- DL["http://www.kr.tuwien.ac.at/staff/xiao/ontology/graph#arc" += tc; "http://www.kr.tuwien.ac.at/staff/xiao/ontology/graph#arc"](X, Y), dom(X), dom(Y).
+

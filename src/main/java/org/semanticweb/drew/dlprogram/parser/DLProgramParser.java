@@ -42,21 +42,24 @@ public class DLProgramParser implements DLProgramParserConstants {
         for(OWLObjectProperty op: ontology.getObjectPropertiesInSignature()){
                 IRI iri = op.getIRI();
                 objectProperties.put(iri.getFragment(), op);
+                objectProperties.put(iri.toString(), op);
         }
 
         for(OWLClass cls : ontology.getClassesInSignature()){
                 IRI iri = cls.getIRI();
                 classes.put(iri.getFragment(), cls);
+                classes.put(iri.toString(), cls);
         }
   }
 
-  private OWLLogicalEntity findLogicalEntity(String fragment) {
-                if (classes.containsKey(fragment)) {
-                        return classes.get(fragment);
-                } else if (objectProperties.containsKey(fragment)) {
-                        return objectProperties.get(fragment);
+  private OWLLogicalEntity findLogicalEntity(String name) {
+                if (classes.containsKey(name)) {
+                        return classes.get(name);
+                } else if (objectProperties.containsKey(name)) {
+                        return objectProperties.get(name);
                 } else {
-                        return null;
+                        throw new IllegalArgumentException("No matched predicate from ontology: " + name);
+                        //return null;
                 }
         }
 
@@ -160,9 +163,8 @@ public class DLProgramParser implements DLProgramParserConstants {
   DLInputOperation op = new DLInputOperation();
   String name;
     name = dlPredicate();
-      //logger.debug("dlPredicat: " + token.image);
-      //FIXME: role is possible here
-      OWLLogicalEntity dlPredicate = OWLManager.getOWLDataFactory().getOWLClass(IRI.create(name));
+          OWLLogicalEntity dlPredicate = findLogicalEntity(name);
+//      OWLLogicalEntity dlPredicate = OWLManager.getOWLDataFactory().getOWLClass(IRI.create(name));
       op.setDLPredicate(dlPredicate);
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case UPLUS:
@@ -226,7 +228,8 @@ public class DLProgramParser implements DLProgramParserConstants {
       predicate.setInputSignature(signature);
     name = dlPredicate();
       //FIXME: can be property
-      query = OWLManager.getOWLDataFactory().getOWLClass(IRI.create(name));
+      query = findLogicalEntity(name);
+      //query = OWLManager.getOWLDataFactory().getOWLClass(IRI.create(name));
       predicate.setQuery(query);
     jj_consume_token(RIGHT_SQUARE_BRACKET);
     {if (true) return predicate;}
@@ -925,24 +928,13 @@ public class DLProgramParser implements DLProgramParserConstants {
     finally { jj_save(3, xla); }
   }
 
-  private boolean jj_3R_19() {
-    if (jj_scan_token(UMINUS)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_26() {
-    if (jj_scan_token(CONJUNCTION)) return true;
-    if (jj_3R_16()) return true;
+  private boolean jj_3R_39() {
+    if (jj_scan_token(IDENTIFIER)) return true;
     return false;
   }
 
   private boolean jj_3R_18() {
     if (jj_scan_token(UPLUS)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_39() {
-    if (jj_scan_token(IDENTIFIER)) return true;
     return false;
   }
 
@@ -1016,6 +1008,19 @@ public class DLProgramParser implements DLProgramParserConstants {
     return false;
   }
 
+  private boolean jj_3R_35() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_37()) {
+    jj_scanpos = xsp;
+    if (jj_3R_38()) {
+    jj_scanpos = xsp;
+    if (jj_3R_39()) return true;
+    }
+    }
+    return false;
+  }
+
   private boolean jj_3R_23() {
     Token xsp;
     xsp = jj_scanpos;
@@ -1041,19 +1046,6 @@ public class DLProgramParser implements DLProgramParserConstants {
     return false;
   }
 
-  private boolean jj_3R_35() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_37()) {
-    jj_scanpos = xsp;
-    if (jj_3R_38()) {
-    jj_scanpos = xsp;
-    if (jj_3R_39()) return true;
-    }
-    }
-    return false;
-  }
-
   private boolean jj_3_2() {
     if (jj_3R_14()) return true;
     return false;
@@ -1061,6 +1053,12 @@ public class DLProgramParser implements DLProgramParserConstants {
 
   private boolean jj_3_3() {
     if (jj_3R_15()) return true;
+    return false;
+  }
+
+  private boolean jj_3_4() {
+    if (jj_3R_16()) return true;
+    if (jj_scan_token(COMPARISON)) return true;
     return false;
   }
 
@@ -1074,12 +1072,6 @@ public class DLProgramParser implements DLProgramParserConstants {
     if (jj_3R_25()) return true;
     }
     }
-    return false;
-  }
-
-  private boolean jj_3_4() {
-    if (jj_3R_16()) return true;
-    if (jj_scan_token(COMPARISON)) return true;
     return false;
   }
 
@@ -1121,11 +1113,6 @@ public class DLProgramParser implements DLProgramParserConstants {
     return false;
   }
 
-  private boolean jj_3R_25() {
-    if (jj_scan_token(STRING)) return true;
-    return false;
-  }
-
   private boolean jj_3R_29() {
     Token xsp;
     xsp = jj_scanpos;
@@ -1152,6 +1139,11 @@ public class DLProgramParser implements DLProgramParserConstants {
     return false;
   }
 
+  private boolean jj_3R_25() {
+    if (jj_scan_token(STRING)) return true;
+    return false;
+  }
+
   private boolean jj_3R_36() {
     if (jj_scan_token(VARIABLE)) return true;
     return false;
@@ -1167,6 +1159,17 @@ public class DLProgramParser implements DLProgramParserConstants {
     if (jj_scan_token(17)) return true;
     }
     }
+    return false;
+  }
+
+  private boolean jj_3R_19() {
+    if (jj_scan_token(UMINUS)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_26() {
+    if (jj_scan_token(CONJUNCTION)) return true;
+    if (jj_3R_16()) return true;
     return false;
   }
 

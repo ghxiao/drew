@@ -49,21 +49,24 @@ public class DLProgramParser {
         for(OWLObjectProperty op: ontology.getObjectPropertiesInSignature()){
         	IRI iri = op.getIRI();
         	objectProperties.put(iri.getFragment(), op);
+        	objectProperties.put(iri.toString(), op);
         }
         
         for(OWLClass cls : ontology.getClassesInSignature()){
         	IRI iri = cls.getIRI();
         	classes.put(iri.getFragment(), cls);
+        	classes.put(iri.toString(), cls);
         }
   }
 
-  private OWLLogicalEntity findLogicalEntity(String fragment) {
-		if (classes.containsKey(fragment)) {
-			return classes.get(fragment);
-		} else if (objectProperties.containsKey(fragment)) {
-			return objectProperties.get(fragment);
+  private OWLLogicalEntity findLogicalEntity(String name) {
+		if (classes.containsKey(name)) {
+			return classes.get(name);
+		} else if (objectProperties.containsKey(name)) {
+			return objectProperties.get(name);
 		} else {
-			return null;
+		  	throw new IllegalArgumentException("No matched predicate from ontology: " + name);
+			//return null;
 		}
 	}
 
@@ -210,9 +213,9 @@ DLInputOperation dlInputOperation() :
       name = dlPredicate()
     )
     {
-      //logger.debug("dlPredicat: " + token.image);
-      //FIXME: role is possible here
-      OWLLogicalEntity dlPredicate = OWLManager.getOWLDataFactory().getOWLClass(IRI.create(name));
+      
+	  OWLLogicalEntity dlPredicate = findLogicalEntity(name);      
+//      OWLLogicalEntity dlPredicate = OWLManager.getOWLDataFactory().getOWLClass(IRI.create(name));
       op.setDLPredicate(dlPredicate);
     }
     (
@@ -281,7 +284,8 @@ DLAtomPredicate dlAtomPredicate() :
     )
     {
       //FIXME: can be property
-      query = OWLManager.getOWLDataFactory().getOWLClass(IRI.create(name));
+      query = findLogicalEntity(name);
+      //query = OWLManager.getOWLDataFactory().getOWLClass(IRI.create(name));
       predicate.setQuery(query);
     }
     < RIGHT_SQUARE_BRACKET >
