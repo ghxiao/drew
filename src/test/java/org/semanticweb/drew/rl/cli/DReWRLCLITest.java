@@ -30,7 +30,7 @@ public class DReWRLCLITest {
 	public void testGraphOntology() throws OWLOntologyCreationException,
 			IOException, ParseException, DLVInvocationException {
 		DReWRLCLI.main("-rl", "-ontology",
-				"sample_data/graph.owl", "-dlp", "sample_data/trans.dlp", "-dlv", "/Users/xiao/bin/dlv");
+				"sample_data/graph.owl", "-dlp", "sample_data/graph.dlp", "-dlv", "/Users/xiao/bin/dlv");
 	}
 	
 	@Test

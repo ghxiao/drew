@@ -165,9 +165,7 @@ String dlPredicate() :
   | < IDENTIFIER >) < COLON >)
     (
       (
-        < VARIABLE >
-      | < DLPREDICATE >
-      | < IDENTIFIER >
+        < VARIABLE >| < DLPREDICATE >| < IDENTIFIER >
       )
       {
         String key = token.image;
@@ -175,9 +173,7 @@ String dlPredicate() :
       }
       < COLON >
       (
-        < VARIABLE >
-      | < DLPREDICATE >
-      | < IDENTIFIER >
+        < VARIABLE > | < DLPREDICATE >| < IDENTIFIER >
       )
       {
         name = namespace + token.image;
@@ -186,9 +182,7 @@ String dlPredicate() :
     )
   |
     (
-      < VARIABLE >
-    | < DLPREDICATE >
-    | < IDENTIFIER >
+      < VARIABLE > | < DLPREDICATE > | < IDENTIFIER >
     )
     {
       name = token.image;
@@ -196,6 +190,9 @@ String dlPredicate() :
       if (ontology != null)      {
               }
     }
+  | < STRING >  {
+    name = token.image;
+    name = name.substring(1, name.length() - 1);  }
   )
   {
     return name;
@@ -247,7 +244,7 @@ DLInputSignature dlInputSignature() :
   DLInputOperation op;
 }
 {
-  [
+  [	LOOKAHEAD(2)
     op = dlInputOperation()
     {
       signature.getOperations().add(op);
@@ -258,7 +255,8 @@ DLInputSignature dlInputSignature() :
         signature.getOperations().add(op);
       }
     )*
-  ]
+    ";"
+  ] 
   {
     return signature;
   }
@@ -277,7 +275,7 @@ DLAtomPredicate dlAtomPredicate() :
     {
       predicate.setInputSignature(signature);
     }
-    ";"
+    
     (
       name = dlPredicate()
     )

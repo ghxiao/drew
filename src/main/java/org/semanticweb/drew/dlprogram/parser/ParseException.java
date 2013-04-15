@@ -62,21 +62,21 @@ public class ParseException extends Exception {
    * this object has been created due to a parse error, the token
    * followng this token will (therefore) be the first error token.
    */
-  private Token currentToken;
+  public Token currentToken;
 
   /**
    * Each entry in this array is an array of integers.  Each array
    * of integers represents a sequence of tokens (by their ordinal
    * values) that is expected at this point of the parse.
    */
-  private int[][] expectedTokenSequences;
+  public int[][] expectedTokenSequences;
 
   /**
    * This is a reference to the "tokenImage" array of the generated
    * parser within which the parse error occurred.  This array is
    * defined in the generated ...Constants interface.
    */
-  private String[] tokenImage;
+  public String[] tokenImage;
 
   /**
    * It uses "currentToken" and "expectedTokenSequences" to generate a parse
@@ -89,7 +89,7 @@ public class ParseException extends Exception {
                            int[][] expectedTokenSequences,
                            String[] tokenImage) {
     String eol = System.getProperty("line.separator", "\n");
-    StringBuilder expected = new StringBuilder();
+    StringBuffer expected = new StringBuffer();
     int maxSize = 0;
     for (int i = 0; i < expectedTokenSequences.length; i++) {
       if (maxSize < expectedTokenSequences[i].length) {
@@ -138,8 +138,8 @@ public class ParseException extends Exception {
    * when these raw version cannot be used as part of an ASCII
    * string literal.
    */
-  private static String add_escapes(String str) {
-      StringBuilder retval = new StringBuilder();
+  static String add_escapes(String str) {
+      StringBuffer retval = new StringBuffer();
       char ch;
       for (int i = 0; i < str.length(); i++) {
         switch (str.charAt(i))

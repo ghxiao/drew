@@ -15,11 +15,12 @@ public class DLAtomPredicate implements Predicate {
 	private DLInputSignature inputSignature;
 
 	// only DL concept or role name allowed
-    private OWLLogicalEntity query;
+	private OWLLogicalEntity query;
 
 	private int arity;
 
-	public DLAtomPredicate(DLInputSignature inputSignature, OWLLogicalEntity query) {
+	public DLAtomPredicate(DLInputSignature inputSignature,
+			OWLLogicalEntity query) {
 		super();
 		this.inputSignature = inputSignature;
 		this.query = query;
@@ -28,7 +29,6 @@ public class DLAtomPredicate implements Predicate {
 	public DLAtomPredicate() {
 
 	}
-
 
 	/**
 	 * @return the query
@@ -54,8 +54,10 @@ public class DLAtomPredicate implements Predicate {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("DL[");
-		builder.append(inputSignature);
-		builder.append(";");
+		if (inputSignature.getOperations().size() > 0) {
+			builder.append(inputSignature);
+			builder.append(";");
+		}
 		builder.append(query.getIRI());
 		builder.append("]");
 		return builder.toString();
