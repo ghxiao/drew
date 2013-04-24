@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLLogicalEntity;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -36,6 +37,9 @@ public class DLProgramParser {
 
   // fragments to object properties
   Map < String, OWLObjectProperty > objectProperties = new HashMap <String, OWLObjectProperty> ();
+
+  // fragments to object properties
+  Map < String, OWLDataProperty > dataProperties = new HashMap <String, OWLDataProperty> ();
   
   // fragments to classes
   Map < String, OWLClass> classes = new HashMap < String, OWLClass> ();
@@ -51,6 +55,12 @@ public class DLProgramParser {
         	objectProperties.put(iri.getFragment(), op);
         	objectProperties.put(iri.toString(), op);
         }
+
+        for(OWLDataProperty op: ontology.getDataPropertiesInSignature()){
+        	IRI iri = op.getIRI();
+        	dataProperties.put(iri.getFragment(), op);
+        	dataProperties.put(iri.toString(), op);
+        }
         
         for(OWLClass cls : ontology.getClassesInSignature()){
         	IRI iri = cls.getIRI();
@@ -64,9 +74,10 @@ public class DLProgramParser {
 			return classes.get(name);
 		} else if (objectProperties.containsKey(name)) {
 			return objectProperties.get(name);
+		} else if (dataProperties.containsKey(name)) {
+			return dataProperties.get(name);
 		} else {
 		  	throw new IllegalArgumentException("No matched predicate from ontology: " + name);
-			//return null;
 		}
 	}
 
@@ -247,19 +258,21 @@ DLInputSignature dlInputSignature() :
   DLInputOperation op;
 }
 {
-  [	LOOKAHEAD(2)
-    op = dlInputOperation()
-    {
-      signature.getOperations().add(op);
-    }
-    (
-      "," op = dlInputOperation()
-      {
-        signature.getOperations().add(op);
-      }
-    )*
+  (
+    LOOKAHEAD(2)    (		LOOKAHEAD(2)
+	    op = dlInputOperation()
+	    {
+	      signature.getOperations().add(op);
+	    }
+	    (
+	      "," op = dlInputOperation()
+	      {
+	        signature.getOperations().add(op);
+	      }
+	    )*
+    )?
     ";"
-  ] 
+  )? 
   {
     return signature;
   }

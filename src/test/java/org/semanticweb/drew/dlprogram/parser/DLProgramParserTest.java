@@ -85,16 +85,41 @@ public class DLProgramParserTest {
 						.create("http://www.kr.tuwien.ac.at/staff/xiao/ontology/graph#arc"));
 		manager.addAxiom(ontology,  factory.getOWLDeclarationAxiom(property));
 
-		String s = "DL[\"http://www.kr.tuwien.ac.at/staff/xiao/ontology/graph#arc\"](X, Y)";
-		DLProgramParser parser = new DLProgramParser(new StringReader(s));
-		parser.setOntology(ontology);
-		Literal program = parser.literal();
-		System.out.println(program);
+		String s1 = "DL[\"http://www.kr.tuwien.ac.at/staff/xiao/ontology/graph#arc\"](X, Y)";
+		DLProgramParser parser1 = new DLProgramParser(new StringReader(s1));
+		parser1.setOntology(ontology);
+		Literal lit1 = parser1.literal();
+		System.out.println(lit1);
+		
+		String s2 = "DL[arc](X, Y)";
+		DLProgramParser parser2 = new DLProgramParser(new StringReader(s2));
+		parser2.setOntology(ontology);
+		Literal lit2 = parser2.literal();
+		System.out.println(lit2);
+		
+		String s3 = "DL[\"arc\"](X, Y)";
+		DLProgramParser parser3 = new DLProgramParser(new StringReader(s3));
+		parser3.setOntology(ontology);
+		Literal lit3 = parser3.literal();
+		System.out.println(lit3);
+		
+		String s4 = "DL[arc+=tc;arc](X, Y)";
+		DLProgramParser parser4 = new DLProgramParser(new StringReader(s4));
+		parser4.setOntology(ontology);
+		Literal lit4 = parser4.literal();
+		System.out.println(lit4);
+		
+		String s5 = "DL[;arc](X, Y)";
+		DLProgramParser parser5 = new DLProgramParser(new StringReader(s5));
+		parser5.setOntology(ontology);
+		Literal lit5 = parser5.literal();
+		System.out.println(lit5);
+		
 	}
 
 	public static void main(String[] args) throws ParseException,
 			FileNotFoundException, OWLOntologyCreationException {
-		new DLProgramParserTest().testFullURI();
+		new DLProgramParserTest().testSemiColon2();
 	}
 
 }

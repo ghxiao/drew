@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLLogicalEntity;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -30,6 +31,9 @@ public class DLProgramParser implements DLProgramParserConstants {
   // fragments to object properties
   Map < String, OWLObjectProperty > objectProperties = new HashMap <String, OWLObjectProperty> ();
 
+  // fragments to object properties
+  Map < String, OWLDataProperty > dataProperties = new HashMap <String, OWLDataProperty> ();
+
   // fragments to classes
   Map < String, OWLClass> classes = new HashMap < String, OWLClass> ();
 
@@ -45,6 +49,12 @@ public class DLProgramParser implements DLProgramParserConstants {
                 objectProperties.put(iri.toString(), op);
         }
 
+        for(OWLDataProperty op: ontology.getDataPropertiesInSignature()){
+                IRI iri = op.getIRI();
+                dataProperties.put(iri.getFragment(), op);
+                dataProperties.put(iri.toString(), op);
+        }
+
         for(OWLClass cls : ontology.getClassesInSignature()){
                 IRI iri = cls.getIRI();
                 classes.put(iri.getFragment(), cls);
@@ -57,9 +67,10 @@ public class DLProgramParser implements DLProgramParserConstants {
                         return classes.get(name);
                 } else if (objectProperties.containsKey(name)) {
                         return objectProperties.get(name);
+                } else if (dataProperties.containsKey(name)) {
+                        return dataProperties.get(name);
                 } else {
                         throw new IllegalArgumentException("No matched predicate from ontology: " + name);
-                        //return null;
                 }
         }
 
@@ -192,22 +203,26 @@ public class DLProgramParser implements DLProgramParserConstants {
   final public DLInputSignature dlInputSignature() throws ParseException {
   DLInputSignature signature = new DLInputSignature();
   DLInputOperation op;
-    if (jj_2_2(2)) {
-      op = dlInputOperation();
-      signature.getOperations().add(op);
-      label_1:
-      while (true) {
-        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-        case CONJUNCTION:
-          ;
-          break;
-        default:
-          jj_la1[5] = jj_gen;
-          break label_1;
-        }
-        jj_consume_token(CONJUNCTION);
+    if (jj_2_3(2)) {
+      if (jj_2_2(2)) {
         op = dlInputOperation();
+      signature.getOperations().add(op);
+        label_1:
+        while (true) {
+          switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+          case CONJUNCTION:
+            ;
+            break;
+          default:
+            jj_la1[5] = jj_gen;
+            break label_1;
+          }
+          jj_consume_token(CONJUNCTION);
+          op = dlInputOperation();
         signature.getOperations().add(op);
+        }
+      } else {
+        ;
       }
       jj_consume_token(31);
     } else {
@@ -322,7 +337,7 @@ public class DLProgramParser implements DLProgramParserConstants {
 
   final public Term unary() throws ParseException {
   Term term;
-    if (jj_2_3(2147483647)) {
+    if (jj_2_4(2147483647)) {
       term = function();
     } else {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -446,7 +461,7 @@ public class DLProgramParser implements DLProgramParserConstants {
   int arity = 0;
   boolean isDLAtomPredicate = false;
   boolean neg = false;
-    if (jj_2_4(2147483647)) {
+    if (jj_2_5(2147483647)) {
       term = term();
     literal.getTerms().add(term);
       jj_consume_token(COMPARISON);
@@ -928,84 +943,11 @@ public class DLProgramParser implements DLProgramParserConstants {
     finally { jj_save(3, xla); }
   }
 
-  private boolean jj_3R_39() {
-    if (jj_scan_token(IDENTIFIER)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_18() {
-    if (jj_scan_token(UPLUS)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_16() {
-    if (jj_3R_22()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_21() {
-    if (jj_3R_16()) return true;
-    Token xsp;
-    while (true) {
-      xsp = jj_scanpos;
-      if (jj_3R_26()) { jj_scanpos = xsp; break; }
-    }
-    return false;
-  }
-
-  private boolean jj_3_1() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(21)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(30)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(17)) return true;
-    }
-    }
-    if (jj_scan_token(COLON)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_38() {
-    if (jj_scan_token(STRING)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_30() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(24)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(25)) return true;
-    }
-    if (jj_3R_29()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_15() {
-    if (jj_3R_20()) return true;
-    if (jj_scan_token(LEFTBRACKET)) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_21()) jj_scanpos = xsp;
-    if (jj_scan_token(RIGHTBRACKET)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_37() {
-    if (jj_scan_token(INTEGER)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_27() {
-    if (jj_3R_29()) return true;
-    Token xsp;
-    while (true) {
-      xsp = jj_scanpos;
-      if (jj_3R_30()) { jj_scanpos = xsp; break; }
-    }
-    return false;
+  private boolean jj_2_5(int xla) {
+    jj_la = xla; jj_lastpos = jj_scanpos = token;
+    try { return !jj_3_5(); }
+    catch(LookaheadSuccess ls) { return true; }
+    finally { jj_save(4, xla); }
   }
 
   private boolean jj_3R_35() {
@@ -1018,6 +960,22 @@ public class DLProgramParser implements DLProgramParserConstants {
     if (jj_3R_39()) return true;
     }
     }
+    return false;
+  }
+
+  private boolean jj_3_2() {
+    if (jj_3R_14()) return true;
+    return false;
+  }
+
+  private boolean jj_3_4() {
+    if (jj_3R_15()) return true;
+    return false;
+  }
+
+  private boolean jj_3_5() {
+    if (jj_3R_16()) return true;
+    if (jj_scan_token(COMPARISON)) return true;
     return false;
   }
 
@@ -1046,19 +1004,10 @@ public class DLProgramParser implements DLProgramParserConstants {
     return false;
   }
 
-  private boolean jj_3_2() {
-    if (jj_3R_14()) return true;
-    return false;
-  }
-
-  private boolean jj_3_3() {
-    if (jj_3R_15()) return true;
-    return false;
-  }
-
-  private boolean jj_3_4() {
-    if (jj_3R_16()) return true;
-    if (jj_scan_token(COMPARISON)) return true;
+  private boolean jj_3R_34() {
+    if (jj_scan_token(LEFTBRACKET)) return true;
+    if (jj_3R_22()) return true;
+    if (jj_scan_token(RIGHTBRACKET)) return true;
     return false;
   }
 
@@ -1075,15 +1024,16 @@ public class DLProgramParser implements DLProgramParserConstants {
     return false;
   }
 
-  private boolean jj_3R_34() {
-    if (jj_scan_token(LEFTBRACKET)) return true;
-    if (jj_3R_22()) return true;
-    if (jj_scan_token(RIGHTBRACKET)) return true;
+  private boolean jj_3R_33() {
+    if (jj_3R_36()) return true;
     return false;
   }
 
-  private boolean jj_3R_33() {
-    if (jj_3R_36()) return true;
+  private boolean jj_3_3() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3_2()) jj_scanpos = xsp;
+    if (jj_scan_token(31)) return true;
     return false;
   }
 
@@ -1149,6 +1099,12 @@ public class DLProgramParser implements DLProgramParserConstants {
     return false;
   }
 
+  private boolean jj_3R_26() {
+    if (jj_scan_token(CONJUNCTION)) return true;
+    if (jj_3R_16()) return true;
+    return false;
+  }
+
   private boolean jj_3R_24() {
     Token xsp;
     xsp = jj_scanpos;
@@ -1162,14 +1118,88 @@ public class DLProgramParser implements DLProgramParserConstants {
     return false;
   }
 
+  private boolean jj_3R_39() {
+    if (jj_scan_token(IDENTIFIER)) return true;
+    return false;
+  }
+
   private boolean jj_3R_19() {
     if (jj_scan_token(UMINUS)) return true;
     return false;
   }
 
-  private boolean jj_3R_26() {
-    if (jj_scan_token(CONJUNCTION)) return true;
+  private boolean jj_3R_16() {
+    if (jj_3R_22()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_21() {
     if (jj_3R_16()) return true;
+    Token xsp;
+    while (true) {
+      xsp = jj_scanpos;
+      if (jj_3R_26()) { jj_scanpos = xsp; break; }
+    }
+    return false;
+  }
+
+  private boolean jj_3R_18() {
+    if (jj_scan_token(UPLUS)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_38() {
+    if (jj_scan_token(STRING)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_30() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(24)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(25)) return true;
+    }
+    if (jj_3R_29()) return true;
+    return false;
+  }
+
+  private boolean jj_3_1() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(21)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(30)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(17)) return true;
+    }
+    }
+    if (jj_scan_token(COLON)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_15() {
+    if (jj_3R_20()) return true;
+    if (jj_scan_token(LEFTBRACKET)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_21()) jj_scanpos = xsp;
+    if (jj_scan_token(RIGHTBRACKET)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_37() {
+    if (jj_scan_token(INTEGER)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_27() {
+    if (jj_3R_29()) return true;
+    Token xsp;
+    while (true) {
+      xsp = jj_scanpos;
+      if (jj_3R_30()) { jj_scanpos = xsp; break; }
+    }
     return false;
   }
 
@@ -1197,7 +1227,7 @@ public class DLProgramParser implements DLProgramParserConstants {
    private static void jj_la1_init_1() {
       jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x4,0x0,0x0,0x0,0x0,};
    }
-  final private JJCalls[] jj_2_rtns = new JJCalls[4];
+  final private JJCalls[] jj_2_rtns = new JJCalls[5];
   private boolean jj_rescan = false;
   private int jj_gc = 0;
 
@@ -1425,7 +1455,7 @@ public class DLProgramParser implements DLProgramParserConstants {
 
   private void jj_rescan_token() {
     jj_rescan = true;
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 5; i++) {
     try {
       JJCalls p = jj_2_rtns[i];
       do {
@@ -1436,6 +1466,7 @@ public class DLProgramParser implements DLProgramParserConstants {
             case 1: jj_3_2(); break;
             case 2: jj_3_3(); break;
             case 3: jj_3_4(); break;
+            case 4: jj_3_5(); break;
           }
         }
         p = p.next;
