@@ -59,7 +59,9 @@ public interface DLProgramParserConstants {
   /** RegularExpression Id. */
   int UMINUS = 29;
   /** RegularExpression Id. */
-  int DLPREDICATE = 30;
+  int CAPMINUS = 30;
+  /** RegularExpression Id. */
+  int DLPREDICATE = 31;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -96,6 +98,7 @@ public interface DLProgramParserConstants {
     "\")\"",
     "\"+=\"",
     "\"-=\"",
+    "\"~=\"",
     "<DLPREDICATE>",
     "\";\"",
     "\"{\"",

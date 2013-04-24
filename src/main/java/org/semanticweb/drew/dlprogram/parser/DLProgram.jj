@@ -79,7 +79,7 @@ public class DLProgramParser {
 		} else {
 		  	throw new IllegalArgumentException("No matched predicate from ontology: " + name);
 		}
-	}
+  }
 
   public void process() throws ParseException
   {}
@@ -162,6 +162,7 @@ TOKEN :
 | < RIGHTBRACKET : ")" >
 | < UPLUS : "+=" >
 | < UMINUS : "-=" >
+| < CAPMINUS : "~=" >
 | < DLPREDICATE : [ "a"-"z", "A"-"Z" ] ([ "a"-"z", "A"-"Z", "0"-"9" ])* >
 }
 
@@ -238,6 +239,10 @@ DLInputOperation dlInputOperation() :
       {
         op.setType(DLInputOperator.U_MINUS);
       }
+    |  < CAPMINUS >
+      {
+        op.setType(DLInputOperator.CAP_MINUS);
+      }
     )
     {
       name = dlPredicate();
@@ -296,9 +301,7 @@ DLAtomPredicate dlAtomPredicate() :
       name = dlPredicate()
     )
     {
-      //FIXME: can be property
       query = findLogicalEntity(name);
-      //query = OWLManager.getOWLDataFactory().getOWLClass(IRI.create(name));
       predicate.setQuery(query);
     }
     < RIGHT_SQUARE_BRACKET >

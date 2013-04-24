@@ -75,7 +75,36 @@ public class DLProgramParserTest {
 	}
 
 	@Test
-	public void testSemiColon2() throws ParseException, OWLOntologyCreationException {
+	public void testDLInputOperators() throws OWLOntologyCreationException, ParseException{
+		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+		OWLOntology ontology = manager.createOntology();
+		OWLDataFactory factory = manager.getOWLDataFactory();
+		OWLObjectProperty property = factory
+				.getOWLObjectProperty(IRI
+						.create("http://www.kr.tuwien.ac.at/staff/xiao/ontology/graph#arc"));
+		manager.addAxiom(ontology,  factory.getOWLDeclarationAxiom(property));
+		
+		String s1 = "DL[arc+=tc;arc](X, Y)";
+		DLProgramParser parser1 = new DLProgramParser(new StringReader(s1));
+		parser1.setOntology(ontology);
+		Literal lit1 = parser1.literal();
+		System.out.println(lit1);
+		
+		String s2 = "DL[arc-=n_tc;arc](X, Y)";
+		DLProgramParser parser2 = new DLProgramParser(new StringReader(s2));
+		parser2.setOntology(ontology);
+		Literal lit2 = parser2.literal();
+		System.out.println(lit2);
+		
+		String s3 = "DL[arc~=poss_arc;arc](X, Y)";
+		DLProgramParser parser3 = new DLProgramParser(new StringReader(s3));
+		parser3.setOntology(ontology);
+		Literal lit3 = parser3.literal();
+		System.out.println(lit3);
+	}
+	
+	@Test
+	public void testDLPredicate() throws ParseException, OWLOntologyCreationException {
 
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		OWLOntology ontology = manager.createOntology();
@@ -119,7 +148,7 @@ public class DLProgramParserTest {
 
 	public static void main(String[] args) throws ParseException,
 			FileNotFoundException, OWLOntologyCreationException {
-		new DLProgramParserTest().testSemiColon2();
+		new DLProgramParserTest().testDLInputOperators();
 	}
 
 }
