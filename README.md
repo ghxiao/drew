@@ -16,9 +16,8 @@ Download and Install
 --------------------
 
 
-1. Download drew-_version_.zip from <http://code.google.com/p/drew-reasoner/downloads/list> and extract it  
-2. Download DLV from <http://www.dlvsystem.com/dlvsystem/index.php/Home> 
-3. Set environment variable `DREW_HOME` by `export DREW_HOME=/path/to/drew`
+1. Download latest drew.zip from <http://code.google.com/p/drew-reasoner/downloads/list> and extract it  
+2. Download DLV from <http://www.dlvsystem.com/dlv/> 
   
 Command Line Usage
 ------------------
