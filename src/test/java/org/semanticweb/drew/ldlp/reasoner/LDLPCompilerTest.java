@@ -9,6 +9,7 @@ package org.semanticweb.drew.ldlp.reasoner;
 
 import java.util.List;
 
+import org.junit.Test;
 import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.ProgramStatement;
 import org.semanticweb.drew.ldlp.reasoner.LDLPOntologyCompiler;
@@ -19,7 +20,6 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
-
 
 public class LDLPCompilerTest {
 	private final static String uri = "http://www.kr.tuwien.ac.at/staff/xiao/ldl/role_inverse.ldl";
@@ -59,7 +59,8 @@ public class LDLPCompilerTest {
 			System.out.println("Compiled:");
 
 			LDLPOntologyCompiler compiler = new LDLPOntologyCompiler();
-			final List<ProgramStatement> datalogClauses = compiler.compile(ontology);
+			final List<ProgramStatement> datalogClauses = compiler
+					.compile(ontology);
 
 			for (ProgramStatement clause : datalogClauses) {
 				System.out.println(clause);
@@ -68,4 +69,31 @@ public class LDLPCompilerTest {
 			e.printStackTrace();
 		}
 	}
+
+	@Test
+	public void testDatatype() throws OWLOntologyCreationException {
+		OWLOntology ontology = manager
+				.loadOntologyFromOntologyDocument(LDLPCompilerTest.class
+						.getResourceAsStream("/testDatatype.owl"));
+
+		for (OWLAxiom axiom : ontology.getAxioms()) {
+			System.out.println(axiom);
+		}
+
+		System.out.println(ontology);
+
+		System.out
+				.println("------------------------------------------------------");
+
+		System.out.println("Compiled:");
+
+		LDLPOntologyCompiler compiler = new LDLPOntologyCompiler();
+		final List<ProgramStatement> datalogClauses = compiler
+				.compile(ontology);
+
+		for (ProgramStatement clause : datalogClauses) {
+			System.out.println(clause);
+		}
+	}
+
 }

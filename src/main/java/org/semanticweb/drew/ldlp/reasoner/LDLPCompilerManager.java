@@ -7,14 +7,15 @@
  */
 package org.semanticweb.drew.ldlp.reasoner;
 
-
 import org.semanticweb.drew.el.SymbolEncoder;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +26,8 @@ public class LDLPCompilerManager {
 
 	private static LDLPCompilerManager instance = new LDLPCompilerManager();
 
-	private final static Logger logger = LoggerFactory.getLogger(LDLPCompilerManager.class);
+	private final static Logger logger = LoggerFactory
+			.getLogger(LDLPCompilerManager.class);
 
 	public static LDLPCompilerManager getInstance() {
 		return instance;
@@ -63,7 +65,8 @@ public class LDLPCompilerManager {
 
 		if (owlObject instanceof OWLClass && owlObject.isTopEntity()) {
 			predicate = getTop1();
-		} else if (owlObject instanceof OWLObjectProperty && owlObject.isTopEntity()) {
+		} else if (owlObject instanceof OWLObjectProperty
+				&& owlObject.isTopEntity()) {
 			predicate = getTop2();
 		} else {
 			final String iri = owlObject.toString();
@@ -87,20 +90,19 @@ public class LDLPCompilerManager {
 		// return constant;
 	}
 
-	
 	// TODO: Distinguish different type
 	public String getConstant(OWLLiteral literal) {
-		
-		OWLDatatype datatype = literal.getDatatype();
-		
-		if(datatype.isDouble()){
-			//!!!!
-		}
-		
-		
-		String iri = literal.toString();
 
-		return getConstant(iri);
+		OWLDatatype owlDatatype = literal.getDatatype();
+		if (owlDatatype.isBuiltIn()) {
+			OWL2Datatype owl2Datatype = owlDatatype.getBuiltInDatatype();
+			if (owl2Datatype.isNumeric()) {
+				return literal.getLiteral();
+			}
+		} 
+
+		return getConstant(literal.getLiteral().toString());
+
 	}
 
 	public String getConstant(String iri) {
@@ -120,6 +122,12 @@ public class LDLPCompilerManager {
 	}
 
 	public String decompile(String name) {
+		
+		try{
+			Double.parseDouble(name);
+			return name;
+		} catch(NumberFormatException ex){
+			
 
 		int index = Integer.parseInt(name.substring(1));
 
@@ -130,6 +138,7 @@ public class LDLPCompilerManager {
 		} else {
 			throw new IllegalStateException();
 		}
+		}
 
 	}
 
@@ -139,8 +148,8 @@ public class LDLPCompilerManager {
 	}
 
 	public void dump() {
-		//predicates.dump();
-		//constants.dump();
+		// predicates.dump();
+		// constants.dump();
 
 	}
 }
