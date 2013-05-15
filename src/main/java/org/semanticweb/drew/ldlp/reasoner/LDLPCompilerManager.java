@@ -10,7 +10,7 @@ package org.semanticweb.drew.ldlp.reasoner;
 
 import org.semanticweb.drew.el.SymbolEncoder;
 import org.semanticweb.owlapi.model.OWLClass;
-import org.semanticweb.owlapi.model.OWLEntity;
+import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -87,7 +87,17 @@ public class LDLPCompilerManager {
 		// return constant;
 	}
 
+	
+	// TODO: Distinguish different type
 	public String getConstant(OWLLiteral literal) {
+		
+		OWLDatatype datatype = literal.getDatatype();
+		
+		if(datatype.isDouble()){
+			//!!!!
+		}
+		
+		
 		String iri = literal.toString();
 
 		return getConstant(iri);

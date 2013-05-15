@@ -7,10 +7,8 @@
  */
 package org.semanticweb.drew.ldlp.reasoner;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 
 import org.semanticweb.drew.dlprogram.model.Clause;
 import org.semanticweb.drew.dlprogram.model.ProgramStatement;
@@ -27,8 +25,6 @@ import org.slf4j.LoggerFactory;
 public class LDLPOntologyCompiler {
 
 	private final static Logger logger = LoggerFactory.getLogger(LDLPOntologyCompiler.class);
-	
-	private List<ProgramStatement> clauses;
 
 	public List<ProgramStatement> compile(OWLOntology ontology) {
 		final Set<OWLAxiom> axioms = ontology.getAxioms();
@@ -36,7 +32,6 @@ public class LDLPOntologyCompiler {
 	}
 
 	List<ProgramStatement> compile(final Set<OWLAxiom> axioms) {
-		reset();
 
 		logger.debug("-------------------compiling axioms:--------------------");
 		LDLPAxiomCompiler axiomCompiler = new LDLPAxiomCompiler();
@@ -56,7 +51,6 @@ public class LDLPOntologyCompiler {
 	}
 	
 	public List<ProgramStatement> compile(OWLAxiom... axioms) {
-		reset();
 
 		LDLPAxiomCompiler axiomCompiler = new LDLPAxiomCompiler();
 		final List<ProgramStatement> clauses = axiomCompiler.compile(axioms);
@@ -69,9 +63,5 @@ public class LDLPOntologyCompiler {
 		return clauses;
 	}	
 
-	private void reset() {
-
-		clauses = new ArrayList<>();
-	}
 
 }

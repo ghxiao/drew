@@ -57,8 +57,7 @@ public class DLProgramParserTest {
 		System.out.println(program);
 	}
 
-	// expect a failure because of DL[;..]
-	@Test(expected = ParseException.class)
+	@Test
 	public void testSemiColon1() throws ParseException, OWLOntologyCreationException {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		OWLOntology ontology = manager.createOntology();
@@ -145,6 +144,37 @@ public class DLProgramParserTest {
 		System.out.println(lit5);
 		
 	}
+	
+	@Test
+	public void testConstants() throws ParseException{
+		String s1 = "p(X, \"123\")";
+		DLProgramParser parser1 = new DLProgramParser(new StringReader(s1));
+		//parser5.setOntology(ontology);
+		Literal lit1 = parser1.literal();
+		System.out.println(lit1);
+		
+		String s2 = "p(X, 123)";
+		DLProgramParser parser2 = new DLProgramParser(new StringReader(s2));
+		//parser5.setOntology(ontology);
+		Literal lit2 = parser2.literal();
+		System.out.println(lit2);
+		
+		String s3 = "p(X, \"<http://a.b.com/123>\")";
+		DLProgramParser parser3 = new DLProgramParser(new StringReader(s3));
+		//parser5.setOntology(ontology);
+		Literal lit3 = parser3.literal();
+		System.out.println(lit3);
+	}
+	
+	@Test
+	public void testXSDTypes() throws ParseException{
+		String s5 = "p(X, \"abc\"^^xsd:string)";
+		DLProgramParser parser5 = new DLProgramParser(new StringReader(s5));
+		//parser5.setOntology(ontology);
+		Literal lit5 = parser5.literal();
+		System.out.println(lit5);
+	}
+	
 
 	public static void main(String[] args) throws ParseException,
 			FileNotFoundException, OWLOntologyCreationException {

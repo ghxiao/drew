@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 
 import org.coode.owlapi.latex.LatexOntologyFormat;
 import org.coode.owlapi.latex.LatexOntologyStorer;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.drew.el.profile.SROELProfile;
 import org.semanticweb.drew.util.MyLatexRenderer;
@@ -30,6 +31,7 @@ import com.google.common.collect.Multimaps;
 
 public class OntologyRendererTest {
 
+	@Ignore
 	@Test
 	public void testRenderer() throws OWLOntologyCreationException,
 			OWLOntologyStorageException, IOException, IllegalArgumentException,
