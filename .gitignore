@@ -15,3 +15,6 @@ bin
 # intellij IDEA files
 *.iml
 *.idea
+
+# most dlv files are generated tmp files
+*.dlv

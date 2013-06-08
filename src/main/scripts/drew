@@ -13,7 +13,15 @@ DREW_HOME="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 drew_jar=$(ls $DREW_HOME/lib/drew-*.jar)
 
-JVM_ARGS="-DentityExpansionLimit=128000"
+if [ -z "${JVM_ARGS}" ] ; then
+    JVM_ARGS="-DentityExpansionLimit=128000"
+fi
 
-exec java ${JVM_ARGS} -jar ${drew_jar} "$@"
+if [ -z "${JAVA}" ] ; then
+    JAVA=java
+fi
+
+echo 1>&2 '$ '  $JAVA ${JVM_ARGS} -jar ${drew_jar} "$@"
+
+exec $JAVA ${JVM_ARGS} -jar ${drew_jar} "$@"
 
