@@ -23,21 +23,24 @@ public abstract class CommandLine {
 	public static void main(String[] args) throws OWLOntologyCreationException,
 			IOException, ParseException, DLVInvocationException {
 		if (args.length == 0) {
-			//printUsage();
-			String usage = "Usage: drew [-rl | -el] ...";
-			System.err.println(usage);
+			printUsage();
 			System.exit(0);
 		}
-
 
 		if (args[0].equals("-el")) {
 			DReWELCLI.main(args);
 		} else if (args[0].equals("-rl")) {
 			DReWRLCLI.main(args);
+		} else {
+			printUsage();
+			System.exit(0);
 		}
 	}
 
-	
+	private static void printUsage() {
+		String usage = "Usage: drew [-rl | -el] ...";
+		System.err.println(usage);
+	}
 
 	public abstract boolean parseArgs(String[] args);
 
