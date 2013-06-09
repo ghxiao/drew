@@ -59,6 +59,13 @@ public class DReWELCLI extends CommandLine {
 	private String semantics = "asp";
 	private String[] args;
 
+	private int nModels = 0;
+	private long rewritingTime;
+	private long dlvTotalTime;
+	long dlvHandlerStartTime = 0;
+	long dlvHandlerEndTime = 0;
+	private boolean verbose;
+	
 	private DReWELCLI(String[] args) {
 		this.args = args;
 	}
@@ -189,6 +196,8 @@ public class DReWELCLI extends CommandLine {
 			kb.setProgram(elprogram);
 
 			DLProgram datalog;
+			
+			long t0 = System.currentTimeMillis();
 
 			DLProgramKB2DatalogRewriter compiler;
 
@@ -217,6 +226,15 @@ public class DReWELCLI extends CommandLine {
 			FileWriter w = new FileWriter(datalogFile);
 			w.write(strDatalog);
 			w.close();
+			
+
+			long t1 = System.currentTimeMillis();
+
+			rewritingTime = t1 - t0;
+			if (verbose) {
+				System.err.println("#rewrting time = " + rewritingTime + "ms");
+			}
+			
 			inputProgram.addFile(datalogFile);
 			// inputProgram.addText(strDatalog);
 		} catch (IOException | ParseException e) {
@@ -315,9 +333,9 @@ public class DReWELCLI extends CommandLine {
 				i += 2;
 				break;
 			case "-verbose":
-				DReWELManager.getInstance().setVerboseLevel(
-						Integer.parseInt(args[i + 1]));
-				i += 2;
+			case "-v":
+				verbose = true;
+				i += 1;
 				break;
 			case "-rewriting":
 				rewriting = args[i + 1];
@@ -369,6 +387,7 @@ public class DReWELCLI extends CommandLine {
 				dlvPath);
 
 		try {
+			long t0 = System.currentTimeMillis();
 			invocation.setInputProgram(inputProgram);
 
 			// invocation.setNumberOfModels(1);
@@ -394,6 +413,10 @@ public class DReWELCLI extends CommandLine {
 				@Override
 				public void handleResult(DLVInvocation paramDLVInvocation,
 						ModelResult modelResult) {
+					
+					if (dlvHandlerStartTime == 0)
+						dlvHandlerStartTime = System.currentTimeMillis();
+					
 					System.out.print("{ ");
 					Model model = (Model) modelResult;
 					// ATTENTION !!! this is necessary and stupid, should we
@@ -413,6 +436,9 @@ public class DReWELCLI extends CommandLine {
 
 					System.out.println("}");
 					System.out.println();
+					
+					dlvHandlerEndTime = System.currentTimeMillis();
+
 				}
 			});
 
@@ -422,6 +448,18 @@ public class DReWELCLI extends CommandLine {
 			List<DLVError> k = invocation.getErrors();
 			if (k.size() > 0)
 				System.err.println(k);
+			
+			long t1 = System.currentTimeMillis();
+
+			dlvTotalTime = t1 - t0;
+
+			long dlvHandlerTime = dlvHandlerEndTime - dlvHandlerStartTime;
+			if (verbose) {
+				System.err.println("#dlv running time = "
+						+ (dlvTotalTime - dlvHandlerTime) + "ms");
+				System.err.println("#postprocess time = " + dlvHandlerTime
+						+ "ms");
+			}
 
 		} catch (DLVInvocationException | IOException e) {
 			e.printStackTrace();

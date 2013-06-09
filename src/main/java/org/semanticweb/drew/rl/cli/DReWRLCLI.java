@@ -123,9 +123,6 @@ public class DReWRLCLI extends CommandLine {
 			case "-verbose":
 			case "-v":
 				verbose = true;
-				// DReWELManager.getInstance().setVerboseLevel(
-				// Integer.parseInt(args[i + 1]));
-				// i += 2;
 				i += 1;
 				break;
 			case "--rewriting-only":
