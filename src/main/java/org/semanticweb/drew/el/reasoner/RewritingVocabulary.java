@@ -39,6 +39,9 @@ public class RewritingVocabulary {
 	
 	public final static NormalPredicate SUBSET = CacheManager.getInstance().getPredicate("subset", 2);
 	
+	public final static NormalPredicate INV = CacheManager.getInstance().getPredicate("inv", 2);
+	
+	
 	public final static NormalPredicate ISA_P = CacheManager.getInstance().getPredicate("isa_p", 3);
 
 	public final static NormalPredicate TRIPLE_P = CacheManager.getInstance().getPredicate("triple_p", 4);

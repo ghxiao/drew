@@ -1,6 +1,5 @@
 package org.semanticweb.drew.el.cli;
 
-import static org.junit.Assert.*;
 import it.unical.mat.wrapper.DLVInvocationException;
 
 import java.io.IOException;
@@ -19,7 +18,7 @@ public class DReWELCLITest {
 	
 	@Test
 	public void testDLP() throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException {
-		DReWELCLI.main("-ontology sample_data/U0.owl -dlp sample_data/lubm_0.elp -dlv /Users/xiao/bin/dlv".split("\\s"));
+		DReWELCLI.main("-ontology sample_data/U0.owl -dlp sample_data/lubm_0.elp -dlv /Users/xiao/bin/dlv -filter q".split("\\s"));
 	}
 	
 	@Test

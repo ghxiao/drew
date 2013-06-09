@@ -29,7 +29,6 @@ import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLEntityVisitor;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
-import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectHasSelf;
@@ -51,12 +50,13 @@ import org.semanticweb.owlapi.util.OWLAxiomVisitorAdapter;
 public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements
 		OWLEntityVisitor {
 
-    private DLProgram datalog;
+	private DLProgram datalog;
 
-    public SROEL2DatalogRewriter() {
-        SymbolEncoder<IRI> iriEncoder = DReWELManager.getInstance().getIRIEncoder();
-        SymbolEncoder<OWLSubClassOfAxiom> superSomeAxiomEncoder = DReWELManager.getInstance()
-                .getSuperSomeAxiomEncoder();
+	public SROEL2DatalogRewriter() {
+		SymbolEncoder<IRI> iriEncoder = DReWELManager.getInstance()
+				.getIRIEncoder();
+		SymbolEncoder<OWLSubClassOfAxiom> superSomeAxiomEncoder = DReWELManager
+				.getInstance().getSuperSomeAxiomEncoder();
 	}
 
 	public DLProgram rewrite(OWLOntology ontology) {
@@ -95,10 +95,10 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements
 			BufferedWriter writer = new BufferedWriter(new FileWriter(
 					datalogFile));
 			writer.write(PInst.getPInst().toString());
-			
+
 			new DLProgramStorerImpl().store(datalog, writer);
-			
-			//writer.write(new DatalogToStringHelper().toString(datalog));
+
+			// writer.write(new DatalogToStringHelper().toString(datalog));
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -397,7 +397,7 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements
 		}
 
 		datalog.add(new Clause(new Literal[] { new Literal(predicate, terms
-                .toArray(new Term[terms.size()])) }, new Literal[] {}));
+				.toArray(new Term[terms.size()])) }, new Literal[] {}));
 	}
 
 	@Override
@@ -496,22 +496,35 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements
 
 		// System.err.println("warning: ignore axiom " + axiom);
 
-		datalog.add(
-				new Clause(new Literal[] { new Literal( //
-						RewritingVocabulary.SUP_EX, //
-						CacheManager.getInstance().getConstant(
-								axiom.getSubject().asOWLNamedIndividual()
-										.getIRI()),//
-						CacheManager.getInstance().getConstant(
-								axiom.getProperty().asOWLDataProperty()
-										.getIRI()),//
-						CacheManager.getInstance().getConstant(
-								axiom.getObject().getLiteral()),//
-						CacheManager.getInstance().getConstant(
-								axiom.getObject().getLiteral())//
-				) }, //
-						new Literal[] {}));
+		datalog.add(new Clause(new Literal[] { new Literal( //
+				RewritingVocabulary.SUP_EX, //
+				CacheManager.getInstance().getConstant(
+						axiom.getSubject().asOWLNamedIndividual().getIRI()),//
+				CacheManager.getInstance().getConstant(
+						axiom.getProperty().asOWLDataProperty().getIRI()),//
+				CacheManager.getInstance().getConstant(
+						axiom.getObject().getLiteral()),//
+				CacheManager.getInstance().getConstant(
+						axiom.getObject().getLiteral())//
+		) }, //
+				new Literal[] {}));
 
+	}
+
+	@Override
+	public void visit(OWLInverseObjectPropertiesAxiom axiom) {
+		
+		addFact(RewritingVocabulary.INV, //
+				axiom.getFirstProperty().asOWLObjectProperty().getIRI(),//
+				axiom.getSecondProperty().asOWLObjectProperty().getIRI()//
+		);
+		
+		addFact(RewritingVocabulary.INV, //
+				axiom.getSecondProperty().asOWLObjectProperty().getIRI(),//
+				axiom.getFirstProperty().asOWLObjectProperty().getIRI()//			
+		);
+		
+		//System.err.println("warning: ignore axiom " + axiom);
 	}
 
 	private void addFact(NormalPredicate predicate, IRI... params) {
@@ -522,14 +535,8 @@ public class SROEL2DatalogRewriter extends OWLAxiomVisitorAdapter implements
 			terms.add(CacheManager.getInstance().getConstant(param));
 		}
 
-		datalog.add(
-				new Clause(new Literal[] { new Literal(predicate, terms
-                        .toArray(new Term[terms.size()])) }, new Literal[] {}));
-	}
-
-	@Override
-	public void visit(OWLInverseObjectPropertiesAxiom axiom) {
-		System.err.println("warning: ignore axiom " + axiom);
+		datalog.add(new Clause(new Literal[] { new Literal(predicate, terms
+				.toArray(new Term[terms.size()])) }, new Literal[] {}));
 	}
 
 }

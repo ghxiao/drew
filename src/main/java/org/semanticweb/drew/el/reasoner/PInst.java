@@ -46,6 +46,7 @@ public class PInst {
 			"isa(Y, R) :- range(V, R), triple(X, V, Y).\n " + //
 			"isa(X, R) :- domain(V, R), triple(X, V, Y).\n " + //
 			// "isa(X, R) :- transitive(R), triple(X, R, Y).\n " + //
+			"triple(X,R,Y) :- inv(R, R1), triple(Y, R1, X), rol(R), rol(R1).\n"+
 			"top(\"Thing\").\n" + //
 			"bot(\"Nothing\").\n" + //
 			"";
