@@ -199,7 +199,8 @@ public class DLProgramStorerImpl implements DLProgramStorer {
 
 	void writeStringConstant(Term t, Appendable target) {
 		write("\"", target);
-		write(t.toString(), target);
+		//write(t.toString(), target);
+		write(t.toString().replaceAll("\"", "'"), target);
 		write("\"", target);
 	}
 
