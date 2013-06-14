@@ -33,35 +33,37 @@ public interface DLProgramParserConstants {
   /** RegularExpression Id. */
   int RIGHT_SQUARE_BRACKET = 16;
   /** RegularExpression Id. */
-  int IDENTIFIER = 17;
+  int HASH_LEADING_ID = 17;
   /** RegularExpression Id. */
-  int INTEGER = 18;
+  int LOWER_LEADING_ID = 18;
   /** RegularExpression Id. */
-  int DOUBLE = 19;
+  int UPPER_LEADING_ID = 19;
   /** RegularExpression Id. */
-  int STRING = 20;
+  int INTEGER = 20;
   /** RegularExpression Id. */
-  int VARIABLE = 21;
+  int DOUBLE = 21;
   /** RegularExpression Id. */
-  int PLUS = 22;
+  int STRING = 22;
   /** RegularExpression Id. */
-  int MINUS = 23;
+  int PLUS = 23;
   /** RegularExpression Id. */
-  int TIMES = 24;
+  int MINUS = 24;
   /** RegularExpression Id. */
-  int DIVIDE = 25;
+  int TIMES = 25;
   /** RegularExpression Id. */
-  int LEFTBRACKET = 26;
+  int DIVIDE = 26;
   /** RegularExpression Id. */
-  int RIGHTBRACKET = 27;
+  int LEFTBRACKET = 27;
   /** RegularExpression Id. */
-  int UPLUS = 28;
+  int RIGHTBRACKET = 28;
   /** RegularExpression Id. */
-  int UMINUS = 29;
+  int UPLUS = 29;
   /** RegularExpression Id. */
-  int CAPMINUS = 30;
+  int UMINUS = 30;
   /** RegularExpression Id. */
-  int DLPREDICATE = 31;
+  int CAPMINUS = 31;
+  /** RegularExpression Id. */
+  int DLPREDICATE = 32;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -85,11 +87,12 @@ public interface DLProgramParserConstants {
     "\"DL\"",
     "\"[\"",
     "\"]\"",
-    "<IDENTIFIER>",
+    "<HASH_LEADING_ID>",
+    "<LOWER_LEADING_ID>",
+    "<UPPER_LEADING_ID>",
     "<INTEGER>",
     "<DOUBLE>",
     "<STRING>",
-    "<VARIABLE>",
     "\"+\"",
     "\"-\"",
     "\"*\"",

@@ -26,11 +26,7 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.drew.default_logic.DefaultRule;
 import org.semanticweb.drew.default_logic.OWLPredicate;
 
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-
 public class DLProgramParser {
- // final static Logger logger = LoggerFactory.getLogger(DLProgramParser.class);
 
 	// namespace abbreviation to the full name
   Map < String, String > namespaces = new HashMap < String, String > ();
@@ -134,7 +130,9 @@ TOKEN :
 | < DL_ATOM : "DL" >
 | < LEFT_SQUARE_BRACKET : "[" >
 | < RIGHT_SQUARE_BRACKET : "]" >
-| < IDENTIFIER : [ "a"-"z" ] ([ "a"-"z", "A"-"Z", "0"-"9", "_" ])* >
+| < HASH_LEADING_ID : "#" ([ "a"-"z", "A"-"Z", "0"-"9", "_" ])* >
+| < LOWER_LEADING_ID : [ "a"-"z" ] ([ "a"-"z", "A"-"Z", "0"-"9", "_" ])* >
+| < UPPER_LEADING_ID : [ "A"-"Z" ] ([ "a"-"z", "A"-"Z", "0"-"9", "_" ])* >
 | < INTEGER :
     "0"
   | ([ "+", "-" ])? [ "1"-"9" ] ([ "0"-"9" ])* >
@@ -151,9 +149,6 @@ TOKEN :
     | ("\\" [ "n", "t", "b", "r", "f", "\\", "'", "\"" ])
     )*
     "\"" >
-| < VARIABLE :
-    "_"
-  | [ "A"-"Z" ] ([ "a"-"z", "A"-"Z", "0"-"9", "_" ])* >
 | < PLUS : "+" >
 | < MINUS : "-" >
 | < TIMES : "*" >
@@ -175,12 +170,12 @@ String dlPredicate() :
 {
   (
     //FIXME: we should use only one token here
-    LOOKAHEAD((< VARIABLE >
+    LOOKAHEAD((< UPPER_LEADING_ID >
   | < DLPREDICATE >
-  | < IDENTIFIER >) < COLON >)
+  | < LOWER_LEADING_ID >) < COLON >)
     (
       (
-        < VARIABLE >| < DLPREDICATE >| < IDENTIFIER >
+        < UPPER_LEADING_ID >| < DLPREDICATE >| < LOWER_LEADING_ID >
       )
       {
         String key = token.image;
@@ -188,7 +183,7 @@ String dlPredicate() :
       }
       < COLON >
       (
-        < VARIABLE > | < DLPREDICATE >| < IDENTIFIER >
+        < UPPER_LEADING_ID > | < DLPREDICATE >| < LOWER_LEADING_ID >
       )
       {
         name = namespace + token.image;
@@ -197,7 +192,7 @@ String dlPredicate() :
     )
   |
     (
-      < VARIABLE > | < DLPREDICATE > | < IDENTIFIER >
+      < UPPER_LEADING_ID > | < DLPREDICATE > | < LOWER_LEADING_ID >
     )
     {
       name = token.image;
@@ -330,7 +325,7 @@ Constant constant() :
       type = Types.VARCHAR;
       return CacheManager.getInstance().getConstant(name, type);
     }
-  | < IDENTIFIER >
+  | < LOWER_LEADING_ID >
     {
       name = token.image;
       type = Types.VARCHAR;
@@ -343,7 +338,7 @@ Constant constant() :
 Term variable() :
 {}
 {
-  < VARIABLE >
+  < UPPER_LEADING_ID >
   {
     return CacheManager.getInstance().getVariable(token.image);
   }
@@ -354,7 +349,7 @@ Functor functor() :
   Functor functor = new Functor();
 }
 {
-  < IDENTIFIER >
+  < LOWER_LEADING_ID >
   {
     functor.setName(token.image);
     return functor;
@@ -520,8 +515,7 @@ Literal literal() :
 	["-"	{
 	  neg = true;	}
 	]
-	// TODO: ugly code :(
-  (    < IDENTIFIER > | <  VARIABLE >)
+  (    < HASH_LEADING_ID > | < LOWER_LEADING_ID > | <  UPPER_LEADING_ID > )
     {
    		name = token.image;
 		if(neg)		{			literal.setNegative(true);

@@ -1,6 +1,6 @@
 package org.semanticweb.drew.dlprogram.parser;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,8 +8,6 @@ import java.io.FileReader;
 import java.io.StringReader;
 
 import org.junit.Test;
-import org.semanticweb.drew.benchmark.PaperReviewBenchmarkGenerator;
-import org.semanticweb.drew.default_logic.DefaultRule;
 import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.model.Literal;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -166,16 +164,24 @@ public class DLProgramParserTest {
 		System.out.println(lit3);
 	}
 	
+//	@Test
+//	public void testXSDTypes() throws ParseException{
+//		String s5 = "p(X, \"abc\"^^xsd:string)";
+//		DLProgramParser parser5 = new DLProgramParser(new StringReader(s5));
+//		//parser5.setOntology(ontology);
+//		Literal lit5 = parser5.literal();
+//		System.out.println(lit5);
+//	}
+	
 	@Test
-	public void testXSDTypes() throws ParseException{
-		String s5 = "p(X, \"abc\"^^xsd:string)";
+	public void testInt() throws ParseException{
+		String s5 = "#int(X)";
 		DLProgramParser parser5 = new DLProgramParser(new StringReader(s5));
 		//parser5.setOntology(ontology);
 		Literal lit5 = parser5.literal();
+		assertEquals(s5, lit5.toString());
 		System.out.println(lit5);
 	}
-	
-
 	public static void main(String[] args) throws ParseException,
 			FileNotFoundException, OWLOntologyCreationException {
 		new DLProgramParserTest().testDLInputOperators();
