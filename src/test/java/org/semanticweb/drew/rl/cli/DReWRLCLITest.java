@@ -2,7 +2,6 @@ package org.semanticweb.drew.rl.cli;
 
 import it.unical.mat.wrapper.DLVInvocationException;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;

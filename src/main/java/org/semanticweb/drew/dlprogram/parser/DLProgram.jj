@@ -158,7 +158,6 @@ TOKEN :
 | < UPLUS : "+=" >
 | < UMINUS : "-=" >
 | < CAPMINUS : "~=" >
-| < DLPREDICATE : [ "a"-"z", "A"-"Z" ] ([ "a"-"z", "A"-"Z", "0"-"9" ])* >
 }
 
 
@@ -169,13 +168,10 @@ String dlPredicate() :
 }
 {
   (
-    //FIXME: we should use only one token here
-    LOOKAHEAD((< UPPER_LEADING_ID >
-  | < DLPREDICATE >
-  | < LOWER_LEADING_ID >) < COLON >)
+    LOOKAHEAD((< UPPER_LEADING_ID > | < LOWER_LEADING_ID >) < COLON >)
     (
       (
-        < UPPER_LEADING_ID >| < DLPREDICATE >| < LOWER_LEADING_ID >
+        < UPPER_LEADING_ID > | < LOWER_LEADING_ID >
       )
       {
         String key = token.image;
@@ -183,22 +179,18 @@ String dlPredicate() :
       }
       < COLON >
       (
-        < UPPER_LEADING_ID > | < DLPREDICATE >| < LOWER_LEADING_ID >
+        < UPPER_LEADING_ID > | < LOWER_LEADING_ID >
       )
       {
         name = namespace + token.image;
-        
       }
     )
   |
     (
-      < UPPER_LEADING_ID > | < DLPREDICATE > | < LOWER_LEADING_ID >
+      < UPPER_LEADING_ID > | < LOWER_LEADING_ID >
     )
     {
       name = token.image;
-      // Match a name from the ontology
-      if (ontology != null)      {
-              }
     }
   | < STRING >  {
     name = token.image;
@@ -221,8 +213,7 @@ DLInputOperation dlInputOperation() :
     )
     {
       
-	  OWLLogicalEntity dlPredicate = findLogicalEntity(name);      
-//      OWLLogicalEntity dlPredicate = OWLManager.getOWLDataFactory().getOWLClass(IRI.create(name));
+	  OWLLogicalEntity dlPredicate = findLogicalEntity(name);
       op.setDLPredicate(dlPredicate);
     }
     (
