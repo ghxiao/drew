@@ -72,6 +72,7 @@ public class DReWRLCLI extends CommandLine {
 	long dlvHandlerStartTime = 0;
 	long dlvHandlerEndTime = 0;
 	private boolean verbose;
+	private int maxInt = -1;
 
 	private DReWRLCLI(String[] args) {
 		this.args = args;
@@ -87,8 +88,7 @@ public class DReWRLCLI extends CommandLine {
 		while (i < args.length) {
 			switch (args[i]) {
 			case "-rl":
-				i += 1;
-				// fine
+				i += 1; // fine.
 				break;
 			case "-el":
 				throw new IllegalStateException("-el");
@@ -118,6 +118,10 @@ public class DReWRLCLI extends CommandLine {
 				break;
 			case "-dlv":
 				dlvPath = args[i + 1];
+				i += 2;
+				break;
+			case "-N":
+				maxInt  = Integer.parseInt(args[i + 1]);
 				i += 2;
 				break;
 			case "-verbose":
@@ -347,13 +351,16 @@ public class DReWRLCLI extends CommandLine {
 			}
 			if (filter != null) {
 				String[] ss = filter.split(",");
-
 				Collections.addAll(filters, ss);
 			}
 
 			if (filters != null && filters.size() > 0)
 				invocation.setFilter(filters, true);
 
+			if (maxInt != -1){
+				invocation.setMaxint(maxInt);
+			}
+			
 			if (semantics.equals("wf"))
 				invocation.addOption("-wf");
 

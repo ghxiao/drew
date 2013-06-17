@@ -65,6 +65,7 @@ public class DReWELCLI extends CommandLine {
 	long dlvHandlerStartTime = 0;
 	long dlvHandlerEndTime = 0;
 	private boolean verbose;
+	private int maxInt = -1;
 	
 	private DReWELCLI(String[] args) {
 		this.args = args;
@@ -332,6 +333,10 @@ public class DReWELCLI extends CommandLine {
 				dlvPath = args[i + 1];
 				i += 2;
 				break;
+			case "-N":
+				maxInt  = Integer.parseInt(args[i + 1]);
+				i += 2;
+				break;
 			case "-verbose":
 			case "-v":
 				verbose = true;
@@ -405,6 +410,10 @@ public class DReWELCLI extends CommandLine {
 			if (filters != null && filters.size() > 0)
 				invocation.setFilter(filters, true);
 
+			if (maxInt != -1){
+				invocation.setMaxint(maxInt);
+			}
+			
 			if (semantics.equals("wf"))
 				invocation.addOption("-wf");
 
