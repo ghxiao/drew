@@ -7,6 +7,7 @@
  */
 package org.semanticweb.drew.ldlpprogram.reasoner;
 
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -161,7 +162,7 @@ public class RLProgramKBCompiler implements DLProgramKB2DatalogRewriter{
 	}
 
 	Term complileTerm(Term term) {
-		if (term instanceof Constant) {
+		if (term instanceof Constant && ((Constant)term).getType() != Types.INTEGER ) {
 			Constant constant = (Constant) term;
 			String name = constant.getName();
 			String newName = LDLPCompilerManager.getInstance()

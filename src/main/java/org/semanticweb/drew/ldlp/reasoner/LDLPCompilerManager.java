@@ -121,23 +121,23 @@ public class LDLPCompilerManager {
 		return predicate;
 	}
 
+	
 	public String decompile(String name) {
 		
 		try{
+			// integers were not encoded
 			Double.parseDouble(name);
 			return name;
 		} catch(NumberFormatException ex){
-			
+			int index = Integer.parseInt(name.substring(1));
 
-		int index = Integer.parseInt(name.substring(1));
-
-		if (name.startsWith("p")) { // predicate
-			return predicates.decode(index);
-		} else if (name.startsWith("o")) { // constant
-			return constants.decode(index);
-		} else {
-			throw new IllegalStateException();
-		}
+			if (name.startsWith("p")) { // predicate
+				return predicates.decode(index);
+			} else if (name.startsWith("o")) { // constant
+				return constants.decode(index);
+			} else {
+				throw new IllegalStateException();
+			}
 		}
 
 	}

@@ -1,0 +1,5 @@
+even(0).
+even(2).
+even(4).
+odd(N1) :- even(N), N1 = N + 1, #int(N), #int(N1).
+q(X) :- odd(X).

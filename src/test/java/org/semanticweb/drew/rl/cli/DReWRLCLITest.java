@@ -80,5 +80,15 @@ public class DReWRLCLITest {
 						.split("\\s"));
 		
 	}
+	
+	@Test
+	public void testArithmetic() throws OWLOntologyCreationException, IOException,
+			ParseException, DLVInvocationException {
+		// expected output "{ q(1) q(3) q(5) }"
+		DReWRLCLI
+				.main(("-rl -ontology src/test/resources/testArithmetic.owl -dlp src/test/resources/testArithmetic.dlp -filter q -N 10 -dlv " + findDLV())
+						.split("\\s"));
+		
+	}
 
 }
