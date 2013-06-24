@@ -50,7 +50,7 @@ public class DReWELCLITest {
 	public void testPR() throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException {
 		DReWELCLI.main(
 				"-ontology benchmark/publication.owl -dlp benchmark/reviewers-1.elp -filter a -dlv /usr/bin/dlv".split("\\s"));
-	}
+	} 
 	
 	@Test
 	public void testConstraint() throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException {

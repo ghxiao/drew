@@ -210,11 +210,6 @@ public class DReWELCLI extends CommandLine {
 
 			datalog = compiler.rewrite(kb);
 
-			DLProgramStorer storer = new DLProgramStorerImpl();
-			StringBuilder target = new StringBuilder();
-			storer.store(datalog, target);
-
-			String strDatalog = target.toString();
 			int j = dlpFile.lastIndexOf('/');
 			String dlpTag = dlpFile;
 			if (j >= 0) {
@@ -222,12 +217,20 @@ public class DReWELCLI extends CommandLine {
 			}
 
 			datalogFile = ontologyFile + "-" + dlpTag + "-" + rewriting + ".dl";
-			// inputProgram.addFile(datalogFile);
+
+			double currentMemory = ((double) ((double) (Runtime.getRuntime()
+					.totalMemory() / 1024) / 1024))
+					- ((double) ((double) (Runtime.getRuntime().freeMemory() / 1024) / 1024));
+
+			if (verbose) {
+				System.err.println("#current memory = " + currentMemory + "M");
+			}
+
 
 			FileWriter w = new FileWriter(datalogFile);
-			w.write(strDatalog);
+			DLProgramStorer storer = new DLProgramStorerImpl();
+			storer.store(datalog, w);
 			w.close();
-			
 
 			long t1 = System.currentTimeMillis();
 

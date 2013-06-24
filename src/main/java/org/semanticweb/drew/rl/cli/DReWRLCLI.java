@@ -121,7 +121,7 @@ public class DReWRLCLI extends CommandLine {
 				i += 2;
 				break;
 			case "-N":
-				maxInt  = Integer.parseInt(args[i + 1]);
+				maxInt = Integer.parseInt(args[i + 1]);
 				i += 2;
 				break;
 			case "-verbose":
@@ -300,11 +300,6 @@ public class DReWRLCLI extends CommandLine {
 			RLProgramKBCompiler compiler = new RLProgramKBCompiler();
 			datalog = compiler.rewrite(kb);
 
-			DLProgramStorer storer = new DLProgramStorerImpl();
-			StringBuilder target = new StringBuilder();
-			storer.store(datalog, target);
-
-			String strDatalog = target.toString();
 			int j = dlpFile.lastIndexOf('/');
 			String dlpTag = dlpFile;
 			if (j >= 0) {
@@ -312,10 +307,18 @@ public class DReWRLCLI extends CommandLine {
 			}
 
 			datalogFile = ontologyFile + "-" + dlpTag + "-rl.dlv";
-			// inputProgram.addFile(datalogFile);
+
+			double currentMemory = ((double) ((double) (Runtime.getRuntime()
+					.totalMemory() / 1024) / 1024))
+					- ((double) ((double) (Runtime.getRuntime().freeMemory() / 1024) / 1024));
+
+			if (verbose) {
+				System.err.println("#current memory = " + currentMemory + "M");
+			}
 
 			FileWriter w = new FileWriter(datalogFile);
-			w.write(strDatalog);
+			DLProgramStorer storer = new DLProgramStorerImpl();
+			storer.store(datalog, w);
 			w.close();
 
 			long t1 = System.currentTimeMillis();
@@ -357,10 +360,10 @@ public class DReWRLCLI extends CommandLine {
 			if (filters != null && filters.size() > 0)
 				invocation.setFilter(filters, true);
 
-			if (maxInt != -1){
+			if (maxInt != -1) {
 				invocation.setMaxint(maxInt);
 			}
-			
+
 			if (semantics.equals("wf"))
 				invocation.addOption("-wf");
 

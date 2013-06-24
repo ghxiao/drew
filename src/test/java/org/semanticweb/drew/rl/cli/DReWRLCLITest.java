@@ -26,7 +26,7 @@ public class DReWRLCLITest {
 			}
 		}
 
-		return null;
+		throw new IllegalStateException("can not find dlv");
 	}
 
 	@Test
