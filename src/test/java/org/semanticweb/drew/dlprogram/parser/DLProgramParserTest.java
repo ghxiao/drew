@@ -6,12 +6,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.StringReader;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Test;
 import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.model.Literal;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -56,14 +59,15 @@ public class DLProgramParserTest {
 	}
 
 	@Test
-	public void testSemiColon1() throws ParseException, OWLOntologyCreationException {
+	public void testSemiColon1() throws ParseException,
+			OWLOntologyCreationException {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		OWLOntology ontology = manager.createOntology();
 		OWLDataFactory factory = manager.getOWLDataFactory();
 		OWLObjectProperty property = factory
 				.getOWLObjectProperty(IRI
 						.create("http://www.kr.tuwien.ac.at/staff/xiao/ontology/graph#arc"));
-		manager.addAxiom(ontology,  factory.getOWLDeclarationAxiom(property));
+		manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(property));
 		String s = "DL[;\"http://www.kr.tuwien.ac.at/staff/xiao/ontology/graph#arc\"](X, Y)";
 		DLProgramParser parser = new DLProgramParser(new StringReader(s));
 		parser.setOntology(ontology);
@@ -72,36 +76,38 @@ public class DLProgramParserTest {
 	}
 
 	@Test
-	public void testDLInputOperators() throws OWLOntologyCreationException, ParseException{
+	public void testDLInputOperators() throws OWLOntologyCreationException,
+			ParseException {
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		OWLOntology ontology = manager.createOntology();
 		OWLDataFactory factory = manager.getOWLDataFactory();
 		OWLObjectProperty property = factory
 				.getOWLObjectProperty(IRI
 						.create("http://www.kr.tuwien.ac.at/staff/xiao/ontology/graph#arc"));
-		manager.addAxiom(ontology,  factory.getOWLDeclarationAxiom(property));
-		
+		manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(property));
+
 		String s1 = "DL[arc+=tc;arc](X, Y)";
 		DLProgramParser parser1 = new DLProgramParser(new StringReader(s1));
 		parser1.setOntology(ontology);
 		Literal lit1 = parser1.literal();
 		System.out.println(lit1);
-		
+
 		String s2 = "DL[arc-=n_tc;arc](X, Y)";
 		DLProgramParser parser2 = new DLProgramParser(new StringReader(s2));
 		parser2.setOntology(ontology);
 		Literal lit2 = parser2.literal();
 		System.out.println(lit2);
-		
+
 		String s3 = "DL[arc~=poss_arc;arc](X, Y)";
 		DLProgramParser parser3 = new DLProgramParser(new StringReader(s3));
 		parser3.setOntology(ontology);
 		Literal lit3 = parser3.literal();
 		System.out.println(lit3);
 	}
-	
+
 	@Test
-	public void testDLPredicate() throws ParseException, OWLOntologyCreationException {
+	public void testDLPredicate() throws ParseException,
+			OWLOntologyCreationException {
 
 		OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		OWLOntology ontology = manager.createOntology();
@@ -109,79 +115,105 @@ public class DLProgramParserTest {
 		OWLObjectProperty property = factory
 				.getOWLObjectProperty(IRI
 						.create("http://www.kr.tuwien.ac.at/staff/xiao/ontology/graph#arc"));
-		manager.addAxiom(ontology,  factory.getOWLDeclarationAxiom(property));
+		manager.addAxiom(ontology, factory.getOWLDeclarationAxiom(property));
 
 		String s1 = "DL[\"http://www.kr.tuwien.ac.at/staff/xiao/ontology/graph#arc\"](X, Y)";
 		DLProgramParser parser1 = new DLProgramParser(new StringReader(s1));
 		parser1.setOntology(ontology);
 		Literal lit1 = parser1.literal();
 		System.out.println(lit1);
-		
+
 		String s2 = "DL[arc](X, Y)";
 		DLProgramParser parser2 = new DLProgramParser(new StringReader(s2));
 		parser2.setOntology(ontology);
 		Literal lit2 = parser2.literal();
 		System.out.println(lit2);
-		
+
 		String s3 = "DL[\"arc\"](X, Y)";
 		DLProgramParser parser3 = new DLProgramParser(new StringReader(s3));
 		parser3.setOntology(ontology);
 		Literal lit3 = parser3.literal();
 		System.out.println(lit3);
-		
+
 		String s4 = "DL[arc+=tc;arc](X, Y)";
 		DLProgramParser parser4 = new DLProgramParser(new StringReader(s4));
 		parser4.setOntology(ontology);
 		Literal lit4 = parser4.literal();
 		System.out.println(lit4);
-		
+
 		String s5 = "DL[;arc](X, Y)";
 		DLProgramParser parser5 = new DLProgramParser(new StringReader(s5));
 		parser5.setOntology(ontology);
 		Literal lit5 = parser5.literal();
 		System.out.println(lit5);
-		
+
 	}
-	
+
 	@Test
-	public void testConstants() throws ParseException{
+	public void testConstants() throws ParseException {
 		String s1 = "p(X, \"123\")";
 		DLProgramParser parser1 = new DLProgramParser(new StringReader(s1));
-		//parser5.setOntology(ontology);
+		// parser5.setOntology(ontology);
 		Literal lit1 = parser1.literal();
 		System.out.println(lit1);
-		
+
 		String s2 = "p(X, 123)";
 		DLProgramParser parser2 = new DLProgramParser(new StringReader(s2));
-		//parser5.setOntology(ontology);
+		// parser5.setOntology(ontology);
 		Literal lit2 = parser2.literal();
 		System.out.println(lit2);
-		
+
 		String s3 = "p(X, \"<http://a.b.com/123>\")";
 		DLProgramParser parser3 = new DLProgramParser(new StringReader(s3));
-		//parser5.setOntology(ontology);
+		// parser5.setOntology(ontology);
 		Literal lit3 = parser3.literal();
 		System.out.println(lit3);
 	}
-	
-//	@Test
-//	public void testXSDTypes() throws ParseException{
-//		String s5 = "p(X, \"abc\"^^xsd:string)";
-//		DLProgramParser parser5 = new DLProgramParser(new StringReader(s5));
-//		//parser5.setOntology(ontology);
-//		Literal lit5 = parser5.literal();
-//		System.out.println(lit5);
-//	}
-	
+
 	@Test
-	public void testInt() throws ParseException{
+	public void testNamespaces() throws ParseException,
+			OWLOntologyCreationException {
+		String s1 = "#namespace(\"D96A\",\"http://edimine.ec.tuwien.ac.at/EdiOnto/D96A#\").\n"
+				+ "#namespace(\"D01B\",\"http://edimine.ec.tuwien.ac.at/EdiOnto/D01B#\").\n"
+				+ "q(X, Y) :- DL[D96A:ORDERS_LineItemQuantity_orderedquantity](X), DL[D96A:hasValue](X,Y).";
+		System.out.println(s1);
+
+		OWLDataFactory factory = OWLManager.getOWLDataFactory();
+		Set<OWLAxiom> axioms = new HashSet<>();
+		axioms.add(factory.getOWLDeclarationAxiom(factory.getOWLClass(IRI
+				.create("http://edimine.ec.tuwien.ac.at/EdiOnto/D96A#ORDERS_LineItemQuantity_orderedquantity"))));
+		axioms.add(factory.getOWLDeclarationAxiom(factory.getOWLObjectProperty(IRI
+				.create("http://edimine.ec.tuwien.ac.at/EdiOnto/D96A#hasValue"))));
+
+		OWLOntology ont = OWLManager.createOWLOntologyManager()
+				.createOntology(axioms);
+
+		DLProgramParser parser1 = new DLProgramParser(new StringReader(s1));
+		// parser5.setOntology(ontology);
+		parser1.setOntology(ont);
+		DLProgram program = parser1.program();
+		System.out.println(program);
+	}
+
+	// @Test
+	// public void testXSDTypes() throws ParseException{
+	// String s5 = "p(X, \"abc\"^^xsd:string)";
+	// DLProgramParser parser5 = new DLProgramParser(new StringReader(s5));
+	// //parser5.setOntology(ontology);
+	// Literal lit5 = parser5.literal();
+	// System.out.println(lit5);
+	// }
+
+	@Test
+	public void testInt() throws ParseException {
 		String s5 = "#int(X)";
 		DLProgramParser parser5 = new DLProgramParser(new StringReader(s5));
-		//parser5.setOntology(ontology);
+		// parser5.setOntology(ontology);
 		Literal lit5 = parser5.literal();
 		assertEquals(s5, lit5.toString());
 		System.out.println(lit5);
 	}
+
 	public static void main(String[] args) throws ParseException,
 			FileNotFoundException, OWLOntologyCreationException {
 		new DLProgramParserTest().testDLInputOperators();

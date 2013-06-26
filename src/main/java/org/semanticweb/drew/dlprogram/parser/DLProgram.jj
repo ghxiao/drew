@@ -250,7 +250,7 @@ DLInputSignature dlInputSignature() :
 }
 {
   (
-    LOOKAHEAD(2)    (		LOOKAHEAD(2)
+    LOOKAHEAD(4)    (		LOOKAHEAD(2)
 	    op = dlInputOperation()
 	    {
 	      signature.getOperations().add(op);
