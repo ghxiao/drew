@@ -101,7 +101,9 @@ public class LDLPCompilerManager {
 			}
 		} 
 
-		return getConstant(literal.getLiteral().toString());
+		return getConstant(literal.toString());
+		
+//		return getConstant(literal.getLiteral().toString());
 
 	}
 

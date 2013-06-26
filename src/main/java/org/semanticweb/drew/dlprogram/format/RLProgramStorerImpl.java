@@ -21,9 +21,28 @@ public class RLProgramStorerImpl extends DLProgramStorerImpl {
 
 	LDLPCompilerManager ldlpCompilerManager;
 	Pattern qIriPattern = Pattern.compile("^<.*#(.*)>$");
+	//Pattern dataypeTagPattern = Pattern.compile("\\^\\^.*$");
+	
+	private int base = 0;
+	private boolean outputtingTypeTag = true;
 
 	public RLProgramStorerImpl() {
 		ldlpCompilerManager = LDLPCompilerManager.getInstance();
+	}
+
+	public void setBase(int base) {
+		this.base = base;
+	}
+	
+	/**
+	 * if outputtingTypeTag is set. the tag (e.g. ^^xsd:sting) will be output;
+	 * otherwise, it will be dropped
+	 * Default value: true
+	 * 
+	 * @param outputtingTypeTag
+	 */
+	public void setOutputingTypeTag(boolean outputtingTypeTag){
+		this.outputtingTypeTag = outputtingTypeTag;
 	}
 
 	@Override
@@ -51,7 +70,7 @@ public class RLProgramStorerImpl extends DLProgramStorerImpl {
 
 	@Override
 	void writeStringConstant(Term t, Appendable target) {
-		boolean isIRI = false;
+		boolean unquote = false;
 		String name = t.getName();
 		String newp = name;
 		try {
@@ -60,19 +79,32 @@ public class RLProgramStorerImpl extends DLProgramStorerImpl {
 				Matcher matcher = qIriPattern.matcher(d);
 				if (matcher.find()) {
 					newp = matcher.group(1);
-					isIRI = true;
+					// isIRI = true;
 				} else {
 					// datatype
 					// newp = d;
 					newp = d.replace('\"', '\'');
+					
+					if(!outputtingTypeTag){
+						newp = newp.replaceAll("\\^\\^(.*)$", "");
+					}
+				}
+			} else {
+				// t is a numerical
+				if (base != 0) {
+					unquote = true;
+					newp = String
+							.valueOf((int) (Double.parseDouble(name) * base));
 				}
 			}
 
-			// if (isIRI)
-			write("\"", target);
+			if (!unquote) {
+				write("\"", target);
+			}
 			target.append(newp);
-			// if (isIRI)
-			write("\"", target);
+			if (!unquote) {
+				write("\"", target);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

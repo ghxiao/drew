@@ -6,7 +6,6 @@
     <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
-    <!ENTITY testDatatype "http://www.semanticweb.org/testDatatype.owl#" >
 ]>
 
 
@@ -15,8 +14,7 @@
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-     xmlns:testDatatype="http://www.semanticweb.org/testDatatype.owl#">
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     <owl:Ontology rdf:about="http://www.semanticweb.org/testDatatype.owl"/>
     
 
@@ -45,13 +43,17 @@
 
     <!-- http://www.semanticweb.org/testDatatype.owl#age -->
 
-    <owl:DatatypeProperty rdf:about="&testDatatype;age"/>
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/testDatatype.owl#age">
+        <rdfs:range rdf:resource="&xsd;integer"/>
+    </owl:DatatypeProperty>
     
 
 
     <!-- http://www.semanticweb.org/testDatatype.owl#name -->
 
-    <owl:DatatypeProperty rdf:about="&testDatatype;name"/>
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/testDatatype.owl#name">
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
     
 
 
@@ -68,7 +70,7 @@
 
     <!-- http://www.semanticweb.org/testDatatype.owl#Person -->
 
-    <owl:Class rdf:about="&testDatatype;Person"/>
+    <owl:Class rdf:about="http://www.semanticweb.org/testDatatype.owl#Person"/>
     
 
 
@@ -85,8 +87,8 @@
 
     <!-- http://www.semanticweb.org/testDatatype.owl#t -->
 
-    <owl:NamedIndividual rdf:about="&testDatatype;t">
-        <rdf:type rdf:resource="&testDatatype;Person"/>
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/testDatatype.owl#t">
+        <rdf:type rdf:resource="http://www.semanticweb.org/testDatatype.owl#Person"/>
         <age rdf:datatype="&xsd;double">100.0</age>
         <name>abc</name>
     </owl:NamedIndividual>
@@ -95,8 +97,8 @@
 
     <!-- http://www.semanticweb.org/testDatatype.owl#xiao -->
 
-    <owl:NamedIndividual rdf:about="&testDatatype;xiao">
-        <rdf:type rdf:resource="&testDatatype;Person"/>
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/testDatatype.owl#xiao">
+        <rdf:type rdf:resource="http://www.semanticweb.org/testDatatype.owl#Person"/>
         <age rdf:datatype="&xsd;int">28</age>
         <name rdf:datatype="&xsd;string">Guohui Xiao</name>
     </owl:NamedIndividual>
