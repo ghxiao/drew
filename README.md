@@ -128,3 +128,7 @@ References
 Contact
 -------
 Guohui Xiao <mailto:xiao(a)kr.tuwien.ac.at>
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ghxiao/drew/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
