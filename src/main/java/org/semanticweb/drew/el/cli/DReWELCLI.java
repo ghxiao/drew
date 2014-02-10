@@ -54,12 +54,13 @@ public class DReWELCLI extends CommandLine {
 	private String filter;
 	private String datalogFile;
 	private String rewriting = "default";
+	private int nModels = -1;
 	private boolean rewriting_only = false;
 	private String defaultFile;
 	private String semantics = "asp";
 	private String[] args;
 
-	private int nModels = 0;
+	
 	private long rewritingTime;
 	private long dlvTotalTime;
 	long dlvHandlerStartTime = 0;
@@ -340,6 +341,10 @@ public class DReWELCLI extends CommandLine {
 				maxInt  = Integer.parseInt(args[i + 1]);
 				i += 2;
 				break;
+			case "-n":
+				nModels = Integer.parseInt(args[i + 1]);
+				i += 2;
+				break;	
 			case "-verbose":
 			case "-v":
 				verbose = true;
@@ -398,7 +403,10 @@ public class DReWELCLI extends CommandLine {
 			long t0 = System.currentTimeMillis();
 			invocation.setInputProgram(inputProgram);
 
-			// invocation.setNumberOfModels(1);
+			if (nModels != -1){
+				invocation.setNumberOfModels(nModels);
+			}
+			
 			List<String> filters = new ArrayList<>();
 
 			if (cqFile != null) {

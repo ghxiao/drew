@@ -8,6 +8,7 @@ import java.nio.file.Files;
 
 import org.junit.Test;
 import org.semanticweb.drew.dlprogram.parser.ParseException;
+import org.semanticweb.drew.el.cli.DReWELCLI;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 public class DReWRLCLITest {
@@ -38,6 +39,11 @@ public class DReWRLCLITest {
 				"-dlv", findDLV());
 	}
 
+	@Test
+	public void testNetwork_nModels() throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException {
+		DReWRLCLI.main("-ontology benchmark/network/ontology/network.owl -dlp benchmark/network/rules/network.dlp -dlv /Users/xiao/bin/dlv -n 2".split("\\s"));
+	}
+	
 	@Test
 	public void testNetworkOntology() throws OWLOntologyCreationException,
 			IOException, ParseException, DLVInvocationException {

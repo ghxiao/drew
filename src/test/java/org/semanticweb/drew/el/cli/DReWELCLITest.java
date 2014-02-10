@@ -37,6 +37,11 @@ public class DReWELCLITest {
 	}
 	
 	@Test
+	public void testNetwork_nModels() throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException {
+		DReWELCLI.main("-ontology benchmark/network/ontology/network.owl -dlp benchmark/network/rules/network.dlp -dlv /Users/xiao/bin/dlv -n 2 -filter connect".split("\\s"));
+	}
+	
+	@Test
 	public void testNixon() throws OWLOntologyCreationException, IOException, ParseException, DLVInvocationException {
 		DReWELCLI.main("-ontology testcase/nixon_pos.owl -default testcase/nixon_pos.df -dlv /Users/xiao/bin/dlv".split("\\s"));
 	}
