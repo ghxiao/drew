@@ -9,6 +9,7 @@ import java.io.StringReader;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.semanticweb.drew.dlprogram.model.DLProgram;
 import org.semanticweb.drew.dlprogram.model.Literal;
@@ -170,6 +171,7 @@ public class DLProgramParserTest {
 		System.out.println(lit3);
 	}
 
+	//To be fixed
 	@Test
 	public void testNamespaces() throws ParseException,
 			OWLOntologyCreationException {
