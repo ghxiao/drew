@@ -111,7 +111,7 @@ Dependencies
 
 References
 ----------
-
+[0] Guohui Xiao. Inline Evaluation of Hybrid Knowledge Bases. PhD thesis, Vienna University of Technology, December 2013. 
 
 [1] Guohui Xiao, Thomas Eiter and Stijn Heymans. The DReW System for Nonmonotonic DL-Programs. In: _Proceedings of Joint Conference of the Sixth Chinese Semantic Web Symposium and the First Chinese Web Science Conference (SWWS 2012)_. 
 
